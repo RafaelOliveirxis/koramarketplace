@@ -9,7 +9,7 @@ const products = [
   {id:9,name:"Boneco Astronauta Kids",category:"Kids",price:79.90,old:109.90,discount:27,rating:4.7,image:"https://uoustore.com/wp-content/uploads/2023/04/astronauta-0.jpg"},
   {id:10,name:"Mouse Sem Fio Slim",category:"Home Office",price:64.90,old:89.90,discount:28,rating:4.9,image:"https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=80"},
   {id:11,name:"Vaso Decorativo Geométrico",category:"Casa & Decor",price:44.90,old:69.90,discount:36,rating:4.6,image:"https://down-br.img.susercontent.com/file/br-11134207-7r98p-lm29ph0y4njr85.webp"},
-{id:12,name:"Jaqueta Leve Urban",category:"Vestuário",price:159.90,old:219.90,discount:27,rating:4.9,image:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80"},
+{id:12,name:"Jaqueta Leve + Calça",category:"Vestuário",price:159.90,old:219.90,discount:27,rating:4.9,image:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80"},
 {id:13,name:"Mouse Pad Premium",category:"Home Office",price:54.90,old:79.90,discount:31,rating:4.8,image:"https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=900&q=80"},
 {id:14,name:"Abajur de Mesa Moderno",category:"Casa & Decor",price:129.90,old:179.90,discount:28,rating:4.9,image:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80"},
 {id:15,name:"Mochila Kids Adventure",category:"Kids",price:99.90,old:139.90,discount:29,rating:4.7,image:"https://images.tcdn.com.br/img/img_prod/1055332/mochila_de_costas_escolar_infantil_video_game_joystick_p_meninos_colorida_poliester_yepp_kids_6549_1_3bb842323b8f3682f533779b3560841b.jpg"},
