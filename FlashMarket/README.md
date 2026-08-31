@@ -1,34 +1,38 @@
-# FlashMarket Oficial
+# 🛒 FlashMarket Oficial
 
-FlashMarket Oficial é uma landing page de e-commerce inspirada em um marketplace moderno, com foco em visual premium, promoções, busca por produtos e uma experiência de compra interativa no frontend.
+O **FlashMarket Oficial** é uma landing page de e-commerce premium baseada em um marketplace moderno. O foco do projeto é oferecer uma experiência de compra interativa, fluida e totalmente responsiva no frontend.
 
-## Visão geral
+---
 
-A interface inclui:
-- cabeçalho com navegação e busca
-- categorias em destaque
-- banner promocional e seção de ofertas
-- grid de produtos com preços, descontos e avaliações
-- filtro por categoria e ordenação
-- favoritos com persistência em localStorage
-- carrinho com adição, remoção e atualização de quantidade
-- autenticação demonstrativa de login e cadastro
-- modal de detalhes do produto
-- newsletter e checkout em modo demo
-- layout responsivo para desktop e mobile
+## 🚀 Funcionalidades Principais
 
-## Tecnologias
+* **Busca Inteligente**: Barra de pesquisa funcional para filtragem de produtos.
+* **Filtros e Ordenação**: Organização de itens por categoria, preço e avaliação.
+* **Carrinho Dinâmico**: Adição, remoção e cálculo automático de subtotal, frete e cupons (Use o cupom: `FLASH10`).
+* **Sistema de Favoritos**: Salvamento de produtos favoritos persistido via `localStorage`.
+* **Modais Detalhados**: Janelas interativas para visualização rápida das especificações do produto.
+* **Interface Responsiva**: Layout otimizado para dispositivos móveis, tablets e desktops.
 
-- HTML5
-- CSS3
-- JavaScript
-- LocalStorage para persistência local
+---
 
-## Estrutura do projeto
+## 🛠️ Tecnologias Utilizadas
 
-```bash
-FlashMarket-oficial/
+* **HTML5**: Estruturação semântica da página.
+* **CSS3**: Estilização moderna e layout responsivo.
+* **JavaScript (ES6+)**: Manipulação do DOM e lógica de interatividade.
+* **LocalStorage**: Persistência de dados local para o carrinho e favoritos.
+
+---
+
+## 📁 Estrutura do Projeto
+
+```text
+FlashMarket/
 ├── index.html
+├── afiliado.html
+├── minha-conta.html
+├── rastrear-pedido.html
+├── suporte.html
 ├── README.md
 ├── assets/
 ├── css/
@@ -37,28 +41,17 @@ FlashMarket-oficial/
     └── app.js
 ```
 
-## Como executar
+---
 
-1. Abra a pasta do projeto no VS Code.
-2. Localize o arquivo `index.html`.
-3. Abra-o no navegador, ou use uma extensão como Live Server.
+## 💻 Como Executar o Projeto
 
-## Funcionalidades principais
+1. Certifique-se de ter o **VS Code** instalado.
+2. Clone este repositório ou baixe os arquivos.
+3. Instale a extensão **Live Server** no VS Code.
+4. Abra o arquivo `index.html` e clique em **Go Live** no canto inferior direito.
 
-- Busca por produtos
-- Filtros por categoria
-- Ordenação por preço e avaliação
-- Favoritos para produtos salvos
-- Carrinho interativo com cálculo de subtotal, desconto e frete
-- Cupom de desconto demonstrativo: `FLASH10`
-- Modal de detalhes do produto
-- Login/cadastro ilustrativos em frontend
-- Newsletter com armazenamento local
+---
 
-## Observação
+## ⚠️ Observação Importante
 
-A autenticação, o checkout e o processamento de pedidos são demonstrativos e não representam integração com backend, banco de dados ou gateway de pagamento.
-
-## Licença
-
-Este projeto foi desenvolvido como exemplo de front-end e pode ser usado para estudos, demonstrações e personalizações.
+Este é um projeto estritamente de **Front-end**. As telas de login, cadastro e finalização de compra (checkout) funcionam de forma demonstrativa (mock). Não há integração ativa com bancos de dados, servidores backend ou gateways de pagamento reais.
