@@ -26,32 +26,47 @@ O **FlashMarket Oficial** é uma landing page de e-commerce premium baseada em u
 
 ## 📁 Estrutura do Projeto
 
-```text
+...
 FlashMarket/
-├── index.html
-├── afiliado.html
-├── minha-conta.html
-├── rastrear-pedido.html
-├── suporte.html
-├── README.md
-├── assets/
-├── css/
-│   └── style.css
-└── js/
-    └── app.js
-```
+    ├── index.html
+    ├── afiliado.html
+    ├── minha-conta.html
+    ├── rastrear-pedido.html
+    ├── suporte.html
+    ├── README.md
+    ├──assets/
+    ├── css/
+    │   └── style.css
+    └── js/
+        └── app.js
+...
 
 ---
 
 ## 💻 Como Executar o Projeto
 
-1. Certifique-se de ter o **VS Code** instalado.
-2. Clone este repositório ou baixe os arquivos.
-3. Instale a extensão **Live Server** no VS Code.
-4. Abra o arquivo `index.html` e clique em **Go Live** no canto inferior direito.
+1. Abra a pasta do projeto no VS Code.
+2. Localize o arquivo `index.html`.
+3. Abra-o no navegador, ou use uma extensão como Live Server.
 
----
+## Funcionalidades principais
 
-## ⚠️ Observação Importante
+- Busca por produtos
+- Filtros por categoria
+- Ordenação por preço e avaliação
+- Favoritos para produtos salvos
+- Carrinho interativo com cálculo de subtotal, desconto e frete
+- Cupom de desconto demonstrativo: "FLASH10"
+- Modal de detalhes do produto
+- Login/cadastro ilustrativos em frontend
+- Newsletter com armazenamento local
 
-Este é um projeto estritamente de **Front-end**. As telas de login, cadastro e finalização de compra (checkout) funcionam de forma demonstrativa (mock). Não há integração ativa com bancos de dados, servidores backend ou gateways de pagamento reais.
+## Observação
+
+A autenticação, o checkout e o processamento de pedidos são demonstrativos e não representam integração com backend, banco de dados ou gateway de pagamento.
+
+## Licença
+
+Este projeto foi desenvolvido como exemplo de front-end e pode ser usado para estudos, demonstrações e personalizações.
+
+'''
