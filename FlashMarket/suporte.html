@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashMarket | Central de Atendimento</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="top-strip">
+    <div class="wrap top-inner">
+      <strong>WHATSAPP: (11) 99725-5630</strong>
+      <div class="top-links">
+        <a href="suporte.html">Central de Atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear Pedido</a>
+        <a href="afiliado.html">Área de Afiliado</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="index.html" aria-label="FlashMarket">
+        <img src="assets/favicon.png" alt="FlashMarket" class="brand-logo">
+      </a>
+      <form class="search" action="index.html">
+        <input type="search" placeholder="Pesquise aqui..." autocomplete="off">
+        <button type="submit" aria-label="Pesquisar">⌕</button>
+      </form>
+      <div class="header-actions">
+        <a class="head-action" href="index.html#produtos"><span>🛒</span><b>LOJA</b></a>
+        <a class="head-action" href="afiliado.html"><span>👤</span><b>AFILIADO</b></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-support">
+    <div class="page-shell support-layout">
+      <section class="support-card">
+        <div class="status-pill">Atendimento 24h</div>
+        <h1>Central de Atendimento</h1>
+        <p>Fale com a nossa equipe e receba ajuda rápida sobre pedidos, pagamentos, trocas e dúvidas gerais.</p>
+
+        <div class="support-grid">
+          <div class="support-stat">
+            <strong>1 min</strong>
+            <small>Tempo médio para resposta</small>
+          </div>
+          <div class="support-stat">
+            <strong>24/7</strong>
+            <small>Suporte disponível</small>
+          </div>
+          <div class="support-stat">
+            <strong>+3 mil</strong>
+            <small>Pedidos atendidos</small>
+          </div>
+        </div>
+
+        <div class="support-grid" style="margin-top:14px;">
+          <div class="support-stat">
+            <strong>WhatsApp</strong>
+            <small>(11) 99725-5630</small>
+          </div>
+          <div class="support-stat">
+            <strong>E-mail</strong>
+            <small>atendimento@flashmarket.com</small>
+          </div>
+          <div class="support-stat">
+            <strong>Chat</strong>
+            <small>Disponível agora</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="support-card">
+        <div class="status-pill">Conversa ao vivo</div>
+
+        <div class="support-triage">
+          <div class="triage-menu">
+            <button class="triage-item active" type="button" data-topic="pedido">Pedido &amp; entrega</button>
+            <button class="triage-item" type="button" data-topic="pagamento">Pagamento</button>
+            <button class="triage-item" type="button" data-topic="troca">Troca &amp; devolução</button>
+            <button class="triage-item" type="button" data-topic="conta">Conta &amp; login</button>
+            <button class="triage-item" type="button" data-topic="afiliado">Afiliado</button>
+            <button class="triage-item" type="button" data-topic="produto">Produtos</button>
+          </div>
+
+          <div class="triage-panel">
+            <span class="mini-badge">Triagem por assunto</span>
+            <h3 id="currentTopicTitle">Pedido e entrega</h3>
+            <p id="currentTopicText">Verifique o status do envio, prazo de entrega e dados do rastreio antes de qualquer contato externo.</p>
+            <div class="triage-steps" id="currentTopicSteps">
+              <span>1. Confirmar pedido</span>
+              <span>2. Validar envio</span>
+              <span>3. Rastrear entrega</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="support-quick-actions">
+          <button class="support-chip" type="button" data-quick="pedido">Rastrear pedido</button>
+          <button class="support-chip" type="button" data-quick="troca">Troca e devolução</button>
+          <button class="support-chip" type="button" data-quick="pagamento">Pagamento</button>
+          <button class="support-chip" type="button" data-quick="afiliado">Afiliado</button>
+        </div>
+        <div class="chat-box">
+          <div class="chat-thread" id="supportThread"></div>
+          <form class="chat-input-row" id="supportForm">
+            <input id="supportInput" type="text" placeholder="Digite sua mensagem..." aria-label="Mensagem de suporte" autocomplete="off">
+            <button type="submit">Enviar</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-about">
+        <img src="assets/logo.FlashMarket.png" alt="FlashMarket" class="footer-logo">
+        <p>Variedade, preço e praticidade em um só lugar.</p>
+      </div>
+      <div class="footer-column">
+        <h3>ATENDIMENTO</h3>
+        <a href="suporte.html">Central de atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear pedido</a>
+        <a href="afiliado.html">Área de afiliado</a>
+      </div>
+      <div class="footer-column">
+        <h3>INSTITUCIONAL</h3>
+        <a href="index.html#ofertas">Ofertas</a>
+        <a href="index.html#produtos">Produtos</a>
+        <a href="index.html#contato">Localização</a>
+      </div>
+      <div class="footer-column">
+        <h3>CONTATO</h3>
+        <a href="tel:+5511997255630">(11) 99725-5630</a>
+        <a href="mailto:atendimento@flashmarket.com">atendimento@flashmarket.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="wrap footer-bottom-inner">
+        <span>© 2026 FlashMarket — Todos os direitos reservados.</span>
+        <span>Feito para uma experiência de compra rápida e segura.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const supportStorageKey = 'flashmarket_support_chat';
+    const supportThread = document.getElementById('supportThread');
+    const supportForm = document.getElementById('supportForm');
+    const supportInput = document.getElementById('supportInput');
+
+    const supportTopics = {
+      pedido: {
+        title: 'Pedido e entrega',
+        text: 'Verifique o status do envio, prazo de entrega e dados do rastreio antes de qualquer contato externo.',
+        steps: ['1. Confirmar pedido', '2. Validar envio', '3. Rastrear entrega'],
+        response: 'Claro! Posso ajudar com o seu pedido. Me diga o número do pedido ou o nome do produto para confirmar o status, previsões de entrega e rastreio.'
+      },
+      pagamento: {
+        title: 'Pagamento',
+        text: 'Valide o método de pagamento, confirmação da transação e possível cobrança pendente em segundos.',
+        steps: ['1. Confirmar método', '2. Verificar cobrança', '3. Resolver pendência'],
+        response: 'Posso orientar sobre Pix, cartão, boleto ou débito. Se houver cobrança pendente ou pagamento não confirmado, me informe o valor e o método para eu te ajudar.'
+      },
+      troca: {
+        title: 'Troca e devolução',
+        text: 'Acompanhe as condições da troca, devolução e o prazo ideal para solicitar o reembolso ou envio do item correto.',
+        steps: ['1. Verificar prazo', '2. Conservar item', '3. Solicitar troca'],
+        response: 'Para troca ou devolução, normalmente o processo é validado dentro do prazo após a entrega e depende do motivo e do estado do produto. Me diga o item e o que aconteceu.'
+      },
+      conta: {
+        title: 'Conta e login',
+        text: 'Confirme dados de acesso, e-mail, recuperação de senha e pendências na sua conta antes de qualquer nova solicitação.',
+        steps: ['1. Validar acesso', '2. Recuperar senha', '3. Revisar conta'],
+        response: 'Se você teve problema para entrar, vale verificar e-mail, senha e dados do cadastro. Posso te orientar sobre recuperação de acesso e validação da conta.'
+      },
+      afiliado: {
+        title: 'Afiliado',
+        text: 'Acompanhe comissões, pedidos ativos, status dos produtos publicados e o desempenho da sua loja.',
+        steps: ['1. Confirmar cadastro', '2. Ver vendas', '3. Atualizar produtos'],
+        response: 'No painel do afiliado você acompanha comissão por produto, vendas em andamento e os itens publicados. Posso te orientar sobre cadastro, atualização de produtos e desempenho.'
+      },
+      produto: {
+        title: 'Produtos',
+        text: 'Consulte especificações, disponibilidade, compatibilidade do item e suporte técnico antes do fechamento da compra.',
+        steps: ['1. Identificar item', '2. Validar estoque', '3. Confirmar detalhes'],
+        response: 'Posso te ajudar a entender mais sobre disponibilidade, especificações e compatibilidade do produto. Me diga o nome do item ou categoria que você está buscando.'
+      }
+    };
+
+    const defaultSupportMessages = [
+      { role: 'bot', text: 'Olá! Sou a IA da FlashMarket. Posso ajudar com pedidos, frete, pagamentos, trocas, afiliado e dúvidas de conta. Como posso te ajudar hoje?' }
+    ];
+
+    function readSupportMessages() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(supportStorageKey) || 'null');
+        if (Array.isArray(saved) && saved.length) return saved;
+      } catch (error) {}
+      return defaultSupportMessages;
+    }
+
+    function saveSupportMessages(messages) {
+      localStorage.setItem(supportStorageKey, JSON.stringify(messages));
+    }
+
+    function addSupportBubble(text, role = 'bot') {
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${role}`;
+      bubble.textContent = text;
+      supportThread.appendChild(bubble);
+      supportThread.scrollTop = supportThread.scrollHeight;
+    }
+
+    function renderSupportMessages() {
+      supportThread.innerHTML = '';
+      const messages = readSupportMessages();
+      messages.forEach((message) => addSupportBubble(message.text, message.role));
+    }
+
+    function applyTopic(topicKey) {
+      const topic = supportTopics[topicKey] || supportTopics.pedido;
+      const title = document.getElementById('currentTopicTitle');
+      const text = document.getElementById('currentTopicText');
+      const steps = document.getElementById('currentTopicSteps');
+
+      if (title) title.textContent = topic.title;
+      if (text) text.textContent = topic.text;
+      if (steps) {
+        steps.innerHTML = topic.steps.map((step) => `<span>${step}</span>`).join('');
+      }
+
+      document.querySelectorAll('.triage-item').forEach((button) => {
+        button.classList.toggle('active', button.dataset.topic === topicKey);
+      });
+    }
+
+    function getDetectedTopic(message) {
+      const lower = message.toLowerCase();
+      if (/(pedido|rastre|entrega|status|envio)/.test(lower)) return 'pedido';
+      if (/(pagamento|pix|cartao|cartão|boleto|cobrança|cobranca)/.test(lower)) return 'pagamento';
+      if (/(troca|devolu|reembolso|cancel)/.test(lower)) return 'troca';
+      if (/(login|senha|cadastro|conta|entrar|acessar|recuper)/.test(lower)) return 'conta';
+      if (/(afiliado|venda|comiss|loja|produto)/.test(lower)) return 'afiliado';
+      if (/(produto|estoque|especific|marca|modelo|garantia)/.test(lower)) return 'produto';
+      return 'pedido';
+    }
+
+    function getKeywordResponse(message, preferredTopic) {
+      const topicKey = preferredTopic || getDetectedTopic(message);
+      const topic = supportTopics[topicKey] || supportTopics.pedido;
+      const lower = message.toLowerCase();
+
+      if (/(atendente|humano|pessoa|agente|real)/.test(lower)) {
+        return 'Claro! Se preferir falar com um atendente humano, posso abrir o WhatsApp da FlashMarket agora mesmo.';
+      }
+
+      if (/(ola|olá|bom dia|boa tarde|boa noite)/.test(lower)) {
+        return 'Olá! Sou a Flash IA, pronta para te atender 24h. Posso ajudar com pedidos, pagamentos, trocas, conta e afiliado.';
+      }
+
+      return topic.response;
+    }
+
+    function answerWithAi(userMessage, preferredTopic) {
+      const text = userMessage.toLowerCase();
+      let response = getKeywordResponse(userMessage, preferredTopic);
+
+      if (/(atendente|humano|pessoa|agente|real)/.test(text)) {
+        setTimeout(() => {
+          window.open('https://wa.me/5511997255630?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20atendente%20humano.', '_blank');
+        }, 500);
+      }
+
+      const messages = readSupportMessages();
+      messages.push({ role: 'bot', text: response });
+      if (messages.length > 12) messages.splice(0, messages.length - 12);
+      saveSupportMessages(messages);
+      renderSupportMessages();
+    }
+
+    document.querySelectorAll('[data-topic]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const topicKey = button.dataset.topic;
+        applyTopic(topicKey);
+
+        const messages = readSupportMessages();
+        const topic = supportTopics[topicKey] || supportTopics.pedido;
+        const text = `Quero ajuda com ${topic.title.toLowerCase()}`;
+        messages.push({ role: 'user', text });
+        saveSupportMessages(messages);
+        renderSupportMessages();
+        setTimeout(() => answerWithAi(text, topicKey), 350);
+      });
+    });
+
+    document.querySelectorAll('[data-quick]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const quickMessage = button.dataset.quick;
+        const messages = readSupportMessages();
+        const mapped = {
+          pedido: 'Quero rastrear meu pedido',
+          troca: 'Quero saber sobre troca e devolução',
+          pagamento: 'Preciso de ajuda com pagamento',
+          afiliado: 'Preciso de ajuda com meu painel de afiliado'
+        };
+        const text = mapped[quickMessage] || 'Preciso de ajuda';
+        const topicKey = quickMessage === 'troca' ? 'troca' : quickMessage === 'pagamento' ? 'pagamento' : quickMessage === 'afiliado' ? 'afiliado' : 'pedido';
+        messages.push({ role: 'user', text });
+        saveSupportMessages(messages);
+        renderSupportMessages();
+        setTimeout(() => answerWithAi(text, topicKey), 350);
+        applyTopic(topicKey);
+      });
+    });
+
+    supportForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const text = supportInput.value.trim();
+      if (!text) return;
+
+      const messages = readSupportMessages();
+      const topicKey = getDetectedTopic(text);
+      messages.push({ role: 'user', text });
+      saveSupportMessages(messages);
+      renderSupportMessages();
+      supportInput.value = '';
+
+      setTimeout(() => answerWithAi(text, topicKey), 400);
+      applyTopic(topicKey);
+    });
+
+    const humanSupportButton = document.createElement('button');
+    humanSupportButton.type = 'button';
+    humanSupportButton.className = 'support-human-btn';
+    humanSupportButton.textContent = 'Falar com atendente';
+    humanSupportButton.addEventListener('click', () => {
+      window.open('https://wa.me/5511997255630?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20atendente%20humano.', '_blank');
+    });
+    const threadContainer = document.querySelector('.chat-box');
+    if (threadContainer && !threadContainer.querySelector('.support-human-btn')) {
+      threadContainer.appendChild(humanSupportButton);
+    }
+
+    applyTopic('pedido');
+    renderSupportMessages();
+  </script>
+</body>
+</html>

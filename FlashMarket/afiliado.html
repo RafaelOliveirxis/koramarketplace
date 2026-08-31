@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashMarket | Área do Afiliado</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="top-strip">
+    <div class="wrap top-inner">
+      <strong>WHATSAPP: (11) 99725-5630</strong>
+      <div class="top-links">
+        <a href="suporte.html">Central de Atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear Pedido</a>
+        <a href="afiliado.html">Área de Afiliado</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="index.html" aria-label="FlashMarket">
+        <img src="assets/favicon.png" alt="FlashMarket" class="brand-logo">
+      </a>
+      <form class="search" action="index.html">
+        <input type="search" placeholder="Pesquise aqui..." autocomplete="off">
+        <button type="submit" aria-label="Pesquisar">⌕</button>
+      </form>
+      <div class="header-actions">
+        <a class="head-action" href="index.html#produtos"><span>🛒</span><b>LOJA</b></a>
+        <a class="head-action" href="afiliado.html"><span>👤</span><b>AFILIADO</b></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="affiliate-page">
+    <div class="page-shell affiliate-layout">
+      <aside class="auth-box">
+        <div class="status-pill" style="color:#111;background:#ffd54d;">Área do afiliado</div>
+        <h1 style="font-size:28px;color:#fff;">Login e cadastro</h1>
+        <div class="auth-tabs">
+          <button class="active" type="button" data-auth-tab="login">Entrar</button>
+          <button type="button" data-auth-tab="register">Cadastrar</button>
+        </div>
+        <form id="authForm" class="auth-form">
+          <input id="authName" type="text" placeholder="Seu nome" aria-label="Nome" style="display:none;">
+          <input id="authEmail" type="email" placeholder="Seu e-mail" aria-label="E-mail" required>
+          <input id="authPassword" type="password" placeholder="Sua senha" aria-label="Senha" required>
+          <button class="primary-btn" type="submit">Acessar painel</button>
+          <p id="authMessage" class="auth-note" style="margin:0;color:#ffd54d;font-size:12px;min-height:18px;"></p>
+        </form>
+      </aside>
+
+      <section class="affiliate-card" id="affiliatePanel" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;">
+          <h1 style="margin:0;">Painel do afiliado</h1>
+          <div style="display:flex;gap:8px;">
+            <button type="button" id="exportBtn" class="secondary-btn" style="height:38px;padding:0 16px;">↓ Exportar CSV</button>
+            <button type="button" id="logoutBtn" class="secondary-btn" style="height:38px;padding:0 16px;">Sair</button>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="stat-box">
+            <strong id="metricRevenue">R$ 8.420</strong>
+            <small>Vendas no mês</small>
+          </div>
+          <div class="stat-box">
+            <strong id="metricProducts">184</strong>
+            <small>Produtos ativos</small>
+          </div>
+          <div class="stat-box">
+            <strong id="metricConversion">24%</strong>
+            <small>Taxa de conversão</small>
+          </div>
+        </div>
+
+        <div class="affiliate-metrics">
+          <div class="metric-card">
+            <span>Receita líquida</span>
+            <strong id="liquidRevenue">R$ 6.230</strong>
+          </div>
+          <div class="metric-card">
+            <span>Comissão total</span>
+            <strong id="totalCommission">R$ 1.142</strong>
+          </div>
+          <div class="metric-card">
+            <span>Pedidos ativos</span>
+            <strong id="activeOrders">31</strong>
+          </div>
+          <div class="metric-card">
+            <span>Taxa de retenção</span>
+            <strong id="retentionRate">89%</strong>
+          </div>
+        </div>
+
+        <div class="dashboard-filters">
+          <div class="filter-group">
+            <label>Filtrar por produto</label>
+            <select id="productFilter">
+              <option value="">Todos os produtos</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Período</label>
+            <select id="rangeFilter">
+              <option value="7">Últimos 7 dias</option>
+              <option value="30" selected>Últimos 30 dias</option>
+              <option value="90">Últimos 90 dias</option>
+              <option value="all">Todo o período</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="affiliate-dashboard">
+          <div class="sales-panel">
+            <h3>Vendas do mês</h3>
+            <canvas id="salesChart" style="height:300px;"></canvas>
+          </div>
+
+          <div class="profile-panel">
+            <h3>Minha Loja</h3>
+            <div class="shop-branding">
+              <div class="shop-banner" id="shopBanner" style="background:linear-gradient(135deg,#ffd75a,#ffbf16);"></div>
+              <div class="shop-info">
+                <strong id="shopNameDisplay">FlashStore Pro</strong>
+                <small id="shopCategoryDisplay">Home Office & Casa</small>
+                <p id="shopWhatsappDisplay">(11) 99876-1122</p>
+              </div>
+            </div>
+            <form id="shopForm" class="shop-form">
+              <input class="full" id="shopName" type="text" placeholder="Nome da loja" value="FlashStore Pro">
+              <input id="shopWhatsapp" type="text" placeholder="WhatsApp" value="(11) 99876-1122">
+              <select id="shopCategory">
+                <option value="Home Office & Casa">Home Office & Casa</option>
+                <option value="Acessórios">Acessórios</option>
+                <option value="Vestuário">Vestuário</option>
+                <option value="Papelaria">Papelaria</option>
+              </select>
+              <input id="shopCommission" type="number" step="0.1" placeholder="Comissão %" value="18">
+              <button class="primary-btn full" type="submit">Salvar perfil</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="orders-panel">
+          <h3>Pedidos recentes (30 dias)</h3>
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Pedido</th>
+                <th>Cliente</th>
+                <th>Produto</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="commission-panel">
+          <h3>Comissão por produto</h3>
+          <table class="commission-table">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+                <th>Comissão</th>
+                <th>%</th>
+              </tr>
+            </thead>
+            <tbody id="commissionTableBody"></tbody>
+          </table>
+        </div>
+
+
+        <form class="product-form" id="productForm" style="margin-top:22px;">
+          <input class="full" type="text" id="productName" placeholder="Nome do produto" required>
+          <input type="text" id="productCategory" placeholder="Categoria" required>
+          <input type="number" id="productPrice" placeholder="Preço" step="0.01" required>
+          <select id="productStatus" required>
+            <option value="Ativo">Ativo</option>
+            <option value="Em revisão">Em revisão</option>
+            <option value="Pausado">Pausado</option>
+          </select>
+          <button class="primary-btn full" type="submit">Adicionar produto</button>
+        </form>
+
+        <div class="product-list" id="productList"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-about">
+        <img src="assets/logo.FlashMarket.png" alt="FlashMarket" class="footer-logo">
+        <p>Variedade, preço e praticidade em um só lugar.</p>
+      </div>
+      <div class="footer-column">
+        <h3>ATENDIMENTO</h3>
+        <a href="suporte.html">Central de atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear pedido</a>
+        <a href="afiliado.html">Área de afiliado</a>
+      </div>
+      <div class="footer-column">
+        <h3>INSTITUCIONAL</h3>
+        <a href="index.html#ofertas">Ofertas</a>
+        <a href="index.html#produtos">Produtos</a>
+        <a href="index.html#contato">Localização</a>
+      </div>
+      <div class="footer-column">
+        <h3>CONTATO</h3>
+        <a href="tel:+5511997255630">(11) 99725-5630</a>
+        <a href="mailto:atendimento@flashmarket.com">atendimento@flashmarket.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="wrap footer-bottom-inner">
+        <span>© 2026 FlashMarket — Todos os direitos reservados.</span>
+        <span>Feito para uma experiência de compra rápida e segura.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script>
+    const authForm = document.getElementById('authForm');
+    const authNameInput = document.getElementById('authName');
+    const authEmailInput = document.getElementById('authEmail');
+    const authPasswordInput = document.getElementById('authPassword');
+    const authMessage = document.getElementById('authMessage');
+    const affiliatePanel = document.getElementById('affiliatePanel');
+    const authTabs = Array.from(document.querySelectorAll('[data-auth-tab]'));
+    const productForm = document.getElementById('productForm');
+    const productList = document.getElementById('productList');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const shopForm = document.getElementById('shopForm');
+    const shopNameInput = document.getElementById('shopName');
+    const shopCategoryInput = document.getElementById('shopCategory');
+    const shopWhatsappInput = document.getElementById('shopWhatsapp');
+    const shopCommissionInput = document.getElementById('shopCommission');
+    const shopNameDisplay = document.getElementById('shopNameDisplay');
+    const shopCategoryDisplay = document.getElementById('shopCategoryDisplay');
+    const shopWhatsappDisplay = document.getElementById('shopWhatsappDisplay');
+    const ordersTableBody = document.getElementById('ordersTableBody');
+    const salesChart = document.getElementById('salesChart');
+    const rangeFilter = document.getElementById('rangeFilter');
+    const productFilter = document.getElementById('productFilter');
+    const exportBtn = document.getElementById('exportBtn');
+    const commissionTableBody = document.getElementById('commissionTableBody');
+    const metricRevenue = document.getElementById('metricRevenue');
+    const metricProducts = document.getElementById('metricProducts');
+    const metricConversion = document.getElementById('metricConversion');
+    const liquidRevenue = document.getElementById('liquidRevenue');
+    const totalCommission = document.getElementById('totalCommission');
+    const activeOrders = document.getElementById('activeOrders');
+    const retentionRate = document.getElementById('retentionRate');
+    let currentMode = 'login';
+    let salesChartInstance = null;
+
+    const defaultProducts = [
+      { name: 'Kit de Organização', category: 'Casa & Decor', price: 89.9, status: 'Ativo' },
+      { name: 'Mouse Pad Premium', category: 'Home Office', price: 54.9, status: 'Em revisão' },
+      { name: 'Moletom Street Flash', category: 'Vestuário', price: 119.9, status: 'Ativo' },
+      { name: 'Planner Deluxe', category: 'Papelaria', price: 49.9, status: 'Ativo' }
+    ];
+
+    function dateDaysAgo(days) {
+      const date = new Date();
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() - days);
+      return date.toISOString().split('T')[0];
+    }
+
+    const defaultOrders = [
+      { id: 'FM-2018', customer: 'Bruna L.', value: 239.9, status: 'Pago', date: dateDaysAgo(1) },
+      { id: 'FM-2019', customer: 'João M.', value: 149.9, status: 'Pendente', date: dateDaysAgo(3) },
+      { id: 'FM-2020', customer: 'Ana P.', value: 89.9, status: 'Pago', date: dateDaysAgo(7) },
+      { id: 'FM-2021', customer: 'Renato S.', value: 310, status: 'Cancelado', date: dateDaysAgo(11) },
+      { id: 'FM-2022', customer: 'Larissa T.', value: 520, status: 'Pago', date: dateDaysAgo(18) },
+      { id: 'FM-2023', customer: 'Mateus C.', value: 410.5, status: 'Pago', date: dateDaysAgo(29) },
+      { id: 'FM-2024', customer: 'Fernanda R.', value: 195.8, status: 'Pendente', date: dateDaysAgo(48) },
+      { id: 'FM-2025', customer: 'Pedro A.', value: 670, status: 'Pago', date: dateDaysAgo(65) }
+    ];
+
+    function setMode(mode) {
+      currentMode = mode;
+      authTabs.forEach((tab) => {
+        const isActive = tab.dataset.authTab === mode;
+        tab.classList.toggle('active', isActive);
+      });
+      authNameInput.style.display = mode === 'register' ? 'block' : 'none';
+      authNameInput.required = mode === 'register';
+    }
+
+    function setLoggedState(loggedIn, userName) {
+      affiliatePanel.style.display = loggedIn ? 'block' : 'none';
+      if (loggedIn) {
+        authMessage.textContent = `Bem-vindo(a), ${userName || 'afiliado'}!`;
+        authMessage.style.color = '#98f5c2';
+      } else {
+        authMessage.textContent = 'Faça login para acessar o painel de produtos e vendas.';
+        authMessage.style.color = '#ffd54d';
+      }
+    }
+
+    function isSessionActive() {
+      return localStorage.getItem('flashmarket_affiliate_session') === 'true';
+    }
+
+    function getStoredProducts() {
+      const stored = localStorage.getItem('flashmarket_affiliate_products');
+      if (!stored) return defaultProducts;
+      try { return JSON.parse(stored); } catch { return defaultProducts; }
+    }
+
+    function getStoredOrders() {
+      const stored = localStorage.getItem('flashmarket_affiliate_orders');
+      if (!stored) return defaultOrders;
+      try {
+        return JSON.parse(stored).map((order) => ({
+          ...order,
+          value: Number(order.value || 0),
+          date: order.date || dateDaysAgo(0)
+        }));
+      } catch { return defaultOrders; }
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value || 0));
+    }
+
+    function formatShortDate(dateString) {
+      if (!dateString) return '—';
+      const date = new Date(dateString + 'T00:00:00');
+      return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short' }).format(date);
+    }
+
+    function getCommissionRate() {
+      const stored = localStorage.getItem('flashmarket_affiliate_profile');
+      if (!stored) return 0.18;
+      try {
+        const profile = JSON.parse(stored);
+        return Number(profile.commission || 18) / 100;
+      } catch {
+        return 0.18;
+      }
+    }
+
+    function getVisibleOrders() {
+      const orders = getStoredOrders();
+      const range = rangeFilter ? rangeFilter.value : '30';
+      if (range === 'all') return orders;
+      const days = Number(range) || 30;
+      const cutoff = new Date();
+      cutoff.setHours(0, 0, 0, 0);
+      cutoff.setDate(cutoff.getDate() - days);
+      return orders.filter((order) => {
+        const orderDate = new Date(order.date + 'T00:00:00');
+        return orderDate >= cutoff;
+      });
+    }
+
+    function renderProducts() {
+      const products = getStoredProducts();
+      productList.innerHTML = '';
+      products.forEach((product) => {
+        const item = document.createElement('article');
+        item.className = 'product-item';
+        item.innerHTML = `
+          <span class="badge">${product.status}</span>
+          <strong>${product.name}</strong>
+          <div class="product-meta"><span>${product.category}</span><span>R$ ${Number(product.price).toFixed(2).replace('.', ',')}</span></div>
+        `;
+        productList.appendChild(item);
+      });
+    }
+
+    function renderOrders() {
+      const orders = getVisibleOrders();
+      ordersTableBody.innerHTML = orders.map((order) => `
+        <tr>
+          <td>${order.id}</td>
+          <td>${order.customer}</td>
+          <td>${formatCurrency(order.value)}</td>
+          <td>${formatShortDate(order.date)}</td>
+          <td><span class="status-chip ${order.status.toLowerCase().replace(/ç/g, 'c').replace(' ', '-')}">${order.status}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function renderCommissionTable() {
+      const products = getStoredProducts();
+      const rate = getCommissionRate();
+      commissionTableBody.innerHTML = products.map((product) => {
+        const value = Number(product.price || 0);
+        const commissionValue = value * rate;
+        return `
+          <tr>
+            <td>${product.name}</td>
+            <td>${product.category}</td>
+            <td>${formatCurrency(value)}</td>
+            <td>${formatCurrency(commissionValue)}</td>
+            <td>${(rate * 100).toFixed(0)}%</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderMetrics() {
+      const products = getStoredProducts();
+      const orders = getVisibleOrders();
+      const paidOrders = orders.filter((order) => order.status !== 'Cancelado');
+      const totalRevenue = paidOrders.reduce((sum, order) => sum + Number(order.value || 0), 0);
+      const commissionRate = getCommissionRate();
+      const totalCommissionValue = totalRevenue * commissionRate;
+      const activeProducts = products.filter((product) => product.status === 'Ativo').length;
+      const conversion = Math.min(38, Math.max(18, 16 + (paidOrders.length * 2.5) + (activeProducts * 0.6))).toFixed(0);
+
+      metricRevenue.textContent = formatCurrency(totalRevenue);
+      metricProducts.textContent = activeProducts;
+      metricConversion.textContent = `${conversion}%`;
+      liquidRevenue.textContent = formatCurrency(totalRevenue * 0.72);
+      totalCommission.textContent = formatCurrency(totalCommissionValue);
+      activeOrders.textContent = paidOrders.length;
+      retentionRate.textContent = `${Math.min(96, Math.max(72, 80 + activeProducts)).toFixed(0)}%`;
+    }
+
+    function renderChart() {
+      const orders = getVisibleOrders();
+      const totalRevenue = orders.reduce((sum, order) => sum + Number(order.value || 0), 0);
+      const base = totalRevenue ? (totalRevenue / Math.max(orders.length, 1)) : 210;
+      const values = [
+        Math.min(100, Math.round(base * 0.48)),
+        Math.min(100, Math.round(base * 0.66)),
+        Math.min(100, Math.round(base * 0.74)),
+        Math.min(100, Math.round(base * 0.88)),
+        Math.min(100, Math.round(base * 0.92)),
+        Math.min(100, Math.round(base * 1.06)),
+        Math.min(100, Math.round(base * 1.18))
+      ];
+
+      const ctx = document.getElementById('salesChart');
+      if (!ctx) return;
+
+      if (salesChartInstance) {
+        salesChartInstance.destroy();
+      }
+
+      salesChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
+          datasets: [{
+            label: 'Receita (R$)',
+            data: values.map(v => Math.round(v * 12)),
+            borderColor: '#ffbf16',
+            backgroundColor: 'rgba(255, 191, 22, 0.12)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.5,
+            pointBackgroundColor: '#ffd75a',
+            pointBorderColor: '#fff',
+            pointRadius: 7,
+            pointHoverRadius: 9,
+            pointBorderWidth: 3,
+            shadowColor: 'rgba(255, 191, 22, 0.2)',
+            shadowBlur: 15,
+            shadowOffsetX: 0,
+            shadowOffsetY: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              titleColor: '#ffd75a',
+              bodyColor: '#fff',
+              borderColor: '#ffd75a',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: false,
+              titleFont: { weight: 900, size: 13 },
+              bodyFont: { size: 12 },
+              callbacks: {
+                label: function(context) {
+                  return 'Receita: R$ ' + context.parsed.y.toLocaleString('pt-BR');
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { 
+                color: 'rgba(0,0,0,0.05)',
+                drawBorder: false
+              },
+              ticks: { 
+                color: '#888', 
+                font: { weight: 700, size: 11 },
+                callback: function(value) {
+                  return 'R$ ' + value.toLocaleString('pt-BR');
+                }
+              },
+              border: { display: false }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { 
+                color: '#888', 
+                font: { weight: 700, size: 11 }
+              },
+              border: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    function saveShopProfile() {
+      const shop = {
+        name: shopNameInput.value.trim() || 'FlashStore Pro',
+        category: shopCategoryInput.value || 'Home Office & Casa',
+        whatsapp: shopWhatsappInput.value.trim() || '(11) 99876-1122',
+        commission: shopCommissionInput.value || '18'
+      };
+      localStorage.setItem('flashmarket_affiliate_profile', JSON.stringify(shop));
+      shopNameDisplay.textContent = shop.name;
+      shopCategoryDisplay.textContent = shop.category;
+      shopWhatsappDisplay.textContent = shop.whatsapp;
+      renderMetrics();
+      renderCommissionTable();
+    }
+
+    function populateProductFilter() {
+      const products = getStoredProducts();
+      const uniqueCategories = [...new Set(products.map(p => p.category))];
+      productFilter.innerHTML = '<option value="">Todos os produtos</option>' + 
+        uniqueCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+    }
+
+    function exportToCSV() {
+      const orders = getVisibleOrders();
+      const products = getStoredProducts();
+      const shop = getStoredData('profile', {});
+      
+      let csv = 'Relatório de Vendas - FlashMarket\n';
+      csv += `Loja: ${shop.name || 'FlashStore'}\n`;
+      csv += `Gerado em: ${new Date().toLocaleDateString('pt-BR')}\n\n`;
+      
+      csv += 'Pedido,Cliente,Produto,Valor,Data,Status\n';
+      orders.forEach(order => {
+        csv += `${order.id},"${order.customer}","${order.product || 'Produto'}",${order.value},${order.date},"${order.status}"\n`;
+      });
+      
+      csv += '\n\nProdutos Cadastrados\n';
+      csv += 'Produto,Categoria,Preço,Status\n';
+      products.forEach(product => {
+        csv += `"${product.name}","${product.category}",${product.price},"${product.status}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `relatorio-flashmarket-${new Date().toISOString().split('T')[0]}.csv`;
+      link.click();
+    }
+
+    function refreshDashboard() {
+      renderProducts();
+      renderOrders();
+      renderChart();
+      renderMetrics();
+      renderCommissionTable();
+    }
+
+    function loadShopProfile() {
+      const stored = localStorage.getItem('flashmarket_affiliate_profile');
+      if (!stored) return;
+      try {
+        const profile = JSON.parse(stored);
+        shopNameInput.value = profile.name || 'FlashStore Pro';
+        shopCategoryInput.value = profile.category || 'Home Office & Casa';
+        shopWhatsappInput.value = profile.whatsapp || '(11) 99876-1122';
+        shopCommissionInput.value = profile.commission || '18';
+        shopNameDisplay.textContent = profile.name || 'FlashStore Pro';
+        shopCategoryDisplay.textContent = profile.category || 'Home Office & Casa';
+        shopWhatsappDisplay.textContent = profile.whatsapp || '(11) 99876-1122';
+      } catch (error) {
+        console.warn('Perfil do afiliado inválido.', error);
+      }
+    }
+
+    function applyInitialState() {
+      const savedUser = localStorage.getItem('flashmarket_affiliate_user') || '';
+      if (isSessionActive()) {
+        setLoggedState(true, savedUser || 'afiliado');
+      } else {
+        setLoggedState(false, '');
+      }
+      loadShopProfile();
+      refreshDashboard();
+    }
+
+    authTabs.forEach((tab) => {
+      tab.addEventListener('click', () => setMode(tab.dataset.authTab));
+    });
+
+    if (rangeFilter) {
+      rangeFilter.addEventListener('change', () => {
+        renderOrders();
+        renderChart();
+        renderMetrics();
+      });
+    }
+
+    if (productFilter) {
+      productFilter.addEventListener('change', () => {
+        renderOrders();
+        renderCommissionTable();
+        renderMetrics();
+      });
+    }
+
+    if (exportBtn) {
+      exportBtn.addEventListener('click', exportToCSV);
+    }
+
+    authForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const email = authEmailInput.value.trim();
+      const password = authPasswordInput.value.trim();
+      const name = authNameInput.value.trim();
+
+      if (!email || !password) {
+        authMessage.textContent = 'Preencha e-mail e senha para continuar.';
+        authMessage.style.color = '#ffd54d';
+        return;
+      }
+
+      if (currentMode === 'register' && !name) {
+        authMessage.textContent = 'Informe seu nome para criar a conta.';
+        authMessage.style.color = '#ffd54d';
+        return;
+      }
+
+      if (password.length < 6) {
+        authMessage.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+        authMessage.style.color = '#ffd54d';
+        return;
+      }
+
+      const displayName = currentMode === 'register' ? name : (email.split('@')[0] || 'afiliado');
+      localStorage.setItem('flashmarket_affiliate_session', 'true');
+      localStorage.setItem('flashmarket_affiliate_user', displayName);
+      setLoggedState(true, displayName);
+      authForm.reset();
+      setMode('login');
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('flashmarket_affiliate_session');
+      localStorage.removeItem('flashmarket_affiliate_user');
+      setLoggedState(false, '');
+      authForm.reset();
+      setMode('login');
+    });
+
+    shopForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      saveShopProfile();
+      authMessage.textContent = 'Perfil da loja salvo com sucesso.';
+      authMessage.style.color = '#98f5c2';
+    });
+
+    productForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      if (!isSessionActive()) {
+        setLoggedState(false, '');
+        authMessage.textContent = 'Sua sessão expirou. Faça login novamente para adicionar produtos.';
+        return;
+      }
+
+      const name = document.getElementById('productName').value.trim();
+      const category = document.getElementById('productCategory').value.trim();
+      const price = Number(document.getElementById('productPrice').value);
+      const status = document.getElementById('productStatus').value;
+
+      if (!name || !category || !price) return;
+
+      const products = getStoredProducts();
+      products.unshift({ name, category, price, status });
+      localStorage.setItem('flashmarket_affiliate_products', JSON.stringify(products));
+      renderProducts();
+      renderMetrics();
+      renderCommissionTable();
+      populateProductFilter();
+      productForm.reset();
+    });
+
+    setMode('login');
+    populateProductFilter();
+    applyInitialState();
+  </script>
+</body>
+</html>

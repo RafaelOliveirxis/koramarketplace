@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashMarket | Minha Conta</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="top-strip">
+    <div class="wrap top-inner">
+      <strong>WHATSAPP: (11) 99725-5630</strong>
+      <div class="top-links">
+        <a href="suporte.html">Central de Atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear Pedido</a>
+        <a href="afiliado.html">Área de Afiliado</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="index.html" aria-label="FlashMarket">
+        <img src="assets/favicon.png" alt="FlashMarket" class="brand-logo">
+      </a>
+      <form class="search" action="index.html">
+        <input type="search" placeholder="Pesquise aqui..." autocomplete="off">
+        <button type="submit" aria-label="Pesquisar">⌕</button>
+      </form>
+      <div class="header-actions">
+        <a class="head-action" href="index.html#produtos"><span>🛒</span><b>LOJA</b></a>
+        <a class="head-action" href="minha-conta.html"><span>👤</span><b>MINHA CONTA</b></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="account-page">
+    <div class="page-shell account-layout">
+      <aside class="account-sidebar">
+        <div class="user-card">
+          <div class="user-avatar">👤</div>
+          <h2 id="userName">Bem-vindo</h2>
+          <p id="userEmail">usuario@flashmarket.com</p>
+          <button class="logout-btn" id="logoutBtn">Sair da conta</button>
+        </div>
+        <nav class="account-nav">
+          <button class="nav-item active" data-section="pedidos">
+            <span>📦</span> Meus Pedidos
+          </button>
+          <button class="nav-item" data-section="cupons">
+            <span>🎟️</span> Cupons de Desconto
+          </button>
+          <button class="nav-item" data-section="endereco">
+            <span>📍</span> Endereços
+          </button>
+          <button class="nav-item" data-section="favoritos">
+            <span>❤️</span> Favoritos
+          </button>
+          <button class="nav-item" data-section="perfil">
+            <span>⚙️</span> Meus Dados
+          </button>
+        </nav>
+      </aside>
+
+      <section class="account-content">
+        <!-- Seção de Pedidos -->
+        <div class="content-section active" id="pedidos-section">
+          <div class="section-header">
+            <h1>Meus Pedidos</h1>
+            <p>Acompanhe seus pedidos e histórico de compras</p>
+          </div>
+          <div class="orders-filter">
+            <select id="orderFilter">
+              <option value="">Todos os pedidos</option>
+              <option value="pago">Pagos</option>
+              <option value="pendente">Pendentes</option>
+              <option value="enviado">Enviados</option>
+              <option value="entregue">Entregues</option>
+              <option value="cancelado">Cancelados</option>
+            </select>
+          </div>
+          <div class="orders-list" id="ordersList">
+            <!-- Renderizado dinamicamente -->
+          </div>
+        </div>
+
+        <!-- Seção de Cupons -->
+        <div class="content-section" id="cupons-section">
+          <div class="section-header">
+            <h1>Cupons de Desconto</h1>
+            <p>Seus cupons exclusivos e ofertas personalizadas</p>
+          </div>
+          <div class="coupons-grid" id="couponsGrid">
+            <!-- Renderizado dinamicamente -->
+          </div>
+        </div>
+
+        <!-- Seção de Endereços -->
+        <div class="content-section" id="endereco-section">
+          <div class="section-header">
+            <h1>Endereços</h1>
+            <button class="primary-btn" id="addAddressBtn">+ Adicionar endereço</button>
+          </div>
+          <div class="addresses-grid" id="addressesGrid">
+            <!-- Renderizado dinamicamente -->
+          </div>
+        </div>
+
+        <!-- Seção de Favoritos -->
+        <div class="content-section" id="favoritos-section">
+          <div class="section-header">
+            <h1>Produtos Favoritos</h1>
+            <p>Seus produtos salvos e desejos</p>
+          </div>
+          <div class="favorites-grid" id="favoritesGrid">
+            <!-- Renderizado dinamicamente -->
+          </div>
+        </div>
+
+        <!-- Seção de Perfil -->
+        <div class="content-section" id="perfil-section">
+          <div class="section-header">
+            <h1>Meus Dados</h1>
+            <p>Gerenciamento de informações pessoais</p>
+          </div>
+          <form class="profile-form" id="profileForm">
+            <div class="form-group">
+              <label>Nome completo</label>
+              <input type="text" id="fullName" placeholder="Seu nome completo" required>
+            </div>
+            <div class="form-group">
+              <label>E-mail</label>
+              <input type="email" id="emailInput" placeholder="Seu e-mail" required>
+            </div>
+            <div class="form-group">
+              <label>Telefone</label>
+              <input type="tel" id="phoneInput" placeholder="(11) 99999-9999">
+            </div>
+            <div class="form-group">
+              <label>Data de nascimento</label>
+              <input type="date" id="birthDate">
+            </div>
+            <div class="form-group">
+              <label>CPF</label>
+              <input type="text" id="cpfInput" placeholder="000.000.000-00">
+            </div>
+            <button class="primary-btn full" type="submit">Salvar alterações</button>
+            <p id="profileMessage" class="form-message"></p>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-about">
+        <img src="assets/logo.FlashMarket.png" alt="FlashMarket" class="footer-logo">
+        <p>Variedade, preço e praticidade em um só lugar.</p>
+      </div>
+      <div class="footer-column">
+        <h3>ATENDIMENTO</h3>
+        <a href="suporte.html">Central de atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear pedido</a>
+        <a href="afiliado.html">Área de afiliado</a>
+      </div>
+      <div class="footer-column">
+        <h3>INSTITUCIONAL</h3>
+        <a href="index.html#ofertas">Ofertas</a>
+        <a href="index.html#produtos">Produtos</a>
+        <a href="index.html#contato">Localização</a>
+      </div>
+      <div class="footer-column">
+        <h3>CONTATO</h3>
+        <a href="tel:+5511997255630">(11) 99725-5630</a>
+        <a href="mailto:atendimento@flashmarket.com">atendimento@flashmarket.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="wrap footer-bottom-inner">
+        <span>© 2026 FlashMarket — Todos os direitos reservados.</span>
+        <span>Feito para uma experiência de compra rápida e segura.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script>
+    const navItems = Array.from(document.querySelectorAll('[data-section]'));
+    const contentSections = Array.from(document.querySelectorAll('.content-section'));
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userName = document.getElementById('userName');
+    const userEmail = document.getElementById('userEmail');
+    const ordersList = document.getElementById('ordersList');
+    const couponsGrid = document.getElementById('couponsGrid');
+    const addressesGrid = document.getElementById('addressesGrid');
+    const favoritesGrid = document.getElementById('favoritesGrid');
+    const orderFilter = document.getElementById('orderFilter');
+    const profileForm = document.getElementById('profileForm');
+    const profileMessage = document.getElementById('profileMessage');
+    const fullNameInput = document.getElementById('fullName');
+    const emailInput = document.getElementById('emailInput');
+    const phoneInput = document.getElementById('phoneInput');
+    const birthDateInput = document.getElementById('birthDate');
+    const cpfInput = document.getElementById('cpfInput');
+
+    const defaultOrders = [
+      { id: 'FM-2025', product: 'Kit de Organização Premium', price: 89.9, status: 'entregue', date: '2026-08-15', image: '📦' },
+      { id: 'FM-2024', product: 'Mouse Pad Gamer', price: 54.9, status: 'enviado', date: '2026-08-20', image: '🖱️' },
+      { id: 'FM-2023', product: 'Moletom Street Flash', price: 119.9, status: 'pendente', date: '2026-08-28', image: '👕' },
+      { id: 'FM-2022', product: 'Planner Deluxe 2026', price: 49.9, status: 'pago', date: '2026-08-29', image: '📔' },
+    ];
+
+    const defaultCoupons = [
+      { code: 'FLASH20', discount: 20, type: '%', description: 'Desconto em toda loja', valid: '2026-09-30', used: false },
+      { code: 'FRETE10', discount: 10, type: 'reais', description: 'Frete grátis a partir de R$ 100', valid: '2026-09-15', used: false },
+      { code: 'PRIMEIRACOMPRA', discount: 30, type: '%', description: 'Desconto primeira compra', valid: '2026-12-31', used: true },
+      { code: 'NATAL', discount: 25, type: '%', description: 'Cupom especial Natal', valid: '2026-12-25', used: false },
+    ];
+
+    const defaultAddresses = [
+      { id: 1, type: 'Residencial', street: 'Rua das Flores, 123', city: 'São Paulo', state: 'SP', zip: '01234-567', main: true },
+      { id: 2, type: 'Comercial', street: 'Av. Paulista, 1000', city: 'São Paulo', state: 'SP', zip: '01311-100', main: false },
+    ];
+
+    const defaultFavorites = [
+      { id: 1, name: 'Luminária LED', price: 89.9, image: '💡' },
+      { id: 2, name: 'Organizador Minimalista', price: 39.9, image: '📦' },
+      { id: 3, name: 'Fone Bluetooth', price: 149.9, image: '🎧' },
+    ];
+
+    function getStoredData(key, defaultValue) {
+      const stored = localStorage.getItem(`flashmarket_user_${key}`);
+      if (!stored) return defaultValue;
+      try { return JSON.parse(stored); } catch { return defaultValue; }
+    }
+
+    function saveData(key, data) {
+      localStorage.setItem(`flashmarket_user_${key}`, JSON.stringify(data));
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+    }
+
+    function loadUserInfo() {
+      const session = localStorage.getItem('flashmarket_user_session');
+      if (!session) {
+        window.location.href = 'index.html';
+        return;
+      }
+      const user = getStoredData('profile', { name: 'Usuário', email: 'usuario@flashmarket.com' });
+      userName.textContent = user.name || 'Usuário';
+      userEmail.textContent = user.email || 'usuario@flashmarket.com';
+      fullNameInput.value = user.name || '';
+      emailInput.value = user.email || '';
+      phoneInput.value = user.phone || '';
+      birthDateInput.value = user.birthDate || '';
+      cpfInput.value = user.cpf || '';
+    }
+
+    function renderOrders() {
+      const orders = getStoredData('orders', defaultOrders);
+      const filter = orderFilter ? orderFilter.value : '';
+      const filtered = filter ? orders.filter(o => o.status === filter) : orders;
+      
+      ordersList.innerHTML = filtered.length === 0 
+        ? '<div class="empty-state"><p>Nenhum pedido encontrado</p></div>'
+        : filtered.map(order => `
+          <div class="order-card">
+            <div class="order-header">
+              <div class="order-id-product">
+                <strong>${order.id}</strong>
+                <span>${order.image}</span>
+              </div>
+              <span class="order-status ${order.status}">${order.status.toUpperCase()}</span>
+            </div>
+            <p class="order-product">${order.product}</p>
+            <div class="order-footer">
+              <span class="order-date">Data: ${new Date(order.date).toLocaleDateString('pt-BR')}</span>
+              <span class="order-price">${formatCurrency(order.price)}</span>
+            </div>
+            <button class="detail-link">Ver detalhes →</button>
+          </div>
+        `).join('');
+    }
+
+    function renderCoupons() {
+      const coupons = getStoredData('coupons', defaultCoupons);
+      couponsGrid.innerHTML = coupons.map(coupon => `
+        <div class="coupon-card ${coupon.used ? 'used' : ''}">
+          <div class="coupon-header">
+            <div>
+              <strong class="coupon-code">${coupon.code}</strong>
+              <p class="coupon-desc">${coupon.description}</p>
+            </div>
+            <div class="coupon-discount">
+              <strong>${coupon.discount}${coupon.type === '%' ? '%' : ''}</strong>
+              ${coupon.type === 'reais' ? '<small>OFF</small>' : ''}
+            </div>
+          </div>
+          <div class="coupon-footer">
+            <small>Válido até: ${new Date(coupon.valid).toLocaleDateString('pt-BR')}</small>
+            <button class="coupon-btn ${coupon.used ? 'disabled' : ''}" ${coupon.used ? 'disabled' : ''}>
+              ${coupon.used ? 'Utilizado' : 'Copiar código'}
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.coupon-btn:not(.disabled)').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const code = btn.closest('.coupon-card').querySelector('.coupon-code').textContent;
+          navigator.clipboard.writeText(code);
+          btn.textContent = 'Copiado!';
+          setTimeout(() => btn.textContent = 'Copiar código', 2000);
+        });
+      });
+    }
+
+    function renderAddresses() {
+      const addresses = getStoredData('addresses', defaultAddresses);
+      addressesGrid.innerHTML = addresses.map(addr => `
+        <div class="address-card ${addr.main ? 'main' : ''}">
+          <div class="address-badge">${addr.type}</div>
+          ${addr.main ? '<span class="main-badge">Padrão</span>' : ''}
+          <h3>${addr.street}</h3>
+          <p>${addr.city}, ${addr.state} - ${addr.zip}</p>
+          <div class="address-actions">
+            <button class="link-btn">Editar</button>
+            <button class="link-btn">Remover</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderFavorites() {
+      const favorites = getStoredData('favorites', defaultFavorites);
+      favoritesGrid.innerHTML = favorites.length === 0 
+        ? '<div class="empty-state"><p>Nenhum favorito ainda</p></div>'
+        : favorites.map(fav => `
+          <div class="favorite-card">
+            <div class="fav-image">${fav.image}</div>
+            <h3>${fav.name}</h3>
+            <p>${formatCurrency(fav.price)}</p>
+            <button class="primary-btn full small">Comprar agora</button>
+          </div>
+        `).join('');
+    }
+
+    function switchSection(sectionName) {
+      navItems.forEach(item => {
+        item.classList.toggle('active', item.dataset.section === sectionName);
+      });
+      contentSections.forEach(section => {
+        section.classList.toggle('active', section.id === `${sectionName}-section`);
+      });
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        switchSection(item.dataset.section);
+      });
+    });
+
+    orderFilter.addEventListener('change', renderOrders);
+
+    profileForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const profile = {
+        name: fullNameInput.value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        birthDate: birthDateInput.value,
+        cpf: cpfInput.value
+      };
+      saveData('profile', profile);
+      profileMessage.textContent = 'Dados salvos com sucesso!';
+      profileMessage.style.color = '#1d7040';
+      setTimeout(() => profileMessage.textContent = '', 3000);
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('flashmarket_user_session');
+      window.location.href = 'index.html';
+    });
+
+    loadUserInfo();
+    renderOrders();
+    renderCoupons();
+    renderAddresses();
+    renderFavorites();
+  </script>
+</body>
+</html>
