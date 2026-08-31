@@ -9,6 +9,163 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+<style id="affiliate-pro-style">
+:root{
+  --fm-yellow:#ffc21c;
+  --fm-yellow-2:#ffd95a;
+  --fm-dark:#111214;
+  --fm-text:#202124;
+  --fm-muted:#74777d;
+  --fm-bg:#f5f6f8;
+  --fm-card:#ffffff;
+  --fm-border:#e8e9ed;
+  --fm-green:#18a66a;
+  --fm-red:#e05252;
+  --fm-shadow:0 10px 30px rgba(18,20,24,.07);
+}
+body{background:var(--fm-bg)!important;color:var(--fm-text);}
+.affiliate-page{padding:28px 0 50px!important;}
+.affiliate-layout{max-width:1440px!important;display:grid!important;grid-template-columns:245px minmax(0,1fr)!important;gap:24px!important;align-items:start!important;}
+.auth-box{position:sticky;top:20px!important;background:var(--fm-dark)!important;border:0!important;border-radius:22px!important;padding:22px!important;box-shadow:var(--fm-shadow)!important;}
+.auth-box:before{content:"FLASHMARKET";display:block;color:var(--fm-yellow);font-weight:900;letter-spacing:.12em;font-size:13px;margin-bottom:22px;}
+.auth-box h1{font-size:22px!important;margin:0 0 18px!important;}
+.auth-tabs{display:grid!important;grid-template-columns:1fr 1fr;gap:5px!important;background:#24262a;border-radius:12px;padding:4px;margin-bottom:15px;}
+.auth-tabs button{border:0!important;border-radius:9px!important;background:transparent!important;color:#aaa!important;padding:10px!important;font-weight:800!important;cursor:pointer;}
+.auth-tabs button.active{background:var(--fm-yellow)!important;color:#111!important;}
+.auth-form input{width:100%;box-sizing:border-box;border:1px solid #36383d!important;background:#1b1d20!important;color:#fff!important;border-radius:11px!important;padding:12px!important;margin-bottom:9px;}
+.primary-btn{border:0!important;border-radius:11px!important;background:var(--fm-yellow)!important;color:#111!important;font-weight:900!important;cursor:pointer;transition:.2s;}
+.primary-btn:hover{transform:translateY(-1px);filter:brightness(1.02);}
+.affiliate-card{background:transparent!important;border:0!important;padding:0!important;}
+.affiliate-card>div:first-child{background:transparent;border-bottom:1px solid var(--fm-border);padding:0 0 18px;margin-bottom:20px!important;}
+.affiliate-card>div:first-child h1{font-size:30px!important;font-weight:900!important;letter-spacing:-.03em;}
+.secondary-btn{border:1px solid var(--fm-border)!important;background:#fff!important;color:#333!important;border-radius:10px!important;font-weight:800!important;cursor:pointer;}
+.summary-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:14px!important;margin-bottom:14px!important;}
+.stat-box,.metric-card,.sales-panel,.profile-panel,.orders-panel,.commission-panel,.product-form,.product-list,.affiliate-link-card,.withdraw-panel{border:1px solid var(--fm-border)!important;box-shadow:var(--fm-shadow)!important;}
+.stat-box{background:#fff!important;border-radius:18px!important;padding:20px!important;}
+.stat-box strong{font-size:27px!important;font-weight:900!important;display:block!important;margin-bottom:5px;}
+.stat-box small{color:var(--fm-muted)!important;font-weight:700;}
+.summary-grid .stat-box:first-child{background:linear-gradient(135deg,#17181b,#292b2f)!important;color:#fff!important;}
+.summary-grid .stat-box:first-child small{color:#bbb!important;}
+.affiliate-metrics{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:14px!important;margin-bottom:18px!important;}
+.metric-card{background:#fff!important;border-radius:16px!important;padding:17px!important;}
+.metric-card span{display:block;color:var(--fm-muted);font-size:12px;font-weight:800;text-transform:uppercase;margin-bottom:8px;}
+.metric-card strong{font-size:21px;font-weight:900;}
+.dashboard-filters{background:#fff;border:1px solid var(--fm-border);border-radius:16px;padding:14px;display:flex;gap:14px;margin-bottom:18px;}
+.filter-group{flex:1;}
+.filter-group label{display:block;font-size:11px;font-weight:900;color:var(--fm-muted);text-transform:uppercase;margin-bottom:6px;}
+.filter-group select{width:100%;border:1px solid var(--fm-border);background:#fafbfc;border-radius:10px;padding:11px;}
+.affiliate-dashboard{display:grid!important;grid-template-columns:minmax(0,1.65fr) minmax(280px,.85fr)!important;gap:18px!important;margin-bottom:18px!important;}
+.sales-panel,.profile-panel,.orders-panel,.commission-panel{background:#fff!important;border-radius:18px!important;padding:20px!important;}
+.sales-panel h3,.profile-panel h3,.orders-panel h3,.commission-panel h3{font-size:15px!important;font-weight:900!important;margin:0 0 16px!important;}
+.shop-branding{border:1px solid var(--fm-border);border-radius:15px;overflow:hidden;margin-bottom:14px;}
+.shop-banner{height:75px!important;}
+.shop-info{padding:14px!important;}
+.shop-info strong{font-size:17px!important;display:block;}
+.shop-info small{color:var(--fm-muted);}
+.shop-info p{margin:6px 0 0;font-size:12px;font-weight:800;}
+.shop-form{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important;}
+.shop-form .full{grid-column:1/-1;}
+.shop-form input,.shop-form select,.product-form input,.product-form select{border:1px solid var(--fm-border)!important;background:#fafbfc!important;border-radius:10px!important;padding:11px!important;box-sizing:border-box;}
+.shop-form .primary-btn{grid-column:1/-1;height:42px;}
+.orders-panel,.commission-panel{overflow:auto;margin-bottom:18px;}
+.orders-table,.commission-table{width:100%;border-collapse:collapse;min-width:680px;}
+.orders-table th,.commission-table th{font-size:11px;text-transform:uppercase;color:#85888f;text-align:left;padding:11px;border-bottom:1px solid var(--fm-border);}
+.orders-table td,.commission-table td{padding:12px 11px;border-bottom:1px solid #f0f1f3;font-size:13px;font-weight:600;}
+.status-chip{border-radius:999px!important;padding:5px 9px!important;font-size:10px!important;font-weight:900!important;}
+.status-chip.pago{background:#e4f7ed!important;color:#148252!important;}
+.status-chip.pendente{background:#fff3ce!important;color:#916800!important;}
+.status-chip.cancelado{background:#fdeaea!important;color:#b43c3c!important;}
+.affiliate-link-card{background:#fff8dc!important;}
+.withdraw-panel{background:linear-gradient(135deg,#121316,#24262b)!important;}
+.product-form{background:#fff;border-radius:18px!important;padding:18px!important;display:grid!important;grid-template-columns:1.5fr 1fr .8fr .8fr!important;gap:8px!important;}
+.product-form .full{grid-column:auto;}
+.product-form .primary-btn{height:42px;}
+.product-list{background:#fff;border-radius:18px!important;padding:15px!important;margin-top:12px;}
+.product-item{padding:13px 5px!important;border-bottom:1px solid #eee!important;}
+.product-item:last-child{border-bottom:0!important;}
+@media(max-width:1050px){
+  .affiliate-layout{grid-template-columns:1fr!important;}
+  .auth-box{position:relative;top:auto;}
+  .affiliate-dashboard{grid-template-columns:1fr!important;}
+}
+@media(max-width:720px){
+  .summary-grid,.affiliate-metrics{grid-template-columns:1fr 1fr!important;}
+  .dashboard-filters,.shop-form,.product-form{display:grid!important;grid-template-columns:1fr!important;}
+  .product-form .full{grid-column:auto;}
+  .affiliate-card>div:first-child{align-items:flex-start!important;}
+}
+@media(max-width:480px){
+  .summary-grid,.affiliate-metrics{grid-template-columns:1fr!important;}
+  .affiliate-page{padding-top:15px!important;}
+}
+</style>
+
+
+<style id="affiliate-final-style">
+*{box-sizing:border-box}
+:root{--yellow:#ffc21c;--yellow2:#ffd85b;--dark:#151619;--text:#202124;--muted:#777b82;--bg:#f5f6f8;--border:#e7e8ec;--green:#16a268;--red:#d95353;--shadow:0 10px 30px rgba(17,19,23,.06)}
+body{background:var(--bg)!important;color:var(--text)}
+.affiliate-page{min-height:calc(100vh - 120px);padding:35px 18px 60px!important}
+.affiliate-layout{max-width:1420px!important;display:block!important;align-items:stretch!important}
+.auth-box{position:relative;top:auto;width:min(100%,460px);margin:30px auto!important;background:var(--dark)!important;border:0!important;border-radius:24px!important;padding:30px!important;box-shadow:0 18px 50px rgba(0,0,0,.16)!important;color:#fff}
+.auth-brand{display:flex;align-items:center;gap:10px;padding-bottom:22px;border-bottom:1px solid #303238;margin-bottom:24px}
+.auth-brand img{width:38px;height:38px;object-fit:contain;border-radius:10px;background:var(--yellow);padding:5px}
+.auth-brand strong{display:block;font-size:15px}.auth-brand span{display:block;color:#999;font-size:10px;font-weight:700;margin-top:2px}
+.status-pill{display:inline-block;background:var(--yellow);color:#111;border-radius:999px;padding:6px 9px;font-size:9px;font-weight:900;letter-spacing:.08em}
+.auth-heading h1{font-size:25px!important;margin:12px 0 7px!important;color:#fff!important}
+.auth-heading p{font-size:12px;color:#aaa;line-height:1.6;margin:0 0 20px}
+.auth-tabs{display:grid!important;grid-template-columns:1fr 1fr;gap:4px;background:#25272b;border-radius:12px;padding:4px;margin-bottom:18px}
+.auth-tabs button{height:38px;border:0!important;background:transparent!important;color:#999!important;border-radius:9px!important;font-weight:900!important;font-size:12px;cursor:pointer}
+.auth-tabs button.active{background:var(--yellow)!important;color:#111!important}
+.auth-form label{display:block;color:#bbb;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin:10px 0 6px}
+.auth-form input{width:100%;height:44px;border:1px solid #37393e!important;background:#1c1e21!important;color:#fff!important;border-radius:10px!important;padding:0 12px!important;outline:0}
+.auth-form input:focus{border-color:var(--yellow)!important}
+.password-wrap{position:relative}.password-wrap input{padding-right:42px!important}.password-wrap button{position:absolute;right:5px;top:5px;width:34px;height:34px;border:0;background:transparent;color:#aaa;cursor:pointer}
+.login-extras{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 16px;font-size:10px}
+.remember{display:flex!important;align-items:center!important;gap:5px!important;margin:0!important;color:#999!important;text-transform:none!important;letter-spacing:0!important}
+.remember input{width:auto!important;height:auto!important}
+.text-btn{border:0;background:none;color:var(--yellow);font-size:10px;font-weight:800;cursor:pointer;padding:0}
+.auth-submit{width:100%;height:46px;font-size:12px}
+.auth-note{min-height:18px;margin:9px 0 0!important;font-size:11px!important;color:var(--yellow)!important;text-align:center}
+.auth-benefits{border-top:1px solid #303238;margin-top:22px;padding-top:18px;display:grid;gap:10px}
+.auth-benefits div{display:flex;align-items:center;gap:9px;color:#aaa;font-size:11px}.auth-benefits b{color:var(--yellow)}
+.affiliate-card{background:transparent!important;border:0!important;padding:0!important}
+.dashboard-top{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--border);padding-bottom:19px;margin-bottom:15px}
+.eyebrow,.panel-title span,.card-kicker,.withdraw-panel span{font-size:9px;font-weight:900;letter-spacing:.1em;color:#9699a0}
+.dashboard-top h1{font-size:31px!important;margin:5px 0 4px!important;font-weight:900!important;letter-spacing:-.04em}
+.dashboard-top p{margin:0;color:var(--muted);font-size:12px}
+.dashboard-actions{display:flex;gap:8px}.secondary-btn{height:40px!important;padding:0 14px!important;border:1px solid var(--border)!important;background:#fff!important;border-radius:10px!important;font-weight:900!important;cursor:pointer}
+.affiliate-nav{display:flex;gap:7px;overflow:auto;margin-bottom:15px}
+.affiliate-nav a{padding:9px 13px;background:#fff;border:1px solid var(--border);border-radius:9px;color:#4d5055;text-decoration:none;font-size:10px;font-weight:900;white-space:nowrap}
+.affiliate-nav a:first-child{background:#111;color:#fff;border-color:#111}
+.summary-grid{display:grid!important;grid-template-columns:1.5fr 1fr 1fr!important;gap:13px!important;margin-bottom:13px!important}
+.stat-box{min-height:120px;background:#fff!important;border:1px solid var(--border)!important;border-radius:17px!important;padding:18px!important;box-shadow:var(--shadow)!important}
+.stat-box span{font-size:10px;font-weight:900;color:#888}.stat-box strong{display:block;font-size:26px;font-weight:900;margin:10px 0 4px}.stat-box small{font-size:10px;color:#999}
+.featured-stat{background:linear-gradient(135deg,#17181b,#292b2f)!important;color:#fff}.featured-stat span,.featured-stat small{color:#aaa}
+.affiliate-metrics{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:13px!important;margin-bottom:14px!important}
+.metric-card{background:#fff;border:1px solid var(--border);border-radius:15px;padding:15px;box-shadow:var(--shadow)}
+.metric-card span{display:block;color:#888;font-size:9px;font-weight:900;text-transform:uppercase}.metric-card strong{display:block;margin-top:7px;font-size:19px;font-weight:900}
+.affiliate-link-card{display:flex;align-items:center;justify-content:space-between;gap:15px;background:#fff9df;border:1px solid #f1dfa1;border-radius:16px;padding:17px;margin-bottom:14px}
+.affiliate-link-card strong{display:block;margin:5px 0 3px;font-size:13px;word-break:break-all}.affiliate-link-card small{color:#888;font-size:10px}
+.copy-btn{width:auto!important;padding:0 17px!important;height:40px!important;white-space:nowrap}
+.dashboard-filters{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#fff;border:1px solid var(--border);border-radius:15px;padding:13px;margin-bottom:14px}
+.filter-group label{display:block;color:#888;font-size:9px;font-weight:900;text-transform:uppercase;margin-bottom:5px}
+.filter-group select{width:100%;height:39px;border:1px solid var(--border);border-radius:9px;background:#fafbfc;padding:0 10px;font-size:11px}
+.affiliate-dashboard{display:grid!important;grid-template-columns:minmax(0,1.55fr) minmax(300px,.85fr)!important;gap:14px!important;margin-bottom:14px!important}
+.sales-panel,.profile-panel,.orders-panel,.commission-panel,.products-section{background:#fff!important;border:1px solid var(--border)!important;border-radius:17px!important;padding:18px!important;box-shadow:var(--shadow)!important}
+.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.panel-title h3{margin:4px 0 0!important;font-size:14px!important;font-weight:900!important}.chart-wrap{height:275px}
+.shop-branding{border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:12px}.shop-banner{height:62px!important;background:linear-gradient(135deg,#ffd85b,#ffbf16)!important}
+.shop-info{padding:12px}.shop-info strong{display:block;font-size:15px}.shop-info small{color:#888;font-size:10px}.shop-info p{margin:5px 0 0;font-size:10px;font-weight:800}
+.shop-form{display:grid!important;grid-template-columns:1fr 1fr;gap:7px!important}.shop-form .full{grid-column:1/-1}.shop-form input,.shop-form select{width:100%;height:39px;border:1px solid var(--border)!important;background:#fafbfc!important;border-radius:9px!important;padding:0 10px!important;font-size:10px}.shop-form .primary-btn{height:40px}
+.withdraw-panel{display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(135deg,#141518,#282a2e)!important;color:#fff;border-radius:17px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)!important}.withdraw-panel span{color:var(--yellow)}.withdraw-panel strong{display:block;font-size:26px;margin:4px 0}.withdraw-panel small{color:#999;font-size:10px}.withdraw-panel p{flex:1;margin:0;color:#98f5c2;font-size:10px}.withdraw-panel .primary-btn{width:auto;padding:0 17px;height:42px;white-space:nowrap}
+.table-scroll{overflow:auto}.orders-table,.commission-table{width:100%;border-collapse:collapse;min-width:650px}.orders-table th,.commission-table th{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border);font-size:9px;text-transform:uppercase;color:#898c92}.orders-table td,.commission-table td{padding:11px 8px;border-bottom:1px solid #f0f1f3;font-size:10px;font-weight:600}.status-chip{display:inline-block;border-radius:999px!important;padding:4px 8px!important;font-size:8px!important;font-weight:900!important}.status-chip.pago{background:#e5f8ee!important;color:#138254!important}.status-chip.pendente{background:#fff4d0!important;color:#967000!important}.status-chip.cancelado{background:#fdeaea!important;color:#b33e3e!important}
+.products-section{margin-top:14px}.product-form{display:grid!important;grid-template-columns:1.5fr 1fr .8fr .8fr auto!important;gap:7px!important;background:#fafbfc;border:1px solid var(--border);padding:11px;border-radius:12px}.product-form input,.product-form select{height:40px;border:1px solid var(--border)!important;border-radius:9px!important;padding:0 10px!important;background:#fff!important;font-size:10px}.product-form .primary-btn{height:40px;padding:0 13px!important;white-space:nowrap}.product-list{margin-top:10px!important;border:0!important;box-shadow:none!important;padding:0!important;background:transparent!important}.product-item{background:#fafbfc;border:1px solid var(--border)!important;border-radius:10px!important;padding:11px!important;margin-bottom:7px}.product-item strong{font-size:11px}.product-meta{font-size:9px;color:#888;margin-top:4px;display:flex;justify-content:space-between}.badge{float:right;background:#e8f8ef;color:#168458;border-radius:99px;padding:4px 7px;font-size:8px;font-weight:900}
+@media(max-width:1050px){.affiliate-dashboard{grid-template-columns:1fr!important}}
+@media(max-width:720px){.affiliate-page{padding:20px 10px 40px!important}.dashboard-top{align-items:flex-start;flex-direction:column}.dashboard-top h1{font-size:25px!important}.summary-grid,.affiliate-metrics,.dashboard-filters{grid-template-columns:1fr 1fr!important}.affiliate-link-card,.withdraw-panel{align-items:flex-start;flex-direction:column}.affiliate-link-card .copy-btn,.withdraw-panel .primary-btn{width:100%!important}.product-form{grid-template-columns:1fr!important}.product-form .primary-btn{width:100%}}
+@media(max-width:480px){.summary-grid,.affiliate-metrics,.dashboard-filters{grid-template-columns:1fr!important}.auth-box{width:100%;padding:20px!important;margin:15px auto!important}.affiliate-nav a{padding:9px 11px}}
+</style>
+
 </head>
 <body>
   <div class="top-strip">
@@ -40,74 +197,125 @@
 
   <main class="affiliate-page">
     <div class="page-shell affiliate-layout">
-      <aside class="auth-box">
-        <div class="status-pill" style="color:#111;background:#ffd54d;">Área do afiliado</div>
-        <h1 style="font-size:28px;color:#fff;">Login e cadastro</h1>
-        <div class="auth-tabs">
-          <button class="active" type="button" data-auth-tab="login">Entrar</button>
-          <button type="button" data-auth-tab="register">Cadastrar</button>
+
+      <!-- AUTENTICAÇÃO -->
+      <aside class="auth-box" id="authArea">
+        <div class="auth-brand">
+          <img src="assets/favicon.png" alt="FlashMarket">
+          <div>
+            <strong>FlashMarket</strong>
+            <span>Central de Afiliados</span>
+          </div>
         </div>
+
+        <div class="auth-heading">
+          <span class="status-pill">PROGRAMA DE AFILIADOS</span>
+          <h1 id="authTitle">Bem-vindo de volta</h1>
+          <p id="authSubtitle">Entre na sua conta para acompanhar vendas, cliques e comissões.</p>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button class="active" type="button" data-auth-tab="login">Entrar</button>
+          <button type="button" data-auth-tab="register">Criar conta</button>
+        </div>
+
         <form id="authForm" class="auth-form">
-          <input id="authName" type="text" placeholder="Seu nome" aria-label="Nome" style="display:none;">
-          <input id="authEmail" type="email" placeholder="Seu e-mail" aria-label="E-mail" required>
-          <input id="authPassword" type="password" placeholder="Sua senha" aria-label="Senha" required>
-          <button class="primary-btn" type="submit">Acessar painel</button>
-          <p id="authMessage" class="auth-note" style="margin:0;color:#ffd54d;font-size:12px;min-height:18px;"></p>
+          <div id="registerFields" style="display:none;">
+            <label for="authName">Nome completo</label>
+            <input id="authName" type="text" placeholder="Digite seu nome" autocomplete="name">
+
+            <label for="authPhone">WhatsApp</label>
+            <input id="authPhone" type="tel" placeholder="(11) 99999-9999" autocomplete="tel">
+          </div>
+
+          <label for="authEmail">E-mail</label>
+          <input id="authEmail" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+
+          <label for="authPassword">Senha</label>
+          <div class="password-wrap">
+            <input id="authPassword" type="password" placeholder="Mínimo de 6 caracteres" autocomplete="current-password" required>
+            <button type="button" id="togglePassword" aria-label="Mostrar senha">👁</button>
+          </div>
+
+          <div id="loginExtras" class="login-extras">
+            <label class="remember"><input type="checkbox" id="rememberMe"> <span>Manter conectado</span></label>
+            <button type="button" id="forgotPassword" class="text-btn">Esqueci minha senha</button>
+          </div>
+
+          <button class="primary-btn auth-submit" type="submit" id="authSubmit">Entrar no painel</button>
+          <p id="authMessage" class="auth-note"></p>
         </form>
+
+        <div class="auth-benefits">
+          <div><b>✓</b><span>Dashboard de vendas</span></div>
+          <div><b>✓</b><span>Comissões por produto</span></div>
+          <div><b>✓</b><span>Link exclusivo de divulgação</span></div>
+          <div><b>✓</b><span>Solicitação de saque</span></div>
+        </div>
       </aside>
 
+      <!-- PAINEL -->
       <section class="affiliate-card" id="affiliatePanel" style="display:none;">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;">
-          <h1 style="margin:0;">Painel do afiliado</h1>
-          <div style="display:flex;gap:8px;">
-            <button type="button" id="exportBtn" class="secondary-btn" style="height:38px;padding:0 16px;">↓ Exportar CSV</button>
-            <button type="button" id="logoutBtn" class="secondary-btn" style="height:38px;padding:0 16px;">Sair</button>
+        <div class="dashboard-top">
+          <div>
+            <span class="eyebrow">CENTRAL DE AFILIADOS</span>
+            <h1>Olá, <span id="dashboardUserName">Afiliado</span> 👋</h1>
+            <p>Acompanhe seus resultados e aumente suas comissões.</p>
+          </div>
+          <div class="dashboard-actions">
+            <button type="button" id="exportBtn" class="secondary-btn">↓ Exportar</button>
+            <button type="button" id="logoutBtn" class="secondary-btn">Sair</button>
           </div>
         </div>
 
-        <div class="summary-grid">
-          <div class="stat-box">
-            <strong id="metricRevenue">R$ 8.420</strong>
-            <small>Vendas no mês</small>
+        <nav class="affiliate-nav">
+          <a href="#resumo">Visão geral</a>
+          <a href="#pedidos">Pedidos</a>
+          <a href="#comissoes">Comissões</a>
+          <a href="#produtos-afiliados">Produtos</a>
+        </nav>
+
+        <div class="summary-grid" id="resumo">
+          <div class="stat-box featured-stat">
+            <span>Vendas no período</span>
+            <strong id="metricRevenue">R$ 0,00</strong>
+            <small>Pedidos pagos e pendentes</small>
           </div>
           <div class="stat-box">
-            <strong id="metricProducts">184</strong>
-            <small>Produtos ativos</small>
+            <span>Produtos ativos</span>
+            <strong id="metricProducts">0</strong>
+            <small>Produtos disponíveis</small>
           </div>
           <div class="stat-box">
-            <strong id="metricConversion">24%</strong>
-            <small>Taxa de conversão</small>
+            <span>Conversão</span>
+            <strong id="metricConversion">0%</strong>
+            <small>Estimativa do período</small>
           </div>
         </div>
 
         <div class="affiliate-metrics">
-          <div class="metric-card">
-            <span>Receita líquida</span>
-            <strong id="liquidRevenue">R$ 6.230</strong>
+          <div class="metric-card"><span>Receita líquida</span><strong id="liquidRevenue">R$ 0,00</strong></div>
+          <div class="metric-card"><span>Comissão total</span><strong id="totalCommission">R$ 0,00</strong></div>
+          <div class="metric-card"><span>Pedidos ativos</span><strong id="activeOrders">0</strong></div>
+          <div class="metric-card"><span>Retenção</span><strong id="retentionRate">0%</strong></div>
+        </div>
+
+        <div class="affiliate-link-card">
+          <div>
+            <span class="card-kicker">SEU LINK DE AFILIADO</span>
+            <strong id="affiliateLink">https://flashmarket.com/?af=FM-AFILIADO</strong>
+            <small id="copyAffiliateMessage">Compartilhe este link para registrar suas indicações.</small>
           </div>
-          <div class="metric-card">
-            <span>Comissão total</span>
-            <strong id="totalCommission">R$ 1.142</strong>
-          </div>
-          <div class="metric-card">
-            <span>Pedidos ativos</span>
-            <strong id="activeOrders">31</strong>
-          </div>
-          <div class="metric-card">
-            <span>Taxa de retenção</span>
-            <strong id="retentionRate">89%</strong>
-          </div>
+          <button type="button" id="copyAffiliateLink" class="primary-btn copy-btn">Copiar link</button>
         </div>
 
         <div class="dashboard-filters">
           <div class="filter-group">
-            <label>Filtrar por produto</label>
-            <select id="productFilter">
-              <option value="">Todos os produtos</option>
-            </select>
+            <label for="productFilter">Produto / categoria</label>
+            <select id="productFilter"><option value="">Todos os produtos</option></select>
           </div>
           <div class="filter-group">
-            <label>Período</label>
+            <label for="rangeFilter">Período</label>
             <select id="rangeFilter">
               <option value="7">Últimos 7 dias</option>
               <option value="30" selected>Últimos 30 dias</option>
@@ -119,14 +327,14 @@
 
         <div class="affiliate-dashboard">
           <div class="sales-panel">
-            <h3>Vendas do mês</h3>
-            <canvas id="salesChart" style="height:300px;"></canvas>
+            <div class="panel-title"><div><span>DESEMPENHO</span><h3>Vendas do período</h3></div></div>
+            <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
           </div>
 
           <div class="profile-panel">
-            <h3>Minha Loja</h3>
+            <div class="panel-title"><div><span>PERFIL</span><h3>Minha loja</h3></div></div>
             <div class="shop-branding">
-              <div class="shop-banner" id="shopBanner" style="background:linear-gradient(135deg,#ffd75a,#ffbf16);"></div>
+              <div class="shop-banner" id="shopBanner"></div>
               <div class="shop-info">
                 <strong id="shopNameDisplay">FlashStore Pro</strong>
                 <small id="shopCategoryDisplay">Home Office & Casa</small>
@@ -137,64 +345,55 @@
               <input class="full" id="shopName" type="text" placeholder="Nome da loja" value="FlashStore Pro">
               <input id="shopWhatsapp" type="text" placeholder="WhatsApp" value="(11) 99876-1122">
               <select id="shopCategory">
-                <option value="Home Office & Casa">Home Office & Casa</option>
-                <option value="Acessórios">Acessórios</option>
-                <option value="Vestuário">Vestuário</option>
-                <option value="Papelaria">Papelaria</option>
+                <option>Home Office & Casa</option><option>Acessórios</option><option>Vestuário</option><option>Papelaria</option>
               </select>
-              <input id="shopCommission" type="number" step="0.1" placeholder="Comissão %" value="18">
+              <input id="shopCommission" type="number" step="0.1" min="0" max="100" placeholder="Comissão %" value="18">
               <button class="primary-btn full" type="submit">Salvar perfil</button>
             </form>
           </div>
         </div>
 
-        <div class="orders-panel">
-          <h3>Pedidos recentes (30 dias)</h3>
-          <table class="orders-table">
-            <thead>
-              <tr>
-                <th>Pedido</th>
-                <th>Cliente</th>
-                <th>Produto</th>
-                <th>Valor</th>
-                <th>Data</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="ordersTableBody"></tbody>
-          </table>
+        <div class="withdraw-panel">
+          <div>
+            <span>SALDO DISPONÍVEL</span>
+            <strong id="availableBalance">R$ 0,00</strong>
+            <small>Comissões de pedidos pagos</small>
+          </div>
+          <button type="button" id="withdrawBtn" class="primary-btn">Solicitar saque</button>
+          <p id="withdrawMessage"></p>
         </div>
 
-        <div class="commission-panel">
-          <h3>Comissão por produto</h3>
-          <table class="commission-table">
-            <thead>
-              <tr>
-                <th>Produto</th>
-                <th>Categoria</th>
-                <th>Preço</th>
-                <th>Comissão</th>
-                <th>%</th>
-              </tr>
-            </thead>
-            <tbody id="commissionTableBody"></tbody>
-          </table>
+        <div class="orders-panel" id="pedidos">
+          <div class="panel-title"><div><span>VENDAS</span><h3>Pedidos recentes</h3></div></div>
+          <div class="table-scroll">
+            <table class="orders-table">
+              <thead><tr><th>Pedido</th><th>Cliente</th><th>Produto</th><th>Valor</th><th>Data</th><th>Status</th></tr></thead>
+              <tbody id="ordersTableBody"></tbody>
+            </table>
+          </div>
         </div>
 
+        <div class="commission-panel" id="comissoes">
+          <div class="panel-title"><div><span>GANHOS</span><h3>Comissão por produto</h3></div></div>
+          <div class="table-scroll">
+            <table class="commission-table">
+              <thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Comissão</th><th>%</th></tr></thead>
+              <tbody id="commissionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
 
-        <form class="product-form" id="productForm" style="margin-top:22px;">
-          <input class="full" type="text" id="productName" placeholder="Nome do produto" required>
-          <input type="text" id="productCategory" placeholder="Categoria" required>
-          <input type="number" id="productPrice" placeholder="Preço" step="0.01" required>
-          <select id="productStatus" required>
-            <option value="Ativo">Ativo</option>
-            <option value="Em revisão">Em revisão</option>
-            <option value="Pausado">Pausado</option>
-          </select>
-          <button class="primary-btn full" type="submit">Adicionar produto</button>
-        </form>
-
-        <div class="product-list" id="productList"></div>
+        <div class="products-section" id="produtos-afiliados">
+          <div class="panel-title"><div><span>CATÁLOGO</span><h3>Adicionar produto</h3></div></div>
+          <form class="product-form" id="productForm">
+            <input type="text" id="productName" placeholder="Nome do produto" required>
+            <input type="text" id="productCategory" placeholder="Categoria" required>
+            <input type="number" id="productPrice" placeholder="Preço" step="0.01" min="0.01" required>
+            <select id="productStatus"><option>Ativo</option><option>Em revisão</option><option>Pausado</option></select>
+            <button class="primary-btn" type="submit">Adicionar produto</button>
+          </form>
+          <div class="product-list" id="productList"></div>
+        </div>
       </section>
     </div>
   </main>
@@ -252,7 +451,6 @@
     const shopCategoryDisplay = document.getElementById('shopCategoryDisplay');
     const shopWhatsappDisplay = document.getElementById('shopWhatsappDisplay');
     const ordersTableBody = document.getElementById('ordersTableBody');
-    const salesChart = document.getElementById('salesChart');
     const rangeFilter = document.getElementById('rangeFilter');
     const productFilter = document.getElementById('productFilter');
     const exportBtn = document.getElementById('exportBtn');
@@ -264,50 +462,142 @@
     const totalCommission = document.getElementById('totalCommission');
     const activeOrders = document.getElementById('activeOrders');
     const retentionRate = document.getElementById('retentionRate');
+
+    const registerFields = document.getElementById('registerFields');
+    const loginExtras = document.getElementById('loginExtras');
+    const authTitle = document.getElementById('authTitle');
+    const authSubtitle = document.getElementById('authSubtitle');
+    const authSubmit = document.getElementById('authSubmit');
+    const authPhoneInput = document.getElementById('authPhone');
+    const togglePassword = document.getElementById('togglePassword');
+    const forgotPassword = document.getElementById('forgotPassword');
+    const copyAffiliateLink = document.getElementById('copyAffiliateLink');
+    const affiliateLink = document.getElementById('affiliateLink');
+    const copyAffiliateMessage = document.getElementById('copyAffiliateMessage');
+    const withdrawBtn = document.getElementById('withdrawBtn');
+    const withdrawMessage = document.getElementById('withdrawMessage');
+
     let currentMode = 'login';
     let salesChartInstance = null;
+    let affiliateUsers = JSON.parse(localStorage.getItem('flashmarket_affiliate_users') || '[]');
+
+    function setAuthScreen(active) {
+      document.body.classList.toggle('auth-screen', active);
+      document.body.classList.toggle('logged-screen', !active);
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      authTabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.authTab === mode);
+      });
+
+      const registering = mode === 'register';
+      registerFields.style.display = registering ? 'block' : 'none';
+      loginExtras.style.display = registering ? 'none' : 'flex';
+      authNameInput.required = registering;
+      authPhoneInput.required = false;
+
+      authTitle.textContent = registering ? 'Crie sua conta' : 'Bem-vindo de volta';
+      authSubtitle.textContent = registering
+        ? 'Cadastre-se gratuitamente e comece a divulgar os produtos da FlashMarket.'
+        : 'Entre na sua conta para acompanhar vendas, cliques e comissões.';
+      authSubmit.textContent = registering ? 'Criar conta de afiliado' : 'Entrar no painel';
+      authPasswordInput.autocomplete = registering ? 'new-password' : 'current-password';
+      authMessage.textContent = '';
+      authMessage.style.color = '#ffd54d';
+    }
+
+    function hashSimple(value) {
+      let hash = 0;
+      for (let i = 0; i < value.length; i++) {
+        hash = ((hash << 5) - hash) + value.charCodeAt(i) | 0;
+      }
+      return String(hash);
+    }
+
+    function generateAffiliateCode(name, email) {
+      const base = (name || email.split('@')[0] || 'afiliado')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9]/g, '')
+        .toUpperCase()
+        .slice(0, 8) || 'AFILIADO';
+      return 'FM-' + base + '-' + Math.floor(100 + Math.random() * 900);
+    }
+
+    function saveUsers() {
+      localStorage.setItem('flashmarket_affiliate_users', JSON.stringify(affiliateUsers));
+    }
+
+    function loginUser(email, password) {
+      const user = affiliateUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+      if (!user) return { ok:false, message:'E-mail não cadastrado. Clique em “Criar conta”.' };
+      if (user.password !== hashSimple(password)) return { ok:false, message:'Senha incorreta. Tente novamente.' };
+      return { ok:true, user };
+    }
+
+    function registerUser(name, phone, email, password) {
+      if (affiliateUsers.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+        return { ok:false, message:'Este e-mail já possui uma conta de afiliado.' };
+      }
+
+      const user = {
+        name,
+        phone,
+        email,
+        password:hashSimple(password),
+        code:generateAffiliateCode(name, email),
+        createdAt:new Date().toISOString()
+      };
+
+      affiliateUsers.push(user);
+      saveUsers();
+      return { ok:true, user };
+    }
+
+    function updateAffiliateLink(code) {
+      const link = `${location.origin}${location.pathname.replace(/[^/]+$/,'')}index.html?af=${encodeURIComponent(code || 'FM-AFILIADO')}`;
+      if (affiliateLink) affiliateLink.textContent = link;
+    }
 
     const defaultProducts = [
-      { name: 'Kit de Organização', category: 'Casa & Decor', price: 89.9, status: 'Ativo' },
-      { name: 'Mouse Pad Premium', category: 'Home Office', price: 54.9, status: 'Em revisão' },
-      { name: 'Moletom Street Flash', category: 'Vestuário', price: 119.9, status: 'Ativo' },
-      { name: 'Planner Deluxe', category: 'Papelaria', price: 49.9, status: 'Ativo' }
+      { name:'Kit de Organização', category:'Casa & Decor', price:89.9, status:'Ativo' },
+      { name:'Mouse Pad Premium', category:'Home Office', price:54.9, status:'Em revisão' },
+      { name:'Moletom Street Flash', category:'Vestuário', price:119.9, status:'Ativo' },
+      { name:'Planner Deluxe', category:'Papelaria', price:49.9, status:'Ativo' }
     ];
 
     function dateDaysAgo(days) {
       const date = new Date();
-      date.setHours(0, 0, 0, 0);
+      date.setHours(0,0,0,0);
       date.setDate(date.getDate() - days);
       return date.toISOString().split('T')[0];
     }
 
     const defaultOrders = [
-      { id: 'FM-2018', customer: 'Bruna L.', value: 239.9, status: 'Pago', date: dateDaysAgo(1) },
-      { id: 'FM-2019', customer: 'João M.', value: 149.9, status: 'Pendente', date: dateDaysAgo(3) },
-      { id: 'FM-2020', customer: 'Ana P.', value: 89.9, status: 'Pago', date: dateDaysAgo(7) },
-      { id: 'FM-2021', customer: 'Renato S.', value: 310, status: 'Cancelado', date: dateDaysAgo(11) },
-      { id: 'FM-2022', customer: 'Larissa T.', value: 520, status: 'Pago', date: dateDaysAgo(18) },
-      { id: 'FM-2023', customer: 'Mateus C.', value: 410.5, status: 'Pago', date: dateDaysAgo(29) },
-      { id: 'FM-2024', customer: 'Fernanda R.', value: 195.8, status: 'Pendente', date: dateDaysAgo(48) },
-      { id: 'FM-2025', customer: 'Pedro A.', value: 670, status: 'Pago', date: dateDaysAgo(65) }
+      {id:'FM-2018',customer:'Bruna L.',value:239.9,status:'Pago',date:dateDaysAgo(1)},
+      {id:'FM-2019',customer:'João M.',value:149.9,status:'Pendente',date:dateDaysAgo(3)},
+      {id:'FM-2020',customer:'Ana P.',value:89.9,status:'Pago',date:dateDaysAgo(7)},
+      {id:'FM-2021',customer:'Renato S.',value:310,status:'Cancelado',date:dateDaysAgo(11)},
+      {id:'FM-2022',customer:'Larissa T.',value:520,status:'Pago',date:dateDaysAgo(18)},
+      {id:'FM-2023',customer:'Mateus C.',value:410.5,status:'Pago',date:dateDaysAgo(29)},
+      {id:'FM-2024',customer:'Fernanda R.',value:195.8,status:'Pendente',date:dateDaysAgo(48)},
+      {id:'FM-2025',customer:'Pedro A.',value:670,status:'Pago',date:dateDaysAgo(65)}
     ];
-
-    function setMode(mode) {
-      currentMode = mode;
-      authTabs.forEach((tab) => {
-        const isActive = tab.dataset.authTab === mode;
-        tab.classList.toggle('active', isActive);
-      });
-      authNameInput.style.display = mode === 'register' ? 'block' : 'none';
-      authNameInput.required = mode === 'register';
-    }
 
     function setLoggedState(loggedIn, userName) {
       affiliatePanel.style.display = loggedIn ? 'block' : 'none';
+      setAuthScreen(!loggedIn);
+
+      const dashboardUserName = document.getElementById('dashboardUserName');
+
       if (loggedIn) {
+        if (dashboardUserName) dashboardUserName.textContent = userName || 'Afiliado';
         authMessage.textContent = `Bem-vindo(a), ${userName || 'afiliado'}!`;
         authMessage.style.color = '#98f5c2';
       } else {
+        if (dashboardUserName) dashboardUserName.textContent = 'Afiliado';
         authMessage.textContent = 'Faça login para acessar o painel de produtos e vendas.';
         authMessage.style.color = '#ffd54d';
       }
@@ -317,36 +607,49 @@
       return localStorage.getItem('flashmarket_affiliate_session') === 'true';
     }
 
+
+    function getCurrentUserEmail() {
+      return localStorage.getItem('flashmarket_affiliate_email') || '';
+    }
+
+    function userStorageKey(base) {
+      const email = getCurrentUserEmail().toLowerCase().trim();
+      if (!email) return base;
+      return `${base}_${btoa(unescape(encodeURIComponent(email))).replace(/[^a-zA-Z0-9]/g,'')}`;
+    }
+
     function getStoredProducts() {
-      const stored = localStorage.getItem('flashmarket_affiliate_products');
-      if (!stored) return defaultProducts;
-      try { return JSON.parse(stored); } catch { return defaultProducts; }
+      const stored = localStorage.getItem(userStorageKey('flashmarket_affiliate_products'));
+      if (!stored) return [...defaultProducts];
+      try { return JSON.parse(stored); } catch { return [...defaultProducts]; }
     }
 
     function getStoredOrders() {
-      const stored = localStorage.getItem('flashmarket_affiliate_orders');
+      const stored = localStorage.getItem(userStorageKey('flashmarket_affiliate_orders'));
       if (!stored) return defaultOrders;
       try {
-        return JSON.parse(stored).map((order) => ({
+        return JSON.parse(stored).map(order => ({
           ...order,
-          value: Number(order.value || 0),
-          date: order.date || dateDaysAgo(0)
+          value:Number(order.value || 0),
+          date:order.date || dateDaysAgo(0)
         }));
-      } catch { return defaultOrders; }
+      } catch {
+        return defaultOrders;
+      }
     }
 
     function formatCurrency(value) {
-      return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value || 0));
+      return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(value || 0));
     }
 
     function formatShortDate(dateString) {
       if (!dateString) return '—';
-      const date = new Date(dateString + 'T00:00:00');
-      return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short' }).format(date);
+      return new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'short'})
+        .format(new Date(dateString + 'T00:00:00'));
     }
 
     function getCommissionRate() {
-      const stored = localStorage.getItem('flashmarket_affiliate_profile');
+      const stored = localStorage.getItem(userStorageKey('flashmarket_affiliate_profile'));
       if (!stored) return 0.18;
       try {
         const profile = JSON.parse(stored);
@@ -360,71 +663,79 @@
       const orders = getStoredOrders();
       const range = rangeFilter ? rangeFilter.value : '30';
       if (range === 'all') return orders;
-      const days = Number(range) || 30;
+
       const cutoff = new Date();
-      cutoff.setHours(0, 0, 0, 0);
-      cutoff.setDate(cutoff.getDate() - days);
-      return orders.filter((order) => {
-        const orderDate = new Date(order.date + 'T00:00:00');
-        return orderDate >= cutoff;
-      });
+      cutoff.setHours(0,0,0,0);
+      cutoff.setDate(cutoff.getDate() - (Number(range) || 30));
+
+      return orders.filter(order => new Date(order.date + 'T00:00:00') >= cutoff);
     }
 
     function renderProducts() {
       const products = getStoredProducts();
       productList.innerHTML = '';
-      products.forEach((product) => {
+
+      products.forEach(product => {
         const item = document.createElement('article');
         item.className = 'product-item';
         item.innerHTML = `
           <span class="badge">${product.status}</span>
           <strong>${product.name}</strong>
-          <div class="product-meta"><span>${product.category}</span><span>R$ ${Number(product.price).toFixed(2).replace('.', ',')}</span></div>
-        `;
+          <div class="product-meta">
+            <span>${product.category}</span>
+            <span>${formatCurrency(product.price)}</span>
+          </div>`;
         productList.appendChild(item);
       });
     }
 
     function renderOrders() {
-      const orders = getVisibleOrders();
-      ordersTableBody.innerHTML = orders.map((order) => `
+      let orders = getVisibleOrders();
+      const selectedCategory = productFilter ? productFilter.value : '';
+
+      if (selectedCategory) {
+        const products = getStoredProducts();
+        const names = products.filter(p => p.category === selectedCategory).map(p => p.name);
+        orders = orders.filter(order => !order.product || names.includes(order.product));
+      }
+
+      ordersTableBody.innerHTML = orders.map(order => `
         <tr>
           <td>${order.id}</td>
           <td>${order.customer}</td>
+          <td>${order.product || 'Produto afiliado'}</td>
           <td>${formatCurrency(order.value)}</td>
           <td>${formatShortDate(order.date)}</td>
-          <td><span class="status-chip ${order.status.toLowerCase().replace(/ç/g, 'c').replace(' ', '-')}">${order.status}</span></td>
-        </tr>
-      `).join('');
+          <td><span class="status-chip ${order.status.toLowerCase().replace(/ç/g,'c').replace(' ','-')}">${order.status}</span></td>
+        </tr>`).join('');
     }
 
     function renderCommissionTable() {
       const products = getStoredProducts();
       const rate = getCommissionRate();
-      commissionTableBody.innerHTML = products.map((product) => {
+
+      commissionTableBody.innerHTML = products.map(product => {
         const value = Number(product.price || 0);
-        const commissionValue = value * rate;
         return `
           <tr>
             <td>${product.name}</td>
             <td>${product.category}</td>
             <td>${formatCurrency(value)}</td>
-            <td>${formatCurrency(commissionValue)}</td>
+            <td>${formatCurrency(value * rate)}</td>
             <td>${(rate * 100).toFixed(0)}%</td>
-          </tr>
-        `;
+          </tr>`;
       }).join('');
     }
 
     function renderMetrics() {
       const products = getStoredProducts();
       const orders = getVisibleOrders();
-      const paidOrders = orders.filter((order) => order.status !== 'Cancelado');
+      const paidOrders = orders.filter(order => order.status !== 'Cancelado');
       const totalRevenue = paidOrders.reduce((sum, order) => sum + Number(order.value || 0), 0);
       const commissionRate = getCommissionRate();
       const totalCommissionValue = totalRevenue * commissionRate;
-      const activeProducts = products.filter((product) => product.status === 'Ativo').length;
-      const conversion = Math.min(38, Math.max(18, 16 + (paidOrders.length * 2.5) + (activeProducts * 0.6))).toFixed(0);
+      const activeProducts = products.filter(product => product.status === 'Ativo').length;
+      const conversion = Math.min(38, Math.max(18, 16 + paidOrders.length * 2.5 + activeProducts * 0.6)).toFixed(0);
 
       metricRevenue.textContent = formatCurrency(totalRevenue);
       metricProducts.textContent = activeProducts;
@@ -436,95 +747,60 @@
     }
 
     function renderChart() {
+      const ctx = document.getElementById('salesChart');
+      if (!ctx || typeof Chart === 'undefined') return;
+
       const orders = getVisibleOrders();
       const totalRevenue = orders.reduce((sum, order) => sum + Number(order.value || 0), 0);
-      const base = totalRevenue ? (totalRevenue / Math.max(orders.length, 1)) : 210;
+      const base = totalRevenue ? totalRevenue / Math.max(orders.length,1) : 210;
       const values = [
-        Math.min(100, Math.round(base * 0.48)),
-        Math.min(100, Math.round(base * 0.66)),
-        Math.min(100, Math.round(base * 0.74)),
-        Math.min(100, Math.round(base * 0.88)),
-        Math.min(100, Math.round(base * 0.92)),
-        Math.min(100, Math.round(base * 1.06)),
-        Math.min(100, Math.round(base * 1.18))
-      ];
+        .48,.66,.74,.88,.92,1.06,1.18
+      ].map(multiplier => Math.min(100, Math.round(base * multiplier)));
 
-      const ctx = document.getElementById('salesChart');
-      if (!ctx) return;
+      if (salesChartInstance) salesChartInstance.destroy();
 
-      if (salesChartInstance) {
-        salesChartInstance.destroy();
-      }
-
-      salesChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
-          datasets: [{
-            label: 'Receita (R$)',
-            data: values.map(v => Math.round(v * 12)),
-            borderColor: '#ffbf16',
-            backgroundColor: 'rgba(255, 191, 22, 0.12)',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.5,
-            pointBackgroundColor: '#ffd75a',
-            pointBorderColor: '#fff',
-            pointRadius: 7,
-            pointHoverRadius: 9,
-            pointBorderWidth: 3,
-            shadowColor: 'rgba(255, 191, 22, 0.2)',
-            shadowBlur: 15,
-            shadowOffsetX: 0,
-            shadowOffsetY: 4
+      salesChartInstance = new Chart(ctx,{
+        type:'line',
+        data:{
+          labels:['Seg','Ter','Qua','Qui','Sex','Sab','Dom'],
+          datasets:[{
+            label:'Receita (R$)',
+            data:values.map(v => Math.round(v * 12)),
+            borderColor:'#ffbf16',
+            backgroundColor:'rgba(255,191,22,.12)',
+            borderWidth:3,
+            fill:true,
+            tension:.5,
+            pointBackgroundColor:'#ffd75a',
+            pointBorderColor:'#fff',
+            pointRadius:7,
+            pointHoverRadius:9,
+            pointBorderWidth:3
           }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: 'index', intersect: false },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              titleColor: '#ffd75a',
-              bodyColor: '#fff',
-              borderColor: '#ffd75a',
-              borderWidth: 1,
-              padding: 12,
-              displayColors: false,
-              titleFont: { weight: 900, size: 13 },
-              bodyFont: { size: 12 },
-              callbacks: {
-                label: function(context) {
-                  return 'Receita: R$ ' + context.parsed.y.toLocaleString('pt-BR');
-                }
+        options:{
+          responsive:true,
+          maintainAspectRatio:false,
+          interaction:{mode:'index',intersect:false},
+          plugins:{
+            legend:{display:false},
+            tooltip:{
+              callbacks:{
+                label:context => 'Receita: ' + formatCurrency(context.parsed.y)
               }
             }
           },
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: { 
-                color: 'rgba(0,0,0,0.05)',
-                drawBorder: false
-              },
-              ticks: { 
-                color: '#888', 
-                font: { weight: 700, size: 11 },
-                callback: function(value) {
-                  return 'R$ ' + value.toLocaleString('pt-BR');
-                }
-              },
-              border: { display: false }
+          scales:{
+            y:{
+              beginAtZero:true,
+              grid:{color:'rgba(0,0,0,.05)',drawBorder:false},
+              ticks:{color:'#888',font:{weight:700,size:11},callback:value => 'R$ ' + Number(value).toLocaleString('pt-BR')},
+              border:{display:false}
             },
-            x: {
-              grid: { display: false },
-              ticks: { 
-                color: '#888', 
-                font: { weight: 700, size: 11 }
-              },
-              border: { display: false }
+            x:{
+              grid:{display:false},
+              ticks:{color:'#888',font:{weight:700,size:11}},
+              border:{display:false}
             }
           }
         }
@@ -533,12 +809,13 @@
 
     function saveShopProfile() {
       const shop = {
-        name: shopNameInput.value.trim() || 'FlashStore Pro',
-        category: shopCategoryInput.value || 'Home Office & Casa',
-        whatsapp: shopWhatsappInput.value.trim() || '(11) 99876-1122',
-        commission: shopCommissionInput.value || '18'
+        name:shopNameInput.value.trim() || 'FlashStore Pro',
+        category:shopCategoryInput.value || 'Home Office & Casa',
+        whatsapp:shopWhatsappInput.value.trim() || '(11) 99876-1122',
+        commission:shopCommissionInput.value || '18'
       };
-      localStorage.setItem('flashmarket_affiliate_profile', JSON.stringify(shop));
+
+      localStorage.setItem(userStorageKey('flashmarket_affiliate_profile'),JSON.stringify(shop));
       shopNameDisplay.textContent = shop.name;
       shopCategoryDisplay.textContent = shop.category;
       shopWhatsappDisplay.textContent = shop.whatsapp;
@@ -548,49 +825,65 @@
 
     function populateProductFilter() {
       const products = getStoredProducts();
-      const uniqueCategories = [...new Set(products.map(p => p.category))];
-      productFilter.innerHTML = '<option value="">Todos os produtos</option>' + 
-        uniqueCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+      const categories = [...new Set(products.map(p => p.category))];
+      productFilter.innerHTML =
+        '<option value="">Todos os produtos</option>' +
+        categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
     }
 
     function exportToCSV() {
       const orders = getVisibleOrders();
       const products = getStoredProducts();
-      const shop = getStoredData('profile', {});
-      
+      const storedProfile = localStorage.getItem(userStorageKey('flashmarket_affiliate_profile'));
+      const shop = storedProfile ? JSON.parse(storedProfile) : {};
+
       let csv = 'Relatório de Vendas - FlashMarket\n';
       csv += `Loja: ${shop.name || 'FlashStore'}\n`;
       csv += `Gerado em: ${new Date().toLocaleDateString('pt-BR')}\n\n`;
-      
       csv += 'Pedido,Cliente,Produto,Valor,Data,Status\n';
+
       orders.forEach(order => {
         csv += `${order.id},"${order.customer}","${order.product || 'Produto'}",${order.value},${order.date},"${order.status}"\n`;
       });
-      
-      csv += '\n\nProdutos Cadastrados\n';
-      csv += 'Produto,Categoria,Preço,Status\n';
+
+      csv += '\n\nProdutos Cadastrados\nProduto,Categoria,Preço,Status\n';
       products.forEach(product => {
         csv += `"${product.name}","${product.category}",${product.price},"${product.status}"\n`;
       });
 
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = `relatorio-flashmarket-${new Date().toISOString().split('T')[0]}.csv`;
       link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function renderAffiliateBalance() {
+      const orders = getVisibleOrders();
+      const rate = getCommissionRate();
+      const balance = orders
+        .filter(order => order.status === 'Pago')
+        .reduce((sum, order) => sum + Number(order.value || 0) * rate, 0);
+
+      const balanceEl = document.getElementById('availableBalance');
+      if (balanceEl) balanceEl.textContent = formatCurrency(balance);
     }
 
     function refreshDashboard() {
       renderProducts();
+      populateProductFilter();
       renderOrders();
       renderChart();
       renderMetrics();
       renderCommissionTable();
+      renderAffiliateBalance();
     }
 
     function loadShopProfile() {
-      const stored = localStorage.getItem('flashmarket_affiliate_profile');
+      const stored = localStorage.getItem(userStorageKey('flashmarket_affiliate_profile'));
       if (!stored) return;
+
       try {
         const profile = JSON.parse(stored);
         shopNameInput.value = profile.name || 'FlashStore Pro';
@@ -600,24 +893,138 @@
         shopNameDisplay.textContent = profile.name || 'FlashStore Pro';
         shopCategoryDisplay.textContent = profile.category || 'Home Office & Casa';
         shopWhatsappDisplay.textContent = profile.whatsapp || '(11) 99876-1122';
-      } catch (error) {
-        console.warn('Perfil do afiliado inválido.', error);
+      } catch {
+        console.warn('Perfil do afiliado inválido.');
       }
     }
 
     function applyInitialState() {
       const savedUser = localStorage.getItem('flashmarket_affiliate_user') || '';
+
       if (isSessionActive()) {
-        setLoggedState(true, savedUser || 'afiliado');
+        if (!getCurrentUserEmail() && savedUser) {
+          const oldUser = affiliateUsers.find(u => u.name === savedUser);
+          if (oldUser) localStorage.setItem('flashmarket_affiliate_email', oldUser.email);
+        }
+        setLoggedState(true, savedUser || 'Afiliado');
+        updateAffiliateLink(localStorage.getItem('flashmarket_affiliate_code') || 'FM-AFILIADO');
       } else {
         setLoggedState(false, '');
       }
+
       loadShopProfile();
       refreshDashboard();
     }
 
-    authTabs.forEach((tab) => {
-      tab.addEventListener('click', () => setMode(tab.dataset.authTab));
+    authTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        setMode(tab.dataset.authTab);
+        authForm.reset();
+        authPasswordInput.type = 'password';
+        togglePassword.textContent = '👁';
+      });
+    });
+
+    authForm.addEventListener('submit', event => {
+      event.preventDefault();
+
+      const email = authEmailInput.value.trim();
+      const password = authPasswordInput.value;
+      const name = authNameInput.value.trim();
+      const phone = authPhoneInput.value.trim();
+
+      if (!email || !password || (currentMode === 'register' && !name)) {
+        authMessage.textContent = currentMode === 'register'
+          ? 'Preencha nome, e-mail e senha.'
+          : 'Preencha e-mail e senha.';
+        authMessage.style.color = '#ffd75a';
+        return;
+      }
+
+      if (password.length < 6) {
+        authMessage.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+        authMessage.style.color = '#ffd75a';
+        return;
+      }
+
+      if (currentMode === 'register') {
+        const result = registerUser(name, phone, email, password);
+
+        if (!result.ok) {
+          authMessage.textContent = result.message;
+          authMessage.style.color = '#ff8f8f';
+          return;
+        }
+
+        localStorage.setItem('flashmarket_affiliate_session','true');
+        localStorage.setItem('flashmarket_affiliate_user',result.user.name);
+        localStorage.setItem('flashmarket_affiliate_email',result.user.email);
+        localStorage.setItem('flashmarket_affiliate_code',result.user.code);
+
+        setLoggedState(true,result.user.name);
+        updateAffiliateLink(result.user.code);
+        refreshDashboard();
+
+        authMessage.textContent = 'Conta criada com sucesso!';
+        authMessage.style.color = '#98f5c2';
+        return;
+      }
+
+      const result = loginUser(email,password);
+
+      if (!result.ok) {
+        authMessage.textContent = result.message;
+        authMessage.style.color = '#ff8f8f';
+        return;
+      }
+
+      localStorage.setItem('flashmarket_affiliate_session','true');
+      localStorage.setItem('flashmarket_affiliate_user',result.user.name);
+        localStorage.setItem('flashmarket_affiliate_email',result.user.email);
+      localStorage.setItem('flashmarket_affiliate_code',result.user.code);
+
+      setLoggedState(true,result.user.name);
+      updateAffiliateLink(result.user.code);
+      refreshDashboard();
+
+      authMessage.textContent = `Bem-vindo(a), ${result.user.name}!`;
+      authMessage.style.color = '#98f5c2';
+      authForm.reset();
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('flashmarket_affiliate_session');
+      localStorage.removeItem('flashmarket_affiliate_user');
+      localStorage.removeItem('flashmarket_affiliate_email');
+      localStorage.removeItem('flashmarket_affiliate_code');
+
+      authForm.reset();
+      setMode('login');
+      setLoggedState(false,'');
+    });
+
+    togglePassword.addEventListener('click', () => {
+      const hidden = authPasswordInput.type === 'password';
+      authPasswordInput.type = hidden ? 'text' : 'password';
+      togglePassword.textContent = hidden ? '🙈' : '👁';
+      togglePassword.setAttribute('aria-label', hidden ? 'Ocultar senha' : 'Mostrar senha');
+    });
+
+    forgotPassword.addEventListener('click', () => {
+      const email = authEmailInput.value.trim();
+
+      if (!email) {
+        authMessage.textContent = 'Digite seu e-mail primeiro para recuperar o acesso.';
+        authMessage.style.color = '#ffd75a';
+        return;
+      }
+
+      const user = affiliateUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+      authMessage.textContent = user
+        ? 'Em uma versão com backend, o link de recuperação será enviado para este e-mail.'
+        : 'Não encontramos uma conta com este e-mail.';
+      authMessage.style.color = user ? '#98f5c2' : '#ff8f8f';
     });
 
     if (rangeFilter) {
@@ -625,73 +1032,32 @@
         renderOrders();
         renderChart();
         renderMetrics();
+        renderAffiliateBalance();
       });
     }
 
     if (productFilter) {
       productFilter.addEventListener('change', () => {
         renderOrders();
-        renderCommissionTable();
         renderMetrics();
       });
     }
 
-    if (exportBtn) {
-      exportBtn.addEventListener('click', exportToCSV);
-    }
+    if (exportBtn) exportBtn.addEventListener('click', exportToCSV);
 
-    authForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const email = authEmailInput.value.trim();
-      const password = authPasswordInput.value.trim();
-      const name = authNameInput.value.trim();
-
-      if (!email || !password) {
-        authMessage.textContent = 'Preencha e-mail e senha para continuar.';
-        authMessage.style.color = '#ffd54d';
-        return;
-      }
-
-      if (currentMode === 'register' && !name) {
-        authMessage.textContent = 'Informe seu nome para criar a conta.';
-        authMessage.style.color = '#ffd54d';
-        return;
-      }
-
-      if (password.length < 6) {
-        authMessage.textContent = 'A senha deve ter pelo menos 6 caracteres.';
-        authMessage.style.color = '#ffd54d';
-        return;
-      }
-
-      const displayName = currentMode === 'register' ? name : (email.split('@')[0] || 'afiliado');
-      localStorage.setItem('flashmarket_affiliate_session', 'true');
-      localStorage.setItem('flashmarket_affiliate_user', displayName);
-      setLoggedState(true, displayName);
-      authForm.reset();
-      setMode('login');
-    });
-
-    logoutBtn.addEventListener('click', () => {
-      localStorage.removeItem('flashmarket_affiliate_session');
-      localStorage.removeItem('flashmarket_affiliate_user');
-      setLoggedState(false, '');
-      authForm.reset();
-      setMode('login');
-    });
-
-    shopForm.addEventListener('submit', function (event) {
+    shopForm.addEventListener('submit', event => {
       event.preventDefault();
       saveShopProfile();
       authMessage.textContent = 'Perfil da loja salvo com sucesso.';
       authMessage.style.color = '#98f5c2';
     });
 
-    productForm.addEventListener('submit', function (event) {
+    productForm.addEventListener('submit', event => {
       event.preventDefault();
 
       if (!isSessionActive()) {
-        setLoggedState(false, '');
+        setLoggedState(false,'');
+        setMode('login');
         authMessage.textContent = 'Sua sessão expirou. Faça login novamente para adicionar produtos.';
         return;
       }
@@ -704,18 +1070,44 @@
       if (!name || !category || !price) return;
 
       const products = getStoredProducts();
-      products.unshift({ name, category, price, status });
-      localStorage.setItem('flashmarket_affiliate_products', JSON.stringify(products));
-      renderProducts();
-      renderMetrics();
-      renderCommissionTable();
-      populateProductFilter();
+      products.unshift({name,category,price,status});
+      localStorage.setItem(userStorageKey('flashmarket_affiliate_products'),JSON.stringify(products));
+
       productForm.reset();
+      refreshDashboard();
     });
 
+    if (copyAffiliateLink) {
+      copyAffiliateLink.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(affiliateLink.textContent.trim());
+          copyAffiliateMessage.textContent = 'Link copiado com sucesso!';
+          copyAffiliateMessage.style.color = '#168a52';
+        } catch {
+          copyAffiliateMessage.textContent = 'Não foi possível copiar automaticamente. Selecione o link e copie.';
+        }
+      });
+    }
+
+    if (withdrawBtn) {
+      withdrawBtn.addEventListener('click', () => {
+        const balance = document.getElementById('availableBalance')?.textContent || 'R$ 0,00';
+
+        if (balance === 'R$ 0,00') {
+          withdrawMessage.textContent = 'Você ainda não possui saldo disponível para saque.';
+          withdrawMessage.style.color = '#ffd75a';
+          return;
+        }
+
+        withdrawMessage.textContent = `Solicitação de saque registrada para ${balance}. O pagamento deve ser processado pelo sistema financeiro.`;
+        withdrawMessage.style.color = '#98f5c2';
+      });
+    }
+
     setMode('login');
-    populateProductFilter();
     applyInitialState();
+    
   </script>
+  
 </body>
 </html>

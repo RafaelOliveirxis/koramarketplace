@@ -1,141 +1,1402 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>FlashMarket | Rastrear Pedido</title>
+
   <link rel="icon" href="assets/favicon.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* =====================================================
+       RASTREAMENTO — PROPORÇÃO RESPONSIVA
+    ====================================================== */
+
+    .page-tracking {
+      width: 100%;
+      min-height: calc(100vh - 140px);
+      box-sizing: border-box;
+      padding: clamp(32px, 5vw, 64px) clamp(14px, 4vw, 56px) 70px;
+      background: #f3f4f6;
+    }
+
+    .page-tracking .page-shell {
+      width: min(100%, 1380px);
+      margin: 0 auto;
+    }
+
+    .tracking-header {
+      margin-bottom: 26px;
+    }
+
+    .tracking-header h1 {
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: .95;
+      letter-spacing: -2px;
+      margin: 12px 0 10px;
+    }
+
+    .tracking-header p {
+      max-width: 720px;
+      font-size: clamp(12px, 1vw, 15px);
+      line-height: 1.6;
+    }
+
+    .tracking-search-card,
+    .tracking-summary-card,
+    .current-status-card,
+    .timeline-card,
+    .detail-card,
+    .tracking-security {
+      box-sizing: border-box;
+    }
+
+    .tracking-search-card {
+      width: 100%;
+      margin-bottom: 18px;
+    }
+
+    .tracking-search-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 14px;
+    }
+
+    .tracking-input {
+      min-width: 0;
+    }
+
+    .input-wrapper {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .tracking-search-form .primary-btn {
+      min-height: 48px;
+      white-space: nowrap;
+    }
+
+    .tracking-result {
+      width: 100%;
+    }
+
+    .tracking-summary-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(390px, .9fr);
+      gap: 25px;
+      align-items: center;
+    }
+
+    .summary-info {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .tracking-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, .7fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .timeline-card,
+    .order-details {
+      min-width: 0;
+    }
+
+    .order-details {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .tracking-security {
+      margin-top: 20px;
+    }
+
+    /* =====================================================
+       FLASH IA FLUTUANTE
+    ====================================================== */
+
+    .tracking-ai-button {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 9998;
+
+      width: 62px;
+      height: 62px;
+      border: 0;
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+
+      box-shadow: 0 12px 32px rgba(0,0,0,.24);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .tracking-ai-button:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 16px 38px rgba(0,0,0,.3);
+    }
+
+    .tracking-ai-button .ai-symbol {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      color: #111;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .tracking-ai-button .ai-online {
+      position: absolute;
+      right: 3px;
+      bottom: 4px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #22c55e;
+      border: 2px solid #111;
+    }
+
+    .tracking-ai-tooltip {
+      position: absolute;
+      right: 72px;
+      white-space: nowrap;
+      padding: 8px 11px;
+      border-radius: 8px;
+      background: #111;
+      color: #fff;
+      font: 800 10px Inter, sans-serif;
+      opacity: 0;
+      transform: translateX(8px);
+      pointer-events: none;
+      transition: .2s;
+    }
+
+    .tracking-ai-button:hover .tracking-ai-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .tracking-ai-chat {
+      position: fixed;
+      right: 24px;
+      bottom: 100px;
+      z-index: 9997;
+
+      width: min(390px, calc(100vw - 28px));
+      height: min(570px, calc(100vh - 125px));
+
+      display: flex;
+      flex-direction: column;
+
+      background: #fff;
+      border: 1px solid #e3e5e8;
+      border-radius: 18px;
+      overflow: hidden;
+
+      box-shadow: 0 25px 70px rgba(0,0,0,.22);
+
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(18px) scale(.96);
+      transform-origin: bottom right;
+
+      transition: opacity .2s ease, visibility .2s ease, transform .2s ease;
+    }
+
+    .tracking-ai-chat.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .tracking-ai-head {
+      min-height: 68px;
+      padding: 12px 15px;
+      box-sizing: border-box;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      background: #111;
+      color: #fff;
+    }
+
+    .tracking-ai-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tracking-ai-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      color: #111;
+      font-weight: 900;
+    }
+
+    .tracking-ai-profile strong {
+      display: block;
+      font: 800 12px Inter, sans-serif;
+    }
+
+    .tracking-ai-profile small {
+      display: block;
+      margin-top: 3px;
+      color: #76d99c;
+      font: 600 8px Inter, sans-serif;
+    }
+
+    .tracking-ai-close {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 8px;
+      background: #242424;
+      color: #fff;
+      font-size: 21px;
+      cursor: pointer;
+    }
+
+    .tracking-ai-messages {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tracking-ai-msg {
+      display: flex;
+      gap: 7px;
+      max-width: 90%;
+    }
+
+    .tracking-ai-msg.user {
+      align-self: flex-end;
+      justify-content: flex-end;
+    }
+
+    .tracking-ai-msg .msg-avatar {
+      width: 23px;
+      height: 23px;
+      flex-shrink: 0;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      color: #fff;
+      font-size: 10px;
+    }
+
+    .tracking-ai-msg > div {
+      padding: 9px 11px;
+      border-radius: 10px;
+      background: #f1f2f4;
+    }
+
+    .tracking-ai-msg.user > div {
+      background: #111;
+      color: #fff;
+    }
+
+    .tracking-ai-msg p {
+      margin: 0;
+      font: 500 10px/1.45 Inter, sans-serif;
+    }
+
+    .tracking-ai-msg small {
+      display: block;
+      margin-top: 4px;
+      color: #999;
+      font: 500 7px Inter, sans-serif;
+    }
+
+    .tracking-ai-shortcuts {
+      display: flex;
+      gap: 6px;
+      padding: 0 12px 10px;
+      overflow-x: auto;
+    }
+
+    .tracking-ai-shortcuts button {
+      flex-shrink: 0;
+      padding: 8px 10px;
+      border: 1px solid #e2e3e5;
+      border-radius: 50px;
+      background: #f6f6f7;
+      color: #333;
+      font: 700 8px Inter, sans-serif;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .tracking-ai-form {
+      display: grid;
+      grid-template-columns: 1fr 42px;
+      gap: 7px;
+      padding: 10px 12px;
+      border-top: 1px solid #eee;
+    }
+
+    .tracking-ai-form input {
+      width: 100%;
+      height: 40px;
+      box-sizing: border-box;
+      padding: 0 11px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      font: 500 10px Inter, sans-serif;
+    }
+
+    .tracking-ai-form button {
+      height: 40px;
+      border: 0;
+      border-radius: 8px;
+      background: #ffc928;
+      color: #111;
+      font: 900 14px Inter, sans-serif;
+      cursor: pointer;
+    }
+
+    .tracking-ai-human {
+      width: calc(100% - 24px);
+      height: 38px;
+      margin: 0 12px 12px;
+      border: 0;
+      border-radius: 8px;
+      background: #111;
+      color: #fff;
+      font: 800 9px Inter, sans-serif;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .tracking-summary-card {
+        grid-template-columns: 1fr;
+      }
+
+      .tracking-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .page-tracking {
+        padding: 28px 12px 90px;
+      }
+
+      .tracking-search-form {
+        grid-template-columns: 1fr;
+      }
+
+      .tracking-search-form .primary-btn {
+        width: 100%;
+      }
+
+      .summary-info {
+        grid-template-columns: 1fr;
+      }
+
+      .tracking-ai-button {
+        right: 16px;
+        bottom: 16px;
+        width: 58px;
+        height: 58px;
+      }
+
+      .tracking-ai-chat {
+        right: 10px;
+        bottom: 84px;
+        width: calc(100vw - 20px);
+        height: min(590px, calc(100vh - 105px));
+        border-radius: 15px;
+      }
+
+      .tracking-ai-tooltip {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
+  <!-- =====================================================
+       BARRA SUPERIOR
+  ====================================================== -->
+
   <div class="top-strip">
     <div class="wrap top-inner">
+
       <strong>WHATSAPP: (11) 99725-5630</strong>
+
       <div class="top-links">
         <a href="suporte.html">Central de Atendimento</a>
-        <a href="rastrear-pedido.html">Rastrear Pedido</a>
+        <a href="rastrear-pedido.html" class="active">Rastrear Pedido</a>
         <a href="afiliado.html">Área de Afiliado</a>
       </div>
+
     </div>
   </div>
 
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
   <header class="site-header">
+
     <div class="wrap header-main">
+
       <a class="brand" href="index.html" aria-label="FlashMarket">
-        <img src="assets/favicon.png" alt="FlashMarket" class="brand-logo">
+        <img
+          src="assets/favicon.png"
+          alt="FlashMarket"
+          class="brand-logo"
+        >
       </a>
-      <form class="search" action="index.html">
-        <input type="search" placeholder="Pesquise aqui..." autocomplete="off">
-        <button type="submit" aria-label="Pesquisar">⌕</button>
+
+      <form class="search" action="index.html" method="get">
+
+        <input
+          type="search"
+          name="q"
+          placeholder="Pesquise aqui..."
+          autocomplete="off"
+        >
+
+        <button type="submit" aria-label="Pesquisar">
+          ⌕
+        </button>
+
       </form>
+
       <div class="header-actions">
-        <a class="head-action" href="index.html#produtos"><span>🛒</span><b>LOJA</b></a>
-        <a class="head-action" href="afiliado.html"><span>👤</span><b>AFILIADO</b></a>
+
+        <a class="head-action" href="index.html#produtos">
+          <span>🛒</span>
+          <b>LOJA</b>
+        </a>
+
+        <a class="head-action" href="afiliado.html">
+          <span>👤</span>
+          <b>AFILIADO</b>
+        </a>
+
       </div>
+
     </div>
+
   </header>
 
-  <main class="page-tracking">
-    <div class="page-shell tracking-layout">
-      <section class="tracking-card">
-        <div class="status-pill">Pedido em andamento</div>
-        <h1>Rastrear Pedido</h1>
-        <p>Veja em tempo real o status da sua entrega, como se fosse o sistema da SEDEX.</p>
 
-        <div class="order-box">
-          <h3>Pedido FM-20487</h3>
-          <div class="track-bar"><span></span></div>
-          <div class="tracking-status">
-            <div class="track-step active">
-              <strong>1. Pedido</strong>
-              <span>Confirmado</span>
-            </div>
-            <div class="track-step active">
-              <strong>2. Separação</strong>
-              <span>Em preparação</span>
-            </div>
-            <div class="track-step active">
-              <strong>3. Transporte</strong>
-              <span>Em rota</span>
-            </div>
-            <div class="track-step">
-              <strong>4. Entrega</strong>
-              <span>Prevista em 2 dias</span>
-            </div>
-          </div>
+  <!-- =====================================================
+       CONTEÚDO PRINCIPAL
+  ====================================================== -->
+
+  <main class="page-tracking">
+
+    <div class="page-shell">
+
+      <section class="tracking-header">
+
+        <div>
+
+          <span class="status-pill">
+            🚚 Rastreamento online
+          </span>
+
+          <h1>
+            Rastrear pedido
+          </h1>
+
+          <p>
+            Acompanhe cada etapa da sua entrega em tempo real.
+            Informe o código do pedido para consultar.
+          </p>
+
         </div>
+
       </section>
 
-      <section class="tracking-card">
-        <div class="status-pill">Acompanhar entrega</div>
-        <form class="chat-form" style="margin-top:10px;">
-          <input type="text" value="FM-20487" aria-label="Código do pedido">
-          <button class="primary-btn" type="submit">Consultar</button>
+
+      <!-- BUSCA DO PEDIDO -->
+
+      <section class="tracking-search-card">
+
+        <form id="trackingForm" class="tracking-search-form">
+
+          <div class="tracking-input">
+
+            <label for="trackingCode">
+              Código do pedido ou rastreio
+            </label>
+
+            <div class="input-wrapper">
+
+              <span>🔎</span>
+
+              <input
+                id="trackingCode"
+                name="trackingCode"
+                type="text"
+                placeholder="Ex.: FM-20487"
+                autocomplete="off"
+                required
+              >
+
+            </div>
+
+          </div>
+
+          <button class="primary-btn" type="submit">
+            Consultar pedido
+          </button>
+
         </form>
 
-        <table class="order-table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Preço</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Moletom Street Flash</td>
-              <td>R$ 119,90</td>
-              <td>Em transporte</td>
-            </tr>
-            <tr>
-              <td>Mouse Sem Fio Slim</td>
-              <td>R$ 64,90</td>
-              <td>Separado</td>
-            </tr>
-            <tr>
-              <td>Kit Canetas</td>
-              <td>R$ 24,90</td>
-              <td>Pedido confirmado</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="tracking-examples">
+
+          <span>Exemplos:</span>
+
+          <button type="button" data-example="FM-20487">
+            FM-20487
+          </button>
+
+          <button type="button" data-example="FM-31592">
+            FM-31592
+          </button>
+
+          <button type="button" data-example="FM-78214">
+            FM-78214
+          </button>
+
+        </div>
+
       </section>
+
+
+      <!-- LOADING -->
+
+      <div id="loadingState" class="tracking-loading hidden">
+
+        <div class="loading-spinner"></div>
+
+        <strong>
+          Consultando informações...
+        </strong>
+
+        <span>
+          Aguarde enquanto buscamos o status do pedido.
+        </span>
+
+      </div>
+
+
+      <!-- ERRO -->
+
+      <div id="errorState" class="tracking-error hidden">
+
+        <div class="error-icon">
+          !
+        </div>
+
+        <div>
+
+          <strong>
+            Pedido não encontrado
+          </strong>
+
+          <p>
+            Verifique o código informado e tente novamente.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- RESULTADO -->
+
+      <section id="trackingResult" class="tracking-result hidden">
+
+        <div class="tracking-summary-card">
+
+          <div class="summary-main">
+
+            <div class="summary-icon">
+              📦
+            </div>
+
+            <div>
+
+              <span class="summary-label">
+                Pedido
+              </span>
+
+              <h2 id="orderNumber">
+                FM-20487
+              </h2>
+
+              <span id="orderStatus" class="order-status">
+                Em transporte
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="summary-info">
+
+            <div>
+              <span>Rastreio</span>
+              <strong id="trackingNumber">
+                FM204871BR
+              </strong>
+            </div>
+
+            <div>
+              <span>Transportadora</span>
+              <strong id="carrier">
+                Flash Express
+              </strong>
+            </div>
+
+            <div>
+              <span>Previsão</span>
+              <strong id="deliveryDate">
+                02/09/2026
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- STATUS ATUAL -->
+
+        <div class="current-status-card">
+
+          <div class="current-status-top">
+
+            <div>
+
+              <span class="status-label">
+                STATUS ATUAL
+              </span>
+
+              <h2 id="currentTitle">
+                Pedido em transporte
+              </h2>
+
+              <p id="currentDescription">
+                Seu pedido está a caminho do centro de distribuição.
+              </p>
+
+            </div>
+
+            <div id="progressPercentage" class="progress-percentage">
+              75%
+            </div>
+
+          </div>
+
+
+          <div class="progress-container">
+
+            <div
+              id="progressBar"
+              class="progress-bar"
+              style="width: 75%"
+            ></div>
+
+          </div>
+
+
+          <div class="progress-footer">
+
+            <span>
+              Pedido confirmado
+            </span>
+
+            <strong id="progressText">
+              3 de 4 etapas concluídas
+            </strong>
+
+            <span>
+              Entrega
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- LAYOUT PRINCIPAL -->
+
+        <div class="tracking-grid">
+
+          <section class="timeline-card">
+
+            <div class="card-heading">
+
+              <div>
+
+                <span class="status-label">
+                  ACOMPANHAMENTO
+                </span>
+
+                <h2>
+                  Histórico do pedido
+                </h2>
+
+              </div>
+
+              <span id="lastUpdate" class="last-update">
+                Atualizado agora
+              </span>
+
+            </div>
+
+            <div id="timeline" class="timeline"></div>
+
+          </section>
+
+
+          <aside class="order-details">
+
+            <div class="detail-card">
+
+              <div class="detail-heading">
+
+                <span>📍</span>
+
+                <div>
+
+                  <span class="status-label">
+                    ENTREGA
+                  </span>
+
+                  <h3>
+                    Endereço de destino
+                  </h3>
+
+                </div>
+
+              </div>
+
+              <p id="deliveryAddress">
+                Rua das Flores, 125
+                <br>
+                Centro — Barueri/SP
+                <br>
+                CEP 06400-000
+              </p>
+
+            </div>
+
+
+            <div class="detail-card">
+
+              <div class="detail-heading">
+
+                <span>🛍️</span>
+
+                <div>
+
+                  <span class="status-label">
+                    PEDIDO
+                  </span>
+
+                  <h3>
+                    Produtos
+                  </h3>
+
+                </div>
+
+              </div>
+
+              <div id="productsList" class="products-list"></div>
+
+            </div>
+
+
+            <div class="support-card">
+
+              <div class="support-icon">
+                💬
+              </div>
+
+              <div>
+
+                <strong>
+                  Precisa de ajuda?
+                </strong>
+
+                <p>
+                  Nossa equipe está pronta para ajudar.
+                </p>
+
+                <a href="suporte.html">
+                  Acessar atendimento →
+                </a>
+
+              </div>
+
+            </div>
+
+          </aside>
+
+        </div>
+
+
+        <!-- SEGURANÇA -->
+
+        <div class="tracking-security">
+
+          <span>
+            🔒
+          </span>
+
+          <div>
+
+            <strong>
+              Rastreamento seguro
+            </strong>
+
+            <p>
+              As informações exibidas nesta página são vinculadas
+              exclusivamente ao código informado.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
     </div>
+
   </main>
 
+
+  <!-- =====================================================
+       FLASH IA — BOTÃO FLUTUANTE
+  ====================================================== -->
+
+  <button
+    id="trackingAiButton"
+    class="tracking-ai-button"
+    type="button"
+    aria-label="Abrir Flash IA"
+    aria-expanded="false"
+  >
+
+    <span class="tracking-ai-tooltip">
+      Precisa de ajuda?
+    </span>
+
+    <span class="ai-symbol">
+      ✦
+    </span>
+
+    <span class="ai-online"></span>
+
+  </button>
+
+
+  <!-- =====================================================
+       FLASH IA — CHAT
+  ====================================================== -->
+
+  <div
+    id="trackingAiChat"
+    class="tracking-ai-chat"
+    aria-hidden="true"
+  >
+
+    <div class="tracking-ai-head">
+
+      <div class="tracking-ai-profile">
+
+        <div class="tracking-ai-avatar">
+          ✦
+        </div>
+
+        <div>
+
+          <strong>
+            Flash IA
+          </strong>
+
+          <small>
+            ● Atendimento online
+          </small>
+
+        </div>
+
+      </div>
+
+      <button
+        id="trackingAiClose"
+        class="tracking-ai-close"
+        type="button"
+        aria-label="Fechar Flash IA"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      id="trackingAiMessages"
+      class="tracking-ai-messages"
+    >
+
+      <div class="tracking-ai-msg">
+
+        <span class="msg-avatar">
+          ✦
+        </span>
+
+        <div>
+
+          <p>
+            Olá! 👋 Sou a Flash IA. Posso ajudar você a
+            entender o status do seu pedido.
+          </p>
+
+          <small>
+            Agora
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="tracking-ai-shortcuts">
+
+      <button
+        type="button"
+        data-ai-message="Quero rastrear meu pedido"
+      >
+        📦 Rastrear pedido
+      </button>
+
+      <button
+        type="button"
+        data-ai-message="Quero saber a previsão de entrega"
+      >
+        🚚 Previsão de entrega
+      </button>
+
+      <button
+        type="button"
+        data-ai-message="Quero falar com um atendente"
+      >
+        👨‍💼 Atendente
+      </button>
+
+    </div>
+
+
+    <form
+      id="trackingAiForm"
+      class="tracking-ai-form"
+    >
+
+      <input
+        id="trackingAiInput"
+        type="text"
+        placeholder="Digite sua dúvida..."
+        autocomplete="off"
+        required
+      >
+
+      <button type="submit" aria-label="Enviar">
+        ➤
+      </button>
+
+    </form>
+
+
+    <button
+      id="trackingAiHuman"
+      class="tracking-ai-human"
+      type="button"
+    >
+      👨‍💼 Falar com atendente
+    </button>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
   <footer class="footer">
+
     <div class="wrap footer-grid">
+
       <div class="footer-about">
-        <img src="assets/logo.FlashMarket.png" alt="FlashMarket" class="footer-logo">
-        <p>Variedade, preço e praticidade em um só lugar.</p>
+
+        <img
+          src="assets/logo.FlashMarket.png"
+          alt="FlashMarket"
+          class="footer-logo"
+        >
+
+        <p>
+          Variedade, preço e praticidade
+          em um só lugar.
+        </p>
+
       </div>
+
+
       <div class="footer-column">
-        <h3>ATENDIMENTO</h3>
-        <a href="suporte.html">Central de atendimento</a>
-        <a href="rastrear-pedido.html">Rastrear pedido</a>
-        <a href="afiliado.html">Área de afiliado</a>
+
+        <h3>
+          ATENDIMENTO
+        </h3>
+
+        <a href="suporte.html">
+          Central de atendimento
+        </a>
+
+        <a href="rastrear-pedido.html">
+          Rastrear pedido
+        </a>
+
+        <a href="afiliado.html">
+          Área de afiliado
+        </a>
+
       </div>
+
+
       <div class="footer-column">
-        <h3>INSTITUCIONAL</h3>
-        <a href="index.html#ofertas">Ofertas</a>
-        <a href="index.html#produtos">Produtos</a>
-        <a href="index.html#contato">Localização</a>
+
+        <h3>
+          INSTITUCIONAL
+        </h3>
+
+        <a href="index.html#ofertas">
+          Ofertas
+        </a>
+
+        <a href="index.html#produtos">
+          Produtos
+        </a>
+
+        <a href="index.html#contato">
+          Localização
+        </a>
+
       </div>
+
+
       <div class="footer-column">
-        <h3>CONTATO</h3>
-        <a href="tel:+5511997255630">(11) 99725-5630</a>
-        <a href="mailto:atendimento@flashmarket.com">atendimento@flashmarket.com</a>
+
+        <h3>
+          CONTATO
+        </h3>
+
+        <a href="tel:+5511997255630">
+          (11) 99725-5630
+        </a>
+
+        <a href="mailto:atendimento@flashmarket.com">
+          atendimento@flashmarket.com
+        </a>
+
       </div>
+
     </div>
+
+
     <div class="footer-bottom">
+
       <div class="wrap footer-bottom-inner">
-        <span>© 2026 FlashMarket — Todos os direitos reservados.</span>
-        <span>Feito para uma experiência de compra rápida e segura.</span>
+
+        <span>
+          © 2026 FlashMarket — Todos os direitos reservados.
+        </span>
+
+        <span>
+          Feito para uma experiência de compra rápida e segura.
+        </span>
+
       </div>
+
     </div>
+
   </footer>
+
+
+  <script src="js/rastreamento.js"></script>
+
+  <script>
+    /* =====================================================
+       FLASH IA — RASTREAMENTO
+    ====================================================== */
+
+    (() => {
+
+      const button = document.getElementById("trackingAiButton");
+      const chat = document.getElementById("trackingAiChat");
+      const close = document.getElementById("trackingAiClose");
+      const form = document.getElementById("trackingAiForm");
+      const input = document.getElementById("trackingAiInput");
+      const messages = document.getElementById("trackingAiMessages");
+      const human = document.getElementById("trackingAiHuman");
+
+      if (!button || !chat) return;
+
+
+      function openChat() {
+        chat.classList.add("open");
+        button.setAttribute("aria-expanded", "true");
+        chat.setAttribute("aria-hidden", "false");
+
+        setTimeout(() => input?.focus(), 150);
+      }
+
+
+      function closeChat() {
+        chat.classList.remove("open");
+        button.setAttribute("aria-expanded", "false");
+        chat.setAttribute("aria-hidden", "true");
+      }
+
+
+      function escapeHTML(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+
+      function addMessage(text, type = "bot") {
+
+        const item = document.createElement("div");
+
+        item.className = `tracking-ai-msg ${type}`;
+
+        if (type === "bot") {
+
+          item.innerHTML = `
+            <span class="msg-avatar">✦</span>
+            <div>
+              <p>${escapeHTML(text)}</p>
+              <small>Agora</small>
+            </div>
+          `;
+
+        } else {
+
+          item.innerHTML = `
+            <div>
+              <p>${escapeHTML(text)}</p>
+              <small>Agora</small>
+            </div>
+          `;
+
+        }
+
+        messages.appendChild(item);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+
+      function answer(text) {
+
+        const value = text.toLowerCase();
+
+        if (
+          value.includes("rastre") ||
+          value.includes("pedido") ||
+          value.includes("onde")
+        ) {
+
+          return "Para acompanhar seu pedido, informe o código na área de rastreamento acima. Exemplos: FM-20487, FM-31592 ou FM-78214.";
+
+        }
+
+
+        if (
+          value.includes("previsão") ||
+          value.includes("previsao") ||
+          value.includes("prazo") ||
+          value.includes("quando")
+        ) {
+
+          return "A previsão de entrega aparece nos detalhes do pedido depois que a consulta é realizada.";
+
+        }
+
+
+        if (
+          value.includes("atendente") ||
+          value.includes("humano") ||
+          value.includes("pessoa")
+        ) {
+
+          return "Claro! Clique em “Falar com atendente” para entrar em contato com nossa equipe pelo WhatsApp.";
+
+        }
+
+
+        if (
+          value.includes("olá") ||
+          value.includes("ola") ||
+          value === "oi"
+        ) {
+
+          return "Olá! 👋 Posso ajudar com rastreamento, prazo de entrega e informações sobre seu pedido.";
+
+        }
+
+
+        return "Posso ajudar com rastreamento, previsão de entrega ou encaminhar você para um atendente. O que você precisa?";
+
+      }
+
+
+      button.addEventListener("click", () => {
+
+        if (chat.classList.contains("open")) {
+          closeChat();
+        } else {
+          openChat();
+        }
+
+      });
+
+
+      close.addEventListener("click", closeChat);
+
+
+      form.addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const text = input.value.trim();
+
+        if (!text) return;
+
+        addMessage(text, "user");
+
+        input.value = "";
+
+        setTimeout(() => {
+          addMessage(answer(text), "bot");
+        }, 500);
+
+      });
+
+
+      document
+        .querySelectorAll("[data-ai-message]")
+        .forEach(item => {
+
+          item.addEventListener("click", () => {
+
+            const text = item.dataset.aiMessage;
+
+            input.value = text;
+
+            input.focus();
+
+          });
+
+        });
+
+
+      human.addEventListener("click", () => {
+
+        window.open(
+          "https://wa.me/5511997255630?text=Olá!%20Preciso%20de%20ajuda%20com%20meu%20pedido.",
+          "_blank",
+          "noopener"
+        );
+
+      });
+
+
+      document.addEventListener("keydown", event => {
+
+        if (
+          event.key === "Escape" &&
+          chat.classList.contains("open")
+        ) {
+
+          closeChat();
+
+        }
+
+      });
+
+
+      document.addEventListener("click", event => {
+
+        if (
+          chat.classList.contains("open") &&
+          !chat.contains(event.target) &&
+          !button.contains(event.target)
+        ) {
+
+          closeChat();
+
+        }
+
+      });
+
+    })();
+  </script>
+
 </body>
 </html>

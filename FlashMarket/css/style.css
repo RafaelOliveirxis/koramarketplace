@@ -696,17 +696,14 @@ img{max-width:100%;display:block}
     }
   }
 
-/* ========================= 
-   PREMIUM POLISH & UPGRADES
-   ========================= */
-
 :root {
   --premium-gold: #ffd75a;
   --premium-dark: #0a0a0a;
   --premium-accent: #1a1a1a;
 }
 
-/* Enhance typography for premium feel */
+/* Premium dashboard enhancements */
+
 h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.8px;
   font-weight: 900;
@@ -716,7 +713,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 96px;
   text-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
 }
-
 /* Premium dashboard enhancements */
 .affiliate-card,
 .account-page {
@@ -1224,4 +1220,2187 @@ h1, h2, h3, h4, h5, h6 {
     height: 60px;
     font-size: 28px;
   }
+}
+
+.page-tracking {
+  background: #f5f6f8;
+  min-height: 700px;
+  padding: 55px 20px 80px;
+}
+
+.page-shell {
+  max-width: 1180px;
+  margin: auto;
+}
+
+.tracking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.tracking-header h1 {
+  font-size: 42px;
+  margin: 15px 0 8px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+.tracking-header p {
+  margin: 0;
+  color: #69707d;
+  font-size: 16px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: #e9f7ef;
+  color: #18864b;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   BUSCA
+========================================================= */
+
+.tracking-search-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid #e7e9ed;
+  box-shadow: 0 10px 30px rgba(0,0,0,.05);
+  margin-bottom: 25px;
+}
+
+.tracking-search-form {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+.tracking-input {
+  flex: 1;
+}
+
+.tracking-input label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  color: #555b66;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dfe2e7;
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 50px;
+  background: #fafafa;
+}
+
+.input-wrapper span {
+  margin-right: 10px;
+}
+
+.input-wrapper input {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.primary-btn {
+  height: 50px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0 25px;
+  background: #111;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  opacity: .9;
+}
+
+.tracking-examples {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #777;
+}
+
+.tracking-examples button {
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 7px;
+  padding: 5px 9px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   ESTADOS
+========================================================= */
+
+.hidden {
+  display: none !important;
+}
+
+.tracking-loading,
+.tracking-error {
+  background: #fff;
+  border-radius: 16px;
+  padding: 35px;
+  text-align: center;
+  border: 1px solid #e5e6e9;
+  margin-bottom: 25px;
+}
+
+.loading-spinner {
+  width: 35px;
+  height: 35px;
+  border: 4px solid #eee;
+  border-top-color: #111;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tracking-loading strong,
+.tracking-loading span {
+  display: block;
+}
+
+.tracking-loading span {
+  margin-top: 6px;
+  color: #777;
+  font-size: 13px;
+}
+
+.error-icon {
+  width: 45px;
+  height: 45px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff0f0;
+  color: #d93030;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.tracking-summary-card {
+  background: #111;
+  color: white;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.summary-main {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.summary-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 15px;
+  background: rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.summary-label,
+.status-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #90959e;
+}
+
+.summary-main h2 {
+  margin: 5px 0;
+  font-size: 27px;
+}
+
+.order-status {
+  color: #7ee2a8;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.summary-info {
+  display: flex;
+  gap: 40px;
+}
+
+.summary-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.summary-info span {
+  color: #8f949c;
+  font-size: 11px;
+}
+
+.summary-info strong {
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.current-status-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.current-status-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.current-status-top h2 {
+  margin: 8px 0;
+  font-size: 22px;
+}
+
+.current-status-top p {
+  margin: 0;
+  color: #707782;
+}
+
+.progress-percentage {
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.progress-container {
+  height: 10px;
+  background: #eceef1;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 25px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #111;
+  border-radius: inherit;
+  transition: width .7s ease;
+}
+
+.progress-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 11px;
+  color: #858b94;
+}
+
+.progress-footer strong {
+  color: #111;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.tracking-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.timeline-card,
+.detail-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 25px;
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.card-heading h2 {
+  margin: 7px 0 0;
+  font-size: 20px;
+}
+
+.last-update {
+  font-size: 11px;
+  color: #8a9099;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline {
+  position: relative;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 15px;
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.timeline-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 34px;
+  width: 2px;
+  height: calc(100% - 25px);
+  background: #e5e7eb;
+}
+
+.timeline-item.completed:not(:last-child)::after {
+  background: #111;
+}
+
+.timeline-marker {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  font-size: 12px;
+  font-weight: 900;
+  z-index: 1;
+}
+
+.timeline-item.completed .timeline-marker {
+  background: #111;
+  color: white;
+  border-color: #111;
+}
+
+.timeline-item.current .timeline-marker {
+  box-shadow: 0 0 0 5px #eeeeee;
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.timeline-top strong {
+  font-size: 14px;
+}
+
+.timeline-top span {
+  font-size: 11px;
+  color: #888;
+}
+
+.timeline-content p {
+  margin: 6px 0;
+  color: #707782;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.timeline-content small {
+  color: #999;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   DETALHES
+========================================================= */
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-heading {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.detail-heading > span {
+  font-size: 22px;
+}
+
+.detail-heading h3 {
+  margin: 5px 0 0;
+  font-size: 16px;
+}
+
+.detail-card p {
+  color: #646b75;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   PRODUTOS
+========================================================= */
+
+.products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.product-track-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.product-track-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.product-track-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  background: #f2f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-track-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.product-track-info strong {
+  font-size: 12px;
+}
+
+.product-track-info span {
+  font-size: 10px;
+  color: #888;
+}
+
+.product-track-item > strong {
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SUPORTE
+========================================================= */
+
+.support-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 18px;
+  background: #111;
+  color: white;
+}
+
+.support-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.support-card strong {
+  font-size: 13px;
+}
+
+.support-card p {
+  margin: 5px 0 10px;
+  font-size: 11px;
+  color: #a8adb5;
+}
+
+.support-card a {
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   SEGURANÇA
+========================================================= */
+
+.tracking-security {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  margin-top: 20px;
+  border-radius: 14px;
+  background: #eef8f2;
+  border: 1px solid #d7efdf;
+}
+
+.tracking-security > span {
+  font-size: 20px;
+}
+
+.tracking-security strong {
+  display: block;
+  font-size: 12px;
+  color: #167543;
+}
+
+.tracking-security p {
+  margin: 4px 0 0;
+  color: #568067;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .tracking-search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primary-btn {
+    width: 100%;
+  }
+
+  .tracking-summary-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summary-info {
+    width: 100%;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .tracking-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .page-tracking {
+    padding: 35px 14px 60px;
+  }
+
+  .tracking-header h1 {
+    font-size: 32px;
+  }
+
+  .tracking-search-card,
+  .timeline-card,
+  .detail-card,
+  .current-status-card {
+    padding: 20px;
+  }
+
+  .tracking-examples {
+    flex-wrap: wrap;
+  }
+
+  .summary-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .timeline-top {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .progress-footer {
+    font-size: 9px;
+  }
+
+}
+/* =========================================================
+   FLASHMARKET — CENTRAL DE ATENDIMENTO
+   AJUSTE PROFISSIONAL
+========================================================= */
+
+.page-support {
+  min-height: 720px;
+  padding: 40px 20px 70px;
+  background: #f4f5f7;
+}
+
+.support-layout {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   CARDS PRINCIPAIS
+========================================================= */
+
+.support-layout > .support-card {
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  background: #101010;
+  color: #fff;
+
+  border-radius: 14px;
+
+  padding: 24px;
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.12);
+}
+
+
+/* =========================================================
+   CARD ESQUERDO — CENTRAL
+========================================================= */
+
+.support-layout > .support-card:first-child {
+  min-height: 250px;
+}
+
+.support-layout > .support-card:first-child h1 {
+  margin: 14px 0 10px;
+
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: .95;
+
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+.support-layout > .support-card:first-child > p {
+  max-width: 580px;
+
+  margin: 0;
+
+  color: #b7bbc1;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.support-layout .status-pill {
+  display: inline-flex;
+
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 11px;
+
+  border-radius: 50px;
+
+  background: #e8f8ef;
+  color: #16804a;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
+
+.support-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-top: 22px;
+}
+
+.support-grid[style] {
+  margin-top: 10px !important;
+}
+
+.support-stat {
+  min-width: 0;
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  background: #191919;
+  border: 1px solid #252525;
+
+  transition: .2s ease;
+}
+
+.support-stat:hover {
+  background: #202020;
+  transform: translateY(-2px);
+}
+
+.support-stat strong {
+  display: block;
+
+  color: #fff;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  margin-bottom: 6px;
+}
+
+.support-stat small {
+  display: block;
+
+  color: #999;
+
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   CARD DIREITO
+========================================================= */
+
+.support-layout > .support-card:nth-child(2) {
+  min-height: 500px;
+}
+
+
+/* =========================================================
+   TRIAGEM
+========================================================= */
+
+.support-triage {
+  display: grid;
+
+  grid-template-columns:
+    minmax(145px, .75fr)
+    minmax(0, 1.25fr);
+
+  gap: 12px;
+
+  margin-top: 16px;
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.triage-menu {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.triage-item {
+  width: 100%;
+
+  padding: 13px 12px;
+
+  border: 1px solid #292929;
+
+  border-radius: 8px;
+
+  background: #181818;
+
+  color: #ddd;
+
+  text-align: left;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.triage-item:hover {
+  background: #222;
+  border-color: #444;
+}
+
+.triage-item.active {
+  background: #fff;
+  color: #111;
+  border-color: #fff;
+}
+
+
+/* =========================================================
+   PAINEL DE TRIAGEM
+========================================================= */
+
+.triage-panel {
+  min-width: 0;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  background: #f8f8f8;
+
+  color: #111;
+}
+
+.mini-badge {
+  display: inline-block;
+
+  padding: 6px 8px;
+
+  border-radius: 50px;
+
+  background: #fff2b8;
+  color: #7d6500;
+
+  font-size: 8px;
+  font-weight: 900;
+
+  text-transform: uppercase;
+}
+
+.triage-panel h3 {
+  margin: 13px 0 8px;
+
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.triage-panel > p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.triage-steps {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-top: 18px;
+}
+
+.triage-steps span {
+  padding: 9px;
+
+  border-radius: 7px;
+
+  background: #fff;
+
+  border: 1px solid #e5e5e5;
+
+  color: #444;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   BOTÕES RÁPIDOS
+========================================================= */
+
+.support-quick-actions {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+.support-chip {
+  padding: 10px;
+
+  border-radius: 8px;
+
+  border: 1px solid #292929;
+
+  background: #191919;
+
+  color: #ddd;
+
+  font-family: inherit;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.support-chip:hover {
+  background: #fff;
+  color: #111;
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+.chat-box {
+  display: flex;
+
+  flex-direction: column;
+
+  height: 245px;
+
+  margin-top: 12px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  background: #f8f8f8;
+}
+
+
+/* =========================================================
+   MENSAGENS
+========================================================= */
+
+.chat-thread {
+  flex: 1;
+
+  overflow-y: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding: 3px;
+}
+
+.chat-bubble {
+  max-width: 85%;
+
+  padding: 9px 11px;
+
+  border-radius: 9px;
+
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.chat-bubble.bot {
+  align-self: flex-start;
+
+  background: #fff;
+
+  color: #444;
+
+  border: 1px solid #e4e4e4;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+
+  background: #111;
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   CAMPO DE MENSAGEM
+========================================================= */
+
+.chat-input-row {
+  display: grid;
+
+  grid-template-columns: 1fr auto;
+
+  gap: 7px;
+
+  margin-top: 9px;
+}
+
+.chat-input-row input {
+  width: 100%;
+  min-width: 0;
+
+  height: 38px;
+
+  box-sizing: border-box;
+
+  padding: 0 11px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  font-family: inherit;
+  font-size: 10px;
+}
+
+.chat-input-row input:focus {
+  border-color: #111;
+}
+
+.chat-input-row button {
+  height: 38px;
+
+  padding: 0 14px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: #ffc928;
+  color: #111;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   ATENDENTE HUMANO
+========================================================= */
+
+.support-human-btn {
+  width: 100%;
+
+  height: 36px;
+
+  margin-top: 8px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: #111;
+
+  color: #fff;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.support-human-btn:hover {
+  background: #242424;
+}
+
+
+/* =========================================================
+   RESPONSIVO — TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .support-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .support-layout > .support-card:nth-child(2) {
+    min-height: auto;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .page-support {
+    padding: 25px 12px 50px;
+  }
+
+  .support-layout > .support-card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .support-layout > .support-card:first-child h1 {
+    font-size: 31px;
+  }
+
+  .support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .support-triage {
+    grid-template-columns: 1fr;
+  }
+
+  .support-quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .triage-panel {
+    padding: 16px;
+  }
+
+}
+/* =========================================================
+   FLASHMARKET — NOVA CENTRAL DE SUPORTE
+========================================================= */
+
+.page-support {
+  background: #f3f4f6;
+  min-height: 750px;
+  padding: 45px 20px 70px;
+}
+
+.support-page-shell {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.support-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.support-page-badge {
+  display: inline-flex;
+  padding: 7px 11px;
+  border-radius: 50px;
+
+  background: #e8f8ef;
+  color: #16804a;
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.support-page-header h1 {
+  margin: 12px 0 8px;
+
+  font-size: clamp(34px, 4vw, 50px);
+  line-height: .95;
+  letter-spacing: -2px;
+  font-weight: 900;
+}
+
+.support-page-header p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: #707782;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.support-online {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 15px;
+
+  background: #fff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.online-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #19a65b;
+
+  box-shadow: 0 0 0 4px #e4f7eb;
+}
+
+.support-online strong {
+  display: block;
+  font-size: 11px;
+}
+
+.support-online small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #858b94;
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.support-main-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.15fr)
+    minmax(390px, .85fr);
+
+  gap: 22px;
+
+  align-items: start;
+}
+
+.support-left,
+.support-right {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   CARD PRINCIPAL
+========================================================= */
+
+.support-main-card {
+  padding: 28px;
+
+  background: #111;
+
+  color: #fff;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.12);
+}
+
+.support-main-card-top {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.support-big-icon {
+  width: 55px;
+  height: 55px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #1c1c1c;
+
+  font-size: 25px;
+}
+
+.support-label {
+  display: block;
+
+  color: #999fa7;
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.support-main-card h2 {
+  margin: 7px 0;
+
+  font-size: 25px;
+  line-height: 1.05;
+}
+
+.support-main-card-top p {
+  max-width: 500px;
+
+  margin: 0;
+
+  color: #999;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   CATEGORIAS
+========================================================= */
+
+.support-category-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 9px;
+
+  margin-top: 25px;
+}
+
+.support-category {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  min-width: 0;
+
+  padding: 13px;
+
+  border: 1px solid #282828;
+  border-radius: 10px;
+
+  background: #191919;
+  color: #fff;
+
+  text-align: left;
+
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.support-category:hover {
+  background: #242424;
+  transform: translateY(-2px);
+}
+
+.support-category.active {
+  background: #fff;
+  color: #111;
+  border-color: #fff;
+}
+
+.category-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #252525;
+
+  font-size: 16px;
+}
+
+.support-category.active .category-icon {
+  background: #f0f0f0;
+}
+
+.support-category div {
+  min-width: 0;
+  flex: 1;
+}
+
+.support-category strong {
+  display: block;
+
+  font-size: 11px;
+}
+
+.support-category small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #8d9299;
+
+  font-size: 9px;
+}
+
+.support-category.active small {
+  color: #777;
+}
+
+.category-arrow {
+  color: #777;
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
+
+.support-stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+.support-stat {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 15px;
+
+  background: #fff;
+
+  border: 1px solid #e4e6e9;
+  border-radius: 12px;
+}
+
+.support-stat > span {
+  width: 35px;
+  height: 35px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #f1f2f4;
+}
+
+.support-stat strong {
+  display: block;
+  font-size: 13px;
+}
+
+.support-stat small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #888;
+
+  font-size: 9px;
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   TRIAGEM
+========================================================= */
+
+.support-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.support-triage-card {
+  padding: 22px;
+
+  background: #111;
+  color: #fff;
+
+  border-radius: 18px;
+}
+
+.triage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.triage-header h2 {
+  margin: 6px 0 0;
+
+  font-size: 19px;
+}
+
+.ai-status {
+  padding: 5px 8px;
+
+  border-radius: 50px;
+
+  background: #e8f8ef;
+  color: #16804a;
+
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.triage-message {
+  display: flex;
+  gap: 10px;
+
+  margin-top: 18px;
+
+  padding: 13px;
+
+  border-radius: 11px;
+
+  background: #1b1b1b;
+}
+
+.ai-avatar {
+  width: 33px;
+  height: 33px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #fff;
+  color: #111;
+
+  font-weight: 900;
+}
+
+.triage-message strong {
+  display: block;
+  font-size: 11px;
+}
+
+.triage-message p {
+  margin: 5px 0 0;
+
+  color: #999;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.triage-current {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 14px;
+
+  padding: 11px 12px;
+
+  border-radius: 9px;
+
+  background: #f8f8f8;
+
+  color: #111;
+}
+
+.triage-current span {
+  font-size: 8px;
+  font-weight: 900;
+  color: #888;
+}
+
+.triage-current strong {
+  font-size: 10px;
+}
+
+.triage-steps {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-top: 13px;
+}
+
+.triage-step {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px;
+
+  border-radius: 9px;
+
+  background: #191919;
+}
+
+.triage-step > span {
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #292929;
+
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.triage-step.active > span {
+  background: #fff;
+  color: #111;
+}
+
+.triage-step strong {
+  display: block;
+  font-size: 10px;
+}
+
+.triage-step small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #888;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+.support-chat-card {
+  padding: 17px;
+
+  background: #fff;
+
+  border: 1px solid #e3e5e8;
+
+  border-radius: 16px;
+}
+
+.chat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 13px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.chat-user {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+}
+
+.chat-avatar {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #111;
+  color: #fff;
+
+  font-size: 14px;
+}
+
+.chat-user strong {
+  display: block;
+  font-size: 11px;
+}
+
+.chat-user small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #888;
+
+  font-size: 8px;
+}
+
+.chat-online {
+  color: #198b4d;
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   MENSAGENS
+========================================================= */
+
+.chat-thread {
+  height: 190px;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 13px 3px;
+}
+
+.chat-message {
+  display: flex;
+
+  gap: 7px;
+
+  max-width: 88%;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+
+.chat-message > div {
+  padding: 9px 11px;
+
+  border-radius: 10px;
+
+  background: #f1f2f4;
+}
+
+.chat-message.user > div {
+  background: #111;
+  color: #fff;
+}
+
+.message-avatar {
+  width: 23px;
+  height: 23px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #111;
+  color: #fff;
+
+  font-size: 10px;
+}
+
+.chat-message p {
+  margin: 0;
+
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.chat-message small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #999;
+
+  font-size: 7px;
+}
+
+
+/* =========================================================
+   FORM CHAT
+========================================================= */
+
+.support-chat-form {
+  display: grid;
+
+  grid-template-columns: 1fr auto;
+
+  gap: 7px;
+}
+
+.support-chat-form input {
+  width: 100%;
+  height: 38px;
+
+  box-sizing: border-box;
+
+  padding: 0 11px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  outline: none;
+
+  font-family: inherit;
+  font-size: 9px;
+}
+
+.support-chat-form input:focus {
+  border-color: #111;
+}
+
+.support-chat-form button {
+  height: 38px;
+
+  padding: 0 13px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #ffc928;
+  color: #111;
+
+  font-family: inherit;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.human-support-btn {
+  width: 100%;
+  height: 36px;
+
+  margin-top: 7px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #111;
+  color: #fff;
+
+  font-family: inherit;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.human-support-btn:hover {
+  background: #252525;
+}
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+.support-whatsapp {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 14px 16px;
+
+  background: #eaf8ef;
+
+  border: 1px solid #d5efdd;
+
+  border-radius: 13px;
+
+  color: #155f38;
+
+  text-decoration: none;
+}
+
+.support-whatsapp > span {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #fff;
+}
+
+.support-whatsapp div {
+  flex: 1;
+}
+
+.support-whatsapp strong {
+  display: block;
+
+  font-size: 10px;
+}
+
+.support-whatsapp small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #59816a;
+
+  font-size: 8px;
+}
+
+.support-whatsapp b {
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   SEGURANÇA
+========================================================= */
+
+.support-security {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 20px;
+
+  padding: 15px 18px;
+
+  background: #fff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+}
+
+.support-security > span {
+  font-size: 18px;
+}
+
+.support-security strong {
+  display: block;
+
+  font-size: 10px;
+}
+
+.support-security p {
+  margin: 4px 0 0;
+
+  color: #888;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .support-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .support-right {
+    display: grid;
+
+    grid-template-columns:
+      1fr 1fr;
+
+    align-items: start;
+  }
+
+  .support-whatsapp {
+    grid-column: 1 / -1;
+  }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .page-support {
+    padding: 30px 13px 50px;
+  }
+
+  .support-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .support-page-header h1 {
+    font-size: 35px;
+  }
+
+  .support-main-card {
+    padding: 20px;
+  }
+
+  .support-main-card-top {
+    flex-direction: column;
+  }
+
+  .support-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .support-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .support-right {
+    display: flex;
+  }
+
 }
