@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashMarket | Central de Atendimento</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* =====================================================
+       FLASHMARKET — SUPORTE / LAYOUT APRIMORADO
+    ===================================================== */
+    .page-support.fm-support {
+      width:100%;
+      min-height:calc(100vh - 140px);
+      box-sizing:border-box;
+      padding:clamp(32px,5vw,64px) clamp(14px,4vw,60px) 70px;
+      background:#f3f4f6;
+    }
+    .fm-shell{width:min(100%,1380px);margin:0 auto}
+
+    .fm-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:24px}
+    .fm-kicker{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:#e8f8ef;color:#16804a;font-size:9px;font-weight:900;letter-spacing:.4px}
+    .fm-head h1{margin:11px 0 8px;font-size:clamp(34px,4vw,54px);line-height:.94;letter-spacing:-2px;font-weight:900;color:#111}
+    .fm-head p{margin:0;max-width:700px;color:#747982;font-size:13px;line-height:1.6}
+    .fm-online{display:flex;align-items:center;gap:10px;flex-shrink:0;background:#fff;border:1px solid #e3e5e8;border-radius:12px;padding:12px 15px}
+    .fm-online-dot{width:9px;height:9px;border-radius:50%;background:#20a45a;box-shadow:0 0 0 4px #e5f7ec}
+    .fm-online strong{display:block;font-size:10px;color:#111}.fm-online small{display:block;margin-top:3px;color:#8a9098;font-size:8px}
+
+    .fm-main-card{width:100%;box-sizing:border-box;background:#111;color:#fff;border-radius:18px;padding:clamp(22px,3vw,38px);box-shadow:0 18px 45px rgba(0,0,0,.12)}
+    .fm-main-intro{display:flex;align-items:flex-start;gap:18px}
+    .fm-icon{width:56px;height:56px;flex:0 0 56px;display:grid;place-items:center;border-radius:15px;background:#222;font-size:24px}
+    .fm-label{display:block;color:#9da2a9;font-size:9px;font-weight:900;letter-spacing:1px}
+    .fm-main-intro h2{margin:6px 0 8px;font-size:clamp(24px,2.2vw,32px);line-height:1.05}
+    .fm-main-intro p{margin:0;max-width:720px;color:#9a9da2;font-size:12px;line-height:1.55}
+
+    .fm-topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:26px}
+    .fm-topic{min-height:78px;padding:13px 14px;display:flex;align-items:center;gap:11px;text-align:left;border:1px solid #292929;border-radius:11px;background:#191919;color:#fff;font:inherit;cursor:pointer;transition:.2s ease}
+    .fm-topic:hover{background:#242424;transform:translateY(-2px)}
+    .fm-topic.active{background:#fff;color:#111;border-color:#fff}
+    .fm-topic-icon{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:9px;background:#282828;font-size:16px}
+    .fm-topic.active .fm-topic-icon{background:#f0f0f0}
+    .fm-topic-copy{min-width:0;flex:1}.fm-topic-copy strong{display:block;font-size:11px}.fm-topic-copy small{display:block;margin-top:4px;color:#8f949b;font-size:8px;line-height:1.3}.fm-topic.active .fm-topic-copy small{color:#777}
+    .fm-arrow{color:#777;font-size:14px}
+
+    .fm-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:13px}
+    .fm-stat{min-height:70px;box-sizing:border-box;padding:14px 16px;background:#fff;border:1px solid #e2e5e8;border-radius:12px;display:flex;align-items:center;gap:10px;color:#111}
+    .fm-stat-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:#f1f2f4}.fm-stat strong{display:block;font-size:13px}.fm-stat small{display:block;margin-top:3px;color:#858a92;font-size:8px;line-height:1.3}
+
+    .fm-security{display:flex;align-items:center;gap:12px;margin-top:15px;padding:14px 17px;background:#fff;border:1px solid #e2e5e8;border-radius:12px}.fm-security-icon{font-size:18px}.fm-security strong{display:block;font-size:10px;color:#111}.fm-security p{margin:3px 0 0;color:#858a92;font-size:8px}
+
+    /* BOTÃO FLUTUANTE */
+    .flash-ai-button{position:fixed;right:25px;bottom:25px;z-index:10000;width:62px;height:62px;border:0;border-radius:50%;display:grid;place-items:center;background:#111;color:#fff;cursor:pointer;box-shadow:0 12px 32px rgba(0,0,0,.27);transition:.2s ease}
+    .flash-ai-button:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 16px 38px rgba(0,0,0,.32)}
+    .flash-ai-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#fff;color:#111;font-size:17px;font-weight:900}
+    .flash-ai-online{position:absolute;right:3px;bottom:4px;width:10px;height:10px;border-radius:50%;background:#22c55e;border:2px solid #111}
+    .flash-ai-label{position:absolute;right:71px;white-space:nowrap;padding:7px 10px;border-radius:7px;background:#111;color:#fff;font-size:9px;font-weight:800;opacity:0;transform:translateX(8px);pointer-events:none;transition:.2s}.flash-ai-button:hover .flash-ai-label{opacity:1;transform:translateX(0)}
+
+    /* CHAT */
+    .flash-ai-chat{position:fixed;right:25px;bottom:100px;z-index:9999;width:min(390px,calc(100vw - 30px));height:min(590px,calc(100vh - 125px));display:flex;flex-direction:column;box-sizing:border-box;background:#fff;border:1px solid #e0e3e7;border-radius:18px;overflow:hidden;box-shadow:0 25px 70px rgba(0,0,0,.24);opacity:0;visibility:hidden;transform:translateY(18px) scale(.96);transform-origin:bottom right;transition:.2s ease}
+    .flash-ai-chat.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+    .flash-ai-header{min-height:68px;padding:12px 15px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;background:#111;color:#fff}
+    .flash-ai-profile{display:flex;align-items:center;gap:10px}.flash-ai-avatar{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:#fff;color:#111;font-weight:900}.flash-ai-profile strong{display:block;font-size:12px}.flash-ai-profile small{display:block;margin-top:3px;color:#72d596;font-size:8px}.flash-ai-close{width:32px;height:32px;border:0;border-radius:8px;background:#242424;color:#fff;font-size:21px;cursor:pointer}
+    .fm-chat-thread{flex:1;min-height:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+    .fm-message{display:flex;gap:7px;max-width:88%;align-items:flex-end}.fm-message.user{align-self:flex-end}.fm-avatar-mini{width:23px;height:23px;flex:0 0 23px;display:grid;place-items:center;border-radius:7px;background:#111;color:#fff;font-size:9px}.fm-bubble{padding:9px 11px;border-radius:11px;background:#f1f2f4;color:#111;font-size:10px;line-height:1.45}.fm-message.user .fm-bubble{background:#111;color:#fff}.fm-time{display:block;margin-top:4px;color:#999;font-size:7px}
+    .fm-shortcuts{display:flex;gap:6px;padding:0 12px 10px;overflow-x:auto}.fm-shortcuts button{flex-shrink:0;padding:8px 10px;border:1px solid #e1e3e6;border-radius:999px;background:#f7f7f8;color:#333;font:700 8px Inter,sans-serif;cursor:pointer;white-space:nowrap}.fm-shortcuts button:hover{background:#111;color:#fff}
+    .fm-chat-form{display:grid;grid-template-columns:1fr 42px;gap:7px;padding:10px 12px;border-top:1px solid #eee}.fm-chat-form input{width:100%;height:40px;box-sizing:border-box;padding:0 11px;border:1px solid #ddd;border-radius:8px;outline:0;font:10px Inter,sans-serif}.fm-chat-form input:focus{border-color:#111}.fm-chat-form button{height:40px;border:0;border-radius:8px;background:#ffc928;color:#111;font:900 14px Inter,sans-serif;cursor:pointer}.fm-human{width:calc(100% - 24px);height:38px;margin:0 12px 12px;border:0;border-radius:8px;background:#111;color:#fff;font:800 9px Inter,sans-serif;cursor:pointer}.fm-human:hover{background:#252525}
+
+    @media(max-width:900px){.fm-head{align-items:flex-start;flex-direction:column}.fm-online{width:100%}.fm-topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.page-support.fm-support{padding:28px 12px 90px}.fm-head h1{font-size:35px;letter-spacing:-1.5px}.fm-main-card{padding:20px;border-radius:15px}.fm-main-intro{flex-direction:column}.fm-topic-grid,.fm-stats{grid-template-columns:1fr}.fm-topic{min-height:66px}.flash-ai-button{right:16px;bottom:16px;width:58px;height:58px}.flash-ai-chat{right:10px;bottom:85px;width:calc(100vw - 20px);height:min(600px,calc(100vh - 105px));border-radius:15px}.flash-ai-label{display:none}}
+  </style>
+</head>
+<body>
+
+  <div class="top-strip">
+    <div class="wrap top-inner">
+      <strong>WHATSAPP: (11) 99725-5630</strong>
+      <div class="top-links">
+        <a href="suporte.html" class="active">Central de Atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear Pedido</a>
+        <a href="afiliado.html">Área de Afiliado</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="index.html" aria-label="FlashMarket">
+        <img src="assets/favicon.png" alt="FlashMarket" class="brand-logo">
+      </a>
+      <form class="search" action="index.html" method="get">
+        <input type="search" name="q" placeholder="Pesquise aqui..." autocomplete="off">
+        <button type="submit" aria-label="Pesquisar">⌕</button>
+      </form>
+      <div class="header-actions">
+        <a class="head-action" href="index.html#produtos"><span>🛒</span><b>LOJA</b></a>
+        <a class="head-action" href="afiliado.html"><span>👤</span><b>AFILIADO</b></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-support fm-support">
+    <div class="fm-shell">
+
+      <section class="fm-head">
+        <div>
+          <span class="fm-kicker">● ATENDIMENTO ONLINE</span>
+          <h1>Central de Atendimento</h1>
+          <p>Encontre respostas, acompanhe pedidos e resolva dúvidas de forma rápida e segura com o suporte FlashMarket.</p>
+        </div>
+        <div class="fm-online">
+          <span class="fm-online-dot"></span>
+          <div><strong>Atendimento disponível</strong><small>Nossa equipe está online</small></div>
+        </div>
+      </section>
+
+      <section class="fm-main-card">
+        <div class="fm-main-intro">
+          <div class="fm-icon">💬</div>
+          <div>
+            <span class="fm-label">FALE CONOSCO</span>
+            <h2>Como podemos ajudar?</h2>
+            <p>Selecione um assunto para receber uma orientação rápida. O atendimento inteligente fica disponível pelo botão flutuante no canto da tela.</p>
+          </div>
+        </div>
+
+        <div class="fm-topic-grid">
+          <button class="fm-topic active" type="button" data-topic="pedido"><span class="fm-topic-icon">📦</span><span class="fm-topic-copy"><strong>Pedido e entrega</strong><small>Acompanhe sua compra</small></span><span class="fm-arrow">→</span></button>
+          <button class="fm-topic" type="button" data-topic="pagamento"><span class="fm-topic-icon">💳</span><span class="fm-topic-copy"><strong>Pagamento</strong><small>Pagamentos e cobranças</small></span><span class="fm-arrow">→</span></button>
+          <button class="fm-topic" type="button" data-topic="troca"><span class="fm-topic-icon">🔄</span><span class="fm-topic-copy"><strong>Troca e devolução</strong><small>Solicite uma troca</small></span><span class="fm-arrow">→</span></button>
+          <button class="fm-topic" type="button" data-topic="conta"><span class="fm-topic-icon">👤</span><span class="fm-topic-copy"><strong>Conta e login</strong><small>Acesso à sua conta</small></span><span class="fm-arrow">→</span></button>
+          <button class="fm-topic" type="button" data-topic="afiliado"><span class="fm-topic-icon">⭐</span><span class="fm-topic-copy"><strong>Afiliado</strong><small>Programa de afiliados</small></span><span class="fm-arrow">→</span></button>
+          <button class="fm-topic" type="button" data-topic="produto"><span class="fm-topic-icon">🛍️</span><span class="fm-topic-copy"><strong>Produtos</strong><small>Informações e disponibilidade</small></span><span class="fm-arrow">→</span></button>
+        </div>
+      </section>
+
+      <section class="fm-stats">
+        <div class="fm-stat"><span class="fm-stat-icon">⚡</span><div><strong>1 min</strong><small>Tempo médio para resposta</small></div></div>
+        <div class="fm-stat"><span class="fm-stat-icon">🕐</span><div><strong>24/7</strong><small>Suporte disponível</small></div></div>
+        <div class="fm-stat"><span class="fm-stat-icon">👥</span><div><strong>+3 mil</strong><small>Pedidos atendidos</small></div></div>
+      </section>
+
+      <section class="fm-security">
+        <span class="fm-security-icon">🔒</span>
+        <div><strong>Atendimento seguro</strong><p>Nunca solicitaremos sua senha ou dados bancários completos durante um atendimento.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- BOTÃO FLUTUANTE FLASH IA -->
+  <button id="flashAiButton" class="flash-ai-button" type="button" aria-label="Abrir Flash IA" aria-expanded="false">
+    <span class="flash-ai-icon">✦</span>
+    <span class="flash-ai-label">Flash IA</span>
+    <span class="flash-ai-online"></span>
+  </button>
+
+  <!-- JANELA DE CHAT -->
+  <section id="flashAiChat" class="flash-ai-chat" aria-hidden="true" aria-label="Chat Flash IA">
+    <div class="flash-ai-header">
+      <div class="flash-ai-profile">
+        <div class="flash-ai-avatar">✦</div>
+        <div><strong>Flash IA</strong><small>● Atendimento online</small></div>
+      </div>
+      <button id="flashAiClose" class="flash-ai-close" type="button" aria-label="Fechar chat">×</button>
+    </div>
+
+    <div id="fmChatThread" class="fm-chat-thread"></div>
+
+    <div class="fm-shortcuts">
+      <button type="button" data-message="Quero rastrear meu pedido">📦 Rastrear pedido</button>
+      <button type="button" data-message="Tenho uma dúvida sobre pagamento">💳 Pagamento</button>
+      <button type="button" data-message="Quero fazer uma troca">🔄 Troca</button>
+    </div>
+
+    <form id="fmChatForm" class="fm-chat-form">
+      <input id="fmChatInput" type="text" placeholder="Digite sua mensagem..." autocomplete="off" aria-label="Mensagem">
+      <button type="submit" aria-label="Enviar">➤</button>
+    </form>
+
+    <button id="fmHuman" class="fm-human" type="button">👨‍💼 Falar com atendente</button>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-about">
+        <img src="assets/logo.FlashMarket.png" alt="FlashMarket" class="footer-logo">
+        <p>Variedade, preço e praticidade em um só lugar.</p>
+      </div>
+      <div class="footer-column">
+        <h3>ATENDIMENTO</h3>
+        <a href="suporte.html">Central de atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear pedido</a>
+        <a href="afiliado.html">Área de afiliado</a>
+      </div>
+      <div class="footer-column">
+        <h3>INSTITUCIONAL</h3>
+        <a href="index.html#ofertas">Ofertas</a>
+        <a href="index.html#produtos">Produtos</a>
+        <a href="index.html#contato">Localização</a>
+      </div>
+      <div class="footer-column">
+        <h3>CONTATO</h3>
+        <a href="tel:+5511997255630">(11) 99725-5630</a>
+        <a href="mailto:atendimento@flashmarket.com">atendimento@flashmarket.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="wrap footer-bottom-inner">
+        <span>© 2026 FlashMarket — Todos os direitos reservados.</span>
+        <span>Feito para uma experiência de compra rápida e segura.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const topics = {
+      pedido: 'Posso ajudar com rastreamento, prazo de entrega e situação do seu pedido.',
+      pagamento: 'Posso orientar sobre Pix, cartão, boleto e pagamentos pendentes.',
+      troca: 'Posso orientar sobre troca, devolução e reembolso após o recebimento.',
+      conta: 'Posso ajudar com login, cadastro e recuperação de acesso.',
+      afiliado: 'Posso ajudar com cadastro, vendas e informações do programa de afiliados.',
+      produto: 'Posso ajudar com disponibilidade, especificações e informações dos produtos.'
+    };
+
+    const topicNames = {
+      pedido:'Pedido e entrega', pagamento:'Pagamento', troca:'Troca e devolução',
+      conta:'Conta e login', afiliado:'Afiliado', produto:'Produtos'
+    };
+
+    const aiButton = document.getElementById('flashAiButton');
+    const aiChat = document.getElementById('flashAiChat');
+    const aiClose = document.getElementById('flashAiClose');
+    const thread = document.getElementById('fmChatThread');
+    const form = document.getElementById('fmChatForm');
+    const input = document.getElementById('fmChatInput');
+
+    let currentTopic = 'pedido';
+    let messages = JSON.parse(localStorage.getItem('flashmarket_support_chat') || 'null');
+    if (!Array.isArray(messages) || !messages.length) {
+      messages = [{role:'bot', text:'Olá! 👋 Sou a Flash IA. Como posso ajudar você hoje?'}];
+    }
+
+    function escapeHTML(value){
+      const div=document.createElement('div');
+      div.textContent=value;
+      return div.innerHTML;
+    }
+
+    function save(){
+      if(messages.length>20) messages=messages.slice(-20);
+      localStorage.setItem('flashmarket_support_chat', JSON.stringify(messages));
+    }
+
+    function render(){
+      thread.innerHTML='';
+      messages.forEach(m=>{
+        const row=document.createElement('div');
+        row.className='fm-message '+m.role;
+        row.innerHTML=(m.role==='bot'?'<span class="fm-avatar-mini">✦</span>':'')+
+          '<div class="fm-bubble">'+escapeHTML(m.text)+'<span class="fm-time">Agora</span></div>';
+        thread.appendChild(row);
+      });
+      thread.scrollTop=thread.scrollHeight;
+    }
+
+    function detect(text){
+      const t=text.toLowerCase();
+      if(/pedido|rastre|entrega|envio|status/.test(t)) return 'pedido';
+      if(/pagamento|pix|cart[aã]o|boleto|cobran/.test(t)) return 'pagamento';
+      if(/troca|devolu|reembolso|cancel/.test(t)) return 'troca';
+      if(/login|senha|cadastro|conta|acessar/.test(t)) return 'conta';
+      if(/afiliado|comiss/.test(t)) return 'afiliado';
+      if(/produto|estoque|especific|modelo|marca/.test(t)) return 'produto';
+      return currentTopic;
+    }
+
+    function response(text){
+      const t=text.toLowerCase();
+      if(/ol[aá]|bom dia|boa tarde|boa noite/.test(t)) return 'Olá! 👋 Seja bem-vindo à FlashMarket. Posso ajudar com pedidos, pagamentos, trocas, conta, produtos ou afiliados.';
+      if(/atendente|humano|pessoa|agente/.test(t)) return 'Claro! Clique em “Falar com atendente” para continuar o atendimento pelo WhatsApp.';
+      if(/pedido|rastre|entrega|envio|status/.test(t)) return 'Claro! Para acompanhar a entrega, informe o número do pedido ou acesse a página “Rastrear Pedido” no menu superior.';
+      if(/pagamento|pix|cart[aã]o|boleto|cobran/.test(t)) return 'Posso orientar sobre pagamentos. Informe se foi Pix, cartão ou boleto e qual problema ocorreu.';
+      if(/troca|devolu|reembolso|cancel/.test(t)) return 'Posso orientar sobre troca ou devolução. Informe o produto e o que aconteceu com o pedido.';
+      if(/login|senha|cadastro|conta|acessar/.test(t)) return 'Para problemas de acesso, confira seu e-mail e senha. Se necessário, podemos direcionar você ao suporte.';
+      if(/afiliado|comiss/.test(t)) return 'Na Área de Afiliado você pode acompanhar vendas e comissões. Posso orientar sobre o cadastro e o painel.';
+      if(/produto|estoque|especific|modelo|marca/.test(t)) return 'Informe o nome do produto e posso orientar sobre disponibilidade, características e informações.';
+      return topics[currentTopic];
+    }
+
+    function send(text){
+      text=text.trim(); if(!text) return;
+      currentTopic=detect(text);
+      document.querySelectorAll('.fm-topic').forEach(b=>b.classList.toggle('active',b.dataset.topic===currentTopic));
+      messages.push({role:'user',text}); save(); render(); input.value='';
+      setTimeout(()=>{messages.push({role:'bot',text:response(text)});save();render();},450);
+    }
+
+    aiButton.addEventListener('click',()=>{
+      const open=aiChat.classList.toggle('open');
+      aiButton.setAttribute('aria-expanded',String(open));
+      aiChat.setAttribute('aria-hidden',String(!open));
+      if(open) setTimeout(()=>input.focus(),180);
+    });
+    aiClose.addEventListener('click',()=>{
+      aiChat.classList.remove('open');
+      aiButton.setAttribute('aria-expanded','false');
+      aiChat.setAttribute('aria-hidden','true');
+    });
+    form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
+
+    document.querySelectorAll('.fm-topic').forEach(button=>button.addEventListener('click',()=>{
+      currentTopic=button.dataset.topic;
+      document.querySelectorAll('.fm-topic').forEach(b=>b.classList.toggle('active',b===button));
+      aiChat.classList.add('open');
+      aiButton.setAttribute('aria-expanded','true');
+      aiChat.setAttribute('aria-hidden','false');
+      setTimeout(()=>{messages.push({role:'bot',text:'Assunto selecionado: '+topicNames[currentTopic]+'. '+topics[currentTopic]});save();render();},180);
+    }));
+
+    document.querySelectorAll('.fm-shortcuts button').forEach(button=>button.addEventListener('click',()=>send(button.dataset.message)));
+
+    document.getElementById('fmHuman').addEventListener('click',()=>{
+      window.open('https://wa.me/5511997255630?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20atendente%20humano.', '_blank', 'noopener');
+    });
+
+    document.addEventListener('keydown',e=>{if(e.key==='Escape') aiClose.click();});
+    document.addEventListener('click',e=>{
+      if(aiChat.classList.contains('open') && !aiChat.contains(e.target) && !aiButton.contains(e.target)) aiClose.click();
+    });
+    render();
+  </script>
+</body>
+</html>

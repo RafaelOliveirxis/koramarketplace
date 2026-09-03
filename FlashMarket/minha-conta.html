@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Minha conta FlashMarket — pedidos, favoritos, cupons, endereços e dados pessoais.">
+  <title>FlashMarket | Minha Conta</title>
+
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* =====================================================
+       MINHA CONTA — CAMADA RESPONSIVA E MODERNA
+       Mantém o style.css existente e aprimora esta página.
+    ====================================================== */
+
+    .account-page {
+      width: 100%;
+      min-height: calc(100vh - 150px);
+      padding: clamp(28px, 4vw, 58px) clamp(14px, 4vw, 55px) 70px;
+      background: #f4f5f7;
+      box-sizing: border-box;
+    }
+
+    .account-page .page-shell {
+      width: min(100%, 1380px);
+      margin: 0 auto;
+    }
+
+    .account-layout {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .account-sidebar {
+      position: sticky;
+      top: 18px;
+      min-width: 0;
+    }
+
+    .user-card {
+      padding: 22px;
+      border-radius: 18px;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    }
+
+    .user-avatar {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      color: #111;
+      font-size: 29px;
+      border: 3px solid #ffc928;
+    }
+
+    .user-card h2 {
+      margin: 0;
+      font: 800 17px Inter, sans-serif;
+      word-break: break-word;
+    }
+
+    .user-card p {
+      margin: 7px 0 16px;
+      color: #bcbcbc;
+      font: 500 9px Inter, sans-serif;
+      word-break: break-word;
+    }
+
+    .logout-btn {
+      width: 100%;
+      min-height: 39px;
+      border: 1px solid #3b3b3b;
+      border-radius: 9px;
+      background: transparent;
+      color: #fff;
+      font: 800 9px Inter, sans-serif;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .logout-btn:hover {
+      background: #fff;
+      color: #111;
+    }
+
+    .account-nav {
+      margin-top: 12px;
+      padding: 8px;
+      border-radius: 15px;
+      background: #fff;
+      border: 1px solid #e6e7e9;
+      box-shadow: 0 8px 25px rgba(0,0,0,.04);
+    }
+
+    .nav-item {
+      width: 100%;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: #555;
+      text-align: left;
+      font: 700 10px Inter, sans-serif;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: #111;
+      color: #fff;
+    }
+
+    .nav-item span {
+      width: 22px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .account-content {
+      min-width: 0;
+    }
+
+    .content-section {
+      display: none;
+      min-width: 0;
+    }
+
+    .content-section.active {
+      display: block;
+      animation: accountFade .22s ease;
+    }
+
+    @keyframes accountFade {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .section-header h1 {
+      margin: 0;
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: 1;
+      letter-spacing: -1.5px;
+    }
+
+    .section-header p {
+      margin: 7px 0 0;
+      color: #73767b;
+      font: 500 11px/1.5 Inter, sans-serif;
+    }
+
+    .account-welcome {
+      margin-bottom: 17px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid #e5e6e8;
+    }
+
+    .account-welcome strong {
+      font: 800 11px Inter, sans-serif;
+    }
+
+    .account-welcome span {
+      color: #777;
+      font: 500 10px Inter, sans-serif;
+    }
+
+    .account-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .account-stat {
+      min-width: 0;
+      padding: 15px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid #e5e6e8;
+    }
+
+    .account-stat span {
+      display: block;
+      color: #888;
+      font: 600 8px Inter, sans-serif;
+      text-transform: uppercase;
+    }
+
+    .account-stat strong {
+      display: block;
+      margin-top: 6px;
+      font: 900 20px Inter, sans-serif;
+    }
+
+    .orders-filter {
+      margin-bottom: 13px;
+    }
+
+    .orders-filter select {
+      min-width: 190px;
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      font: 600 9px Inter, sans-serif;
+      outline: none;
+    }
+
+    .orders-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .order-card {
+      padding: 17px;
+      border: 1px solid #e4e5e7;
+      border-radius: 15px;
+      background: #fff;
+      transition: .2s;
+    }
+
+    .order-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,0,0,.06);
+    }
+
+    .order-header,
+    .order-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .order-id-product {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .order-id-product strong {
+      font: 900 12px Inter, sans-serif;
+    }
+
+    .order-id-product span {
+      font-size: 19px;
+    }
+
+    .order-status {
+      padding: 6px 9px;
+      border-radius: 50px;
+      font: 900 7px Inter, sans-serif;
+      letter-spacing: .3px;
+      background: #eee;
+      color: #555;
+    }
+
+    .order-status.entregue { background: #e6f7ed; color: #19723e; }
+    .order-status.enviado { background: #e7f0ff; color: #2458a6; }
+    .order-status.pendente { background: #fff3d5; color: #936a00; }
+    .order-status.pago { background: #eaf7ef; color: #237844; }
+    .order-status.cancelado { background: #ffe8e8; color: #a52d2d; }
+
+    .order-product {
+      margin: 14px 0 11px;
+      font: 700 11px Inter, sans-serif;
+    }
+
+    .order-date {
+      color: #858585;
+      font: 500 8px Inter, sans-serif;
+    }
+
+    .order-price {
+      font: 900 12px Inter, sans-serif;
+    }
+
+    .order-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .detail-link,
+    .secondary-btn,
+    .link-btn {
+      border: 0;
+      background: transparent;
+      color: #111;
+      font: 800 8px Inter, sans-serif;
+      cursor: pointer;
+    }
+
+    .detail-link:hover,
+    .link-btn:hover {
+      text-decoration: underline;
+    }
+
+    .secondary-btn {
+      min-height: 36px;
+      padding: 0 13px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .coupons-grid,
+    .addresses-grid,
+    .favorites-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .coupon-card,
+    .address-card,
+    .favorite-card {
+      min-width: 0;
+      padding: 17px;
+      border: 1px solid #e4e5e7;
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .coupon-card.used {
+      opacity: .55;
+    }
+
+    .coupon-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .coupon-code {
+      font: 900 14px Inter, sans-serif;
+    }
+
+    .coupon-desc {
+      margin: 5px 0 0;
+      color: #777;
+      font: 500 9px/1.4 Inter, sans-serif;
+    }
+
+    .coupon-discount {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .coupon-discount strong {
+      font: 900 22px Inter, sans-serif;
+    }
+
+    .coupon-discount small {
+      display: block;
+      font: 800 7px Inter, sans-serif;
+    }
+
+    .coupon-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 17px;
+      padding-top: 12px;
+      border-top: 1px dashed #ddd;
+    }
+
+    .coupon-footer small {
+      color: #888;
+      font: 500 7px Inter, sans-serif;
+    }
+
+    .coupon-btn {
+      min-height: 31px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 7px;
+      background: #111;
+      color: #fff;
+      font: 800 7px Inter, sans-serif;
+      cursor: pointer;
+    }
+
+    .coupon-btn.disabled {
+      cursor: default;
+      background: #eee;
+      color: #888;
+    }
+
+    .address-card {
+      position: relative;
+    }
+
+    .address-badge,
+    .main-badge {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 50px;
+      font: 800 7px Inter, sans-serif;
+    }
+
+    .address-badge {
+      background: #f0f1f3;
+    }
+
+    .main-badge {
+      margin-left: 5px;
+      background: #fff0a8;
+      color: #765d00;
+    }
+
+    .address-card h3 {
+      margin: 13px 0 5px;
+      font: 800 11px Inter, sans-serif;
+    }
+
+    .address-card p {
+      margin: 0;
+      color: #777;
+      font: 500 9px/1.5 Inter, sans-serif;
+    }
+
+    .address-actions {
+      display: flex;
+      gap: 13px;
+      margin-top: 15px;
+    }
+
+    .favorite-card {
+      text-align: center;
+    }
+
+    .fav-image {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      border-radius: 11px;
+      background: #f3f4f5;
+      font-size: 55px;
+    }
+
+    .favorite-card h3 {
+      margin: 0 0 5px;
+      font: 800 11px Inter, sans-serif;
+    }
+
+    .favorite-card p {
+      margin: 0 0 12px;
+      font: 900 13px Inter, sans-serif;
+    }
+
+    .primary-btn.full {
+      width: 100%;
+    }
+
+    .primary-btn.small {
+      min-height: 36px;
+      font-size: 8px;
+    }
+
+    .profile-form {
+      max-width: 760px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 15px;
+      padding: 20px;
+      border: 1px solid #e4e5e7;
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .form-group {
+      min-width: 0;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font: 800 8px Inter, sans-serif;
+    }
+
+    .form-group input {
+      width: 100%;
+      height: 42px;
+      box-sizing: border-box;
+      padding: 0 11px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      font: 500 10px Inter, sans-serif;
+      transition: border .2s, box-shadow .2s;
+    }
+
+    .form-group input:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(17,17,17,.06);
+    }
+
+    .profile-form .full {
+      grid-column: 1 / -1;
+    }
+
+    .form-message {
+      grid-column: 1 / -1;
+      min-height: 14px;
+      margin: -5px 0 0;
+      font: 700 9px Inter, sans-serif;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 40px 20px;
+      text-align: center;
+      border: 1px dashed #d7d8da;
+      border-radius: 14px;
+      background: #fff;
+      color: #888;
+      font: 600 10px Inter, sans-serif;
+    }
+
+    /* MODAL */
+    .account-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(4px);
+    }
+
+    .account-modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(100%, 520px);
+      max-height: min(90vh, 700px);
+      overflow-y: auto;
+      padding: 22px;
+      border-radius: 17px;
+      background: #fff;
+      box-shadow: 0 25px 80px rgba(0,0,0,.25);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      font: 900 20px Inter, sans-serif;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 8px;
+      background: #f1f1f1;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .address-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 11px;
+    }
+
+    .address-form .wide {
+      grid-column: 1 / -1;
+    }
+
+    .address-form label {
+      display: block;
+      margin-bottom: 5px;
+      font: 800 8px Inter, sans-serif;
+    }
+
+    .address-form input {
+      width: 100%;
+      height: 40px;
+      box-sizing: border-box;
+      padding: 0 10px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      outline: none;
+      font: 500 10px Inter, sans-serif;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 17px;
+    }
+
+    .modal-actions button {
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font: 800 8px Inter, sans-serif;
+    }
+
+    .modal-cancel {
+      border: 1px solid #ddd;
+      background: #fff;
+    }
+
+    .modal-save {
+      border: 0;
+      background: #111;
+      color: #fff;
+    }
+
+    @media (max-width: 1050px) {
+      .account-layout {
+        grid-template-columns: 225px minmax(0,1fr);
+      }
+
+      .account-stats {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 800px) {
+      .account-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .account-sidebar {
+        position: static;
+      }
+
+      .account-nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .coupons-grid,
+      .addresses-grid,
+      .favorites-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .account-page {
+        padding: 22px 11px 55px;
+      }
+
+      .account-stats {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .section-header .primary-btn {
+        width: 100%;
+      }
+
+      .order-header,
+      .order-footer,
+      .coupon-footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .order-status {
+        align-self: flex-start;
+      }
+
+      .profile-form,
+      .address-form {
+        grid-template-columns: 1fr;
+        padding: 15px;
+      }
+
+      .profile-form .full,
+      .address-form .wide {
+        grid-column: auto;
+      }
+
+      .account-nav {
+        grid-template-columns: 1fr;
+      }
+
+      .fav-image {
+        height: 110px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-strip">
+    <div class="wrap top-inner">
+      <strong>WHATSAPP: (11) 99725-5630</strong>
+      <div class="top-links">
+        <a href="suporte.html">Central de Atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear Pedido</a>
+        <a href="afiliado.html">Área de Afiliado</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="index.html" aria-label="FlashMarket">
+        <img src="assets/favicon.png" alt="FlashMarket" class="brand-logo">
+      </a>
+
+      <form class="search" action="index.html" method="get">
+        <input type="search" name="q" placeholder="Pesquise aqui..." autocomplete="off">
+        <button type="submit" aria-label="Pesquisar">⌕</button>
+      </form>
+
+      <div class="header-actions">
+        <a class="head-action" href="index.html#produtos">
+          <span>🛒</span><b>LOJA</b>
+        </a>
+        <a class="head-action" href="minha-conta.html">
+          <span>👤</span><b>MINHA CONTA</b>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="account-page">
+    <div class="page-shell account-layout">
+
+      <aside class="account-sidebar">
+
+        <div class="user-card">
+          <div class="user-avatar">👤</div>
+          <h2 id="userName">Bem-vindo</h2>
+          <p id="userEmail">usuario@flashmarket.com</p>
+          <button class="logout-btn" id="logoutBtn" type="button">Sair da conta</button>
+        </div>
+
+        <nav class="account-nav" aria-label="Menu da conta">
+          <button class="nav-item active" type="button" data-section="pedidos">
+            <span>📦</span> Meus Pedidos
+          </button>
+
+          <button class="nav-item" type="button" data-section="cupons">
+            <span>🎟️</span> Cupons de Desconto
+          </button>
+
+          <button class="nav-item" type="button" data-section="endereco">
+            <span>📍</span> Endereços
+          </button>
+
+          <button class="nav-item" type="button" data-section="favoritos">
+            <span>❤️</span> Favoritos
+          </button>
+
+          <button class="nav-item" type="button" data-section="perfil">
+            <span>⚙️</span> Meus Dados
+          </button>
+        </nav>
+
+      </aside>
+
+
+      <section class="account-content">
+
+        <!-- PEDIDOS -->
+        <div class="content-section active" id="pedidos-section">
+
+          <div class="section-header">
+            <div>
+              <h1>Meus Pedidos</h1>
+              <p>Acompanhe seus pedidos e histórico de compras.</p>
+            </div>
+          </div>
+
+          <div class="account-welcome">
+            <strong id="welcomeText">Bem-vindo à sua conta!</strong>
+            <span> Consulte seus pedidos, cupons, favoritos e informações pessoais em um só lugar.</span>
+          </div>
+
+          <div class="account-stats">
+            <div class="account-stat">
+              <span>Total de pedidos</span>
+              <strong id="statTotal">0</strong>
+            </div>
+            <div class="account-stat">
+              <span>Em andamento</span>
+              <strong id="statActive">0</strong>
+            </div>
+            <div class="account-stat">
+              <span>Entregues</span>
+              <strong id="statDelivered">0</strong>
+            </div>
+            <div class="account-stat">
+              <span>Favoritos</span>
+              <strong id="statFavorites">0</strong>
+            </div>
+          </div>
+
+          <div class="orders-filter">
+            <select id="orderFilter" aria-label="Filtrar pedidos">
+              <option value="">Todos os pedidos</option>
+              <option value="pago">Pagos</option>
+              <option value="pendente">Pendentes</option>
+              <option value="enviado">Enviados</option>
+              <option value="entregue">Entregues</option>
+              <option value="cancelado">Cancelados</option>
+            </select>
+          </div>
+
+          <div class="orders-list" id="ordersList"></div>
+        </div>
+
+
+        <!-- CUPONS -->
+        <div class="content-section" id="cupons-section">
+
+          <div class="section-header">
+            <div>
+              <h1>Cupons de Desconto</h1>
+              <p>Seus cupons exclusivos e ofertas personalizadas.</p>
+            </div>
+          </div>
+
+          <div class="coupons-grid" id="couponsGrid"></div>
+        </div>
+
+
+        <!-- ENDEREÇOS -->
+        <div class="content-section" id="endereco-section">
+
+          <div class="section-header">
+            <div>
+              <h1>Endereços</h1>
+              <p>Gerencie os locais utilizados para suas entregas.</p>
+            </div>
+
+            <button class="primary-btn" id="addAddressBtn" type="button">
+              + Adicionar endereço
+            </button>
+          </div>
+
+          <div class="addresses-grid" id="addressesGrid"></div>
+        </div>
+
+
+        <!-- FAVORITOS -->
+        <div class="content-section" id="favoritos-section">
+
+          <div class="section-header">
+            <div>
+              <h1>Produtos Favoritos</h1>
+              <p>Seus produtos salvos e itens que deseja comprar.</p>
+            </div>
+          </div>
+
+          <div class="favorites-grid" id="favoritesGrid"></div>
+        </div>
+
+
+        <!-- PERFIL -->
+        <div class="content-section" id="perfil-section">
+
+          <div class="section-header">
+            <div>
+              <h1>Meus Dados</h1>
+              <p>Gerencie suas informações pessoais.</p>
+            </div>
+          </div>
+
+          <form class="profile-form" id="profileForm">
+
+            <div class="form-group">
+              <label for="fullName">Nome completo</label>
+              <input type="text" id="fullName" placeholder="Seu nome completo" required>
+            </div>
+
+            <div class="form-group">
+              <label for="emailInput">E-mail</label>
+              <input type="email" id="emailInput" placeholder="Seu e-mail" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phoneInput">Telefone</label>
+              <input type="tel" id="phoneInput" placeholder="(11) 99999-9999" maxlength="15">
+            </div>
+
+            <div class="form-group">
+              <label for="birthDate">Data de nascimento</label>
+              <input type="date" id="birthDate">
+            </div>
+
+            <div class="form-group">
+              <label for="cpfInput">CPF</label>
+              <input type="text" id="cpfInput" placeholder="000.000.000-00" maxlength="14">
+            </div>
+
+            <div class="form-group">
+              <label for="profilePassword">Senha</label>
+              <input type="password" id="profilePassword" placeholder="Digite para alterar a senha">
+            </div>
+
+            <button class="primary-btn full" type="submit">
+              Salvar alterações
+            </button>
+
+            <p id="profileMessage" class="form-message" aria-live="polite"></p>
+
+          </form>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+
+  <!-- MODAL DE ENDEREÇO -->
+  <div class="account-modal" id="addressModal" aria-hidden="true">
+
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="addressModalTitle">
+
+      <div class="modal-head">
+        <h2 id="addressModalTitle">Adicionar endereço</h2>
+        <button class="modal-close" id="closeAddressModal" type="button" aria-label="Fechar">×</button>
+      </div>
+
+      <form id="addressForm" class="address-form">
+
+        <input type="hidden" id="addressId">
+
+        <div class="wide">
+          <label for="addressType">Tipo</label>
+          <input id="addressType" type="text" placeholder="Ex.: Residencial" required>
+        </div>
+
+        <div class="wide">
+          <label for="addressStreet">Endereço</label>
+          <input id="addressStreet" type="text" placeholder="Rua, número e complemento" required>
+        </div>
+
+        <div>
+          <label for="addressCity">Cidade</label>
+          <input id="addressCity" type="text" placeholder="Cidade" required>
+        </div>
+
+        <div>
+          <label for="addressState">UF</label>
+          <input id="addressState" type="text" placeholder="SP" maxlength="2" required>
+        </div>
+
+        <div>
+          <label for="addressZip">CEP</label>
+          <input id="addressZip" type="text" placeholder="00000-000" maxlength="9" required>
+        </div>
+
+        <div class="wide">
+          <label>
+            <input id="addressMain" type="checkbox">
+            Usar como endereço padrão
+          </label>
+        </div>
+
+        <div class="modal-actions wide">
+          <button class="modal-cancel" id="cancelAddressModal" type="button">Cancelar</button>
+          <button class="modal-save" type="submit">Salvar endereço</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+
+      <div class="footer-about">
+        <img src="assets/logo.FlashMarket.png" alt="FlashMarket" class="footer-logo">
+        <p>Variedade, preço e praticidade em um só lugar.</p>
+      </div>
+
+      <div class="footer-column">
+        <h3>ATENDIMENTO</h3>
+        <a href="suporte.html">Central de atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear pedido</a>
+        <a href="afiliado.html">Área de afiliado</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>INSTITUCIONAL</h3>
+        <a href="index.html#ofertas">Ofertas</a>
+        <a href="index.html#produtos">Produtos</a>
+        <a href="index.html#contato">Localização</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>CONTATO</h3>
+        <a href="tel:+5511997255630">(11) 99725-5630</a>
+        <a href="mailto:atendimento@flashmarket.com">atendimento@flashmarket.com</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="wrap footer-bottom-inner">
+        <span>© 2026 FlashMarket — Todos os direitos reservados.</span>
+        <span>Feito para uma experiência de compra rápida e segura.</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    (() => {
+      "use strict";
+
+      const $ = (selector) => document.querySelector(selector);
+      const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+
+      const defaultOrders = [
+        { id: "FM-2025", product: "Kit de Organização Premium", price: 89.90, status: "entregue", date: "2026-08-15", image: "📦" },
+        { id: "FM-2024", product: "Mouse Pad Gamer", price: 54.90, status: "enviado", date: "2026-08-20", image: "🖱️" },
+        { id: "FM-2023", product: "Moletom Street Flash", price: 119.90, status: "pendente", date: "2026-08-28", image: "👕" },
+        { id: "FM-2022", product: "Planner Deluxe 2026", price: 49.90, status: "pago", date: "2026-08-29", image: "📔" }
+      ];
+
+      const defaultCoupons = [
+        { code: "FLASH20", discount: 20, type: "%", description: "Desconto em toda loja", valid: "2026-09-30", used: false },
+        { code: "FRETE10", discount: 10, type: "reais", description: "R$ 10 de desconto no frete", valid: "2026-09-15", used: false },
+        { code: "PRIMEIRACOMPRA", discount: 30, type: "%", description: "Desconto para primeira compra", valid: "2026-12-31", used: true },
+        { code: "NATAL", discount: 25, type: "%", description: "Cupom especial de Natal", valid: "2026-12-25", used: false }
+      ];
+
+      const defaultAddresses = [
+        { id: 1, type: "Residencial", street: "Rua das Flores, 123", city: "São Paulo", state: "SP", zip: "01234-567", main: true },
+        { id: 2, type: "Comercial", street: "Av. Paulista, 1000", city: "São Paulo", state: "SP", zip: "01311-100", main: false }
+      ];
+
+      const defaultFavorites = [
+        { id: 1, name: "Luminária LED", price: 89.90, image: "💡" },
+        { id: 2, name: "Organizador Minimalista", price: 39.90, image: "📦" },
+        { id: 3, name: "Fone Bluetooth", price: 149.90, image: "🎧" }
+      ];
+
+      function getStoredData(key, fallback) {
+        const value = localStorage.getItem(`flashmarket_user_${key}`);
+
+        if (!value) return fallback;
+
+        try {
+          return JSON.parse(value);
+        } catch {
+          return fallback;
+        }
+      }
+
+      function saveData(key, value) {
+        localStorage.setItem(`flashmarket_user_${key}`, JSON.stringify(value));
+      }
+
+      function currency(value) {
+        return new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL"
+        }).format(value);
+      }
+
+      function dateBR(value) {
+        if (!value) return "-";
+        const date = new Date(`${value}T12:00:00`);
+        return date.toLocaleDateString("pt-BR");
+      }
+
+      function escapeHTML(value) {
+        const div = document.createElement("div");
+        div.textContent = value ?? "";
+        return div.innerHTML;
+      }
+
+      function loadUserInfo() {
+        const session = localStorage.getItem("flashmarket_user_session");
+
+        /* Compatibilidade: se não houver sessão, a página continua
+           funcionando em modo demonstrativo para o TCC. */
+        const user = getStoredData("profile", {
+          name: "Usuário FlashMarket",
+          email: "usuario@flashmarket.com"
+        });
+
+        $("#userName").textContent = user.name || "Usuário";
+        $("#userEmail").textContent = user.email || "usuario@flashmarket.com";
+        $("#welcomeText").textContent = `Olá, ${user.name || "usuário"}! 👋`;
+
+        $("#fullName").value = user.name || "";
+        $("#emailInput").value = user.email || "";
+        $("#phoneInput").value = user.phone || "";
+        $("#birthDate").value = user.birthDate || "";
+        $("#cpfInput").value = user.cpf || "";
+      }
+
+      function renderStats() {
+        const orders = getStoredData("orders", defaultOrders);
+        const favorites = getStoredData("favorites", defaultFavorites);
+
+        $("#statTotal").textContent = orders.length;
+        $("#statActive").textContent = orders.filter(o =>
+          ["pendente", "pago", "enviado"].includes(o.status)
+        ).length;
+        $("#statDelivered").textContent = orders.filter(o => o.status === "entregue").length;
+        $("#statFavorites").textContent = favorites.length;
+      }
+
+      function renderOrders() {
+        const orders = getStoredData("orders", defaultOrders);
+        const filter = $("#orderFilter").value;
+
+        const filtered = filter
+          ? orders.filter(order => order.status === filter)
+          : orders;
+
+        if (!filtered.length) {
+          $("#ordersList").innerHTML = `
+            <div class="empty-state">
+              <div style="font-size:30px;margin-bottom:8px;">📦</div>
+              Nenhum pedido encontrado para este filtro.
+            </div>
+          `;
+          return;
+        }
+
+        $("#ordersList").innerHTML = filtered.map(order => `
+          <article class="order-card">
+            <div class="order-header">
+              <div class="order-id-product">
+                <strong>${escapeHTML(order.id)}</strong>
+                <span>${escapeHTML(order.image || "📦")}</span>
+              </div>
+              <span class="order-status ${escapeHTML(order.status)}">
+                ${escapeHTML(order.status).toUpperCase()}
+              </span>
+            </div>
+
+            <p class="order-product">${escapeHTML(order.product)}</p>
+
+            <div class="order-footer">
+              <span class="order-date">Pedido realizado em ${dateBR(order.date)}</span>
+              <strong class="order-price">${currency(order.price)}</strong>
+            </div>
+
+            <div class="order-actions">
+              <button class="detail-link" type="button" data-order="${escapeHTML(order.id)}">
+                Ver detalhes →
+              </button>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      function renderCoupons() {
+        const coupons = getStoredData("coupons", defaultCoupons);
+
+        $("#couponsGrid").innerHTML = coupons.map(coupon => `
+          <article class="coupon-card ${coupon.used ? "used" : ""}">
+            <div class="coupon-header">
+              <div>
+                <strong class="coupon-code">${escapeHTML(coupon.code)}</strong>
+                <p class="coupon-desc">${escapeHTML(coupon.description)}</p>
+              </div>
+
+              <div class="coupon-discount">
+                <strong>${escapeHTML(String(coupon.discount))}${coupon.type === "%" ? "%" : ""}</strong>
+                ${coupon.type === "reais" ? "<small>OFF</small>" : ""}
+              </div>
+            </div>
+
+            <div class="coupon-footer">
+              <small>Válido até ${dateBR(coupon.valid)}</small>
+
+              <button
+                class="coupon-btn ${coupon.used ? "disabled" : ""}"
+                type="button"
+                ${coupon.used ? "disabled" : ""}
+                data-coupon="${escapeHTML(coupon.code)}"
+              >
+                ${coupon.used ? "Utilizado" : "Copiar código"}
+              </button>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      function renderAddresses() {
+        const addresses = getStoredData("addresses", defaultAddresses);
+
+        if (!addresses.length) {
+          $("#addressesGrid").innerHTML = `
+            <div class="empty-state">
+              Nenhum endereço cadastrado. Clique em “Adicionar endereço”.
+            </div>
+          `;
+          return;
+        }
+
+        $("#addressesGrid").innerHTML = addresses.map(address => `
+          <article class="address-card">
+            <span class="address-badge">${escapeHTML(address.type)}</span>
+            ${address.main ? '<span class="main-badge">Padrão</span>' : ""}
+
+            <h3>${escapeHTML(address.street)}</h3>
+            <p>
+              ${escapeHTML(address.city)}, ${escapeHTML(address.state)}
+              — CEP ${escapeHTML(address.zip)}
+            </p>
+
+            <div class="address-actions">
+              <button class="link-btn" type="button" data-edit-address="${address.id}">
+                Editar
+              </button>
+
+              <button class="link-btn" type="button" data-remove-address="${address.id}">
+                Remover
+              </button>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      function renderFavorites() {
+        const favorites = getStoredData("favorites", defaultFavorites);
+
+        if (!favorites.length) {
+          $("#favoritesGrid").innerHTML = `
+            <div class="empty-state">
+              <div style="font-size:30px;margin-bottom:8px;">❤️</div>
+              Nenhum produto favorito ainda.
+            </div>
+          `;
+          return;
+        }
+
+        $("#favoritesGrid").innerHTML = favorites.map(favorite => `
+          <article class="favorite-card">
+            <div class="fav-image">${escapeHTML(favorite.image || "📦")}</div>
+            <h3>${escapeHTML(favorite.name)}</h3>
+            <p>${currency(favorite.price)}</p>
+
+            <button
+              class="primary-btn full small"
+              type="button"
+              data-buy-favorite="${favorite.id}"
+            >
+              Comprar agora
+            </button>
+
+            <button
+              class="link-btn"
+              type="button"
+              data-remove-favorite="${favorite.id}"
+              style="margin-top:10px;"
+            >
+              Remover dos favoritos
+            </button>
+          </article>
+        `).join("");
+      }
+
+      function switchSection(section) {
+        $$(".nav-item").forEach(item => {
+          item.classList.toggle("active", item.dataset.section === section);
+        });
+
+        $$(".content-section").forEach(item => {
+          item.classList.toggle("active", item.id === `${section}-section`);
+        });
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function openAddressModal(address = null) {
+        $("#addressModal").classList.add("open");
+        $("#addressModal").setAttribute("aria-hidden", "false");
+
+        $("#addressModalTitle").textContent = address
+          ? "Editar endereço"
+          : "Adicionar endereço";
+
+        $("#addressId").value = address?.id || "";
+        $("#addressType").value = address?.type || "";
+        $("#addressStreet").value = address?.street || "";
+        $("#addressCity").value = address?.city || "";
+        $("#addressState").value = address?.state || "";
+        $("#addressZip").value = address?.zip || "";
+        $("#addressMain").checked = Boolean(address?.main);
+
+        setTimeout(() => $("#addressType").focus(), 50);
+      }
+
+      function closeAddressModal() {
+        $("#addressModal").classList.remove("open");
+        $("#addressModal").setAttribute("aria-hidden", "true");
+        $("#addressForm").reset();
+        $("#addressId").value = "";
+      }
+
+      function maskPhone(input) {
+        let value = input.value.replace(/\D/g, "").slice(0, 11);
+
+        if (value.length > 10) {
+          value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+        } else if (value.length > 6) {
+          value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+        } else if (value.length > 2) {
+          value = value.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
+        }
+
+        input.value = value;
+      }
+
+      function maskCPF(input) {
+        let value = input.value.replace(/\D/g, "").slice(0, 11);
+
+        value = value
+          .replace(/^(\d{3})(\d)/, "$1.$2")
+          .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+          .replace(/\.(\d{3})(\d)/, ".$1-$2");
+
+        input.value = value;
+      }
+
+      function maskCEP(input) {
+        let value = input.value.replace(/\D/g, "").slice(0, 8);
+        if (value.length > 5) value = value.replace(/^(\d{5})(\d)/, "$1-$2");
+        input.value = value;
+      }
+
+      function setupEvents() {
+
+        $$(".nav-item").forEach(item => {
+          item.addEventListener("click", () => switchSection(item.dataset.section));
+        });
+
+        $("#orderFilter").addEventListener("change", renderOrders);
+
+        $("#logoutBtn").addEventListener("click", () => {
+          localStorage.removeItem("flashmarket_user_session");
+          window.location.href = "index.html";
+        });
+
+        $("#profileForm").addEventListener("submit", event => {
+          event.preventDefault();
+
+          const profile = {
+            name: $("#fullName").value.trim(),
+            email: $("#emailInput").value.trim(),
+            phone: $("#phoneInput").value.trim(),
+            birthDate: $("#birthDate").value,
+            cpf: $("#cpfInput").value.trim()
+          };
+
+          saveData("profile", profile);
+
+          $("#userName").textContent = profile.name || "Usuário";
+          $("#userEmail").textContent = profile.email || "usuario@flashmarket.com";
+          $("#welcomeText").textContent = `Olá, ${profile.name || "usuário"}! 👋`;
+
+          const message = $("#profileMessage");
+          message.textContent = "✓ Dados atualizados com sucesso.";
+          message.style.color = "#1d7040";
+
+          setTimeout(() => message.textContent = "", 3000);
+        });
+
+        $("#phoneInput").addEventListener("input", event => maskPhone(event.target));
+        $("#cpfInput").addEventListener("input", event => maskCPF(event.target));
+        $("#addressZip").addEventListener("input", event => maskCEP(event.target));
+
+        $("#addAddressBtn").addEventListener("click", () => openAddressModal());
+
+        $("#closeAddressModal").addEventListener("click", closeAddressModal);
+        $("#cancelAddressModal").addEventListener("click", closeAddressModal);
+
+        $("#addressModal").addEventListener("click", event => {
+          if (event.target.id === "addressModal") closeAddressModal();
+        });
+
+        $("#addressForm").addEventListener("submit", event => {
+          event.preventDefault();
+
+          let addresses = getStoredData("addresses", defaultAddresses);
+
+          const id = $("#addressId").value
+            ? Number($("#addressId").value)
+            : Date.now();
+
+          const isMain = $("#addressMain").checked;
+
+          if (isMain) {
+            addresses = addresses.map(address => ({ ...address, main: false }));
+          }
+
+          const newAddress = {
+            id,
+            type: $("#addressType").value.trim(),
+            street: $("#addressStreet").value.trim(),
+            city: $("#addressCity").value.trim(),
+            state: $("#addressState").value.trim().toUpperCase(),
+            zip: $("#addressZip").value.trim(),
+            main: isMain
+          };
+
+          const existingIndex = addresses.findIndex(address => address.id === id);
+
+          if (existingIndex >= 0) {
+            addresses[existingIndex] = newAddress;
+          } else {
+            addresses.push(newAddress);
+          }
+
+          if (!addresses.some(address => address.main) && addresses.length) {
+            addresses[0].main = true;
+          }
+
+          saveData("addresses", addresses);
+          renderAddresses();
+          closeAddressModal();
+        });
+
+        document.addEventListener("click", event => {
+
+          const couponButton = event.target.closest("[data-coupon]");
+          if (couponButton) {
+            const code = couponButton.dataset.coupon;
+
+            const copy = async () => {
+              try {
+                await navigator.clipboard.writeText(code);
+                couponButton.textContent = "Copiado ✓";
+              } catch {
+                window.prompt("Copie o código do cupom:", code);
+              }
+
+              setTimeout(() => {
+                couponButton.textContent = "Copiar código";
+              }, 1800);
+            };
+
+            copy();
+          }
+
+          const editAddress = event.target.closest("[data-edit-address]");
+          if (editAddress) {
+            const addresses = getStoredData("addresses", defaultAddresses);
+            const address = addresses.find(item => item.id === Number(editAddress.dataset.editAddress));
+            if (address) openAddressModal(address);
+          }
+
+          const removeAddress = event.target.closest("[data-remove-address]");
+          if (removeAddress) {
+            const id = Number(removeAddress.dataset.removeAddress);
+            let addresses = getStoredData("addresses", defaultAddresses);
+
+            if (addresses.length <= 1) {
+              alert("É necessário manter pelo menos um endereço cadastrado.");
+              return;
+            }
+
+            if (!confirm("Deseja realmente remover este endereço?")) return;
+
+            const wasMain = addresses.find(address => address.id === id)?.main;
+            addresses = addresses.filter(address => address.id !== id);
+
+            if (wasMain && addresses.length) addresses[0].main = true;
+
+            saveData("addresses", addresses);
+            renderAddresses();
+          }
+
+          const removeFavorite = event.target.closest("[data-remove-favorite]");
+          if (removeFavorite) {
+            const id = Number(removeFavorite.dataset.removeFavorite);
+
+            if (!confirm("Remover este produto dos favoritos?")) return;
+
+            const favorites = getStoredData("favorites", defaultFavorites)
+              .filter(item => item.id !== id);
+
+            saveData("favorites", favorites);
+            renderFavorites();
+            renderStats();
+          }
+
+          const buyFavorite = event.target.closest("[data-buy-favorite]");
+          if (buyFavorite) {
+            const favorites = getStoredData("favorites", defaultFavorites);
+            const item = favorites.find(fav => fav.id === Number(buyFavorite.dataset.buyFavorite));
+
+            if (item) {
+              window.location.href = `index.html?produto=${encodeURIComponent(item.name)}`;
+            }
+          }
+
+          const orderDetail = event.target.closest("[data-order]");
+          if (orderDetail) {
+            const code = orderDetail.dataset.order;
+            window.location.href = `rastrear-pedido.html?pedido=${encodeURIComponent(code)}`;
+          }
+        });
+
+        document.addEventListener("keydown", event => {
+          if (event.key === "Escape") closeAddressModal();
+        });
+      }
+
+      function initialize() {
+        loadUserInfo();
+        renderOrders();
+        renderCoupons();
+        renderAddresses();
+        renderFavorites();
+        renderStats();
+        setupEvents();
+      }
+
+      initialize();
+    })();
+  </script>
+
+</body>
+</html>
