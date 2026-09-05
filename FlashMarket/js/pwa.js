@@ -5,6 +5,7 @@
   installButton.textContent = "INSTALAR APP";
   installButton.hidden = true;
   document.body.appendChild(installButton);
+  const footerInstallButton = document.querySelector(".footer-install");
 
   const style = document.createElement("style");
   style.textContent = `
@@ -12,6 +13,9 @@
       padding:13px 18px;background:#ffbf16;color:#111;font:800 12px Inter,Arial,sans-serif;
       box-shadow:0 8px 25px #0004}
     .pwa-install[hidden]{display:none}
+    .footer-install{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a3a3a;
+      border-radius:7px;padding:9px 13px;background:#111;color:#fff;font:800 10px Inter,Arial,sans-serif}
+    .footer-install:hover{background:#ffbf16;border-color:#ffbf16;color:#111}
     @media(max-width:560px){.pwa-install{right:12px;bottom:calc(12px + env(safe-area-inset-bottom))}}
   `;
   document.head.appendChild(style);
@@ -23,13 +27,19 @@
     installButton.hidden = false;
   });
 
-  installButton.addEventListener("click", async () => {
-    if (!deferredPrompt) return;
+  async function requestInstall() {
+    if (!deferredPrompt) {
+      alert("No iPhone/iPad, use Compartilhar > Adicionar à Tela de Início. No Android, abra o menu do navegador e escolha Instalar app.");
+      return;
+    }
     deferredPrompt.prompt();
     await deferredPrompt.userChoice;
     deferredPrompt = null;
     installButton.hidden = true;
-  });
+  }
+
+  installButton.addEventListener("click", requestInstall);
+  if (footerInstallButton) footerInstallButton.addEventListener("click", requestInstall);
 
   window.addEventListener("appinstalled", () => {
     deferredPrompt = null;
