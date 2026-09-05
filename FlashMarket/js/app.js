@@ -36,8 +36,25 @@ const categories = [
 ];
 
 let currentCategory = "all";
-let cart = JSON.parse(localStorage.getItem("flashmarket_cart") || "[]");
-let favorites = JSON.parse(localStorage.getItem("flashmarket_favorites") || "[]");
+
+function readStoredArray(key){
+  const stored = localStorage.getItem(key);
+  if(!stored) return [];
+  try {
+    const value = JSON.parse(stored);
+    return Array.isArray(value) ? value : [];
+  } catch(error) {
+    console.warn(`Dados locais inválidos em ${key}; restaurando o padrão.`, error);
+    localStorage.removeItem(key);
+    return [];
+  }
+}
+
+let cart = readStoredArray("flashmarket_cart")
+  .filter(item => Number.isInteger(item?.id) && Number.isInteger(item?.qty) && item.qty > 0)
+  .map(item => ({id:item.id, qty:item.qty}));
+let favorites = readStoredArray("flashmarket_favorites")
+  .filter(id => Number.isInteger(id));
 let coupon = localStorage.getItem("flashmarket_coupon") || "";
 let loggedUser = localStorage.getItem("flashmarket_user") || "";
 
