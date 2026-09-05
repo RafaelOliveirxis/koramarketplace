@@ -57,6 +57,8 @@ let favorites = readStoredArray("flashmarket_favorites")
   .filter(id => Number.isInteger(id));
 let coupon = localStorage.getItem("flashmarket_coupon") || "";
 let loggedUser = localStorage.getItem("flashmarket_user") || "";
+const USER_PROFILE_KEY = "flashmarket_user_profile";
+const USER_SESSION_KEY = "flashmarket_user_session";
 
 const money = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const $ = s => document.querySelector(s);
@@ -226,6 +228,22 @@ function updateHeader(){
   if(balanceEl) balanceEl.textContent=money(total());
 }
 
+function saveUserSession(profile){
+  const user = {
+    ...(readUserProfile() || {}),
+    name: profile.name.trim(),
+    email: profile.email.trim().toLowerCase()
+  };
+
+  localStorage.setItem("flashmarket_user", user.name);
+  localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(user));
+  localStorage.setItem(USER_SESSION_KEY, JSON.stringify({
+    ...user,
+    loggedInAt: new Date().toISOString()
+  }));
+  loggedUser = user.name;
+}
+
 function renderCart(){
   const el=$("#cartItems");
   if(!cart.length){
@@ -296,6 +314,11 @@ function closeModal(id){
 }
 
 function showAccount(){
+  if(loggedUser && localStorage.getItem(USER_SESSION_KEY)){
+    window.location.href = "minha-conta.html";
+    return;
+  }
+
   $("#authContent").innerHTML=`
     <div class="auth-tabs">
       <button class="active" data-auth-tab="login">ENTRAR</button>
@@ -322,6 +345,16 @@ function showAccount(){
     </section>
     <p class="auth-note" id="authNote"></p>`;
   openModal("accountModal");
+}
+
+function readUserProfile(){
+  try {
+    const profile = JSON.parse(localStorage.getItem(USER_PROFILE_KEY) || "null");
+    return profile && typeof profile === "object" ? profile : null;
+  } catch(error) {
+    console.warn("Perfil local inválido; será recriado após o login.", error);
+    return null;
+  }
 }
 
 function showDetail(id){
@@ -488,18 +521,21 @@ document.addEventListener("submit",e=>{
   if(e.target.id==="loginForm"){
     e.preventDefault();
     const email=e.target.querySelector("input[type=email]").value;
-    loggedUser=email.split("@")[0];
-    localStorage.setItem("flashmarket_user",loggedUser);
-    $("#authNote").textContent="Login demonstrativo realizado com sucesso!";
-    updateHeader();
+    const storedProfile = readUserProfile();
+    saveUserSession({
+      name: storedProfile?.email?.toLowerCase() === email.toLowerCase()
+        ? storedProfile.name
+        : email.split("@")[0],
+      email
+    });
+    window.location.href="minha-conta.html";
   }
   if(e.target.id==="registerForm"){
     e.preventDefault();
     const name=e.target.querySelector("input[type=text]").value;
-    loggedUser=name;
-    localStorage.setItem("flashmarket_user",loggedUser);
-    $("#authNote").textContent="Conta criada no modo demonstração!";
-    updateHeader();
+    const email=e.target.querySelector("input[type=email]").value;
+    saveUserSession({name,email});
+    window.location.href="minha-conta.html";
   }
 });
 

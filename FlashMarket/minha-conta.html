@@ -1129,17 +1129,24 @@
       }
 
       function loadUserInfo() {
-        const session = localStorage.getItem("flashmarket_user_session");
+        let sessionUser = {};
+        try {
+          sessionUser = JSON.parse(localStorage.getItem("flashmarket_user_session") || "{}");
+        } catch {
+          sessionUser = {};
+        }
 
-        /* Compatibilidade: se não houver sessão, a página continua
-           funcionando em modo demonstrativo para o TCC. */
-        const user = getStoredData("profile", {
+        const user = {
+          ...getStoredData("profile", {}),
+          ...sessionUser
+        };
+        const fallbackUser = {
           name: "Usuário FlashMarket",
           email: "usuario@flashmarket.com"
-        });
+        };
 
-        $("#userName").textContent = user.name || "Usuário";
-        $("#userEmail").textContent = user.email || "usuario@flashmarket.com";
+        $("#userName").textContent = user.name || fallbackUser.name;
+        $("#userEmail").textContent = user.email || fallbackUser.email;
         $("#welcomeText").textContent = `Olá, ${user.name || "usuário"}! 👋`;
 
         $("#fullName").value = user.name || "";
@@ -1394,6 +1401,7 @@
 
         $("#logoutBtn").addEventListener("click", () => {
           localStorage.removeItem("flashmarket_user_session");
+          localStorage.removeItem("flashmarket_user");
           window.location.href = "index.html";
         });
 
@@ -1409,6 +1417,16 @@
           };
 
           saveData("profile", profile);
+          localStorage.setItem("flashmarket_user_profile", JSON.stringify({
+            name: profile.name,
+            email: profile.email
+          }));
+          localStorage.setItem("flashmarket_user", profile.name);
+          localStorage.setItem("flashmarket_user_session", JSON.stringify({
+            name: profile.name,
+            email: profile.email,
+            loggedInAt: new Date().toISOString()
+          }));
 
           $("#userName").textContent = profile.name || "Usuário";
           $("#userEmail").textContent = profile.email || "usuario@flashmarket.com";
