@@ -412,7 +412,8 @@ img{max-width:100%;display:block}
   .dashboard-filters{grid-template-columns:1fr}
 }
 @media(max-width:560px){
-  .coupons-grid,.addresses-grid,.favorites-grid{grid-template-columns:1fr}
+  .coupons-grid,.addresses-grid,.favorites-grid{grid-template-columns:1fr  }
+
   .dashboard-filters{grid-template-columns:1fr;gap:10px;padding:12px}
   .section-header{flex-direction:column;align-items:flex-start}
 }
@@ -3403,4 +3404,72 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
   }
 
+}
+
+/* Mobile app surface: preserves the desktop experience while making touch
+   targets, safe areas and scrolling comfortable on installed apps. */
+@media (max-width: 560px) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow-x: hidden;
+  }
+
+  .top-strip {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .site-header {
+    top: 38px;
+  }
+
+  .header-main {
+    padding: 8px 0 10px;
+  }
+
+  .head-action,
+  .mobile-toggle,
+  .featured-arrow,
+  .wish,
+  .add-cart,
+  .detail-btn {
+    min-height: 44px;
+  }
+
+  .mobile-toggle {
+    min-width: 44px;
+  }
+
+  .nav-inner a {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .products-section,
+  .categories-section,
+  .benefits,
+  .newsletter,
+  .map-section {
+    padding-block: 48px;
+  }
+
+  .product-card {
+    min-width: 0;
+  }
+
+  .product-info {
+    padding: 13px;
+  }
+
+  .product-info h3 {
+    min-height: 2.8em;
+  }
+}
+
+@media (display-mode: standalone) {
+  .top-strip {
+    padding-top: env(safe-area-inset-top);
+  }
 }

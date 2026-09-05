@@ -49,6 +49,27 @@ FlashMarket/
 2. Localize o arquivo `index.html`.
 3. Abra-o no navegador, ou use uma extensão como Live Server.
 
+## 📱 Instalação no celular
+
+O site agora é uma **PWA**: em Android use o botão `INSTALAR APP` ou o menu do Chrome. No
+iPhone/iPad, abra a página no Safari, toque em **Compartilhar** e escolha **Adicionar à
+Tela de Início**. O carrinho, favoritos e demais estados continuam persistidos no aparelho.
+
+Para gerar os aplicativos distribuíveis nativos com Capacitor:
+
+```bash
+npm install
+npx cap add android
+npx cap add ios
+npm run cap:sync
+npm run cap:android
+npm run cap:ios
+```
+
+O Android requer Android Studio. O iOS requer macOS com Xcode e assinatura Apple para
+publicação na App Store. O conteúdo web compartilhado pelos dois aplicativos fica em
+`FlashMarket/`, evitando duplicar regras de negócio e mantendo todas as funções ativas.
+
 ## Funcionalidades principais
 
 - Busca por produtos
