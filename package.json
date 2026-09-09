@@ -1,15 +1,18 @@
 {
   "name": "flashmarket-mobile",
   "private": true,
-  "version": "1.0.0",
-  "description": "Aplicativo móvel FlashMarket para Android e iOS com Capacitor.",
+  "version": "1.1.0",
+  "description": "KoraMarketplace / FlashMarket com aplicativo e API de autenticação.",
   "scripts": {
     "cap:sync": "npx cap sync",
     "cap:android": "npx cap open android",
     "cap:ios": "npx cap open ios"
   },
   "dependencies": {
-    "@capacitor/core": "^7.4.0"
+    "@capacitor/core": "^7.4.0",
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.3"
   },
   "devDependencies": {
     "@capacitor/android": "^7.4.0",
