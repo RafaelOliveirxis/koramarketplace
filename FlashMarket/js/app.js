@@ -244,6 +244,38 @@ function saveUserSession(profile){
   loggedUser = user.name;
 }
 
+function readUserSession(){
+  try {
+    const session = JSON.parse(localStorage.getItem(USER_SESSION_KEY) || "null");
+    return session && typeof session === "object" && session.email ? session : null;
+  } catch(error) {
+    console.warn("Sessão local inválida; será necessário entrar novamente.", error);
+    return null;
+  }
+}
+
+function userOrdersKey(){
+  const session = readUserSession();
+  return session ? `flashmarket_user_orders_${session.email.toLowerCase()}` : "flashmarket_user_orders_guest";
+}
+
+function saveOrder(){
+  const items = cart.map(item => {
+    const product = products.find(candidate => candidate.id === item.id);
+    return product ? { name: product.name, qty: item.qty, price: product.price } : null;
+  }).filter(Boolean);
+  const order = {
+    id: `FM-${Date.now().toString().slice(-6)}`,
+    product: items.map(item => `${item.name} (${item.qty}x)`).join(", "),
+    price: total(),
+    status: "pago",
+    date: new Date().toISOString().slice(0, 10),
+    image: "📦"
+  };
+  const orders = readStoredArray(userOrdersKey());
+  localStorage.setItem(userOrdersKey(), JSON.stringify([order, ...orders]));
+}
+
 function renderCart(){
   const el=$("#cartItems");
   if(!cart.length){
@@ -479,6 +511,11 @@ const checkoutBtn = $("#checkoutBtn");
 if (checkoutBtn) {
   checkoutBtn.addEventListener("click", () => {
     if (!cart.length) { toast("Adicione produtos ao carrinho antes de finalizar."); return; }
+    if (!readUserSession()) {
+      toast("Entre na sua conta para acompanhar este pedido.");
+      showAccount();
+      return;
+    }
     openModal("checkoutModal");
   });
 }
@@ -487,6 +524,7 @@ const checkoutForm = $("#checkoutForm");
 if (checkoutForm) {
   checkoutForm.addEventListener("submit", e => {
     e.preventDefault();
+    saveOrder();
     const checkoutNote = $("#checkoutNote");
     if (checkoutNote) checkoutNote.textContent = `Pedido demo realizado com sucesso! Total: ${money(total())}.`;
     cart = []; coupon = ""; saveState(); renderCart(); updateHeader();
