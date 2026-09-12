@@ -1,0 +1,76 @@
+/* Autenticação real do KoraMarketplace.
+   O arquivo usa a API serverless /api/auth/* e substitui o login/cadastro local.
+*/
+(() => {
+  const TOKEN_KEY = 'flashmarket_access_token';
+  const PROFILE_KEY = 'flashmarket_user_profile';
+  const SESSION_KEY = 'flashmarket_user_session';
+
+  const saveAuth = (data) => {
+    localStorage.setItem(TOKEN_KEY, data.token);
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(data.user));
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ ...data.user, loggedInAt: new Date().toISOString() }));
+    localStorage.setItem('flashmarket_user', data.user.name);
+  };
+
+  const clearAuth = () => {
+    [TOKEN_KEY, PROFILE_KEY, SESSION_KEY, 'flashmarket_user'].forEach(k => localStorage.removeItem(k));
+  };
+
+  const request = async (url, options = {}) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+    if (token) headers.Authorization = `Bearer ${token}`;
+    const response = await fetch(url, { ...options, headers });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || 'Não foi possível concluir a operação.');
+    return data;
+  };
+
+  window.KoraAuth = {
+    request,
+    logout: async () => {
+      try { await request('/api/auth/logout', { method: 'POST' }); } catch (_) {}
+      clearAuth();
+      window.location.href = 'index.html';
+    },
+    me: async () => {
+      const data = await request('/api/auth/me');
+      saveAuth({ token: localStorage.getItem(TOKEN_KEY), user: data.user });
+      return data.user;
+    }
+  };
+
+  // Capture phase intercepta os formulários antes do listener de demonstração existente.
+  document.addEventListener('submit', async (event) => {
+    const form = event.target;
+    if (form.id !== 'loginForm' && form.id !== 'registerForm') return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    const note = document.querySelector('#authNote');
+    const button = form.querySelector('button');
+    if (button) { button.disabled = true; button.textContent = 'AGUARDE...'; }
+    if (note) note.textContent = 'Conectando ao servidor...';
+
+    try {
+      let payload;
+      let endpoint;
+      if (form.id === 'loginForm') {
+        const inputs = form.querySelectorAll('input');
+        payload = { email: inputs[0].value.trim(), password: inputs[1].value };
+        endpoint = '/api/auth/login';
+      } else {
+        const inputs = form.querySelectorAll('input');
+        payload = { name: inputs[0].value.trim(), email: inputs[1].value.trim(), password: inputs[2].value };
+        endpoint = '/api/auth/register';
+      }
+      const data = await request(endpoint, { method: 'POST', body: JSON.stringify(payload) });
+      saveAuth(data);
+      window.location.href = 'minha-conta.html';
+    } catch (error) {
+      if (note) note.textContent = error.message;
+      if (button) { button.disabled = false; button.textContent = form.id === 'loginForm' ? 'ENTRAR' : 'CRIAR CONTA'; }
+    }
+  }, true);
+})();

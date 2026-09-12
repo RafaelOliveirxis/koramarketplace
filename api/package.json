@@ -1,0 +1,11 @@
+{
+  "name": "koramarketplace-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API de autenticação do KoraMarketplace",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.3"
+  }
+}
