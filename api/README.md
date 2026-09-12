@@ -28,5 +28,6 @@ Não coloque essas credenciais no GitHub ou no código do front-end.
 - `POST /api/auth/login` — login
 - `POST /api/auth/logout` — logout
 - `GET /api/auth/me` — usuário autenticado
+- `PUT /api/auth/profile` — atualiza nome, e-mail e telefone do usuário autenticado
 
 O front-end usa JWT no header `Authorization: Bearer <token>` e não grava senhas no navegador.

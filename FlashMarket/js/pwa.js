@@ -16,7 +16,4 @@
   if (footerInstallButton) footerInstallButton.addEventListener("click", requestInstall);
   window.addEventListener("appinstalled", () => { deferredPrompt = null; installButton.hidden = true; });
   if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(error => console.error("Não foi possível ativar o modo offline da FlashMarket.", error)));
-  const authScript = document.createElement("script");
-  authScript.src = "./js/auth-real.js";
-  document.head.appendChild(authScript);
 })();

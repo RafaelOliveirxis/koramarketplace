@@ -79,7 +79,8 @@ publicação na App Store. O conteúdo web compartilhado pelos dois aplicativos 
 - Carrinho interativo com cálculo de subtotal, desconto e frete
 - Cupom de desconto demonstrativo: "FLASH10"
 - Modal de detalhes do produto
-- Login/cadastro ilustrativos em frontend
+- Login/cadastro com API serverless e fallback local para hospedagem estática
+- Página de conta com carregamento e atualização do perfil
 - Newsletter com armazenamento local
 
 ## Observação
