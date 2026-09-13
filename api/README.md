@@ -27,6 +27,8 @@ MICROSOFT_REFRESH_TOKEN=seu-refresh-token
 ```
 
 Não coloque essas credenciais no GitHub ou no código do front-end.
+Após salvar as variáveis, faça um novo deploy da Vercel. Sem `DB_HOST`, `DB_USER`,
+`DB_NAME` e `JWT_SECRET`, o login não consegue acessar o banco nem emitir a sessão.
 
 ## Endpoints
 

@@ -4,6 +4,12 @@ let pool;
 
 function getPool() {
   if (!pool) {
+    const missing = ['DB_HOST', 'DB_USER', 'DB_NAME'].filter(name => !process.env[name]);
+    if (missing.length) {
+      const error = new Error(`Configuração ausente: ${missing.join(', ')}`);
+      error.code = 'CONFIGURATION_ERROR';
+      throw error;
+    }
     pool = mysql.createPool({
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT || 3306),

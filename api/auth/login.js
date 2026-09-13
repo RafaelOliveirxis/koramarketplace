@@ -13,8 +13,10 @@ module.exports = async (req, res) => {
     return res.status(200).json({ user, token: sign(user) });
   } catch (error) {
     console.error(error);
+    if (error.code === 'CONFIGURATION_ERROR') {
+      return res.status(503).json({ error: 'A API ainda não foi configurada no servidor. Configure o banco de dados e tente novamente.' });
+    }
     return res.status(500).json({ error: 'Não foi possível entrar na conta.' });
   }
 };
-
 
