@@ -44,7 +44,7 @@
 
   const saveLocalSession = (payload) => {
     const email = payload.email.trim().toLowerCase();
-    const name = payload.name.trim() || email.split('@')[0];
+    const name = payload.name?.trim() || email.split('@')[0];
     const user = { id: `local-${email}`, name, email, phone: payload.phone || null };
     saveAuth({ token: null, user });
     return user;

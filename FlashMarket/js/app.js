@@ -362,6 +362,7 @@ function showAccount(){
       <form id="loginForm">
         <input type="email" placeholder="Seu e-mail" required>
         <input type="password" placeholder="Sua senha" required>
+        <button type="button" class="text-btn" id="forgotPassword">Esqueci minha senha</button>
         <button class="btn yellow full">ENTRAR</button>
       </form>
     </section>
@@ -547,6 +548,31 @@ if (newsletterForm) {
 }
 
 document.addEventListener("click",e=>{
+  if(e.target.id === "forgotPassword"){
+    const emailInput = $("#loginForm input[type=email]");
+    const email = emailInput?.value.trim();
+    const note = $("#authNote");
+    if(!email){
+      if(note) note.textContent = "Informe seu e-mail para receber o link de recuperação.";
+      emailInput?.focus();
+      return;
+    }
+    if(!window.KoraAuth){
+      if(note) note.textContent = "A recuperação de senha estará disponível quando a API estiver configurada.";
+      return;
+    }
+    e.target.disabled = true;
+    if(note) note.textContent = "Enviando link de recuperação...";
+    window.KoraAuth.request("/api/auth/request-reset", {
+      method: "POST",
+      body: JSON.stringify({email})
+    }).then(data => {
+      if(note) note.textContent = data.message;
+    }).catch(error => {
+      if(note) note.textContent = error.message;
+    }).finally(() => { e.target.disabled = false; });
+    return;
+  }
   const tab=e.target.closest("[data-auth-tab]");
   if(!tab)return;
   $$(".auth-tabs button").forEach(b=>b.classList.remove("active"));
