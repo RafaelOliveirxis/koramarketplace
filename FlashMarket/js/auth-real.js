@@ -1,11 +1,13 @@
-/* Autenticação real do KoraMarketplace.
-   O arquivo usa a API serverless /api/auth/* e substitui o login/cadastro local.
-*/
+/* Autenticacao real do KoraMarketplace. */
 (() => {
   const TOKEN_KEY = 'flashmarket_access_token';
   const PROFILE_KEY = 'flashmarket_user_profile';
   const SESSION_KEY = 'flashmarket_user_session';
   const API_UNAVAILABLE = 'API_UNAVAILABLE';
+  const API_BASE = window.location.hostname.endsWith('github.io')
+    ? 'https://koramarketplace.vercel.app'
+    : '';
+  const apiUrl = (url) => `${API_BASE}${url}`;
 
   const saveAuth = (data) => {
     if (data.token) localStorage.setItem(TOKEN_KEY, data.token);
@@ -22,10 +24,10 @@
   const request = async (url, options = {}) => {
     const token = localStorage.getItem(TOKEN_KEY);
     const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
-    if (token) headers.Authorization = `Bearer ${token}`;
+    if (token) headers.Authorization = 'Bearer ' + token;
     let response;
     try {
-      response = await fetch(url, { ...options, headers });
+      response = await fetch(apiUrl(url), { ...options, headers });
     } catch (error) {
       const unavailable = new Error('A API de autenticação não está disponível.');
       unavailable.code = API_UNAVAILABLE;
@@ -52,6 +54,7 @@
 
   window.KoraAuth = {
     request,
+    apiUrl,
     logout: async () => {
       try { await request('/api/auth/logout', { method: 'POST' }); } catch (_) {}
       clearAuth();
@@ -65,39 +68,24 @@
     saveLocalSession
   };
 
-  // Capture phase intercepta os formulários antes do listener de demonstração existente.
   document.addEventListener('submit', async (event) => {
     const form = event.target;
     if (form.id !== 'loginForm' && form.id !== 'registerForm') return;
     event.preventDefault();
     event.stopImmediatePropagation();
-
     const note = document.querySelector('#authNote');
     const button = form.querySelector('button');
     if (button) { button.disabled = true; button.textContent = 'AGUARDE...'; }
     if (note) note.textContent = 'Conectando ao servidor...';
-
     try {
-      let payload;
-      let endpoint;
-      if (form.id === 'loginForm') {
-        const inputs = form.querySelectorAll('input');
-        payload = { email: inputs[0].value.trim(), password: inputs[1].value };
-        endpoint = '/api/auth/login';
-      } else {
-        const inputs = form.querySelectorAll('input');
-        payload = { name: inputs[0].value.trim(), email: inputs[1].value.trim(), password: inputs[2].value };
-        endpoint = '/api/auth/register';
-      }
-      let data;
-      try {
-        data = await request(endpoint, { method: 'POST', body: JSON.stringify(payload) });
-      } catch (error) {
-        if (error.code !== API_UNAVAILABLE) throw error;
-        data = { user: saveLocalSession(payload), token: null };
-        if (note) note.textContent = 'Modo local ativado. Configure a API para salvar a conta no servidor.';
-      }
-      if (data.token) saveAuth(data);
+      const inputs = form.querySelectorAll('input');
+      const isLogin = form.id === 'loginForm';
+      const payload = isLogin
+        ? { email: inputs[0].value.trim(), password: inputs[1].value }
+        : { name: inputs[0].value.trim(), email: inputs[1].value.trim(), password: inputs[2].value };
+      const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
+      const data = await request(endpoint, { method: 'POST', body: JSON.stringify(payload) });
+      saveAuth(data);
       window.location.href = 'minha-conta.html';
     } catch (error) {
       if (note) note.textContent = error.message;

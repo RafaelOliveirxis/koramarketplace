@@ -44,7 +44,10 @@
       button.disabled = true;
       message.textContent = 'Salvando...';
       try {
-        const response = await fetch('/api/auth/reset-password', {
+        const apiBase = window.location.hostname.endsWith('github.io')
+          ? 'https://koramarketplace.vercel.app'
+          : '';
+        const response = await fetch(`${apiBase}/api/auth/reset-password`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token, password })
