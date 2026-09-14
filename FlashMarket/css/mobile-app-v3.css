@@ -3,7 +3,6 @@
   html{background:#050505!important}
   body{background:#101010!important;color:#fff!important;padding-bottom:76px!important;overflow-x:hidden!important}
 
-  /* TOPO: o menu ☰ agora concentra categorias e atalhos. */
   .site-header{background:#070707!important}
   .header-main{min-height:96px!important;grid-template-rows:47px 42px!important;padding:5px 9px 4px!important}
   .mobile-toggle,.head-action{background:#111!important;border:1px solid #292929!important}
@@ -15,11 +14,8 @@
   .search input{font-size:12px!important}
   .search button{width:48px!important;background:#ffc400!important}
 
-  /* REMOVIDO: categorias não ficam mais entre o cabeçalho e o banner. */
   .main-nav{display:none!important}
 
-  /* PAINEL HERO — proporção de app, inspirado diretamente na referência enviada.
-     Texto fica à esquerda e composição visual à direita, sem empilhar. */
   .hero{background:#1b1b1b!important;overflow:hidden!important;width:100%!important;height:430px!important;min-height:430px!important}
   .hero-content{box-sizing:border-box!important;width:100%!important;height:430px!important;min-height:430px!important;max-width:none!important;padding:0 12px!important;display:grid!important;grid-template-columns:51% 49%!important;gap:0!important;align-items:center!important}
   .hero-copy{box-sizing:border-box!important;min-width:0!important;width:100%!important;padding:0!important;margin:0!important;align-self:center!important;position:relative!important;z-index:20!important}
@@ -34,18 +30,15 @@
   .hero-points{display:flex!important;flex-wrap:nowrap!important;gap:4px!important;margin-top:10px!important;white-space:nowrap!important}
   .hero-points span{font-size:4.5px!important;line-height:1!important}
 
-  /* ARTE: mantém cartão, raio e elementos decorativos na metade direita. */
   .hero-product{box-sizing:border-box!important;display:block!important;position:relative!important;width:100%!important;height:430px!important;min-height:430px!important;margin:0!important;overflow:hidden!important;transform:none!important}
   .hero-product .product-stage{position:absolute!important;width:185%!important;height:210px!important;left:-42%!important;top:105px!important;transform:scale(.82)!important;transform-origin:center!important}
-  .hero-product .stage-card.stage-back{transform:rotate(7deg)!important}
-  .hero-product .stage-card.stage-front{transform:rotate(7deg)!important}
+  .hero-product .stage-card.stage-back,.hero-product .stage-card.stage-front{transform:rotate(7deg)!important}
   .hero-product .burst{position:absolute!important;right:0!important;top:62px!important;z-index:30!important;width:56px!important;height:56px!important;font-size:6px!important;padding-top:9px!important}
   .hero-product .burst strong{font-size:17px!important;line-height:17px!important}
   .hero-product .hero-mini-tag{position:absolute!important;left:0!important;bottom:75px!important;z-index:30!important;font-size:9px!important;line-height:.8!important;transform:rotate(-6deg)!important}
   .hero-product .hero-mini-tag small{font-size:6px!important}
   .hero-product .floating{font-size:17px!important}
 
-  /* Conteúdo abaixo do painel */
   .products-section{background:#111!important;padding:22px 12px 30px!important}
   .product-card{border-radius:10px!important;background:#fff!important;color:#111!important}
   .product-media{aspect-ratio:1/1!important}
@@ -59,7 +52,9 @@
   .benefit-grid>div{background:#151515!important;border:1px solid #292929!important;color:#fff!important;padding:11px 7px!important}
   .benefit-grid span{color:#999!important}
 
-  /* Barra inferior do app */
+  /* Rodape do site removido no app; a barra inferior do app permanece. */
+  footer,.site-footer,.main-footer,.footer,.footer-container,.footer-content{display:none!important}
+
   .mobile-app-nav{height:70px!important;background:rgba(12,12,12,.98)!important;border-top:1px solid #303030!important;padding-bottom:env(safe-area-inset-bottom)!important}
   .mobile-app-nav button{min-width:0!important;color:#777!important;gap:2px!important}
   .mobile-app-nav button span{font-size:19px!important}
@@ -68,7 +63,6 @@
   .mobile-app-nav button.active span,.mobile-app-nav button.active b,.mobile-app-nav button.active small{color:#ffc400!important}
   .mobile-app-nav button[data-mobile-action="affiliate"] span{color:#ffc400!important}
 
-  /* Login/conta no celular */
   #accountBtn.is-logged{border-color:#ffc400!important;background:#181818!important}
   .modal{z-index:5000!important}
   .modal-box{background:#151515!important;color:#fff!important;border:1px solid #303030!important}
@@ -80,7 +74,6 @@
   .account-stat span,.account-welcome span,.order-footer{color:#aaa!important}
 }
 
-/* Tablets/mini-janelas: preserva a composição horizontal, sem transformar o hero em coluna. */
 @media (min-width:701px) and (max-width:900px){
   .hero{min-height:425px!important;height:425px!important;background:#2d2d2d!important;overflow:hidden!important}
   .hero-content{width:100%!important;min-height:425px!important;height:425px!important;display:grid!important;grid-template-columns:47% 53%!important;align-items:center!important;gap:0!important;padding:0 24px!important}
@@ -92,4 +85,5 @@
   .hero-buttons .btn{height:42px!important;min-height:42px!important;padding:0 17px!important;font-size:9px!important}
   .hero-points{margin-top:11px!important;font-size:7px!important;gap:8px!important}
   .hero-product{position:relative!important;height:100%!important;min-height:425px!important;margin:0!important;overflow:hidden!important}
+  footer,.site-footer,.main-footer,.footer,.footer-container,.footer-content{display:none!important}
 }
