@@ -1,8 +1,10 @@
 const crypto = require('crypto');
 const { getPool } = require('../_lib/db');
 const { bcrypt } = require('../_lib/auth');
+const { applyCors } = require('../_lib/cors');
 
 module.exports = async (req, res) => {
+  if (applyCors(req, res)) return;
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido.' });
   const token = String(req.body?.token || '');
   const password = String(req.body?.password || '');
