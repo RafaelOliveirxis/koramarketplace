@@ -1,22 +1,21 @@
-/* Navegação mobile do KoraMarketplace — app bar + acesso à conta */
+/* KoraMarketplace — navegação mobile estilo aplicativo */
 (() => {
   const path = window.location.pathname.toLowerCase();
   const isAccountPage = path.endsWith('/minha-conta.html');
   const isTrackingPage = path.endsWith('/rastrear-pedido.html');
   const isAffiliatePage = path.endsWith('/afiliado.html');
 
-  function hasSession() {
+  const getSession = () => {
     try {
-      const session = JSON.parse(localStorage.getItem('flashmarket_user_session') || 'null');
-      return !!session?.email;
+      return JSON.parse(localStorage.getItem('flashmarket_user_session') || 'null');
     } catch (_) {
-      return false;
+      return null;
     }
-  }
+  };
 
-  function go(page) {
-    window.location.href = page;
-  }
+  const hasSession = () => !!getSession()?.email;
+
+  const go = page => { window.location.href = page; };
 
   function openAccount() {
     if (isAccountPage) return;
@@ -29,7 +28,9 @@
     const accountButton = document.getElementById('accountBtn');
     if (accountButton) {
       accountButton.click();
-      setTimeout(() => document.querySelector('#loginForm input')?.focus(), 120);
+      window.setTimeout(() => {
+        document.querySelector('#loginForm input[type="email"], #loginForm input')?.focus();
+      }, 150);
       return;
     }
 
@@ -43,27 +44,27 @@
     nav.className = 'mobile-app-nav';
     nav.setAttribute('aria-label', 'Navegação do aplicativo');
     nav.innerHTML = `
-      <button type="button" data-mobile-action="home" data-label="Início">
-        <span>⌂</span><b>Início</b>
+      <button type="button" data-mobile-action="home" aria-label="Início">
+        <span aria-hidden="true">⌂</span><b>Início</b>
       </button>
-      <button type="button" data-mobile-action="tracking" data-label="Rastrear pedido">
-        <span>⌁</span><b>Rastrear pedido</b>
+      <button type="button" data-mobile-action="tracking" aria-label="Rastrear pedido">
+        <span aria-hidden="true">⌁</span><b>Rastrear</b><small>pedido</small>
       </button>
-      <button type="button" data-mobile-action="affiliate" data-label="Área de afiliado">
-        <span>⚡</span><b>Área de afiliado</b>
+      <button type="button" data-mobile-action="affiliate" aria-label="Área de afiliado">
+        <span aria-hidden="true">⚡</span><b>Área de</b><small>afiliado</small>
       </button>
-      <button type="button" data-mobile-action="favorites" data-label="Favoritos">
-        <span>♡</span><b>Favoritos</b>
+      <button type="button" data-mobile-action="favorites" aria-label="Favoritos">
+        <span aria-hidden="true">♡</span><b>Favoritos</b>
       </button>
-      <button type="button" data-mobile-action="account" data-label="Conta">
-        <span>♙</span><b>Conta</b>
+      <button type="button" data-mobile-action="account" aria-label="Conta">
+        <span aria-hidden="true">♙</span><b>Conta</b>
       </button>
     `;
 
     document.body.appendChild(nav);
     setActive(nav);
 
-    nav.addEventListener('click', (event) => {
+    nav.addEventListener('click', event => {
       const button = event.target.closest('button[data-mobile-action]');
       if (!button) return;
 
@@ -72,16 +73,11 @@
 
       if (action === 'home') {
         if (isAccountPage || isTrackingPage || isAffiliatePage) go('index.html');
-        else document.getElementById('inicio')?.scrollIntoView({ behavior: 'smooth' });
+        else document.getElementById('inicio')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
-      if (action === 'tracking') {
-        if (!isTrackingPage) go('rastrear-pedido.html');
-      }
-
-      if (action === 'affiliate') {
-        if (!isAffiliatePage) go('afiliado.html');
-      }
+      if (action === 'tracking' && !isTrackingPage) go('rastrear-pedido.html');
+      if (action === 'affiliate' && !isAffiliatePage) go('afiliado.html');
 
       if (action === 'favorites') {
         if (isAccountPage) {
@@ -115,9 +111,11 @@
     const text = document.getElementById('accountText');
     if (!button || !text) return;
 
-    if (hasSession()) text.textContent = 'MINHA CONTA';
-    button.setAttribute('aria-label', hasSession() ? 'Abrir minha conta' : 'Entrar ou criar conta');
-    button.title = hasSession() ? 'Minha conta' : 'Entrar / Criar conta';
+    const session = getSession();
+    text.textContent = session?.name ? session.name.split(' ')[0].toUpperCase() : 'ENTRAR';
+    button.setAttribute('aria-label', session ? 'Abrir minha conta' : 'Entrar ou criar conta');
+    button.title = session ? 'Minha conta' : 'Entrar / Criar conta';
+    button.classList.toggle('is-logged', !!session);
   }
 
   function improveMobileMenu() {
@@ -129,8 +127,8 @@
     toggle.setAttribute('aria-expanded', 'false');
 
     toggle.addEventListener('click', () => {
-      nav.classList.toggle('mobile-menu-open');
-      toggle.setAttribute('aria-expanded', nav.classList.contains('mobile-menu-open') ? 'true' : 'false');
+      const open = nav.classList.toggle('mobile-menu-open');
+      toggle.setAttribute('aria-expanded', String(open));
     });
   }
 
@@ -141,11 +139,14 @@
     style.id = 'mobile-app-polish';
     style.textContent = `
       @media(max-width:700px){
-        .mobile-app-nav button b{font:800 6.5px/1.05 Inter,Arial,sans-serif;text-align:center;max-width:58px;}
-        .mobile-app-nav button span{font-size:18px;line-height:1;}
-        .mobile-app-nav button.active span{transform:translateY(-1px);}
-        .mobile-app-nav button.active b{color:#ffc400;}
+        .mobile-app-nav button b,.mobile-app-nav button small{font-family:Inter,Arial,sans-serif;text-align:center;line-height:1.05;}
+        .mobile-app-nav button b{font-size:6.5px;font-weight:800;display:block;}
+        .mobile-app-nav button small{font-size:6px;font-weight:700;color:inherit;display:block;}
+        .mobile-app-nav button span{font-size:19px;line-height:1;transition:transform .15s ease;}
+        .mobile-app-nav button.active span{transform:translateY(-1px) scale(1.05);}
+        .mobile-app-nav button.active b,.mobile-app-nav button.active small{color:#ffc400;}
         #accountBtn{outline:none;}
+        #accountBtn.is-logged{border-color:#ffc400!important;}
         #accountBtn:focus-visible{box-shadow:0 0 0 2px #ffc400;}
       }
     `;
