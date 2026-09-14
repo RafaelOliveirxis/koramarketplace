@@ -3,7 +3,6 @@
   html{background:#050505!important}
   body{background:#101010!important;color:#fff!important;padding-bottom:76px!important}
 
-  /* Cabeçalho compacto de aplicativo */
   .site-header{background:#070707!important}
   .header-main{min-height:96px!important;grid-template-rows:47px 42px!important;padding:5px 9px 4px!important}
   .mobile-toggle,.head-action{background:#111!important;border:1px solid #292929!important}
@@ -15,7 +14,6 @@
   .search input{font-size:12px!important}
   .search button{width:48px!important;background:#ffc400!important}
 
-  /* Atalhos de categorias */
   .main-nav{height:80px!important;background:#080808!important;border-bottom:2px solid #ed1c24!important}
   .nav-inner{height:100%!important;gap:3px!important;padding:6px 7px 5px!important}
   .nav-inner a{flex-basis:65px!important;height:68px!important;border-radius:9px!important;font-size:7px!important;color:#f4f4f4!important}
@@ -23,7 +21,6 @@
   .nav-inner a:nth-child(1)::before{background:#ffc400!important;color:#111!important}
   .nav-inner a:nth-child(8){flex-basis:92px!important;background:#ed1c24!important}
 
-  /* Hero semelhante ao app da referência */
   .hero{background:#171717!important}
   .hero-copy{padding-top:18px!important}
   .hero h1{font-family:Anton,Impact,sans-serif!important;font-size:40px!important;line-height:.86!important;letter-spacing:.2px!important}
@@ -33,7 +30,6 @@
   .hero-buttons .btn.yellow{background:#ffc400!important;color:#111!important}
   .hero-product{height:108px!important}
 
-  /* Ofertas em grade 2x2 */
   .products-section{background:#111!important;padding:23px 14px 30px!important}
   .product-card{border-radius:10px!important;background:#fff!important;color:#111!important}
   .product-media{aspect-ratio:1/1!important}
@@ -42,13 +38,11 @@
   .add-cart{background:#ffc400!important;color:#111!important;border:0!important;font-weight:900!important}
   .detail-btn{background:#111!important;color:#fff!important;border-color:#111!important}
 
-  /* Benefícios compactos */
   .benefits{background:#101010!important;color:#fff!important}
   .benefit-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
   .benefit-grid>div{background:#151515!important;border:1px solid #292929!important;color:#fff!important;padding:11px 7px!important}
   .benefit-grid span{color:#999!important}
 
-  /* Barra inferior: Início / Rastrear / Afiliado / Favoritos / Conta */
   .mobile-app-nav{height:70px!important;background:rgba(12,12,12,.98)!important;border-top:1px solid #303030!important;padding-bottom:env(safe-area-inset-bottom)!important}
   .mobile-app-nav button{min-width:0!important;color:#777!important;gap:2px!important}
   .mobile-app-nav button span{font-size:19px!important}
@@ -57,14 +51,12 @@
   .mobile-app-nav button.active span,.mobile-app-nav button.active b,.mobile-app-nav button.active small{color:#ffc400!important}
   .mobile-app-nav button[data-mobile-action="affiliate"] span{color:#ffc400!important}
 
-  /* Conta/login acessível pelo ícone inferior e pelo topo */
   #accountBtn.is-logged{border-color:#ffc400!important;background:#181818!important}
   .modal{z-index:5000!important}
   .modal-box{background:#151515!important;color:#fff!important;border:1px solid #303030!important}
   .modal-box input,.modal-box select,.modal-box textarea{background:#0e0e0e!important;color:#fff!important;border-color:#333!important}
   .modal-box .btn.yellow,.modal-box button[type="submit"]{background:#ffc400!important;color:#111!important}
 
-  /* Área da conta no padrão de painel de aplicativo */
   .account-page{background:#101010!important;color:#fff!important}
   .account-welcome,.account-stat,.order-card,.coupon-card,.address-card,.favorite-card,.profile-form{background:#151515!important;color:#fff!important;border-color:#292929!important}
   .account-stat span,.account-welcome span,.order-footer{color:#aaa!important}
@@ -75,4 +67,29 @@
     .hero h1{font-size:36px!important}
     .mobile-app-nav button b{font-size:6px!important}
   }
+}
+
+/* Tablet / celular em modo paisagem: mantém a composição do banner de referência.
+   Evita que a largura intermediária de ~700–900px comprima o produto para baixo. */
+@media (min-width:701px) and (max-width:900px){
+  .hero{min-height:0!important;height:auto!important;background:#2d2d2d!important;overflow:hidden!important}
+  .hero-content{width:100%!important;min-height:425px!important;height:425px!important;display:grid!important;grid-template-columns:47% 53%!important;align-items:center!important;gap:0!important;padding:0 24px!important}
+  .hero-copy{padding:34px 0!important;max-width:100%!important;align-self:center!important}
+  .hero-tag{font-size:10px!important;letter-spacing:1.5px!important}
+  .hero h1{font-size:54px!important;line-height:.87!important;margin:9px 0 12px!important;max-width:360px!important}
+  .hero-copy p{font-size:10px!important;line-height:1.35!important;max-width:330px!important}
+  .hero-buttons{margin-top:14px!important;gap:8px!important}
+  .hero-buttons .btn{height:42px!important;min-height:42px!important;padding:0 17px!important;font-size:9px!important}
+  .hero-points{margin-top:11px!important;font-size:7px!important;gap:8px!important}
+  .hero-product{position:relative!important;height:100%!important;min-height:425px!important;margin:0!important;overflow:hidden!important}
+  .product-stage{inset:0!important}
+  .stage-back{width:73%!important;height:46%!important;right:9%!important;top:30%!important}
+  .stage-front{width:64%!important;height:43%!important;right:18%!important;top:23%!important}
+  .big-product{font-size:70px!important}
+  .floating{font-size:20px!important}
+  .f1{left:5%!important;top:31%!important}.f2{right:4%!important;top:47%!important}.f3{left:17%!important;bottom:16%!important}
+  .burst{right:1%!important;top:15%!important;width:64px!important;height:64px!important;font-size:7px!important}
+  .burst strong{font-size:16px!important}
+  .hero-mini-tag{left:7%!important;bottom:13%!important;padding:4px 8px!important;font-size:11px!important}
+  .hero-mini-tag small{font-size:6px!important}
 }
