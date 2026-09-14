@@ -1,7 +1,9 @@
 const { getPool } = require('../_lib/db');
 const { bcrypt, sign } = require('../_lib/auth');
+const { applyCors } = require('../_lib/cors');
 
 module.exports = async (req, res) => {
+  if (applyCors(req, res)) return;
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido.' });
   try {
     const { name, email, password, phone = null } = req.body || {};
