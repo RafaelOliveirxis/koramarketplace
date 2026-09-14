@@ -1,4 +1,4 @@
-const CACHE_NAME = "flashmarket-shell-v3";
+const CACHE_NAME = "flashmarket-shell-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,7 +8,10 @@ const APP_SHELL = [
   "./suporte.html",
   "./manifest.webmanifest",
   "./css/style.css",
+  "./css/mobile-app.css",
   "./js/app.js",
+  "./js/auth-real.js",
+  "./js/mobile-app.js",
   "./js/rastreamento.js",
   "./js/suporte.js",
   "./js/pwa.js",
