@@ -1,5 +1,5 @@
 (() => {
-  // Carrega as camadas visuais e de navegação mobile em todas as páginas que usam o PWA.
+  // Camadas visuais e navegação mobile carregadas em todas as páginas do PWA.
   const loadCss = (href, marker) => {
     if (document.querySelector(`link[data-${marker}]`)) return;
     const link = document.createElement('link');
@@ -11,6 +11,7 @@
 
   loadCss('css/mobile-app.css', 'mobileAppCss');
   loadCss('css/mobile-fix.css', 'mobileFixCss');
+  loadCss('css/mobile-app-v3.css', 'mobileAppV3Css');
 
   if (!document.querySelector('script[data-mobile-app-js]')) {
     const mobileJs = document.createElement('script');
@@ -29,7 +30,7 @@
 
   const footerInstallButton = document.querySelector('.footer-install');
   const style = document.createElement('style');
-  style.textContent = `.pwa-install{position:fixed;right:16px;bottom:16px;z-index:80;border:0;border-radius:999px;padding:13px 18px;background:#ffbf16;color:#111;font:800 12px Inter,Arial,sans-serif;box-shadow:0 8px 25px #0004}.pwa-install[hidden]{display:none}.footer-install{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a3a3a;border-radius:7px;padding:9px 13px;background:#111;color:#fff;font:800 10px Inter,Arial,sans-serif}.footer-install:hover{background:#ffbf16;border-color:#ffbf16;color:#111}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(78px + env(safe-area-inset-bottom));padding:11px 15px;font-size:10px}}`;
+  style.textContent = `.pwa-install{position:fixed;right:16px;bottom:16px;z-index:80;border:0;border-radius:999px;padding:13px 18px;background:#ffbf16;color:#111;font:800 12px Inter,Arial,sans-serif;box-shadow:0 8px 25px #0004}.pwa-install[hidden]{display:none}.footer-install{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a3a3a;border-radius:7px;padding:9px 13px;background:#111;color:#fff;font:800 10px Inter,Arial,sans-serif}.footer-install:hover{background:#ffbf16;border-color:#ffbf16;color:#111}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(82px + env(safe-area-inset-bottom));padding:11px 15px;font-size:10px}}`;
   document.head.appendChild(style);
 
   let deferredPrompt;
