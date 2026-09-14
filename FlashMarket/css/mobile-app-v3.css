@@ -1,0 +1,78 @@
+/* KoraMarketplace — acabamento mobile inspirado no layout do mockup */
+@media (max-width:700px){
+  html{background:#050505!important}
+  body{background:#101010!important;color:#fff!important;padding-bottom:76px!important}
+
+  /* Cabeçalho compacto de aplicativo */
+  .site-header{background:#070707!important}
+  .header-main{min-height:96px!important;grid-template-rows:47px 42px!important;padding:5px 9px 4px!important}
+  .mobile-toggle,.head-action{background:#111!important;border:1px solid #292929!important}
+  .mobile-toggle{width:38px!important;height:38px!important;border-radius:10px!important}
+  .brand-logo{width:60px!important;height:43px!important}
+  .head-action{width:36px!important;height:36px!important;min-height:36px!important}
+  .head-action span{font-size:15px!important}
+  .search{height:42px!important;border-radius:10px!important;background:#111!important}
+  .search input{font-size:12px!important}
+  .search button{width:48px!important;background:#ffc400!important}
+
+  /* Atalhos de categorias */
+  .main-nav{height:80px!important;background:#080808!important;border-bottom:2px solid #ed1c24!important}
+  .nav-inner{height:100%!important;gap:3px!important;padding:6px 7px 5px!important}
+  .nav-inner a{flex-basis:65px!important;height:68px!important;border-radius:9px!important;font-size:7px!important;color:#f4f4f4!important}
+  .nav-inner a::before{width:34px!important;height:34px!important;top:3px!important;background:#151515!important;border-color:#303030!important}
+  .nav-inner a:nth-child(1)::before{background:#ffc400!important;color:#111!important}
+  .nav-inner a:nth-child(8){flex-basis:92px!important;background:#ed1c24!important}
+
+  /* Hero semelhante ao app da referência */
+  .hero{background:#171717!important}
+  .hero-copy{padding-top:18px!important}
+  .hero h1{font-family:Anton,Impact,sans-serif!important;font-size:40px!important;line-height:.86!important;letter-spacing:.2px!important}
+  .hero h1 em{color:#ffc400!important}
+  .hero-copy p{max-width:285px!important;font-size:10px!important}
+  .hero-buttons .btn{min-height:37px!important;height:37px!important;border-radius:7px!important;font-size:8px!important;font-weight:900!important}
+  .hero-buttons .btn.yellow{background:#ffc400!important;color:#111!important}
+  .hero-product{height:108px!important}
+
+  /* Ofertas em grade 2x2 */
+  .products-section{background:#111!important;padding:23px 14px 30px!important}
+  .product-card{border-radius:10px!important;background:#fff!important;color:#111!important}
+  .product-media{aspect-ratio:1/1!important}
+  .sale-badge{background:#ed1c24!important;color:#fff!important}
+  .price{color:#111!important;font-weight:900!important}
+  .add-cart{background:#ffc400!important;color:#111!important;border:0!important;font-weight:900!important}
+  .detail-btn{background:#111!important;color:#fff!important;border-color:#111!important}
+
+  /* Benefícios compactos */
+  .benefits{background:#101010!important;color:#fff!important}
+  .benefit-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  .benefit-grid>div{background:#151515!important;border:1px solid #292929!important;color:#fff!important;padding:11px 7px!important}
+  .benefit-grid span{color:#999!important}
+
+  /* Barra inferior: Início / Rastrear / Afiliado / Favoritos / Conta */
+  .mobile-app-nav{height:70px!important;background:rgba(12,12,12,.98)!important;border-top:1px solid #303030!important;padding-bottom:env(safe-area-inset-bottom)!important}
+  .mobile-app-nav button{min-width:0!important;color:#777!important;gap:2px!important}
+  .mobile-app-nav button span{font-size:19px!important}
+  .mobile-app-nav button b{font-size:6.5px!important;white-space:nowrap!important}
+  .mobile-app-nav button small{font-size:5.5px!important;white-space:nowrap!important}
+  .mobile-app-nav button.active span,.mobile-app-nav button.active b,.mobile-app-nav button.active small{color:#ffc400!important}
+  .mobile-app-nav button[data-mobile-action="affiliate"] span{color:#ffc400!important}
+
+  /* Conta/login acessível pelo ícone inferior e pelo topo */
+  #accountBtn.is-logged{border-color:#ffc400!important;background:#181818!important}
+  .modal{z-index:5000!important}
+  .modal-box{background:#151515!important;color:#fff!important;border:1px solid #303030!important}
+  .modal-box input,.modal-box select,.modal-box textarea{background:#0e0e0e!important;color:#fff!important;border-color:#333!important}
+  .modal-box .btn.yellow,.modal-box button[type="submit"]{background:#ffc400!important;color:#111!important}
+
+  /* Área da conta no padrão de painel de aplicativo */
+  .account-page{background:#101010!important;color:#fff!important}
+  .account-welcome,.account-stat,.order-card,.coupon-card,.address-card,.favorite-card,.profile-form{background:#151515!important;color:#fff!important;border-color:#292929!important}
+  .account-stat span,.account-welcome span,.order-footer{color:#aaa!important}
+
+  @media(max-width:380px){
+    .nav-inner a{flex-basis:60px!important}
+    .nav-inner a:nth-child(8){flex-basis:88px!important}
+    .hero h1{font-size:36px!important}
+    .mobile-app-nav button b{font-size:6px!important}
+  }
+}
