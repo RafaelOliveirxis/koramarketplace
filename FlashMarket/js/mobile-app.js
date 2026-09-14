@@ -101,16 +101,7 @@
         <a href="rastrear-pedido.html"><span>⌁</span>Rastrear pedido</a>
         <a href="afiliado.html"><span>⚡</span>Área de afiliado</a>
         <a href="index.html#ofertas"><span>🔥</span>Ofertas Flash</a>
-        <a href="minha-conta.html"><span>♙</span>Minha conta</a>
         <a href="suporte.html"><span>?</span>Atendimento</a>
-      </div>
-      <div class="mobile-menu-categories">
-        <strong>CATEGORIAS</strong>
-        <a href="index.html#catalogo">🏠 Casa & Decor</a>
-        <a href="index.html#catalogo">💻 Home Office</a>
-        <a href="index.html#catalogo">🧸 Kids</a>
-        <a href="index.html#produtos">👕 Vestuário</a>
-        <a href="index.html#produtos">✏️ Papelaria</a>
       </div>
     `;
     document.body.appendChild(drawer);
@@ -152,11 +143,10 @@
       const login = drawer.querySelector('.mobile-menu-login');
       name.textContent = session?.name ? `Olá, ${session.name.split(' ')[0]}!` : 'Olá!';
       status.textContent = session?.email || 'Entre na sua conta';
-      login.textContent = session ? 'MINHA CONTA' : 'ENTRAR';
+      login.textContent = session ? 'ABRIR CONTA' : 'ENTRAR';
     }
     updateMenuUser();
 
-    // Mantém a navegação original fechada/sem interferir no novo drawer.
     if (mainNav) mainNav.classList.remove('mobile-menu-open');
   }
 
@@ -188,10 +178,6 @@
         .mobile-menu-links a{height:48px!important;padding:0 12px!important;display:flex!important;align-items:center!important;gap:12px!important;border-bottom:1px solid #242424!important;color:#f5f5f5!important;text-decoration:none!important;font:800 10px Inter,Arial,sans-serif!important}
         .mobile-menu-links a span{width:26px!important;text-align:center!important;color:#ffc400!important;font-size:18px!important}
         .mobile-menu-links a:active{background:#1b1b1b!important}
-        .mobile-menu-categories{margin:7px 12px!important;padding:12px!important;border-radius:12px!important;background:#151515!important;border:1px solid #292929!important}
-        .mobile-menu-categories strong{display:block!important;color:#ffc400!important;font:900 8px Inter,Arial,sans-serif!important;letter-spacing:1px!important;margin-bottom:6px!important}
-        .mobile-menu-categories a{display:block!important;padding:8px 3px!important;color:#ccc!important;text-decoration:none!important;font:700 8px Inter,Arial,sans-serif!important;border-bottom:1px solid #222!important}
-        .mobile-menu-categories a:last-child{border-bottom:0!important}
       }
     `;
     document.head.appendChild(style);
