@@ -62,7 +62,9 @@
       }
       if (action === 'favorites') {
         if (isAccountPage) {
-          document.querySelector('[data-section="favorites"], [data-target="favorites"]')?.click();
+          const favoriteButton = document.querySelector('[data-section="favorites"], [data-target="favorites"]');
+          if (favoriteButton) favoriteButton.click();
+          else window.location.href = 'index.html#ofertas';
         } else {
           document.getElementById('favBtn')?.click();
         }
@@ -89,9 +91,12 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function init() {
     createNav();
     improveHeaderAccount();
     improveMobileMenu();
-  });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
 })();
