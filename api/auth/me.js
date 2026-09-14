@@ -1,7 +1,9 @@
 const { getPool } = require('../_lib/db');
 const { requireAuth } = require('../_lib/auth');
+const { applyCors } = require('../_lib/cors');
 
 module.exports = async (req, res) => {
+  if (applyCors(req, res)) return;
   if (req.method !== 'GET') return res.status(405).json({ error: 'Método não permitido.' });
   const auth = requireAuth(req, res);
   if (!auth) return;
