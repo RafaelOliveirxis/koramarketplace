@@ -122,6 +122,57 @@
   .modal-box h2{font-size:24px!important}
   .modal-box input,.modal-box select{min-height:44px!important;font-size:13px!important}
   .modal-box .btn{min-height:45px;font-size:11px}
+
+  /* Minha Conta no formato de painel de aplicativo */
+  .account-page{min-height:calc(100vh - 60px);padding:18px 10px 82px!important;background:#f3f3f3}
+  .account-page .page-shell{width:100%;}
+  .account-layout{display:block}
+  .account-sidebar{position:static;margin-bottom:14px}
+  .user-card{display:grid;grid-template-columns:50px 1fr auto;gap:10px;align-items:center;padding:12px;border-radius:13px;text-align:left}
+  .user-avatar{width:48px;height:48px;margin:0;font-size:20px;border-width:2px}
+  .user-card h2{font-size:12px}
+  .user-card p{font-size:7px;margin:3px 0 0}
+  .logout-btn{width:auto;min-height:30px;padding:0 9px;font-size:7px}
+  .account-nav{display:flex;gap:5px;overflow-x:auto;margin-top:8px;padding:5px;border-radius:11px;scrollbar-width:none}
+  .account-nav::-webkit-scrollbar{display:none}
+  .nav-item{flex:0 0 auto;width:auto;min-height:34px;padding:0 9px;gap:5px;font-size:7px;white-space:nowrap}
+  .nav-item span{width:auto;font-size:12px}
+  .account-content{width:100%}
+  .section-header{margin-bottom:11px}
+  .section-header h1{font-size:25px;letter-spacing:-.8px}
+  .section-header p{font-size:8px;margin-top:4px}
+  .account-welcome{padding:11px 12px;margin-bottom:10px;border-radius:10px}
+  .account-welcome strong{font-size:8px}
+  .account-welcome span{font-size:7px}
+  .account-stats{grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:10px}
+  .account-stat{padding:10px;border-radius:10px}
+  .account-stat span{font-size:6px}
+  .account-stat strong{font-size:17px;margin-top:4px}
+  .orders-filter select{width:100%;min-width:0;min-height:35px;font-size:8px}
+  .orders-list{gap:7px}
+  .order-card{padding:11px;border-radius:10px}
+  .order-id-product strong{font-size:9px}
+  .order-id-product span{font-size:15px}
+  .order-status{font-size:6px;padding:5px 7px}
+  .order-product{font-size:8px;margin:9px 0 7px}
+  .order-date{font-size:6px}
+  .order-price{font-size:9px}
+  .order-actions{margin-top:8px;gap:5px}
+  .secondary-btn{min-height:29px;padding:0 8px;font-size:6px}
+  .detail-link,.link-btn{font-size:6px}
+  .coupons-grid,.addresses-grid,.favorites-grid{grid-template-columns:1fr;gap:7px}
+  .coupon-card,.address-card,.favorite-card{padding:11px;border-radius:10px}
+  .coupon-code{font-size:11px}
+  .coupon-desc{font-size:7px}
+  .coupon-discount strong{font-size:18px}
+  .coupon-footer{margin-top:10px;padding-top:8px}
+  .coupon-footer small{font-size:6px}
+  .coupon-btn{min-height:27px;font-size:6px}
+  .profile-form{grid-template-columns:1fr;padding:12px;border-radius:11px;gap:9px}
+  .profile-form .full{grid-column:auto}
+  .form-group label{font-size:7px}
+  .form-group input{height:39px;font-size:9px}
+  .form-message{font-size:7px}
 }
 
 @media (min-width:701px){.mobile-app-nav{display:none!important}}
