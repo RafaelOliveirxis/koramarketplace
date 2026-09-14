@@ -29,10 +29,9 @@ jobs:
         run: |
           mkdir -p _site
           cp -r FlashMarket/. _site/
-      - name: Aplicar SEO básico
+      - name: Aplicar SEO completo
         run: |
-          sed -i 's#<title>.*</title>#<title>FlashMarket | Marketplace Online</title>#' _site/index.html
-          sed -i 's#<meta name="description"[^>]*>#<meta name="description" content="FlashMarket é um marketplace online com produtos, ofertas, lojas e uma experiência de compra rápida, moderna e prática.">#' _site/index.html
+          python scripts/optimize_seo.py
       - name: Preparar arquivos para publicação
         uses: actions/upload-pages-artifact@v3
         with:
