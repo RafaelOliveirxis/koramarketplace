@@ -1,10 +1,12 @@
 const crypto = require('crypto');
 const { getPool } = require('../_lib/db');
 const { sendPasswordResetEmail } = require('../_lib/mailer');
+const { applyCors } = require('../_lib/cors');
 
 const message = 'Se o e-mail estiver cadastrado, você receberá um link de recuperação em instantes.';
 
 module.exports = async (req, res) => {
+  if (applyCors(req, res)) return;
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido.' });
   const email = String(req.body?.email || '').trim().toLowerCase();
   if (!email) return res.status(400).json({ error: 'Informe seu e-mail.' });
