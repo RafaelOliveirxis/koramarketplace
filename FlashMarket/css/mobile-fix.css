@@ -1,0 +1,81 @@
+/* KoraMarketplace — refinamento final do layout mobile */
+@media (max-width:700px){
+  html,body{overflow-x:hidden!important;width:100%!important;max-width:100%!important}
+  body{padding-bottom:74px!important;background:#101010!important}
+
+  /* HEADER */
+  .site-header{position:sticky!important;top:0!important;z-index:1000!important;background:#080808!important}
+  .header-main{grid-template-columns:42px 1fr auto!important;min-height:68px!important;padding:8px 10px 6px!important;gap:8px!important}
+  .mobile-toggle{width:40px!important;height:40px!important;border-radius:11px!important;font-size:22px!important}
+  .brand-logo{width:66px!important;height:48px!important}
+  .header-actions{gap:5px!important}
+  .head-action{width:38px!important;height:38px!important;min-height:38px!important}
+  .head-action span{font-size:16px!important}
+  .head-action i{min-width:16px!important;height:16px!important;line-height:16px!important}
+  .search{height:44px!important;margin:0 0 8px!important;border-radius:11px!important}
+  .search input{font-size:13px!important;padding:0 14px!important}
+  .search button{width:52px!important;font-size:20px!important;border-radius:0 10px 10px 0!important}
+  .main-nav{display:none!important}
+
+  /* HERO — mais parecido com o mockup: conteúdo primeiro e produto menor */
+  .hero{background:#171717!important;min-height:0!important}
+  .hero-content{padding:0 14px!important}
+  .hero-copy{padding:29px 0 5px!important;max-width:100%!important}
+  .hero-tag{font-size:9px!important;letter-spacing:1.3px!important}
+  .hero h1{font-size:43px!important;line-height:.91!important;letter-spacing:.2px!important;margin:9px 0 13px!important;max-width:320px!important}
+  .hero-copy p{font-size:11px!important;line-height:1.45!important;max-width:315px!important;margin-bottom:0!important}
+  .hero-buttons{margin-top:16px!important;gap:8px!important}
+  .hero-buttons .btn{min-height:40px!important;padding:0 17px!important;font-size:9px!important}
+  .hero-points{display:flex!important;flex-wrap:wrap!important;gap:5px 8px!important;margin-top:13px!important;font-size:7px!important}
+  .hero-product{height:150px!important;margin-top:2px!important;overflow:hidden!important}
+  .product-stage{inset:10px 0 0!important}
+  .stage-back{width:58%!important;height:62%!important;right:12%!important;top:23%!important}
+  .stage-front{width:49%!important;height:60%!important;right:19%!important;top:15%!important}
+  .big-product{font-size:58px!important}
+  .floating{font-size:21px!important}
+  .f1{left:8%!important;top:14%!important}.f2{right:10%!important;top:48%!important}.f3{left:17%!important;bottom:2%!important}
+  .burst{right:0!important;top:4%!important;width:66px!important;height:66px!important;font-size:7px!important}
+  .burst strong{font-size:16px!important}
+  .hero-mini-tag{left:9%!important;bottom:1%!important;padding:4px 8px!important;font-size:12px!important}
+
+  /* OFERTAS */
+  .products-section{padding:25px 14px 32px!important;background:#101010!important}
+  .products-section .wrap{padding-left:0!important;padding-right:0!important}
+  .section-head{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;margin-bottom:13px!important}
+  .section-head h2{font-size:20px!important;line-height:1!important;margin:3px 0 0!important}
+  .section-label{font-size:8px!important}
+  .section-head>a{font-size:8px!important;white-space:nowrap!important}
+  .featured-carousel{gap:0!important}
+  .featured-arrow{display:none!important}
+  .featured-viewport{width:100%!important;overflow:hidden!important}
+  .featured-slide{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .product-card{width:100%!important;min-width:0!important;border-radius:11px!important;overflow:hidden!important;background:#fff!important}
+  .product-media{aspect-ratio:1/1!important}
+  .product-info{padding:9px!important}
+  .product-info h3{font-size:9px!important;min-height:28px!important}
+  .price{font-size:12px!important}
+  .add-cart,.detail-btn{min-height:30px!important;font-size:7px!important}
+
+  /* BARRA INFERIOR */
+  .mobile-app-nav{height:68px!important;z-index:2000!important;padding-bottom:env(safe-area-inset-bottom)!important;background:rgba(10,10,10,.98)!important}
+  .mobile-app-nav button{font-size:8px!important;gap:4px!important}
+  .mobile-app-nav button span{font-size:19px!important}
+
+  /* SUPORTE não cobre os produtos */
+  .support-widget{bottom:78px!important;right:9px!important}
+  .support-launcher{min-height:38px!important;font-size:9px!important;padding:0 11px!important}
+
+  /* MODAIS */
+  .modal{padding:12px!important}
+  .modal-box{width:calc(100vw - 24px)!important;max-width:410px!important;max-height:88vh!important;padding:20px 16px!important;border-radius:17px!important}
+
+  /* TELAS MUITO PEQUENAS */
+  @media(max-width:380px){
+    .header-main{grid-template-columns:38px 1fr auto!important;padding-left:7px!important;padding-right:7px!important}
+    .brand-logo{width:58px!important}
+    .head-action{width:34px!important;height:34px!important;min-height:34px!important}
+    .hero h1{font-size:38px!important}
+    .hero-product{height:132px!important}
+    .hero-copy p{font-size:10px!important}
+  }
+}
