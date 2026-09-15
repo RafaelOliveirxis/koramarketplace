@@ -34,6 +34,50 @@
   style.textContent = `.pwa-install{position:fixed;right:16px;bottom:16px;z-index:80;border:0;border-radius:999px;padding:13px 18px;background:#ffbf16;color:#111;font:800 12px Inter,Arial,sans-serif;box-shadow:0 8px 25px #0004}.pwa-install[hidden]{display:none}.footer-install{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a3a3a;border-radius:7px;padding:9px 13px;background:#111;color:#fff;font:800 10px Inter,Arial,sans-serif}.footer-install:hover{background:#ffbf16;border-color:#ffbf16;color:#111}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(82px + env(safe-area-inset-bottom));padding:11px 15px;font-size:10px}}`;
   document.head.appendChild(style);
 
+  /* Área de afiliado: login e painel são estados separados, como em um sistema real. */
+  function initAffiliateSessionUI() {
+    if (!/\/afiliado\.html$/i.test(window.location.pathname)) return;
+
+    const authArea = document.getElementById('authArea') || document.querySelector('.auth-box');
+    const dashboard = document.querySelector('.affiliate-card');
+    if (!authArea || !dashboard) return;
+
+    const loggedIn = () => localStorage.getItem('flashmarket_affiliate_session') === 'true';
+
+    const sync = () => {
+      const active = loggedIn();
+      authArea.hidden = active;
+      dashboard.hidden = !active;
+      authArea.setAttribute('aria-hidden', String(active));
+      dashboard.setAttribute('aria-hidden', String(!active));
+      authArea.style.display = active ? 'none' : '';
+      dashboard.style.display = active ? '' : 'none';
+      document.body.classList.toggle('affiliate-logged-in', active);
+    };
+
+    const addStyle = document.createElement('style');
+    addStyle.textContent = `
+      .affiliate-card[hidden],.auth-box[hidden]{display:none!important}
+      body.affiliate-logged-in .affiliate-layout{max-width:1420px!important}
+      body.affiliate-logged-in .affiliate-card{width:100%!important}
+    `;
+    document.head.appendChild(addStyle);
+
+    sync();
+
+    // O login existente grava a sessão depois da validação; sincronizamos logo após o submit.
+    document.addEventListener('submit', event => {
+      if (event.target?.closest('#authForm, .auth-form')) {
+        window.setTimeout(sync, 100);
+        window.setTimeout(sync, 600);
+      }
+    });
+
+    // Atualiza também após logout e alterações de sessão feitas por outro código.
+    window.setInterval(sync, 500);
+    window.addEventListener('storage', sync);
+  }
+
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', event => {
     event.preventDefault();
@@ -65,5 +109,11 @@
         console.error('Não foi possível ativar o modo offline da FlashMarket.', error)
       );
     });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAffiliateSessionUI, { once: true });
+  } else {
+    initAffiliateSessionUI();
   }
 })();
