@@ -9,9 +9,12 @@
     "cap:add:ios": "npx cap add ios",
     "cap:android": "npx cap open android",
     "cap:ios": "npx cap open ios",
-    "mobile:android": "npm run cap:add:android && npm run cap:sync",
-    "mobile:ios": "npm run cap:add:ios && npm run cap:sync",
-    "mobile:prepare": "npm run cap:sync"
+    "mobile:assets": "npx @capacitor/assets generate --iconBackgroundColor '#111111' --iconBackgroundColorDark '#0B0B0C' --splashBackgroundColor '#111111' --splashBackgroundColorDark '#0B0B0C' --logoSplashScale 0.18",
+    "mobile:configure": "node scripts/configure-mobile.mjs",
+    "mobile:android": "npm run cap:add:android && npm run mobile:configure && npm run mobile:assets && npm run cap:sync",
+    "mobile:ios": "npm run cap:add:ios && npm run mobile:configure && npm run mobile:assets && npm run cap:sync",
+    "mobile:prepare": "npm run cap:sync",
+    "mobile:prepare:all": "npm run mobile:configure && npm run mobile:assets && npm run cap:sync"
   },
   "dependencies": {
     "@capacitor/core": "^7.4.0",
@@ -21,6 +24,7 @@
   },
   "devDependencies": {
     "@capacitor/android": "^7.4.0",
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.4.0",
     "@capacitor/ios": "^7.4.0",
     "typescript": "^5.9.3"
