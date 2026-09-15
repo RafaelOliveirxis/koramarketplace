@@ -1,18 +1,73 @@
-/* Área de Afiliado — visual real, sem métricas fictícias */
+/* Área de Afiliado — painel real, estado de login separado e visual premium */
 body.affiliate-live-page{background:#151515!important;color:#111!important}
-body.affiliate-live-page .affiliate-page{background:#151515!important}
+body.affiliate-live-page .affiliate-page{background:#151515!important;color:#111!important}
+body.affiliate-live-page .affiliate-layout{background:transparent!important}
 body.affiliate-live-page .affiliate-card{color:#111!important}
-body.affiliate-live-page .dashboard-top h1,body.affiliate-live-page .dashboard-top p,body.affiliate-live-page .eyebrow{color:#111!important}
-body.affiliate-live-page .dashboard-top p,body.affiliate-live-page .eyebrow{color:#666!important}
-body.affiliate-live-page .affiliate-nav a{color:#111!important;background:#fff!important}
-body.affiliate-live-page .affiliate-nav a:first-child{background:#111!important;color:#fff!important}
-body.affiliate-live-page .stat-box,body.affiliate-live-page .metric-card,body.affiliate-live-page .sales-panel,body.affiliate-live-page .profile-panel,body.affiliate-live-page .orders-panel,body.affiliate-live-page .commission-panel,body.affiliate-live-page .product-form,body.affiliate-live-page .product-list,body.affiliate-live-page .dashboard-filters{color:#111!important}
-body.affiliate-live-page .stat-box span,body.affiliate-live-page .metric-card span,body.affiliate-live-page .stat-box small,body.affiliate-live-page .metric-card small,body.affiliate-live-page label{color:#555!important}
-body.affiliate-live-page .summary-grid .stat-box:first-child{color:#fff!important;background:linear-gradient(135deg,#242424,#353535)!important}
-body.affiliate-live-page .summary-grid .stat-box:first-child span,body.affiliate-live-page .summary-grid .stat-box:first-child small{color:#ddd!important}
+
+/* Cabeçalho do painel fica legível sobre o fundo escuro */
+body.affiliate-live-page .affiliate-card .dashboard-top{border-bottom-color:#333!important}
+body.affiliate-live-page .affiliate-card .dashboard-top h1{color:#fff!important}
+body.affiliate-live-page .affiliate-card .dashboard-top p{color:#b8b8b8!important}
+body.affiliate-live-page .affiliate-card .eyebrow{color:#ffc21c!important}
+
+/* Navegação */
+body.affiliate-live-page .affiliate-nav a{color:#111!important;background:#ededed!important;border-color:#d5d5d5!important}
+body.affiliate-live-page .affiliate-nav a:first-child{background:#ffc21c!important;color:#111!important;border-color:#ffc21c!important}
+
+/* Cards claros com texto preto */
+body.affiliate-live-page .stat-box,
+body.affiliate-live-page .metric-card,
+body.affiliate-live-page .sales-panel,
+body.affiliate-live-page .profile-panel,
+body.affiliate-live-page .orders-panel,
+body.affiliate-live-page .commission-panel,
+body.affiliate-live-page .product-form,
+body.affiliate-live-page .product-list,
+body.affiliate-live-page .dashboard-filters{color:#111!important;background:#ededed!important;border-color:#d0d0d0!important;box-shadow:0 10px 28px rgba(0,0,0,.24)!important}
+body.affiliate-live-page .stat-box span,
+body.affiliate-live-page .metric-card span,
+body.affiliate-live-page .stat-box small,
+body.affiliate-live-page .metric-card small,
+body.affiliate-live-page label{color:#555!important}
+body.affiliate-live-page .stat-box strong,
+body.affiliate-live-page .metric-card strong,
+body.affiliate-live-page .sales-panel h3,
+body.affiliate-live-page .profile-panel h3,
+body.affiliate-live-page .orders-panel h3,
+body.affiliate-live-page .commission-panel h3{color:#111!important}
+
+/* Primeiro indicador permanece destacado */
+body.affiliate-live-page .summary-grid .stat-box:first-child{color:#fff!important;background:linear-gradient(135deg,#222,#333)!important;border-color:#444!important}
+body.affiliate-live-page .summary-grid .stat-box:first-child strong{color:#ffc21c!important}
+body.affiliate-live-page .summary-grid .stat-box:first-child span,
+body.affiliate-live-page .summary-grid .stat-box:first-child small{color:#ddd!important}
+
+/* Área de link */
+body.affiliate-live-page .affiliate-link-card{background:#fff4c9!important;border-color:#e5cf80!important;color:#111!important}
+body.affiliate-live-page .affiliate-link-card strong{color:#111!important}
+body.affiliate-live-page .affiliate-link-card small{color:#666!important}
+
+/* Remove definitivamente os textos promocionais do login */
 body.affiliate-live-page .auth-benefits{display:none!important}
-body.affiliate-live-page .affiliate-empty-state{display:flex;align-items:center;justify-content:center;min-height:220px;background:#fff;border:1px dashed #bbb;border-radius:16px;color:#555;text-align:center;padding:30px;font-weight:700}
-body.affiliate-live-page .affiliate-live-refresh{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 13px;border:1px solid #ddd;border-radius:10px;background:#111;color:#fff;font-weight:900;cursor:pointer}
+body.affiliate-live-page .auth-benefits div{display:none!important}
+
+/* Estados vazios e atualização */
+body.affiliate-live-page .affiliate-empty-state{display:flex;align-items:center;justify-content:center;min-height:180px;background:#e8e8e8;border:1px dashed #aaa;border-radius:14px;color:#555;text-align:center;padding:30px;font-weight:700}
+body.affiliate-live-page .affiliate-live-refresh{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:40px;padding:0 13px;border:1px solid #555;border-radius:10px;background:#ffc21c;color:#111;font-weight:900;cursor:pointer}
 body.affiliate-live-page .affiliate-live-refresh.loading{opacity:.65;pointer-events:none}
-body.affiliate-live-page .affiliate-live-status{font-size:10px;color:#666;margin-left:6px}
-@media(max-width:700px){body.affiliate-live-page .affiliate-page{background:#151515!important;padding:15px 10px 80px!important}body.affiliate-live-page .dashboard-top h1{font-size:25px!important}.affiliate-live-refresh{height:36px!important;font-size:10px!important}.affiliate-live-status{display:block!important;margin:5px 0 0!important}}
+body.affiliate-live-page .affiliate-live-status{font-size:10px;color:#aaa;margin-left:6px}
+
+/* Botões e campos do painel */
+body.affiliate-live-page .secondary-btn{background:#ededed!important;color:#111!important;border-color:#ccc!important}
+body.affiliate-live-page .dashboard-filters select,
+body.affiliate-live-page .shop-form input,
+body.affiliate-live-page .shop-form select,
+body.affiliate-live-page .product-form input,
+body.affiliate-live-page .product-form select{background:#f8f8f8!important;color:#111!important;border-color:#ccc!important}
+
+@media(max-width:700px){
+  body.affiliate-live-page .affiliate-page{background:#151515!important;padding:15px 10px 100px!important}
+  body.affiliate-live-page .dashboard-top h1{font-size:25px!important}
+  body.affiliate-live-page .affiliate-live-refresh{height:36px!important;font-size:10px!important}
+  body.affiliate-live-page .affiliate-live-status{display:block!important;margin:5px 0 0!important}
+}
