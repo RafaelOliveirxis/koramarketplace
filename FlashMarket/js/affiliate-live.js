@@ -1,0 +1,166 @@
+/* Área de Afiliado — autenticação e dados reais via API */
+(() => {
+  if (!/\/afiliado\.html$/i.test(window.location.pathname)) return;
+
+  const API = 'https://koramarketplace.vercel.app';
+  const $ = id => document.getElementById(id);
+  const money = value => new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(value || 0));
+  const token = () => localStorage.getItem('flashmarket_access_token') || '';
+
+  function setMessage(text, ok = false) {
+    const el = $('authMessage');
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = ok ? '#98f5c2' : '#ffc21c';
+  }
+
+  async function api(path, options = {}) {
+    const headers = { 'Content-Type':'application/json', ...(options.headers || {}) };
+    if (token()) headers.Authorization = `Bearer ${token()}`;
+    const response = await fetch(`${API}${path}`, { ...options, headers });
+    let data = {};
+    try { data = await response.json(); } catch {}
+    if (!response.ok) throw new Error(data.error || 'Não foi possível comunicar com a API.');
+    return data;
+  }
+
+  function showDashboardUser(user) {
+    const name = user?.name || localStorage.getItem('flashmarket_affiliate_user') || 'Afiliado';
+    const nameEl = $('dashboardUserName');
+    if (nameEl) nameEl.textContent = name;
+  }
+
+  function updateLink(code) {
+    if (!code) return;
+    const base = `${location.origin}${location.pathname.replace(/[^/]+$/,'')}`;
+    const el = $('affiliateLink');
+    if (el) el.textContent = `${base}index.html?af=${encodeURIComponent(code)}`;
+  }
+
+  function renderOrders(orders) {
+    const body = $('ordersTableBody');
+    if (!body) return;
+    if (!orders?.length) {
+      body.innerHTML = `<tr><td colspan="6"><div class="affiliate-empty-state">Nenhum pedido registrado neste período. Os dados aparecerão aqui quando uma venda real for vinculada ao seu código.</div></td></tr>`;
+      return;
+    }
+    body.innerHTML = orders.map(o => `<tr><td>${o.external_id || o.id}</td><td>${o.customer_name || '—'}</td><td>${o.product_name || 'Produto afiliado'}</td><td>${money(o.value)}</td><td>${new Date(o.ordered_at).toLocaleDateString('pt-BR')}</td><td><span class="status-chip ${String(o.status).toLowerCase().replace('ç','c').replace(' ','-')}">${o.status}</span></td></tr>`).join('');
+  }
+
+  function renderProducts(products) {
+    const list = $('productList');
+    if (!list) return;
+    if (!products?.length) {
+      list.innerHTML = `<div class="affiliate-empty-state">Nenhum produto afiliado cadastrado ainda.</div>`;
+      return;
+    }
+    list.innerHTML = products.map(p => `<article class="product-item"><span class="badge">${p.status}</span><strong>${p.name}</strong><div class="product-meta"><span>${p.category}</span><span>${money(p.price)}</span></div></article>`).join('');
+  }
+
+  async function refreshDashboard(showStatus = true) {
+    if (!token()) return;
+    const button = document.querySelector('.affiliate-live-refresh');
+    if (button) button.classList.add('loading');
+    try {
+      const range = $('rangeFilter')?.value || '30';
+      const data = await api(`/affiliate/dashboard?days=${encodeURIComponent(range)}`);
+      const m = data.metrics || {};
+      if ($('metricRevenue')) $('metricRevenue').textContent = money(m.revenue);
+      if ($('metricProducts')) $('metricProducts').textContent = String(m.activeProducts || 0);
+      if ($('metricConversion')) $('metricConversion').textContent = `${Number(m.conversion || 0).toFixed(1)}%`;
+      if ($('liquidRevenue')) $('liquidRevenue').textContent = money(m.liquidRevenue);
+      if ($('totalCommission')) $('totalCommission').textContent = money(m.totalCommission);
+      if ($('activeOrders')) $('activeOrders').textContent = String(m.activeOrders || 0);
+      if ($('retentionRate')) $('retentionRate').textContent = `${Number(m.retention || 0).toFixed(1)}%`;
+      if ($('availableBalance')) $('availableBalance').textContent = money(m.liquidRevenue);
+      updateLink(data.profile?.code);
+      renderOrders(data.orders || []);
+      renderProducts(data.products || []);
+      showDashboardUser(JSON.parse(localStorage.getItem('flashmarket_affiliate_user_data') || 'null'));
+      if (showStatus) {
+        const status = $('affiliateLiveStatus');
+        if (status) status.textContent = `Atualizado às ${new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
+      }
+    } catch (error) {
+      const status = $('affiliateLiveStatus');
+      if (status) status.textContent = error.message;
+    } finally { if (button) button.classList.remove('loading'); }
+  }
+
+  async function handleAuth(event) {
+    const form = event.target;
+    if (!form || form.id !== 'authForm') return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    const register = $('registerFields')?.style.display !== 'none';
+    const email = $('authEmail')?.value.trim();
+    const password = $('authPassword')?.value || '';
+    const name = $('authName')?.value.trim();
+    const phone = $('authPhone')?.value.trim();
+    if (!email || !password || (register && !name)) return setMessage(register ? 'Preencha nome, e-mail e senha.' : 'Preencha e-mail e senha.');
+
+    const submit = $('authSubmit');
+    if (submit) { submit.disabled = true; submit.textContent = 'Conectando...'; }
+    try {
+      const data = await api(register ? '/auth/register' : '/auth/login', {
+        method:'POST',
+        body:JSON.stringify(register ? {name,email,password,phone} : {email,password})
+      });
+      localStorage.setItem('flashmarket_access_token', data.token);
+      localStorage.setItem('flashmarket_affiliate_session','true');
+      localStorage.setItem('flashmarket_affiliate_user', data.user.name || name || email.split('@')[0]);
+      localStorage.setItem('flashmarket_affiliate_email', data.user.email || email);
+      localStorage.setItem('flashmarket_affiliate_user_data', JSON.stringify(data.user));
+      setMessage('Login realizado com sucesso. Carregando painel...', true);
+      document.body.classList.add('affiliate-live-page');
+      const auth = $('authArea'), panel = $('affiliatePanel');
+      if (auth) auth.style.display = 'none';
+      if (panel) panel.style.display = '';
+      showDashboardUser(data.user);
+      await refreshDashboard(false);
+    } catch (error) {
+      localStorage.removeItem('flashmarket_affiliate_session');
+      setMessage(error.message);
+    } finally {
+      if (submit) { submit.disabled = false; submit.textContent = 'Entrar no painel'; }
+    }
+  }
+
+  function addRefreshControl() {
+    const actions = document.querySelector('.dashboard-actions');
+    if (!actions || document.querySelector('.affiliate-live-refresh')) return;
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'affiliate-live-refresh'; button.textContent = '↻ Atualizar';
+    const status = document.createElement('span'); status.id = 'affiliateLiveStatus'; status.className = 'affiliate-live-status';
+    actions.insertBefore(button, actions.firstChild); actions.appendChild(status);
+    button.addEventListener('click', () => refreshDashboard());
+  }
+
+  function init() {
+    document.body.classList.add('affiliate-live-page');
+    const auth = $('authArea');
+    const form = $('authForm');
+    if (form) form.addEventListener('submit', handleAuth, true);
+
+    // Sessões antigas criadas somente no navegador não representam uma conta real.
+    if (localStorage.getItem('flashmarket_affiliate_session') === 'true' && !token()) {
+      localStorage.removeItem('flashmarket_affiliate_session');
+      localStorage.removeItem('flashmarket_affiliate_user');
+    }
+
+    addRefreshControl();
+    $('rangeFilter')?.addEventListener('change', () => refreshDashboard());
+    $('logoutBtn')?.addEventListener('click', () => {
+      localStorage.removeItem('flashmarket_affiliate_session');
+      localStorage.removeItem('flashmarket_affiliate_user');
+      localStorage.removeItem('flashmarket_affiliate_email');
+      localStorage.removeItem('flashmarket_affiliate_user_data');
+      window.location.reload();
+    }, true);
+
+    if (token()) refreshDashboard(false);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true}); else init();
+})();
