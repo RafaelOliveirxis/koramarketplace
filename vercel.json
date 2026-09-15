@@ -1,4 +1,6 @@
 {
+  "buildCommand": "npm run web:check",
+  "outputDirectory": "FlashMarket",
   "functions": {
     "api/**/*.js": {
       "maxDuration": 10
@@ -15,4 +17,3 @@
     }
   ]
 }
-
