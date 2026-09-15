@@ -1,5 +1,4 @@
 (() => {
-  // Camadas visuais e navegação mobile carregadas em todas as páginas do PWA.
   const loadCss = (href, marker) => {
     if (document.querySelector(`link[data-${marker}]`)) return;
     const link = document.createElement('link');
@@ -14,7 +13,8 @@
   loadCss('css/mobile-app-v3.css', 'mobileAppV3Css');
   loadCss('css/mobile-app-final.css', 'mobileAppFinalCss');
 
-  if (window.location.pathname.toLowerCase().endsWith('/afiliado.html')) {
+  const isAffiliatePage = /\/afiliado\.html$/i.test(window.location.pathname);
+  if (isAffiliatePage) {
     loadCss('css/mobile-affiliate.css', 'mobileAffiliateCss');
     loadCss('css/affiliate-live.css', 'affiliateLiveCss');
   }
@@ -27,7 +27,7 @@
     document.head.appendChild(mobileJs);
   }
 
-  if (window.location.pathname.toLowerCase().endsWith('/afiliado.html') && !document.querySelector('script[data-affiliate-live-js]')) {
+  if (isAffiliatePage && !document.querySelector('script[data-affiliate-live-js]')) {
     const affiliateJs = document.createElement('script');
     affiliateJs.src = 'js/affiliate-live.js';
     affiliateJs.defer = true;
@@ -47,13 +47,16 @@
   style.textContent = `.pwa-install{position:fixed;right:16px;bottom:16px;z-index:80;border:0;border-radius:999px;padding:13px 18px;background:#ffbf16;color:#111;font:800 12px Inter,Arial,sans-serif;box-shadow:0 8px 25px #0004}.pwa-install[hidden]{display:none}.footer-install{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a3a3a;border-radius:7px;padding:9px 13px;background:#111;color:#fff;font:800 10px Inter,Arial,sans-serif}.footer-install:hover{background:#ffbf16;border-color:#ffbf16;color:#111}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(82px + env(safe-area-inset-bottom));padding:11px 15px;font-size:10px}}`;
   document.head.appendChild(style);
 
-  /* Área de afiliado: login e painel são estados separados, como em um sistema real. */
   function initAffiliateSessionUI() {
-    if (!/\/afiliado\.html$/i.test(window.location.pathname)) return;
+    if (!isAffiliatePage) return;
     const authArea = document.getElementById('authArea') || document.querySelector('.auth-box');
-    const dashboard = document.querySelector('.affiliate-card');
+    const dashboard = document.getElementById('affiliatePanel') || document.querySelector('.affiliate-card');
     if (!authArea || !dashboard) return;
-    const loggedIn = () => localStorage.getItem('flashmarket_affiliate_session') === 'true';
+
+    // A lista promocional do login não faz parte do painel real.
+    document.querySelectorAll('.auth-benefits').forEach(el => el.remove());
+
+    const loggedIn = () => localStorage.getItem('flashmarket_affiliate_session') === 'true' && !!localStorage.getItem('flashmarket_access_token');
     const sync = () => {
       const active = loggedIn();
       authArea.hidden = active;
@@ -64,25 +67,29 @@
       dashboard.style.display = active ? '' : 'none';
       document.body.classList.toggle('affiliate-logged-in', active);
     };
+
     const addStyle = document.createElement('style');
-    addStyle.textContent = `.affiliate-card[hidden],.auth-box[hidden]{display:none!important}body.affiliate-logged-in .affiliate-layout{max-width:1420px!important}body.affiliate-logged-in .affiliate-card{width:100%!important}`;
+    addStyle.textContent = `.affiliate-card[hidden],#affiliatePanel[hidden],.auth-box[hidden]{display:none!important}.auth-benefits{display:none!important}body.affiliate-logged-in .affiliate-layout{max-width:1420px!important;display:block!important}body.affiliate-logged-in #affiliatePanel{width:100%!important}`;
     document.head.appendChild(addStyle);
     sync();
     document.addEventListener('submit', event => {
       if (event.target?.closest('#authForm, .auth-form')) {
-        window.setTimeout(sync, 100);
-        window.setTimeout(sync, 600);
+        window.setTimeout(sync, 150);
+        window.setTimeout(sync, 800);
       }
     });
-    window.setInterval(sync, 500);
     window.addEventListener('storage', sync);
+    window.setInterval(sync, 700);
   }
 
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; installButton.hidden = false; });
   async function requestInstall() {
     if (!deferredPrompt) { alert('No iPhone/iPad, use Compartilhar > Adicionar à Tela de Início. No Android, abra o menu do navegador e escolha Instalar app.'); return; }
-    deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; installButton.hidden = true;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installButton.hidden = true;
   }
   installButton.addEventListener('click', requestInstall);
   if (footerInstallButton) footerInstallButton.addEventListener('click', requestInstall);
