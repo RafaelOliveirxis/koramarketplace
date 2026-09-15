@@ -1,77 +1,99 @@
-/* KoraMarketplace — layout mobile final */
+/* KoraMarketplace — layout mobile/app final */
 @media (max-width:700px){
-  html{background:#050505!important}
-  body{background:#101010!important;color:#fff!important;padding-bottom:76px!important;overflow-x:hidden!important}
+  :root{--app-yellow:#ffc400;--app-bg:#101010;--app-panel:#151515;--app-border:#292929}
+  html{background:#050505!important;overflow-x:hidden!important}
+  body{background:var(--app-bg)!important;color:#fff!important;padding-bottom:calc(76px + env(safe-area-inset-bottom))!important;overflow-x:hidden!important}
 
-  .site-header{background:#070707!important}
-  .header-main{min-height:96px!important;grid-template-rows:47px 42px!important;padding:5px 9px 4px!important}
+  /* No modo aplicativo o rodapé tradicional não aparece. */
+  .top-strip,footer,.site-footer,.main-footer,.footer,.footer-container,.footer-content{display:none!important}
+
+  .site-header{background:#070707!important;position:relative!important;z-index:100!important}
+  .header-main{min-height:96px!important;grid-template-rows:47px 42px!important;padding:5px 9px 4px!important;gap:2px!important}
   .mobile-toggle,.head-action{background:#111!important;border:1px solid #292929!important}
   .mobile-toggle{width:38px!important;height:38px!important;border-radius:10px!important}
-  .brand-logo{width:60px!important;height:43px!important}
+  .brand-logo{width:60px!important;height:43px!important;object-fit:contain!important}
   .head-action{width:36px!important;height:36px!important;min-height:36px!important}
   .head-action span{font-size:15px!important}
-  .search{height:42px!important;border-radius:10px!important;background:#111!important}
-  .search input{font-size:12px!important}
-  .search button{width:48px!important;background:#ffc400!important}
-
+  .head-action b{font-size:6px!important}
+  .search{height:42px!important;border-radius:10px!important;background:#111!important;border:1px solid #292929!important}
+  .search input{font-size:12px!important;color:#fff!important}
+  .search button{width:48px!important;background:var(--app-yellow)!important;color:#111!important}
   .main-nav{display:none!important}
 
-  .hero{background:#1b1b1b!important;overflow:hidden!important;width:100%!important;height:430px!important;min-height:430px!important}
-  .hero-content{box-sizing:border-box!important;width:100%!important;height:430px!important;min-height:430px!important;max-width:none!important;padding:0 12px!important;display:grid!important;grid-template-columns:51% 49%!important;gap:0!important;align-items:center!important}
-  .hero-copy{box-sizing:border-box!important;min-width:0!important;width:100%!important;padding:0!important;margin:0!important;align-self:center!important;position:relative!important;z-index:20!important}
+  /* Hero em duas colunas: texto à esquerda + arte à direita. */
+  .hero{background:#1b1b1b!important;overflow:hidden!important;width:100%!important;height:clamp(350px,108vw,430px)!important;min-height:350px!important}
+  .hero-content{box-sizing:border-box!important;width:100%!important;height:100%!important;min-height:350px!important;max-width:none!important;padding:0 10px!important;display:grid!important;grid-template-columns:51% 49%!important;gap:0!important;align-items:center!important}
+  .hero-copy{box-sizing:border-box!important;min-width:0!important;width:100%!important;padding:0 2px!important;margin:0!important;align-self:center!important;position:relative!important;z-index:20!important}
   .hero-tag{display:block!important;margin:0 0 8px!important;font-size:7px!important;line-height:1!important;letter-spacing:1px!important;white-space:nowrap!important}
-  .hero h1{font-family:Anton,Impact,sans-serif!important;font-size:clamp(31px,8.5vw,42px)!important;line-height:.86!important;letter-spacing:-.6px!important;margin:0 0 12px!important;max-width:100%!important}
-  .hero h1 em{color:#ffc400!important;font-style:normal!important}
+  .hero h1{font-family:Anton,Impact,sans-serif!important;font-size:clamp(30px,8.4vw,42px)!important;line-height:.86!important;letter-spacing:-.6px!important;margin:0 0 12px!important;max-width:100%!important}
+  .hero h1 em{color:var(--app-yellow)!important;font-style:normal!important}
   .hero-copy p{font-size:7.5px!important;line-height:1.32!important;max-width:100%!important;margin:0 0 13px!important}
   .hero-buttons{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;gap:5px!important;margin:0!important}
   .hero-buttons .btn{box-sizing:border-box!important;height:34px!important;min-height:34px!important;padding:0 8px!important;border-radius:7px!important;font-size:6.5px!important;font-weight:900!important;white-space:nowrap!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
-  .hero-buttons .btn.yellow{background:#ffc400!important;color:#111!important}
+  .hero-buttons .btn.yellow{background:var(--app-yellow)!important;color:#111!important}
   .hero-buttons .btn.dark{background:#090909!important;color:#fff!important;border:1px solid #444!important}
   .hero-points{display:flex!important;flex-wrap:nowrap!important;gap:4px!important;margin-top:10px!important;white-space:nowrap!important}
   .hero-points span{font-size:4.5px!important;line-height:1!important}
 
-  .hero-product{box-sizing:border-box!important;display:block!important;position:relative!important;width:100%!important;height:430px!important;min-height:430px!important;margin:0!important;overflow:hidden!important;transform:none!important}
-  .hero-product .product-stage{position:absolute!important;width:185%!important;height:210px!important;left:-42%!important;top:105px!important;transform:scale(.82)!important;transform-origin:center!important}
+  .hero-product{box-sizing:border-box!important;display:block!important;position:relative!important;width:100%!important;height:100%!important;min-height:350px!important;margin:0!important;overflow:hidden!important;transform:none!important}
+  .hero-product .product-stage{position:absolute!important;width:185%!important;height:210px!important;left:-42%!important;top:50%!important;transform:translateY(-42%) scale(.82)!important;transform-origin:center!important}
   .hero-product .stage-card.stage-back,.hero-product .stage-card.stage-front{transform:rotate(7deg)!important}
-  .hero-product .burst{position:absolute!important;right:0!important;top:62px!important;z-index:30!important;width:56px!important;height:56px!important;font-size:6px!important;padding-top:9px!important}
+  .hero-product .burst{position:absolute!important;right:0!important;top:14%!important;z-index:30!important;width:56px!important;height:56px!important;font-size:6px!important;padding-top:9px!important}
   .hero-product .burst strong{font-size:17px!important;line-height:17px!important}
-  .hero-product .hero-mini-tag{position:absolute!important;left:0!important;bottom:75px!important;z-index:30!important;font-size:9px!important;line-height:.8!important;transform:rotate(-6deg)!important}
+  .hero-product .hero-mini-tag{position:absolute!important;left:0!important;bottom:16%!important;z-index:30!important;font-size:9px!important;line-height:.8!important;transform:rotate(-6deg)!important}
   .hero-product .hero-mini-tag small{font-size:6px!important}
   .hero-product .floating{font-size:17px!important}
 
   .products-section{background:#111!important;padding:22px 12px 30px!important}
-  .product-card{border-radius:10px!important;background:#fff!important;color:#111!important}
+  .product-card{border-radius:10px!important;background:#fff!important;color:#111!important;overflow:hidden!important}
   .product-media{aspect-ratio:1/1!important}
   .sale-badge{background:#ed1c24!important;color:#fff!important}
   .price{color:#111!important;font-weight:900!important}
-  .add-cart{background:#ffc400!important;color:#111!important;border:0!important;font-weight:900!important}
+  .add-cart{background:var(--app-yellow)!important;color:#111!important;border:0!important;font-weight:900!important}
   .detail-btn{background:#111!important;color:#fff!important;border-color:#111!important}
 
   .benefits{background:#101010!important;color:#fff!important}
   .benefit-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
-  .benefit-grid>div{background:#151515!important;border:1px solid #292929!important;color:#fff!important;padding:11px 7px!important}
+  .benefit-grid>div{background:var(--app-panel)!important;border:1px solid var(--app-border)!important;color:#fff!important;padding:11px 7px!important}
   .benefit-grid span{color:#999!important}
 
-  /* Rodape do site removido no app; a barra inferior do app permanece. */
-  footer,.site-footer,.main-footer,.footer,.footer-container,.footer-content{display:none!important}
+  /* Barra fixa do aplicativo — permanece mesmo sem o rodapé do site. */
+  .mobile-app-nav{position:fixed!important;left:0!important;right:0!important;bottom:0!important;height:70px!important;min-height:70px!important;background:rgba(12,12,12,.98)!important;border-top:1px solid #303030!important;padding:0 3px env(safe-area-inset-bottom)!important;z-index:5800!important;box-sizing:content-box!important}
+  .mobile-app-nav button{min-width:0!important;color:#777!important;gap:2px!important;padding:7px 2px 5px!important}
+  .mobile-app-nav button span{font-size:19px!important;line-height:20px!important}
+  .mobile-app-nav button b{font-size:6.5px!important;white-space:nowrap!important;line-height:8px!important}
+  .mobile-app-nav button small{font-size:5.5px!important;white-space:nowrap!important;line-height:7px!important}
+  .mobile-app-nav button.active span,.mobile-app-nav button.active b,.mobile-app-nav button.active small{color:var(--app-yellow)!important}
+  .mobile-app-nav button[data-mobile-action="affiliate"] span{color:var(--app-yellow)!important}
 
-  .mobile-app-nav{height:70px!important;background:rgba(12,12,12,.98)!important;border-top:1px solid #303030!important;padding-bottom:env(safe-area-inset-bottom)!important}
-  .mobile-app-nav button{min-width:0!important;color:#777!important;gap:2px!important}
-  .mobile-app-nav button span{font-size:19px!important}
-  .mobile-app-nav button b{font-size:6.5px!important;white-space:nowrap!important}
-  .mobile-app-nav button small{font-size:5.5px!important;white-space:nowrap!important}
-  .mobile-app-nav button.active span,.mobile-app-nav button.active b,.mobile-app-nav button.active small{color:#ffc400!important}
-  .mobile-app-nav button[data-mobile-action="affiliate"] span{color:#ffc400!important}
-
-  #accountBtn.is-logged{border-color:#ffc400!important;background:#181818!important}
+  #accountBtn.is-logged{border-color:var(--app-yellow)!important;background:#181818!important}
   .modal{z-index:5000!important}
   .modal-box{background:#151515!important;color:#fff!important;border:1px solid #303030!important}
   .modal-box input,.modal-box select,.modal-box textarea{background:#0e0e0e!important;color:#fff!important;border-color:#333!important}
-  .modal-box .btn.yellow,.modal-box button[type="submit"]{background:#ffc400!important;color:#111!important}
+  .modal-box .btn.yellow,.modal-box button[type="submit"]{background:var(--app-yellow)!important;color:#111!important}
 
   .account-page{background:#101010!important;color:#fff!important}
   .account-welcome,.account-stat,.order-card,.coupon-card,.address-card,.favorite-card,.profile-form{background:#151515!important;color:#fff!important;border-color:#292929!important}
   .account-stat span,.account-welcome span,.order-footer{color:#aaa!important}
+}
+
+@media (max-width:380px){
+  .header-main{min-height:91px!important;grid-template-rows:44px 40px!important;padding:4px 7px 3px!important}
+  .brand-logo{width:55px!important;height:40px!important}
+  .mobile-toggle{width:35px!important;height:35px!important}
+  .head-action{width:33px!important;height:33px!important;min-height:33px!important}
+  .search{height:40px!important}
+  .search button{width:44px!important}
+  .hero{height:350px!important;min-height:350px!important}
+  .hero-content{min-height:350px!important;padding:0 8px!important}
+  .hero h1{font-size:30px!important}
+  .hero-copy p{font-size:7px!important}
+  .hero-buttons .btn{height:32px!important;min-height:32px!important;padding:0 6px!important;font-size:6px!important}
+  .hero-points span{font-size:4px!important}
+  .hero-product .product-stage{transform:translateY(-42%) scale(.72)!important}
+  .hero-product .burst{transform:scale(.88)!important;transform-origin:top right!important}
+  .mobile-app-nav button span{font-size:18px!important}
+  .mobile-app-nav button b{font-size:6px!important}
 }
 
 @media (min-width:701px) and (max-width:900px){
