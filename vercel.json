@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run web:check",
+  "installCommand": "npm install",
   "outputDirectory": "FlashMarket",
   "functions": {
     "api/**/*.js": {
