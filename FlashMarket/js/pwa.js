@@ -16,6 +16,7 @@
 
   if (window.location.pathname.toLowerCase().endsWith('/afiliado.html')) {
     loadCss('css/mobile-affiliate.css', 'mobileAffiliateCss');
+    loadCss('css/affiliate-live.css', 'affiliateLiveCss');
   }
 
   if (!document.querySelector('script[data-mobile-app-js]')) {
@@ -24,6 +25,14 @@
     mobileJs.defer = true;
     mobileJs.dataset.mobileAppJs = 'true';
     document.head.appendChild(mobileJs);
+  }
+
+  if (window.location.pathname.toLowerCase().endsWith('/afiliado.html') && !document.querySelector('script[data-affiliate-live-js]')) {
+    const affiliateJs = document.createElement('script');
+    affiliateJs.src = 'js/affiliate-live.js';
+    affiliateJs.defer = true;
+    affiliateJs.dataset.affiliateLiveJs = 'true';
+    document.head.appendChild(affiliateJs);
   }
 
   const installButton = document.createElement('button');
@@ -41,13 +50,10 @@
   /* Área de afiliado: login e painel são estados separados, como em um sistema real. */
   function initAffiliateSessionUI() {
     if (!/\/afiliado\.html$/i.test(window.location.pathname)) return;
-
     const authArea = document.getElementById('authArea') || document.querySelector('.auth-box');
     const dashboard = document.querySelector('.affiliate-card');
     if (!authArea || !dashboard) return;
-
     const loggedIn = () => localStorage.getItem('flashmarket_affiliate_session') === 'true';
-
     const sync = () => {
       const active = loggedIn();
       authArea.hidden = active;
@@ -58,66 +64,29 @@
       dashboard.style.display = active ? '' : 'none';
       document.body.classList.toggle('affiliate-logged-in', active);
     };
-
     const addStyle = document.createElement('style');
-    addStyle.textContent = `
-      .affiliate-card[hidden],.auth-box[hidden]{display:none!important}
-      body.affiliate-logged-in .affiliate-layout{max-width:1420px!important}
-      body.affiliate-logged-in .affiliate-card{width:100%!important}
-    `;
+    addStyle.textContent = `.affiliate-card[hidden],.auth-box[hidden]{display:none!important}body.affiliate-logged-in .affiliate-layout{max-width:1420px!important}body.affiliate-logged-in .affiliate-card{width:100%!important}`;
     document.head.appendChild(addStyle);
-
     sync();
-
-    // O login existente grava a sessão depois da validação; sincronizamos logo após o submit.
     document.addEventListener('submit', event => {
       if (event.target?.closest('#authForm, .auth-form')) {
         window.setTimeout(sync, 100);
         window.setTimeout(sync, 600);
       }
     });
-
-    // Atualiza também após logout e alterações de sessão feitas por outro código.
     window.setInterval(sync, 500);
     window.addEventListener('storage', sync);
   }
 
   let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', event => {
-    event.preventDefault();
-    deferredPrompt = event;
-    installButton.hidden = false;
-  });
-
+  window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; installButton.hidden = false; });
   async function requestInstall() {
-    if (!deferredPrompt) {
-      alert('No iPhone/iPad, use Compartilhar > Adicionar à Tela de Início. No Android, abra o menu do navegador e escolha Instalar app.');
-      return;
-    }
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    installButton.hidden = true;
+    if (!deferredPrompt) { alert('No iPhone/iPad, use Compartilhar > Adicionar à Tela de Início. No Android, abra o menu do navegador e escolha Instalar app.'); return; }
+    deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; installButton.hidden = true;
   }
-
   installButton.addEventListener('click', requestInstall);
   if (footerInstallButton) footerInstallButton.addEventListener('click', requestInstall);
-  window.addEventListener('appinstalled', () => {
-    deferredPrompt = null;
-    installButton.hidden = true;
-  });
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(error =>
-        console.error('Não foi possível ativar o modo offline da FlashMarket.', error)
-      );
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAffiliateSessionUI, { once: true });
-  } else {
-    initAffiliateSessionUI();
-  }
+  window.addEventListener('appinstalled', () => { deferredPrompt = null; installButton.hidden = true; });
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(error => console.error('Não foi possível ativar o modo offline da FlashMarket.', error)));
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAffiliateSessionUI, { once: true }); else initAffiliateSessionUI();
 })();
