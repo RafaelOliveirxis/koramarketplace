@@ -95,3 +95,25 @@ jobs:
       - name: Build iOS simulator app
         working-directory: ios/App
         run: xcodebuild -workspace App.xcworkspace -scheme App -sdk iphonesimulator -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+
+  web:
+    name: Web validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate web version
+        run: npm run web:check
+
+      - name: Verify web entry point
+        run: test -f FlashMarket/index.html
