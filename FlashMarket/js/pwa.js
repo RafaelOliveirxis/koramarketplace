@@ -12,6 +12,7 @@
   loadCss('css/mobile-app.css', 'mobileAppCss');
   loadCss('css/mobile-fix.css', 'mobileFixCss');
   loadCss('css/mobile-app-v3.css', 'mobileAppV3Css');
+  loadCss('css/mobile-app-final.css', 'mobileAppFinalCss');
 
   if (!document.querySelector('script[data-mobile-app-js]')) {
     const mobileJs = document.createElement('script');
