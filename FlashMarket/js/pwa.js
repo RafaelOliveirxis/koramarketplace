@@ -14,6 +14,10 @@
   loadCss('css/mobile-app-v3.css', 'mobileAppV3Css');
   loadCss('css/mobile-app-final.css', 'mobileAppFinalCss');
 
+  if (window.location.pathname.toLowerCase().endsWith('/afiliado.html')) {
+    loadCss('css/mobile-affiliate.css', 'mobileAffiliateCss');
+  }
+
   if (!document.querySelector('script[data-mobile-app-js]')) {
     const mobileJs = document.createElement('script');
     mobileJs.src = 'js/mobile-app.js';
