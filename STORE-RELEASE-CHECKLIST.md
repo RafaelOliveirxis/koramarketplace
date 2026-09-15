@@ -3,7 +3,7 @@
 ## Identidade do aplicativo
 
 - Nome: **FlashMarket**
-- App ID / Android package / iOS Bundle ID: `br.flashmarket.app`
+- Android package / iOS Bundle ID: `br.flashmarket.app`
 - Versão atual: `1.2.0`
 - Android versionCode: `12000`
 - iOS build: `12000`
@@ -13,9 +13,7 @@
 
 ## Estrutura nativa
 
-O projeto usa Capacitor para transformar o frontend existente em aplicativos Android e iOS, mantendo o mesmo código web como camada de interface. O Capacitor suporta adicionar Android/iOS a uma aplicação web existente. urlDocumentação Capacitorhttps://capacitorjs.com/docs
-
-A estrutura nativa é criada com:
+O projeto usa Capacitor para transformar o frontend existente em aplicativos Android e iOS, mantendo o mesmo código web como camada de interface.
 
 ```bash
 npm install
@@ -23,7 +21,7 @@ npx cap add android
 npx cap add ios
 ```
 
-Os recursos de ícone e splash são gerados a partir de `assets/logo.svg` e `assets/logo-dark.svg` com `@capacitor/assets`. A ferramenta gera os recursos nativos de Android, iOS e PWA. urlCapacitor Assetshttps://github.com/ionic-team/capacitor-assets
+Os recursos de ícone e splash são gerados com `@capacitor/assets`. A ferramenta aceita SVG no modo simples e gera os recursos nativos para Android/iOS/PWA. urlCapacitor Assetshttps://github.com/ionic-team/capacitor-assets
 
 ## Ícone e splash
 
@@ -41,7 +39,7 @@ Gerar:
 npm run mobile:assets
 ```
 
-O gerador deve ser executado depois que `android/` e `ios/` existirem. A documentação atual recomenda fontes de ícone de pelo menos 1024×1024 e fontes de splash de pelo menos 2732×2732 quando usando o modo de controle completo; no modo simples, SVG também pode ser usado como fonte. Android 12+ usa o novo modelo de splash screen do sistema. urlGuia de ícones e splash do Capacitorhttps://capacitorjs.com/docs/guides/splash-screens-and-icons
+Android 12+ utiliza o modelo de splash screen do sistema. Para projetos com controle completo, as fontes recomendadas pelo Capacitor Assets são ícones de pelo menos 1024×1024 e splash de pelo menos 2732×2732. urlGuia de ícones e splash do Capacitorhttps://capacitorjs.com/docs/guides/splash-screens-and-icons
 
 ## Android
 
@@ -61,38 +59,18 @@ npx cap sync android
 npm run cap:android
 ```
 
-### Gerar APK de teste
-
-```bash
-cd android
-./gradlew assembleDebug
-```
-
-No Windows PowerShell:
+### APK de teste
 
 ```powershell
 cd android
 .\gradlew.bat assembleDebug
 ```
 
-### Google Play
+### Release assinado
 
-Para publicação, use **Android App Bundle (.aab)** e configure assinatura de release/Play App Signing. A partir de **31 de agosto de 2026**, novos apps e atualizações enviados ao Google Play precisam direcionar para **Android 16 / API 36 ou superior**. urlRequisito de API do Google Playhttps://developer.android.com/google/play/requirements/target-sdk
+O workflow `.github/workflows/mobile-release.yml` gera um **AAB assinado** usando `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` e `ANDROID_KEY_PASSWORD` armazenados no Environment `production`.
 
-Antes do primeiro envio:
-
-- Criar conta no Google Play Console.
-- Criar o aplicativo com o mesmo package `br.flashmarket.app`.
-- Configurar Play App Signing.
-- Gerar uma chave de upload e guardá-la fora do repositório.
-- Gerar `.aab` de release.
-- Preencher nome, descrição curta, descrição completa, categoria e contato.
-- Adicionar ícone e imagens de divulgação.
-- Informar política de privacidade.
-- Preencher Data safety e conteúdo do app.
-- Testar em aparelhos Android reais.
-
-**Nunca** coloque keystore, senha de keystore ou chave privada no GitHub.
+Para publicação real, use Android App Bundle e Play App Signing. A partir de 31 de agosto de 2026, novos apps e atualizações enviados ao Google Play precisam direcionar para Android 16 / API 36 ou superior. urlRequisito de API do Google Playhttps://developer.android.com/google/play/requirements/target-sdk
 
 ## iOS
 
@@ -112,42 +90,151 @@ npx cap sync ios
 npm run cap:ios
 ```
 
-O build e a publicação final para App Store exigem macOS + Xcode e uma conta Apple Developer. A Apple exige metadados, classificação etária, informações de privacidade e um build selecionado antes do envio para revisão. urlEnviar apps para a App Storehttps://developer.apple.com/app-store/submitting/
+### Release assinado
+
+O workflow `.github/workflows/mobile-release.yml` cria um keychain temporário, importa o certificado Apple de distribuição, instala o provisioning profile, gera um **Xcode Archive** e exporta um **IPA**.
+
+Secrets usados:
+
+```text
+APPLE_TEAM_ID
+APPLE_CERTIFICATE_P12_BASE64
+APPLE_CERTIFICATE_PASSWORD
+APPLE_PROVISIONING_PROFILE_BASE64
+APPLE_PROVISIONING_PROFILE_NAME
+APPLE_KEYCHAIN_PASSWORD
+```
+
+O build e a publicação final para App Store exigem macOS/Xcode e uma conta Apple Developer. urlEnviar apps para a App Storehttps://developer.apple.com/app-store/submitting/
+
+## GitHub Actions — release real
+
+Workflow:
+
+```text
+.github/workflows/mobile-release.yml
+```
+
+Executa por:
+
+```text
+push de tag v1.2.0
+```
+
+ou manualmente em **Actions → FlashMarket Store Release → Run workflow**.
+
+Artifacts esperados:
+
+```text
+flashmarket-android-v1.2.0
+flashmarket-ios-archive-v1.2.0
+flashmarket-ios-ipa-v1.2.0
+```
+
+Guia completo de configuração dos Secrets:
+
+```text
+RELEASE-PIPELINE.md
+```
+
+## Secrets de produção
+
+Crie um Environment chamado:
+
+```text
+production
+```
+
+E adicione:
+
+### Android
+
+```text
+ANDROID_KEYSTORE_BASE64
+ANDROID_KEYSTORE_PASSWORD
+ANDROID_KEY_ALIAS
+ANDROID_KEY_PASSWORD
+```
+
+### Apple
+
+```text
+APPLE_TEAM_ID
+APPLE_CERTIFICATE_P12_BASE64
+APPLE_CERTIFICATE_PASSWORD
+APPLE_PROVISIONING_PROFILE_BASE64
+APPLE_PROVISIONING_PROFILE_NAME
+APPLE_KEYCHAIN_PASSWORD
+```
+
+GitHub recomenda armazenar credenciais sensíveis em Actions Secrets/Environment Secrets e limitar o acesso às credenciais ao mínimo necessário. urlGitHub Secretshttps://docs.github.com/en/actions/concepts/security/secrets
+
+## Google Play
+
+Antes do primeiro envio:
+
+- [ ] Conta Google Play Console
+- [ ] App `FlashMarket`
+- [ ] Package `br.flashmarket.app`
+- [ ] Play App Signing
+- [ ] Upload keystore criada
+- [ ] Secrets Android configurados
+- [ ] Política de privacidade
+- [ ] Data Safety
+- [ ] Classificação e conteúdo do app
+- [ ] Screenshots
+- [ ] Teste interno/fechado
+- [ ] AAB assinado gerado
+
+## App Store
 
 Antes do envio:
 
-- Criar Apple Developer Program.
-- Registrar Bundle ID `br.flashmarket.app`.
-- Criar o app no App Store Connect.
-- Configurar Signing & Capabilities.
-- Selecionar Team correto no Xcode.
-- Configurar versão `1.2.0`.
-- Arquivar com Archive.
-- Enviar para App Store Connect.
-- Testar via TestFlight.
-- Preencher descrição, palavras-chave, categoria e classificação etária.
-- Preencher informações de privacidade.
-- Adicionar screenshots de iPhone/iPad quando aplicável.
-
-A Apple permite de 1 a 10 screenshots por tamanho/localização aplicável. urlEspecificações de screenshots da App Storehttps://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications
+- [ ] Apple Developer Program
+- [ ] Bundle ID `br.flashmarket.app`
+- [ ] App Store Connect
+- [ ] Certificado Apple Distribution
+- [ ] Provisioning Profile App Store
+- [ ] Secrets Apple configurados
+- [ ] TestFlight
+- [ ] Privacidade
+- [ ] Classificação etária
+- [ ] Screenshots
+- [ ] Descrição e palavras-chave
+- [ ] IPA gerado
 
 ## Permissões
-
-O FlashMarket é configurado inicialmente com permissões mínimas:
 
 ### Android
 
 - Internet: necessária para catálogo, autenticação e API.
-- Notificações: preparada para futuras notificações de pedidos/promos; o pedido de autorização em runtime deve ser feito somente quando o recurso for realmente usado.
+- Notificações: preparada para futuras notificações.
 
-Não adicionar câmera, localização, microfone, contatos ou armazenamento amplo sem uma funcionalidade que realmente dependa deles.
+Não adicionar câmera, localização, microfone, contatos ou armazenamento amplo sem uma funcionalidade real que dependa deles.
 
 ### iOS
 
 Não adicionar mensagens de uso de câmera/localização/microfone enquanto essas APIs não forem utilizadas.
 
-## Publicação real
+## Segurança
 
-Esta estrutura deixa o projeto **preparado para build e submissão**, mas não publica automaticamente nas lojas sem as contas de desenvolvedor, certificados/chaves e dados de loja do proprietário.
+Nunca colocar no repositório:
 
-A publicação automática pode ser adicionada depois usando GitHub Actions + secrets. Segredos de assinatura devem ficar exclusivamente em GitHub Secrets ou no ambiente local seguro.
+```text
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+keystore.properties
+ExportOptions.plist
+senhas
+chaves privadas
+```
+
+O `.gitignore` já cobre os principais arquivos de assinatura e artefatos de build.
+
+O workflow cria os arquivos secretos apenas no runner temporário e os remove no final.
+
+## Publicação
+
+A automação agora está preparada para **gerar os artefatos assinados**, mas o envio final para Google Play/App Store continua dependente das contas e aprovação das lojas.
