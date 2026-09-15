@@ -14,7 +14,9 @@
     "mobile:android": "npm run cap:add:android && npm run mobile:configure && npm run mobile:assets && npm run cap:sync",
     "mobile:ios": "npm run cap:add:ios && npm run mobile:configure && npm run mobile:assets && npm run cap:sync",
     "mobile:prepare": "npm run cap:sync",
-    "mobile:prepare:all": "npm run mobile:configure && npm run mobile:assets && npm run cap:sync"
+    "mobile:prepare:all": "npm run mobile:configure && npm run mobile:assets && npm run cap:sync",
+    "web:serve": "npx --yes serve FlashMarket",
+    "web:check": "node -e \"const fs=require('fs'); if(!fs.existsSync('FlashMarket/index.html')) process.exit(1); console.log('FlashMarket web OK')\""
   },
   "dependencies": {
     "@capacitor/core": "^7.4.0",
