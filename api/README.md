@@ -1,23 +1,24 @@
-# ⚡ FlashMarket API
+# ⚡ KoraMarketplace API
 
-API serverless responsável por **autenticação, sessões, gerenciamento de perfil e recuperação de senha** do FlashMarket.
+> API serverless do KoraMarketplace responsável por autenticação, sessão, perfil e recuperação de senha.
 
-O diretório `api/` integra o frontend do FlashMarket a uma camada de backend, utilizando **MySQL, JWT e serviços serverless**.
+A pasta `api/` conecta o frontend do `FlashMarket/` a uma camada de backend preparada para hospedagem serverless, utilizando **Node.js, MySQL, JWT, bcryptjs e CORS**.
 
 ---
 
-## 🚀 Funcionalidades
+## 🚀 Responsabilidades
 
 - 👤 Cadastro de usuários
-- 🔐 Login e autenticação
+- 🔐 Login
 - 🚪 Logout
 - 🪪 Consulta do usuário autenticado
-- ✏️ Atualização de nome, e-mail e telefone
-- 🔑 Recuperação e redefinição de senha
-- 📧 Envio de e-mail para recuperação de acesso
-- 🛡️ Autenticação baseada em JWT
-- 🗄️ Integração com MySQL
-- ☁️ Compatibilidade com ambiente serverless
+- ✏️ Atualização de perfil
+- 🔑 Recuperação de senha
+- 🔒 Redefinição de senha
+- 🛡️ JWT
+- 🗄️ MySQL
+- 🌐 CORS para integração com o frontend
+- ☁️ Execução em ambiente serverless
 
 ---
 
@@ -26,52 +27,21 @@ O diretório `api/` integra o frontend do FlashMarket a uma camada de backend, u
 ```text
 api/
 ├── README.md
+├── _lib/
+│   ├── auth.js
+│   ├── cors.js
+│   └── db.js
 ├── auth/
+│   ├── login.js
+│   ├── register.js
+│   ├── logout.js
+│   ├── me.js
+│   ├── profile.js
+│   ├── request-reset.js
+│   ├── reset-password.js
 │   └── setup.sql
 └── ...
 ```
-
----
-
-## 🗄️ Banco de dados MySQL
-
-Execute o script abaixo no seu banco MySQL antes de utilizar a autenticação:
-
-```text
-api/auth/setup.sql
-```
-
-É necessário possuir um banco de dados, usuário e permissões adequadas para a aplicação.
-
----
-
-## 🔐 Variáveis de ambiente
-
-Na Vercel, configure em **Project Settings → Environment Variables**:
-
-```text
-DB_HOST=seu-host-mysql
-DB_PORT=3306
-DB_USER=seu-usuario
-DB_PASSWORD=sua-senha
-DB_NAME=koramarketplace
-DB_SSL=true
-JWT_SECRET=uma-chave-aleatoria-longa-e-secreta
-APP_URL=https://seu-dominio.com/FlashMarket/
-MAIL_FROM="FlashMarket <seu-email@outlook.com>"
-MICROSOFT_TENANT_ID=consumers
-MICROSOFT_CLIENT_ID=seu-client-id
-MICROSOFT_CLIENT_SECRET=seu-client-secret
-MICROSOFT_REFRESH_TOKEN=seu-refresh-token
-```
-
-### ⚠️ Segurança
-
-**Nunca coloque senhas, tokens, chaves JWT ou credenciais do banco no GitHub ou no código do frontend.**
-
-Utilize somente variáveis de ambiente para informações sensíveis.
-
-Depois de alterar as variáveis, faça um novo deploy.
 
 ---
 
@@ -79,35 +49,90 @@ Depois de alterar as variáveis, faça um novo deploy.
 
 | Método | Endpoint | Função |
 |---|---|---|
-| `POST` | `/api/auth/register` | Cadastro de usuário |
+| `POST` | `/api/auth/register` | Cadastro |
 | `POST` | `/api/auth/login` | Login |
 | `POST` | `/api/auth/logout` | Logout |
 | `GET` | `/api/auth/me` | Usuário autenticado |
-| `PUT` | `/api/auth/profile` | Atualização do perfil |
-| `POST` | `/api/auth/request-reset` | Solicitação de recuperação de senha |
+| `PUT` | `/api/auth/profile` | Atualização de perfil |
+| `POST` | `/api/auth/request-reset` | Solicitação de recuperação |
 | `POST` | `/api/auth/reset-password` | Redefinição de senha |
 
 ---
 
-## 🪪 Autenticação JWT
+## 🗄️ MySQL
 
-As rotas protegidas utilizam o token JWT enviado no cabeçalho:
+O banco deve possuir as tabelas necessárias para autenticação.
+
+Script inicial:
+
+```text
+api/auth/setup.sql
+```
+
+Antes do uso em produção, configure:
+
+- banco de dados;
+- usuário MySQL;
+- senha;
+- host;
+- porta;
+- permissões de acesso.
+
+---
+
+## 🔐 Variáveis de ambiente
+
+Configure as variáveis no ambiente de hospedagem, por exemplo na Vercel:
+
+```text
+DB_HOST=seu-host-mysql
+DB_PORT=3306
+DB_USER=seu-usuario
+DB_PASSWORD=sua-senha
+DB_NAME=seu-banco
+DB_SSL=true
+JWT_SECRET=uma-chave-aleatoria-longa-e-secreta
+APP_URL=https://seu-dominio.com/FlashMarket/
+MAIL_FROM="FlashMarket <seu-email@dominio.com>"
+MICROSOFT_TENANT_ID=consumers
+MICROSOFT_CLIENT_ID=seu-client-id
+MICROSOFT_CLIENT_SECRET=seu-client-secret
+MICROSOFT_REFRESH_TOKEN=seu-refresh-token
+```
+
+Os valores acima são apenas exemplos. **Não copie credenciais reais para o GitHub.**
+
+---
+
+## 🛡️ CORS
+
+As rotas de autenticação possuem tratamento de CORS para permitir a comunicação entre o frontend publicado e a API.
+
+Origens autorizadas devem ser mantidas restritas aos domínios realmente utilizados pelo projeto.
+
+O navegador pode enviar uma requisição `OPTIONS` antes de determinadas chamadas; a API responde a esse preflight.
+
+---
+
+## 🪪 JWT
+
+As rotas protegidas utilizam:
 
 ```http
 Authorization: Bearer <token>
 ```
 
-As senhas não devem ser armazenadas diretamente no navegador.
+O token é gerado após autenticação válida e utilizado pelo frontend nas chamadas que exigem usuário autenticado.
+
+As senhas são armazenadas utilizando hash e **não devem ser salvas em texto puro**.
 
 ---
 
-## 📧 Recuperação de senha
+## 🔑 Recuperação de senha
 
-O fluxo de recuperação pode utilizar o **Microsoft Graph** para envio dos e-mails.
+O fluxo de recuperação pode utilizar Microsoft Graph para envio de e-mail.
 
-Para habilitar esse recurso, configure um aplicativo no Microsoft Entra, as permissões necessárias de envio e as credenciais OAuth2 correspondentes.
-
-Variáveis utilizadas:
+Variáveis relacionadas:
 
 ```text
 MICROSOFT_TENANT_ID
@@ -117,29 +142,40 @@ MICROSOFT_REFRESH_TOKEN
 MAIL_FROM
 ```
 
-Por segurança, a solicitação de recuperação utiliza uma resposta genérica para não revelar se um e-mail está cadastrado.
+A solicitação deve utilizar respostas genéricas para evitar revelar se determinado e-mail está cadastrado.
 
 ---
 
-## ☁️ Deploy
+## 🌐 Integração com o frontend
 
-Fluxo recomendado para publicação:
+```text
+┌─────────────────────────────┐
+│ KoraMarketplace / FlashMarket│
+│          Frontend             │
+└──────────────┬──────────────┘
+               │ HTTPS / JSON
+               ▼
+┌─────────────────────────────┐
+│            /api/             │
+│  Login • Cadastro • Perfil   │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│            MySQL             │
+│ Usuários • Perfil • Dados    │
+└─────────────────────────────┘
+```
 
-1. Conecte o repositório à Vercel.
-2. Configure as variáveis de ambiente.
-3. Configure o banco MySQL.
-4. Execute `api/auth/setup.sql`.
-5. Faça o deploy.
-6. Teste os endpoints.
-7. Verifique a integração com o frontend.
+No frontend publicado, a configuração de autenticação aponta para a API quando disponível. Em ambientes estáticos sem API, existe um fallback local destinado à demonstração da interface.
 
 ---
 
-## 🧪 Testando a API
+## 🧪 Testando
 
-Você pode utilizar **Postman, Insomnia, Thunder Client** ou `fetch()` do JavaScript.
+Pode utilizar Postman, Insomnia, Thunder Client ou JavaScript.
 
-Exemplo:
+Exemplo para consultar o usuário autenticado:
 
 ```javascript
 fetch('/api/auth/me', {
@@ -151,72 +187,77 @@ fetch('/api/auth/me', {
 });
 ```
 
----
+Para login:
 
-## 🔗 Integração com o FlashMarket
-
-```text
-┌─────────────────────┐
-│      FlashMarket    │
-│      Frontend       │
-└──────────┬──────────┘
-           │ HTTP / JSON
-           ▼
-┌─────────────────────┐
-│        /api/        │
-│ Autenticação/Perfil │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│       MySQL         │
-│       Dados         │
-└─────────────────────┘
+```javascript
+fetch('/api/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    email: 'usuario@exemplo.com',
+    password: 'SUA_SENHA'
+  })
+});
 ```
 
 ---
 
-## ⚠️ Observações
+## ☁️ Deploy na Vercel
 
-- O funcionamento depende das variáveis de ambiente corretamente configuradas.
-- O MySQL precisa estar acessível pelo ambiente de hospedagem.
-- O `JWT_SECRET` deve ser longo, aleatório e secreto.
-- Nunca publique credenciais no repositório.
-- Utilize HTTPS em produção.
-- O serviço de e-mail depende da configuração correta do OAuth2.
+Fluxo recomendado:
+
+1. Conectar o repositório à Vercel.
+2. Configurar as variáveis de ambiente.
+3. Configurar o MySQL.
+4. Executar `api/auth/setup.sql` no banco.
+5. Fazer o deploy.
+6. Testar `/api/auth/login` e `/api/auth/me`.
+7. Testar a integração pelo frontend.
+
+Nunca coloque `.env` ou credenciais diretamente no repositório.
 
 ---
 
-## 🎓 Projeto acadêmico
+## ⚠️ Segurança
 
-A API faz parte do **FlashMarket Oficial / KoraMarketplace**, projeto acadêmico de desenvolvimento web com foco em e-commerce, responsividade, experiência do usuário, integração entre frontend e backend e autenticação.
+- Não publique senhas.
+- Não publique `JWT_SECRET`.
+- Não publique tokens OAuth.
+- Utilize HTTPS.
+- Restrinja CORS às origens necessárias.
+- Use senhas fortes no banco.
+- Mantenha as dependências atualizadas.
+- Não considere o fallback local como autenticação de produção.
 
 ---
 
 ## 🔮 Próximas melhorias
 
-- 🛒 Persistência do carrinho no banco
-- 📦 Sistema completo de pedidos
+- 🛒 Persistência do carrinho
+- 📦 Pedidos completos
 - 🚚 Rastreamento integrado
 - 💳 Gateway de pagamento
-- 🏪 Gerenciamento de vendedores
+- 🏪 Vendedores
 - ⭐ Avaliações persistidas
 - 🎟️ Cupons no backend
 - 📊 Painel administrativo
 - 🔔 Notificações
-- 🛡️ Rate limiting e controles adicionais de segurança
+- 🛡️ Rate limiting
+- 📋 Logs e monitoramento
 
 ---
 
 ## 👨‍💻 Autor
 
 **Rafael Oliveira**  
-Projeto: **FlashMarket Oficial / KoraMarketplace**
+Projeto: **KoraMarketplace / FlashMarket**
 
-Desenvolvido para fins acadêmicos, estudos e demonstração de desenvolvimento web.
+GitHub: https://github.com/RafaelOliveirxis
 
 ---
 
 ## 📄 Licença
 
-Projeto desenvolvido para fins acadêmicos e educacionais. Consulte as condições definidas no repositório principal antes de reutilizar ou distribuir partes do projeto.
+Projeto desenvolvido para fins acadêmicos, educacionais e demonstrativos. Consulte o repositório principal para informações gerais do projeto.
