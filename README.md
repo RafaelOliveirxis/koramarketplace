@@ -139,6 +139,28 @@ FlashMarket/index.html
 
 Para desenvolvimento, recomenda-se utilizar o **Live Server** do VS Code.
 
+## 🌐 Versão Web
+
+A versão web do **FlashMarket** continua disponível diretamente pelo navegador e é publicada automaticamente a cada atualização da branch `main`.
+
+**Acessar o FlashMarket:**
+
+👉 https://rafaeloliveirxis.github.io/koramarketplace/
+
+A mesma aplicação web localizada em `FlashMarket/` é utilizada como base para o aplicativo Android/iOS através do Capacitor. Assim, o projeto mantém **uma única base de interface para Web, Android e iOS**.
+
+Para executar localmente:
+
+```bash
+npm run web:serve
+```
+
+Para validar se a página principal existe:
+
+```bash
+npm run web:check
+```
+
 ## 📱 Capacitor / aplicativo
 
 O projeto possui configuração do Capacitor para evolução da versão web para aplicativo.
