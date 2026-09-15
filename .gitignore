@@ -1,3 +1,18 @@
 node_modules/
 
 api/.env
+
+# Mobile signing secrets and local signing files
+android/keystore.properties
+android/*.jks
+android/*.keystore
+*.p12
+*.mobileprovision
+
+# Native build outputs
+android/app/build/
+ios/App/Pods/
+ios/App/build/
+*.xcarchive
+*.ipa
+ExportOptions.plist
