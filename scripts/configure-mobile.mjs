@@ -103,7 +103,7 @@ if (exists('ios/App/App.xcodeproj/project.pbxproj')) {
 if (exists('android/app/src/main/res/values/strings.xml')) {
   const strings = 'android/app/src/main/res/values/strings.xml';
   let content = read(strings);
-  content = content.replace(/<string name="app_name">[^<]*<\\/string>/, `<string name="app_name">${APP_NAME}</string>`);
+  content = content.replace(/<string name="app_name">[^<]*<\/string>/, `<string name="app_name">${APP_NAME}</string>`);
   write(strings, content);
 }
 
