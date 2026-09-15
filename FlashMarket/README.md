@@ -1,321 +1,314 @@
-# ⚡ FlashMarket Oficial
+# ⚡ FlashMarket — Frontend
 
-> **Marketplace digital responsivo, moderno e interativo**, desenvolvido como projeto acadêmico de frontend e TCC.
+> **Frontend responsivo do KoraMarketplace**, com experiência de e-commerce para Web, smartphone, PWA e futura aplicação mobile.
 
-O **FlashMarket Oficial** é uma plataforma de e-commerce inspirada em grandes marketplaces, com foco em experiência do usuário, responsividade, organização visual e recursos de compra simulados.
-
-O projeto foi desenvolvido para funcionar em **computadores, tablets e celulares**, mantendo uma interface adaptada a diferentes tamanhos de tela.
+O diretório `FlashMarket/` contém a interface principal do marketplace, incluindo página inicial, produtos, conta do usuário, rastreamento, afiliados, suporte e recursos de instalação como aplicativo.
 
 ---
 
-## 🌐 Projeto publicado
+## 🌐 Acessos
 
-**GitHub Pages:**
+**GitHub Pages:**  
+https://rafaeloliveirxis.github.io/koramarketplace/
 
-https://rafaeloliveirxis.github.io/koramarketplace/FlashMarket/
-
-**Repositório:**
-
+**Repositório:**  
 https://github.com/RafaelOliveirxis/koramarketplace
 
 ---
 
-## ✨ Principais funcionalidades
+## ✨ Funcionalidades
 
-### 🛍️ Experiência de compra
+### 🛍️ Loja
 
 - Catálogo de produtos
-- Busca de produtos
-- Filtros por categoria
-- Ordenação por preço e avaliação
-- Visualização detalhada dos produtos
-- Carrinho de compras interativo
-- Cálculo de subtotal, desconto e frete
-- Cupom demonstrativo `FLASH10`
-- Sistema de favoritos
-- Avaliações de produtos
-- Lojas oficiais
-- Seções promocionais e ofertas
+- Busca
+- Categorias
+- Ofertas Flash
+- Carrinho
+- Favoritos
+- Cupons demonstrativos
+- Avaliações
+- Checkout demonstrativo
 
-### 👤 Conta do usuário
+### 👤 Usuário
 
-- Login e cadastro
-- Área Minha Conta
-- Perfil do usuário
-- Persistência de dados no navegador
-- Fallback local para ambientes de hospedagem estática
+- Login
+- Cadastro
+- Logout
+- Recuperação de senha
+- Perfil
+- Minha Conta
+- Pedidos
+- Favoritos
+- Sessão persistida
+- Integração com API de autenticação
+- Fallback local para ambientes sem API disponível
 
 ### 📦 Pedidos
 
-- Página de rastreamento de pedido
-- Interface preparada para acompanhamento de pedidos
-- Estrutura para integração futura com backend
+- Rastrear pedido
+- Página de acompanhamento
+- Estrutura preparada para integração com pedidos reais
 
 ### 🤝 Afiliados
 
 - Área do afiliado
-- Dashboard visual
-- Estrutura para divulgação de produtos e campanhas
+- Dashboard
+- Estrutura para campanhas e divulgação
 
 ### 💬 Atendimento
 
-- Central de atendimento
+- Suporte
+- Flash IA
 - Newsletter
-- Interfaces de suporte
-- Elementos interativos de contato
-
-### 🤖 Flash IA
-
-O projeto possui estrutura visual para recursos de assistência inteligente, permitindo futuras integrações com serviços de IA e atendimento automatizado.
+- Formulários de contato
 
 ---
 
-## 📱 Responsividade
+## 📱 Layout mobile / app
 
-O FlashMarket foi desenvolvido com abordagem **mobile-first e responsiva**, adaptando sua interface para:
+O frontend possui um layout específico para smartphones.
 
-- 📱 Smartphones
-- 📲 Tablets
-- 💻 Notebooks
-- 🖥️ Desktops
+### Cabeçalho
 
-A navegação, os cards de produtos, o menu, o carrinho e as áreas de conteúdo são ajustados conforme o tamanho da tela.
+- Botão **☰** para abrir o menu lateral
+- Logo centralizada
+- Acesso ao usuário
+- Favoritos
+- Carrinho
+- Campo de pesquisa
+
+### Menu ☰
+
+O menu concentra os principais atalhos da aplicação, evitando duplicar categorias na parte superior da tela.
+
+O acesso à conta permanece no cabeçalho, associado ao usuário logado.
+
+### Barra inferior
+
+No modo aplicativo, a navegação principal fica na barra inferior:
+
+```text
+┌────────┬────────────┬──────────────┬───────────┬────────┐
+│ Início │  Rastrear  │ Área de      │ Favoritos │ Conta  │
+│        │   pedido   │ afiliado     │           │        │
+└────────┴────────────┴──────────────┴───────────┴────────┘
+```
+
+### Rodapé
+
+O rodapé tradicional do site é ocultado no modo aplicativo/mobile para deixar a interface mais limpa e semelhante a um app nativo.
+
+### Hero mobile
+
+O banner principal possui composição adaptada para telas pequenas, preservando texto, CTA e elementos promocionais sem exigir o layout completo de desktop.
 
 ---
 
-## 📲 PWA e aplicativo
+## 📲 PWA
 
-O projeto possui estrutura para utilização como **Progressive Web App (PWA)**, permitindo que o usuário instale o FlashMarket no dispositivo compatível.
+Arquivos principais:
+
+```text
+manifest.webmanifest
+sw.js
+js/pwa.js
+```
+
+O usuário pode instalar o frontend como aplicativo compatível com o navegador.
 
 ### Android / Chrome
 
-Abra o site pelo Chrome e utilize a opção de instalação disponibilizada pelo navegador.
+Abra o site e utilize a opção **Instalar app** quando disponibilizada pelo navegador.
 
 ### iPhone / iPad
 
-Abra o site pelo Safari, toque em **Compartilhar** e selecione **Adicionar à Tela de Início**.
+Utilize:
 
-### Capacitor
-
-Também existe estrutura para transformar o projeto web em aplicativo utilizando Capacitor:
-
-```bash
-npm install
-npx cap add android
-npx cap add ios
-npm run cap:sync
-npm run cap:android
-npm run cap:ios
-```
-
-> O Android requer Android Studio. A compilação para iOS requer macOS com Xcode.
+**Compartilhar → Adicionar à Tela de Início**
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## 🛠️ Tecnologias
 
-| Tecnologia | Utilização |
-|---|---|
-| **HTML5** | Estrutura semântica das páginas |
-| **CSS3** | Layout, responsividade e identidade visual |
-| **JavaScript ES6+** | Interatividade e regras do frontend |
-| **LocalStorage** | Persistência local de dados |
-| **PWA** | Instalação e experiência semelhante a aplicativo |
-| **Capacitor** | Estrutura para aplicativos Android/iOS |
-| **Git** | Controle de versão |
-| **GitHub** | Hospedagem e gerenciamento do código |
-| **GitHub Pages** | Publicação do frontend |
+- HTML5
+- CSS3
+- JavaScript ES6+
+- LocalStorage
+- PWA
+- Service Worker
+- Web Manifest
+- Google Fonts
+- Capacitor
 
 ---
 
-## 📁 Estrutura do projeto
+## 📁 Estrutura
 
 ```text
 FlashMarket/
 ├── index.html
-├── afiliado.html
 ├── minha-conta.html
 ├── rastrear-pedido.html
+├── afiliado.html
 ├── suporte.html
+├── manifest.webmanifest
+├── sw.js
 ├── README.md
 │
 ├── assets/
 │   ├── imagens
-│   ├── ícones
-│   └── outros recursos visuais
+│   ├── logos
+│   └── ícones
 │
 ├── css/
-│   └── style.css
+│   ├── style.css
+│   ├── mobile-app.css
+│   ├── mobile-fix.css
+│   └── mobile-app-v3.css
 │
 └── js/
-    └── app.js
+    ├── app.js
+    ├── auth-real.js
+    ├── mobile-app.js
+    ├── pwa.js
+    ├── rastreamento.js
+    └── suporte.js
 ```
 
 ---
 
-## 🚀 Como executar localmente
+## 🔐 Autenticação
 
-### 1. Clonar o repositório
+O frontend possui integração com os endpoints da API:
+
+```text
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/logout
+GET  /api/auth/me
+PUT  /api/auth/profile
+POST /api/auth/request-reset
+POST /api/auth/reset-password
+```
+
+O arquivo principal de integração é:
+
+```text
+js/auth-real.js
+```
+
+Quando a API está disponível, o frontend utiliza a autenticação do backend. Quando o ambiente estático não consegue acessar a API, existe um fallback local para permitir a demonstração da interface.
+
+> O fallback local não substitui autenticação real de produção.
+
+---
+
+## 💾 Dados locais
+
+O navegador pode armazenar dados da experiência do usuário usando LocalStorage, como:
+
+- carrinho;
+- favoritos;
+- sessão local;
+- preferências;
+- dados de demonstração.
+
+Não armazene informações sensíveis em LocalStorage em uma aplicação de produção sem uma estratégia adequada de segurança.
+
+---
+
+## 🚀 Executar localmente
+
+Na raiz do projeto:
 
 ```bash
 git clone https://github.com/RafaelOliveirxis/koramarketplace.git
-```
-
-### 2. Entrar na pasta
-
-```bash
 cd koramarketplace
+npm install
 ```
 
-### 3. Abrir o projeto
-
-Entre na pasta:
+Depois abra:
 
 ```text
-FlashMarket/
+FlashMarket/index.html
 ```
 
-Abra o arquivo:
-
-```text
-index.html
-```
-
-Você também pode utilizar a extensão **Live Server** no Visual Studio Code para executar o projeto localmente.
+O **Live Server** do VS Code é recomendado para testar PWA, Service Worker e recursos que dependem de servidor local.
 
 ---
 
-## 🔄 Atualizando o projeto pelo Git
-
-Depois de realizar alterações nos arquivos:
+## 🔄 Atualizar pelo Git
 
 ```bash
+git pull origin main
 git status
-```
-
-Adicionar as alterações:
-
-```bash
 git add .
-```
-
-Criar o commit:
-
-```bash
-git commit -m "Atualiza projeto FlashMarket"
-```
-
-Enviar para o GitHub:
-
-```bash
+git commit -m "feat: atualizar frontend"
 git push origin main
 ```
 
 ---
 
-## 💾 Persistência de dados
-
-O FlashMarket utiliza **LocalStorage** para manter determinados dados no navegador, incluindo recursos como:
-
-- Carrinho
-- Favoritos
-- Preferências do usuário
-- Dados de sessão utilizados pelo frontend
-- Informações da newsletter
-
-Isso permite que determinados estados continuem disponíveis mesmo após atualizar ou fechar a página.
-
----
-
 ## 🎟️ Cupom demonstrativo
-
-Para testar o sistema de desconto do carrinho, utilize:
 
 ```text
 FLASH10
 ```
 
-> O cupom é demonstrativo e faz parte da simulação do ambiente de e-commerce.
+O cupom faz parte do ambiente demonstrativo do e-commerce.
 
 ---
 
-## ⚠️ Limitações atuais
+## ⚠️ Limitações
 
-O projeto possui funcionalidades simuladas e não deve ser considerado uma plataforma de comércio eletrônico pronta para produção.
+O frontend ainda depende de integrações externas para recursos de produção, incluindo:
 
-Atualmente, recursos como:
+- pagamentos reais;
+- estoque real;
+- pedidos reais;
+- transportadoras;
+- notificações push;
+- serviços de e-mail;
+- banco de dados de produção.
 
-- Processamento real de pagamentos
-- Gateway de pagamento
-- Processamento real de pedidos
-- Integração completa com transportadoras
-- Banco de dados de produção
-- Autenticação comercial
-- Estoque real
-
-dependem de integrações com backend e serviços externos.
+A disponibilidade desses recursos depende da configuração da API e dos serviços externos correspondentes.
 
 ---
 
-## 🎓 Projeto acadêmico / TCC
+## 🎓 Projeto acadêmico
 
-O **FlashMarket Oficial** foi desenvolvido como projeto acadêmico, com o objetivo de demonstrar conhecimentos de:
+O FlashMarket/KoraMarketplace é um projeto acadêmico/TCC utilizado para demonstrar conhecimentos de:
 
-- Desenvolvimento Web
-- Frontend
 - HTML5
 - CSS3
 - JavaScript
-- Design responsivo
-- Experiência do usuário (UX)
-- Interface do usuário (UI)
-- Controle de versão com Git/GitHub
-- Publicação de aplicações web
-
-O projeto também serve como demonstração prática da criação de uma plataforma de marketplace desde a estrutura visual até funcionalidades interativas do frontend.
-
----
-
-## 🔮 Próximas melhorias
-
-Entre as evoluções planejadas estão:
-
-- Integração completa com banco de dados
-- API própria para produtos e usuários
-- Sistema real de autenticação
-- Gateway de pagamento
-- Painel administrativo completo
-- Gestão real de estoque
-- Sistema de pedidos integrado
-- Rastreamento em tempo real
-- Integração com transportadoras
-- Melhorias na Flash IA
-- Notificações push
-- Aplicativos Android e iOS publicados nas lojas
+- UI/UX
+- responsividade
+- PWA
+- Git/GitHub
+- APIs
+- autenticação
+- preparação para aplicações mobile
 
 ---
 
 ## 👨‍💻 Autor
 
-**Rafael Oliveira**
+**Rafael Oliveira**  
+Projeto acadêmico — KoraMarketplace / FlashMarket
 
-Projeto acadêmico desenvolvido para estudos e apresentação de conclusão de curso.
-
-**Repositório:**
-https://github.com/RafaelOliveirxis/koramarketplace
+GitHub:  
+https://github.com/RafaelOliveirxis
 
 ---
 
 ## 📄 Licença
 
-Este projeto possui finalidade **acadêmica, educacional e demonstrativa**.
-
-O código pode ser estudado e utilizado como referência para aprendizado e desenvolvimento de projetos semelhantes, respeitando os recursos e materiais de terceiros utilizados no projeto.
+Projeto destinado a fins acadêmicos, educacionais e demonstrativos. Respeite a autoria e as licenças dos recursos de terceiros utilizados.
 
 ---
 
-## ⚡ FlashMarket
-
-**Compra rápida. Experiência simples. Marketplace conectado.**
-
-> Projeto acadêmico — FlashMarket Oficial — 2026.
+<p align="center">
+  ⚡ <strong>FlashMarket / KoraMarketplace</strong>
+</p>
