@@ -34,8 +34,10 @@
   }
 
   function setScreen(logged) {
-    const auth = $('authArea') || document.querySelector('.auth-box');
-    const panel = $('affiliatePanel') || document.querySelector('.affiliate-card');
+    const auth = $('authArea');
+    const panel = $('affiliatePanel');
+    const authBox = auth || document.querySelector('.auth-box');
+    const dashboard = panel || document.querySelector('.affiliate-card');
 
     document.querySelectorAll('.auth-benefits').forEach(el => {
       el.hidden = true;
@@ -45,15 +47,15 @@
     document.body.classList.add('affiliate-live-page');
     document.body.classList.toggle('affiliate-logged-in', logged);
 
-    if (auth) {
-      auth.hidden = logged;
-      auth.setAttribute('aria-hidden', String(logged));
-      auth.style.display = logged ? 'none' : '';
+    if (authBox) {
+      authBox.hidden = logged;
+      authBox.setAttribute('aria-hidden', String(logged));
+      authBox.style.display = logged ? 'none' : '';
     }
-    if (panel) {
-      panel.hidden = !logged;
-      panel.setAttribute('aria-hidden', String(!logged));
-      panel.style.display = logged ? '' : 'none';
+    if (dashboard) {
+      dashboard.hidden = !logged;
+      dashboard.setAttribute('aria-hidden', String(!logged));
+      dashboard.style.display = logged ? '' : 'none';
     }
   }
 
@@ -123,7 +125,6 @@
       if (showStatus && $('affiliateLiveStatus')) $('affiliateLiveStatus').textContent = `Atualizado às ${new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
     } catch (error) {
       clearMetrics(error.message);
-      // Se o afiliado já está autenticado, mantém o painel aberto mesmo quando a API de dados estiver temporariamente indisponível.
       setScreen(true);
     } finally {
       if (button) button.classList.remove('loading');
@@ -131,6 +132,8 @@
   }
 
   function isRegisterMode() {
+    const activeTab = document.querySelector('[data-auth-tab].active');
+    if (activeTab) return activeTab.dataset.authTab === 'register';
     const fields = $('registerFields');
     return !!fields && fields.style.display !== 'none';
   }
@@ -190,12 +193,12 @@
       localStorage.setItem('flashmarket_affiliate_email', data.user.email || email);
       localStorage.setItem('flashmarket_affiliate_user_data', JSON.stringify(data.user));
 
-      // Troca imediata: remove a área de login e deixa somente o painel nesta página.
+      // Remove a tela de login/cadastro imediatamente e mantém o afiliado nesta mesma página.
       setScreen(true);
       showDashboardUser(data.user);
       const auth = $('authArea') || document.querySelector('.auth-box');
       if (auth) auth.remove();
-      setMessage('', true);
+      document.querySelectorAll('.auth-benefits').forEach(el => el.remove());
       await refreshDashboard(false);
     } catch (error) {
       localStorage.removeItem('flashmarket_affiliate_session');
@@ -251,9 +254,13 @@
       setScreen(false);
       setAuthMode('login');
       setMessage('Sessão encerrada.');
+      window.scrollTo({top:0,behavior:'smooth'});
     }, true);
 
-    if (hasAuth) refreshDashboard(false);
+    if (hasAuth) {
+      showDashboardUser(JSON.parse(localStorage.getItem('flashmarket_affiliate_user_data') || 'null'));
+      refreshDashboard(false);
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
