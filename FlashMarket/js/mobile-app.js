@@ -159,10 +159,12 @@
     document.body.classList.add('mobile-menu-open');
 
     if (pushHistory && !drawerHistoryPushed) {
-      window.history.pushState({ ...window.history.state, mobileMenu: true }, '', window.location.href);
+      window.history.pushState({ ...(window.history.state || {}), mobileMenu: true }, '', window.location.href);
       drawerHistoryPushed = true;
     }
     drawer.querySelector('.mobile-menu-close')?.focus({ preventScroll: true });
+    const toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
+    toggle?.setAttribute('aria-expanded', 'true');
   }
 
   function closeDrawer(popHistory = true) {
@@ -178,6 +180,9 @@
     overlay.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('mobile-menu-open');
 
+    const toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
+    toggle?.setAttribute('aria-expanded', 'false');
+
     if (popHistory && wasOpen && drawerHistoryPushed) {
       drawerHistoryPushed = false;
       window.history.back();
@@ -187,10 +192,7 @@
   }
 
   function connectMenuButton() {
-    let toggle = document.getElementById('mobileToggle');
-    if (!toggle) {
-      toggle = document.querySelector('.mobile-toggle');
-    }
+    const toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
     if (!toggle) return;
 
     toggle.style.display = 'grid';
@@ -200,15 +202,12 @@
     toggle.setAttribute('aria-expanded', 'false');
     toggle.type = 'button';
 
-    toggle.onclick = event => {
+    /* Captura o clique antes do listener antigo do app.js, impedindo que ele abra o menu desktop. */
+    toggle.addEventListener('click', event => {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
       if (drawerOpen) closeDrawer(true); else openDrawer(true);
-    };
-
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && drawerOpen) closeDrawer(true);
-    });
+    }, true);
   }
 
   function injectSmallPolish() {
