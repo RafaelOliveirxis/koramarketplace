@@ -1,11 +1,13 @@
 /* KoraMarketplace — navegação mobile estilo aplicativo + menu lateral */
 (() => {
   const path = window.location.pathname.toLowerCase();
+  const isMobile = () => window.matchMedia('(max-width: 700px)').matches;
   const isAccountPage = path.endsWith('/minha-conta.html');
   const isTrackingPage = path.endsWith('/rastrear-pedido.html');
   const isAffiliatePage = path.endsWith('/afiliado.html');
   let drawerOpen = false;
   let drawerHistoryPushed = false;
+  let menuListenerAttached = false;
 
   const getSession = () => {
     try { return JSON.parse(localStorage.getItem('flashmarket_user_session') || 'null'); }
@@ -27,7 +29,7 @@
   }
 
   function createNav() {
-    if (document.querySelector('.mobile-app-nav')) return;
+    if (!isMobile() || document.querySelector('.mobile-app-nav')) return;
     const nav = document.createElement('nav');
     nav.className = 'mobile-app-nav';
     nav.setAttribute('aria-label', 'Navegação do aplicativo');
@@ -85,7 +87,7 @@
   }
 
   function buildDrawer() {
-    if (document.querySelector('.mobile-menu-drawer')) return;
+    if (!isMobile() || document.querySelector('.mobile-menu-drawer')) return;
 
     const overlay = document.createElement('div');
     overlay.className = 'mobile-menu-overlay';
@@ -145,6 +147,7 @@
   }
 
   function openDrawer(pushHistory = true) {
+    if (!isMobile()) return;
     buildDrawer();
     updateDrawerUser();
     const drawer = document.querySelector('.mobile-menu-drawer');
@@ -195,19 +198,37 @@
     const toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
     if (!toggle) return;
 
-    toggle.style.display = 'grid';
-    toggle.removeAttribute('aria-hidden');
-    toggle.removeAttribute('tabindex');
-    toggle.setAttribute('aria-label', 'Abrir menu');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.type = 'button';
+    const applyMode = () => {
+      if (isMobile()) {
+        toggle.style.display = 'grid';
+        toggle.removeAttribute('aria-hidden');
+        toggle.removeAttribute('tabindex');
+        toggle.setAttribute('aria-label', 'Abrir menu');
+        toggle.setAttribute('aria-expanded', drawerOpen ? 'true' : 'false');
+        toggle.type = 'button';
+      } else {
+        if (drawerOpen) closeDrawer(false);
+        toggle.style.display = 'none';
+        toggle.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('tabindex', '-1');
+      }
+    };
 
-    /* Captura o clique antes do listener antigo do app.js, impedindo que ele abra o menu desktop. */
-    toggle.addEventListener('click', event => {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      if (drawerOpen) closeDrawer(true); else openDrawer(true);
-    }, true);
+    applyMode();
+    if (!toggle.dataset.mobileMenuConnected) {
+      /* Captura o clique antes dos listeners antigos do app.js. */
+      toggle.addEventListener('click', event => {
+        if (!isMobile()) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (drawerOpen) closeDrawer(true); else openDrawer(true);
+      }, true);
+      toggle.dataset.mobileMenuConnected = 'true';
+    }
+    if (!menuListenerAttached) {
+      window.addEventListener('resize', applyMode);
+      menuListenerAttached = true;
+    }
   }
 
   function injectSmallPolish() {
@@ -219,6 +240,11 @@
         .mobile-menu-drawer{display:block!important}
         .mobile-menu-overlay{display:block!important}
         .mobile-toggle{display:grid!important}
+      }
+      @media(min-width:701px){
+        .mobile-toggle{display:none!important}
+        .mobile-app-nav{display:none!important}
+        .mobile-menu-drawer,.mobile-menu-overlay{display:none!important}
       }
     `;
     document.head.appendChild(style);
