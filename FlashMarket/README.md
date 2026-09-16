@@ -1,18 +1,21 @@
-# ⚡ FlashMarket — Frontend
+# ⚡ FlashMarket — Frontend do KoraMarketplace
 
-> **Frontend responsivo do KoraMarketplace**, com experiência de e-commerce para Web, smartphone, PWA e futura aplicação mobile.
+> **Frontend responsivo do KoraMarketplace**, desenvolvido para experiência de e-commerce em desktop, smartphone, PWA e futura aplicação mobile.
 
-O diretório `FlashMarket/` contém a interface principal do marketplace, incluindo página inicial, produtos, conta do usuário, rastreamento, afiliados, suporte e recursos de instalação como aplicativo.
+O diretório `FlashMarket/` concentra a interface principal da loja: catálogo, categorias, ofertas, carrinho, favoritos, conta do usuário, rastreamento de pedidos, Área de Afiliado, atendimento e recursos de instalação como aplicativo.
 
 ---
 
-## 🌐 Acessos
+## 🌐 Projeto
 
-**GitHub Pages:**  
+**Repositório:**
+https://github.com/RafaelOliveirxis/koramarketplace
+
+**GitHub Pages:**
 https://rafaeloliveirxis.github.io/koramarketplace/
 
-**Repositório:**  
-https://github.com/RafaelOliveirxis/koramarketplace
+**API / Backend:**
+https://koramarketplace.vercel.app
 
 ---
 
@@ -21,93 +24,115 @@ https://github.com/RafaelOliveirxis/koramarketplace
 ### 🛍️ Loja
 
 - Catálogo de produtos
-- Busca
+- Busca de produtos
 - Categorias
 - Ofertas Flash
-- Carrinho
+- Carrinho de compras
 - Favoritos
-- Cupons demonstrativos
+- Cupons
 - Avaliações
-- Checkout demonstrativo
+- Checkout e estrutura para integração com pedidos reais
+- Benefícios de frete, pagamento seguro e compra protegida
 
-### 👤 Usuário
+### 👤 Conta do usuário
 
-- Login
 - Cadastro
+- Login
 - Logout
 - Recuperação de senha
 - Perfil
 - Minha Conta
-- Pedidos
-- Favoritos
 - Sessão persistida
 - Integração com API de autenticação
-- Fallback local para ambientes sem API disponível
+- Fallback local para demonstração quando a API não estiver disponível
 
 ### 📦 Pedidos
 
 - Rastrear pedido
 - Página de acompanhamento
-- Estrutura preparada para integração com pedidos reais
+- Estrutura preparada para integração com pedidos reais e transportadoras
 
-### 🤝 Afiliados
+### 🤝 Área de Afiliado
 
-- Área do afiliado
-- Dashboard
-- Estrutura para campanhas e divulgação
+A Área de Afiliado possui fluxo próprio de autenticação e dashboard.
+
+- Cadastro de afiliado
+- Login de afiliado
+- Sessão persistida
+- Dashboard na mesma página após autenticação
+- Nome do afiliado exibido no painel
+- Faturamento
+- Produtos ativos
+- Conversão
+- Comissão
+- Pedidos
+- Retenção
+- Saldo disponível
+- Link exclusivo de afiliado
+- Lista de produtos
+- Atualização dos dados pela API
+- Botão para sair da conta
+
+Após o login ou cadastro, a tela de **Entrar / Criar conta desaparece** e o afiliado permanece na própria `afiliado.html`, visualizando o dashboard.
 
 ### 💬 Atendimento
 
-- Suporte
+- Página de suporte
 - Flash IA
-- Newsletter
 - Formulários de contato
+- Newsletter
 
 ---
 
-## 📱 Layout mobile / app
+## 📱 Experiência mobile / app
 
-O frontend possui um layout específico para smartphones.
+O frontend possui uma interface específica para smartphones, com aparência de aplicativo e navegação otimizada para toque.
 
-### Cabeçalho
+### Cabeçalho mobile
 
-- Botão **☰** para abrir o menu lateral
+- Menu lateral `☰`
 - Logo centralizada
-- Acesso ao usuário
+- Usuário
 - Favoritos
 - Carrinho
 - Campo de pesquisa
 
-### Menu ☰
+### Menu lateral
 
-O menu concentra os principais atalhos da aplicação, evitando duplicar categorias na parte superior da tela.
+O menu reúne os principais atalhos:
 
-O acesso à conta permanece no cabeçalho, associado ao usuário logado.
+- Início
+- Rastrear pedido
+- Área de afiliado
+- Ofertas Flash
+- Atendimento
+- Informações da conta
+- Fechamento por `X`, toque fora do menu e gesto de voltar
 
 ### Barra inferior
 
-No modo aplicativo, a navegação principal fica na barra inferior:
+A navegação principal do modo aplicativo utiliza:
 
 ```text
-┌────────┬────────────┬──────────────┬───────────┬────────┐
-│ Início │  Rastrear  │ Área de      │ Favoritos │ Conta  │
-│        │   pedido   │ afiliado     │           │        │
-└────────┴────────────┴──────────────┴───────────┴────────┘
+┌────────┬──────────────┬──────────────────┬───────────┬────────┐
+│ Início │ Rastrear     │ Área de afiliado │ Favoritos │ Conta  │
+│        │ pedido       │                  │           │        │
+└────────┴──────────────┴──────────────────┴───────────┴────────┘
 ```
+
+### Desktop
+
+No desktop, o site mantém o cabeçalho e a navegação tradicional, sem forçar o menu mobile.
 
 ### Rodapé
 
-O rodapé tradicional do site é ocultado no modo aplicativo/mobile para deixar a interface mais limpa e semelhante a um app nativo.
-
-### Hero mobile
-
-O banner principal possui composição adaptada para telas pequenas, preservando texto, CTA e elementos promocionais sem exigir o layout completo de desktop.
+No modo mobile/app, o rodapé tradicional é ocultado para priorizar a navegação inferior e deixar a interface mais próxima de um aplicativo nativo.
 
 ---
 
 ## 📲 PWA
 
-Arquivos principais:
+Principais arquivos:
 
 ```text
 manifest.webmanifest
@@ -115,11 +140,11 @@ sw.js
 js/pwa.js
 ```
 
-O usuário pode instalar o frontend como aplicativo compatível com o navegador.
+O frontend pode ser instalado como aplicativo pelo navegador compatível.
 
 ### Android / Chrome
 
-Abra o site e utilize a opção **Instalar app** quando disponibilizada pelo navegador.
+Abra a versão publicada do site e utilize **Instalar app** quando a opção for disponibilizada pelo navegador.
 
 ### iPhone / iPad
 
@@ -129,21 +154,109 @@ Utilize:
 
 ---
 
-## 🛠️ Tecnologias
+## 🔐 Autenticação e API
 
-- HTML5
-- CSS3
-- JavaScript ES6+
-- LocalStorage
-- PWA
-- Service Worker
-- Web Manifest
-- Google Fonts
-- Capacitor
+O frontend utiliza a API hospedada na Vercel quando disponível.
+
+Endpoints principais:
+
+```text
+POST /auth/register
+POST /auth/login
+POST /auth/logout
+GET  /auth/me
+PUT  /auth/profile
+POST /auth/request-reset
+POST /auth/reset-password
+```
+
+A integração principal do usuário está em:
+
+```text
+js/auth-real.js
+```
+
+A Área de Afiliado utiliza:
+
+```text
+js/affiliate-live.js
+```
+
+E o dashboard consulta:
+
+```text
+GET /affiliate/dashboard
+```
+
+A API utiliza autenticação por token e integração com banco de dados MySQL quando o ambiente de produção está configurado.
+
+> Variáveis de ambiente, senhas, tokens e credenciais do banco não devem ser armazenados no repositório.
 
 ---
 
-## 📁 Estrutura
+## 🗄️ Backend
+
+O backend do projeto está organizado no diretório `api/` do repositório principal.
+
+Principais áreas:
+
+```text
+api/
+├── _lib/
+│   ├── auth.js
+│   ├── cors.js
+│   └── db.js
+│
+├── auth/
+│   ├── login.js
+│   ├── register.js
+│   ├── logout.js
+│   ├── me.js
+│   ├── profile.js
+│   ├── request-reset.js
+│   └── reset-password.js
+│
+└── affiliate/
+    ├── dashboard.js
+    ├── products.js
+    ├── click.js
+    └── setup.sql
+```
+
+### Variáveis da API
+
+Na Vercel, as configurações do backend devem ser adicionadas como variáveis de ambiente, por exemplo:
+
+```text
+DB_HOST
+DB_PORT
+DB_USER
+DB_PASSWORD
+DB_NAME
+DB_SSL
+JWT_SECRET
+```
+
+O arquivo `.env` local não deve ser enviado ao GitHub.
+
+---
+
+## 💾 Armazenamento local
+
+O navegador utiliza `localStorage` para determinados recursos da experiência, como:
+
+- carrinho;
+- favoritos;
+- sessão local;
+- preferências;
+- dados de demonstração;
+- estado da interface.
+
+O armazenamento local não substitui o banco de dados e a autenticação de produção.
+
+---
+
+## 📁 Estrutura do frontend
 
 ```text
 FlashMarket/
@@ -165,11 +278,14 @@ FlashMarket/
 │   ├── style.css
 │   ├── mobile-app.css
 │   ├── mobile-fix.css
-│   └── mobile-app-v3.css
+│   ├── mobile-app-v3.css
+│   ├── mobile-app-final.css
+│   └── affiliate-live.css
 │
 └── js/
     ├── app.js
     ├── auth-real.js
+    ├── affiliate-live.js
     ├── mobile-app.js
     ├── pwa.js
     ├── rastreamento.js
@@ -178,43 +294,21 @@ FlashMarket/
 
 ---
 
-## 🔐 Autenticação
+## 🛠️ Tecnologias
 
-O frontend possui integração com os endpoints da API:
-
-```text
-POST /api/auth/register
-POST /api/auth/login
-POST /api/auth/logout
-GET  /api/auth/me
-PUT  /api/auth/profile
-POST /api/auth/request-reset
-POST /api/auth/reset-password
-```
-
-O arquivo principal de integração é:
-
-```text
-js/auth-real.js
-```
-
-Quando a API está disponível, o frontend utiliza a autenticação do backend. Quando o ambiente estático não consegue acessar a API, existe um fallback local para permitir a demonstração da interface.
-
-> O fallback local não substitui autenticação real de produção.
-
----
-
-## 💾 Dados locais
-
-O navegador pode armazenar dados da experiência do usuário usando LocalStorage, como:
-
-- carrinho;
-- favoritos;
-- sessão local;
-- preferências;
-- dados de demonstração.
-
-Não armazene informações sensíveis em LocalStorage em uma aplicação de produção sem uma estratégia adequada de segurança.
+- HTML5
+- CSS3
+- JavaScript ES6+
+- LocalStorage
+- PWA
+- Service Worker
+- Web Manifest
+- Capacitor
+- Google Fonts
+- API REST
+- Vercel
+- MySQL
+- Git / GitHub
 
 ---
 
@@ -228,23 +322,25 @@ cd koramarketplace
 npm install
 ```
 
-Depois abra:
+Para testar o frontend, recomenda-se utilizar o **Live Server** do VS Code ou outro servidor HTTP local.
+
+Exemplo:
 
 ```text
 FlashMarket/index.html
 ```
 
-O **Live Server** do VS Code é recomendado para testar PWA, Service Worker e recursos que dependem de servidor local.
+Para testar recursos como PWA, Service Worker e autenticação, prefira uma URL `http://localhost` em vez de abrir diretamente com `file://`.
 
 ---
 
-## 🔄 Atualizar pelo Git
+## 🔄 Atualizar o projeto pelo Git
 
 ```bash
 git pull origin main
 git status
 git add .
-git commit -m "feat: atualizar frontend"
+git commit -m "feat: atualizar projeto"
 git push origin main
 ```
 
@@ -260,45 +356,51 @@ O cupom faz parte do ambiente demonstrativo do e-commerce.
 
 ---
 
-## ⚠️ Limitações
+## ⚠️ Produção
 
-O frontend ainda depende de integrações externas para recursos de produção, incluindo:
+Para colocar todos os recursos em produção, a API e os serviços externos precisam estar corretamente configurados, incluindo:
 
-- pagamentos reais;
-- estoque real;
-- pedidos reais;
+- banco MySQL;
+- variáveis de ambiente da Vercel;
+- autenticação;
+- pagamentos;
+- estoque;
+- pedidos;
 - transportadoras;
-- notificações push;
-- serviços de e-mail;
-- banco de dados de produção.
+- e-mail;
+- notificações;
+- dados reais de afiliados e comissões.
 
-A disponibilidade desses recursos depende da configuração da API e dos serviços externos correspondentes.
+A interface pode funcionar em modo demonstrativo quando determinados serviços externos não estiverem disponíveis.
 
 ---
 
 ## 🎓 Projeto acadêmico
 
-O FlashMarket/KoraMarketplace é um projeto acadêmico/TCC utilizado para demonstrar conhecimentos de:
+O FlashMarket / KoraMarketplace é um projeto acadêmico/TCC desenvolvido para demonstrar conhecimentos de:
 
-- HTML5
-- CSS3
-- JavaScript
-- UI/UX
-- responsividade
-- PWA
-- Git/GitHub
-- APIs
-- autenticação
-- preparação para aplicações mobile
+- desenvolvimento web;
+- HTML5;
+- CSS3;
+- JavaScript;
+- UI/UX;
+- responsividade;
+- PWA;
+- APIs REST;
+- autenticação;
+- banco de dados;
+- Git e GitHub;
+- preparação para aplicações mobile.
 
 ---
 
 ## 👨‍💻 Autor
 
-**Rafael Oliveira**  
-Projeto acadêmico — KoraMarketplace / FlashMarket
+**Rafael Oliveira**
 
-GitHub:  
+Projeto acadêmico — **KoraMarketplace / FlashMarket**
+
+GitHub:
 https://github.com/RafaelOliveirxis
 
 ---
