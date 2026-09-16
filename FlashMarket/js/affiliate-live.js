@@ -123,6 +123,7 @@
       if (showStatus && $('affiliateLiveStatus')) $('affiliateLiveStatus').textContent = `Atualizado às ${new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
     } catch (error) {
       clearMetrics(error.message);
+      // Se o afiliado já está autenticado, mantém o painel aberto mesmo quando a API de dados estiver temporariamente indisponível.
       setScreen(true);
     } finally {
       if (button) button.classList.remove('loading');
@@ -189,9 +190,12 @@
       localStorage.setItem('flashmarket_affiliate_email', data.user.email || email);
       localStorage.setItem('flashmarket_affiliate_user_data', JSON.stringify(data.user));
 
+      // Troca imediata: remove a área de login e deixa somente o painel nesta página.
       setScreen(true);
       showDashboardUser(data.user);
-      setMessage(register ? 'Conta criada com sucesso.' : 'Login realizado com sucesso.', true);
+      const auth = $('authArea') || document.querySelector('.auth-box');
+      if (auth) auth.remove();
+      setMessage('', true);
       await refreshDashboard(false);
     } catch (error) {
       localStorage.removeItem('flashmarket_affiliate_session');
@@ -199,7 +203,7 @@
       setScreen(false);
       setMessage(error.message);
     } finally {
-      if (submit) {
+      if (submit && document.body.contains(submit)) {
         submit.disabled = false;
         submit.textContent = register ? 'Criar conta e entrar' : 'Entrar no painel';
       }
