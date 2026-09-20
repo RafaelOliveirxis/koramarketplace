@@ -16,3 +16,8 @@ ios/App/build/
 *.xcarchive
 *.ipa
 ExportOptions.plist
+.vercel
+.env*
+
+# Banco de dados local
+*.sql
