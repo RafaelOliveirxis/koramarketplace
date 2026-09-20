@@ -1,192 +1,188 @@
-# ⚡ KoraMarketplace
+# ⚡ FlashMarket — KoraMarketplace
 
-> **Marketplace digital responsivo, moderno e preparado para Web, PWA e aplicativo mobile**, desenvolvido como projeto acadêmico/TCC a partir do FlashMarket.
+> **Marketplace digital moderno, responsivo e preparado para Web, PWA e Mobile.**
 
-O **KoraMarketplace** reúne uma experiência de e-commerce, autenticação de usuários, área do cliente, rastreamento de pedidos, área de afiliados, atendimento, PWA e uma API serverless em um único projeto.
+O **FlashMarket** é um projeto acadêmico/TCC de e-commerce desenvolvido com foco em uma experiência de compra rápida, organizada e adaptada para **desktop, tablet e smartphones**.
 
----
-
-## 🌐 Projeto
-
-- **Repositório:** https://github.com/RafaelOliveirxis/koramarketplace
-- **Frontend publicado:** https://rafaeloliveirxis.github.io/koramarketplace/
-- **Frontend:** `FlashMarket/`
-- **API:** `api/`
+A aplicação reúne catálogo, ofertas, carrinho, favoritos, autenticação, pedidos, área de afiliados, atendimento, PWA e API serverless.
 
 ---
 
-## 🛍️ Sobre o projeto
+## 🌐 Acesse o projeto
 
-O KoraMarketplace foi desenvolvido para oferecer uma experiência de compra simples, rápida e visualmente próxima de um aplicativo de marketplace.
-
-A interface é adaptada para desktop, tablet e smartphone. No modo mobile, o projeto utiliza cabeçalho compacto, menu lateral, busca, navegação inferior e acesso rápido a:
-
-**Início · Rastrear pedido · Área de afiliado · Favoritos · Conta**
-
-A identidade visual mantém a marca **FlashMarket**, utilizada na interface e nos recursos promocionais.
+| Recurso | Acesso |
+|---|---|
+| 🛍️ **Site publicado** | https://rafaeloliveirxis.github.io/koramarketplace/ |
+| 💻 **GitHub** | https://github.com/RafaelOliveirxis/koramarketplace |
+| ⚡ **Frontend** | `FlashMarket/` |
+| 🔐 **API** | `api/` |
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Destaques
 
-### 🛒 E-commerce
-
+### 🛒 Marketplace
 - Catálogo de produtos
-- Pesquisa de produtos
-- Categorias
+- Busca e categorias
 - Ofertas Flash
-- Cards de produtos
 - Carrinho de compras
 - Favoritos
 - Cupons demonstrativos
 - Avaliações
 - Checkout demonstrativo
-- Estrutura para Pix, cartão e boleto
+- Estrutura para Pix e cartão
 
-### 👤 Conta e autenticação
-
-- Cadastro de usuário
-- Login
+### 👤 Conta
+- Cadastro e login
 - Logout
 - Recuperação de senha
-- Perfil do usuário
-- Minha Conta
-- Sessão persistida no navegador
-- Integração com API de autenticação
-- JWT para sessão da API
-- Fallback local para testes do frontend quando a API não estiver disponível
-
-> O fallback local é destinado a testes e demonstração. Para autenticação persistente entre dispositivos, é necessário manter a API e o banco de dados configurados.
+- Perfil e Minha Conta
+- Sessão persistida
+- Autenticação via API
+- JWT e bcryptjs
 
 ### 📦 Pedidos
-
-- Rastreamento de pedidos
+- Rastreamento
 - Página de acompanhamento
-- Estrutura preparada para pedidos reais
-- Estrutura preparada para integração com transportadoras
+- Estrutura para pedidos reais
+- Estrutura para integração com transportadoras
 
-### 🤝 Área de afiliados
+### 🤝 Área de Afiliados
+- Login e cadastro
+- Dashboard
+- Produtos afiliados
+- Pedidos
+- Cliques e conversões
+- Comissão e receita
+- Link exclusivo
+- Filtros por período
+- Atualização dos dados via API
 
-A Área de Afiliados possui fluxo próprio de autenticação e dashboard.
+---
 
-- Cadastro de afiliado
-- Login de afiliado
-- Logout
-- Sessão persistida
-- Dashboard após autenticação na **mesma página**
-- Nome do afiliado no painel
-- Receita/vendas do período
-- Produtos ativos
-- Conversão
-- Receita líquida
-- Comissão total
-- Pedidos ativos
-- Retenção
-- Link exclusivo de afiliado
-- Cópia do link de divulgação
-- Filtro por período
-- Lista de pedidos
-- Lista de produtos afiliados
-- Atualização dos dados do dashboard
-- Estrutura de banco para perfis, produtos, pedidos e cliques
+## 📱 Design Mobile
 
-Após o login ou cadastro, a tela de autenticação é removida e o afiliado permanece diretamente no dashboard da `afiliado.html`.
+O FlashMarket possui uma experiência específica para telas pequenas, sem alterar a estrutura principal do desktop.
 
-### 💬 Atendimento
+No celular, o layout foi organizado para facilitar navegação e compra:
 
-- Central de suporte
-- Flash IA
-- Newsletter
-- Formulários de contato
+- Header compacto
+- Logo centralizada
+- Menu **☰**
+- Busca em largura total
+- Acesso rápido à conta, favoritos e carrinho
+- Navegação adaptada para toque
+- Hero responsivo
+- Ofertas em **2 colunas**
+- Cards compactos
+- Categorias com rolagem horizontal
+- Abas e filtros adaptados para celular
+- Botões maiores para toque
+- Modais responsivos
+- Suporte/Flash IA adaptado
+- Correção de overflow horizontal
+- Suporte a diferentes tamanhos de tela
+- Preservação do modo escuro quando disponível
 
-### 📱 Mobile / PWA
+> As alterações de design mobile ficam concentradas em regras responsivas, mantendo a experiência desktop independente.
 
-- Layout responsivo
-- Cabeçalho compacto
-- Menu lateral pelo botão **☰**
-- Categorias acessíveis pelo menu
-- Barra inferior fixa no modo aplicativo
-- Navegação para Início, Rastreamento, Afiliados, Favoritos e Conta
-- Rodapé tradicional ocultado no modo aplicativo
-- Hero adaptado para celular
-- Manifest Web App
-- Service Worker
-- Instalação como PWA em navegadores compatíveis
+---
+
+## 📲 PWA
+
+O projeto pode ser instalado como aplicativo em navegadores compatíveis.
+
+Arquivos principais:
+
+```text
+FlashMarket/manifest.webmanifest
+FlashMarket/sw.js
+FlashMarket/js/pwa.js
+```
+
+### Android / Chrome
+
+Abra o site e utilize a opção **Instalar aplicativo** ou **Adicionar à tela inicial**, quando disponível.
+
+### iPhone / iPad
+
+Abra no Safari e utilize:
+
+**Compartilhar → Adicionar à Tela de Início**
 
 ---
 
 ## 🧰 Tecnologias
 
 ### Frontend
-
 - HTML5
 - CSS3
 - JavaScript ES6+
 - LocalStorage
 - Fetch API
 - Responsive Design
-- PWA / Service Worker
+- PWA
+- Service Worker
 - Web App Manifest
 - Google Fonts
 
-### Backend / API
-
+### Backend
 - Node.js
 - Vercel Serverless Functions
-- MySQL / MySQL2
+- MySQL
+- MySQL2
 - JWT
 - bcryptjs
 - CORS
-- API REST
+- REST API
 
-### Aplicativo
-
+### Mobile
+- PWA
 - Capacitor
 - Android
 - iOS
 
-### Versionamento e deploy
-
+### Deploy
 - Git
 - GitHub
 - GitHub Pages
 - Vercel
-- GitHub Actions
 
 ---
 
-## 📁 Estrutura do projeto
+## 📁 Estrutura
 
 ```text
 koramarketplace/
 ├── .github/
-│   └── workflows/                 # Automação
+│   └── workflows/
 ├── FlashMarket/
-│   ├── assets/                    # Imagens, logos e ícones
-│   ├── css/                       # Estilos do projeto
-│   ├── js/                        # Scripts do frontend
-│   │   ├── auth-real.js            # Autenticação do cliente
-│   │   ├── affiliate-live.js       # Área de afiliados
-│   │   ├── mobile-app.js            # Experiência mobile
-│   │   └── pwa.js                   # PWA e carregamento mobile
-│   ├── index.html                 # Página inicial
-│   ├── minha-conta.html           # Área do cliente
-│   ├── rastrear-pedido.html       # Rastreamento
-│   ├── afiliado.html              # Área de afiliados
-│   ├── suporte.html               # Atendimento
-│   ├── manifest.webmanifest        # Manifest PWA
-│   └── sw.js                      # Service Worker
+│   ├── assets/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   ├── auth-real.js
+│   │   ├── affiliate-live.js
+│   │   ├── mobile-app.js
+│   │   └── pwa.js
+│   ├── index.html
+│   ├── minha-conta.html
+│   ├── rastrear-pedido.html
+│   ├── afiliado.html
+│   ├── suporte.html
+│   ├── manifest.webmanifest
+│   └── sw.js
 ├── api/
-│   ├── _lib/                     # Banco, autenticação e CORS
-│   ├── auth/                     # Endpoints de autenticação
-│   ├── affiliate/                # Endpoints da área de afiliados
-│   └── README.md                 # Documentação da API
-├── capacitor.config.ts            # Configuração Capacitor
-├── package.json                  # Dependências e scripts
-├── package-lock.json              # Lockfile
-├── vercel.json                   # Configuração Vercel
+│   ├── _lib/
+│   ├── auth/
+│   ├── affiliate/
+│   └── README.md
+├── capacitor.config.ts
+├── package.json
+├── package-lock.json
+├── vercel.json
 ├── .gitignore
-└── README.md                     # Documentação principal
+└── README.md
 ```
 
 ---
@@ -199,9 +195,9 @@ koramarketplace/
 - npm
 - Git
 - VS Code
-- Live Server (recomendado para o frontend)
+- Live Server
 
-Verifique as versões:
+Verifique:
 
 ```bash
 node -v
@@ -209,30 +205,34 @@ npm -v
 npx -v
 ```
 
-### Clonar o projeto
+### Clonar
 
 ```bash
 git clone https://github.com/RafaelOliveirxis/koramarketplace.git
 cd koramarketplace
 ```
 
-### Instalar dependências
+### Instalar
 
 ```bash
 npm install
 ```
 
-### Abrir o frontend
+### Executar frontend
 
-Abra `FlashMarket/index.html` usando o Live Server do VS Code para evitar limitações de navegador relacionadas a páginas abertas diretamente por `file://`.
+Abra:
+
+```text
+FlashMarket/index.html
+```
+
+preferencialmente usando o **Live Server** do VS Code.
 
 ---
 
-## 🔐 API e autenticação
+## 🔐 API
 
-A pasta `api/` contém as funções serverless da aplicação.
-
-### Autenticação
+Endpoints principais:
 
 ```text
 POST /api/auth/register
@@ -244,7 +244,7 @@ POST /api/auth/request-reset
 POST /api/auth/reset-password
 ```
 
-### Área de afiliados
+Área de afiliados:
 
 ```text
 GET  /api/affiliate/dashboard
@@ -253,9 +253,9 @@ POST /api/affiliate/products
 POST /api/affiliate/click
 ```
 
-A API utiliza variáveis de ambiente para conexão com o banco e assinatura dos tokens.
+### Variáveis de ambiente
 
-Exemplo de configuração necessária na Vercel:
+A API utiliza:
 
 ```text
 DB_HOST
@@ -267,56 +267,62 @@ DB_SSL
 JWT_SECRET
 ```
 
-**Nunca publique no GitHub:**
+**Nunca envie essas informações para o GitHub.**
 
-- senha do banco;
-- `JWT_SECRET`;
+Não publique:
+
+- senhas;
+- arquivos `.env`;
+- JWT secrets;
 - tokens;
 - chaves privadas;
-- arquivos `.env`.
+- credenciais do banco.
 
 ---
 
 ## 🗄️ Banco de dados
 
-O backend foi estruturado para MySQL.
+O projeto utiliza MySQL.
 
-A Área de Afiliados possui um script de estrutura em:
+Estruturas relacionadas à Área de Afiliados:
 
 ```text
 api/affiliate/setup.sql
 ```
 
-As tabelas utilizadas pela área de afiliados incluem estruturas para:
+O repositório também possui o dump estrutural:
 
-- perfis de afiliados;
-- produtos afiliados;
-- pedidos;
-- cliques.
+```text
+flashmarket.sql
+```
 
-Para funcionamento completo em produção, o banco precisa estar criado e as variáveis de conexão configuradas no ambiente da Vercel.
+O arquivo deve ser tratado como material de desenvolvimento/banco de dados e não deve conter credenciais ou dados sensíveis.
 
 ---
 
-## 📲 PWA
+## 🌐 Deploy
 
-Arquivos principais:
+### GitHub Pages
 
-```text
-FlashMarket/manifest.webmanifest
-FlashMarket/sw.js
-FlashMarket/js/pwa.js
-```
+Frontend:
 
-Em navegadores compatíveis, o usuário pode instalar o KoraMarketplace como aplicativo.
+https://rafaeloliveirxis.github.io/koramarketplace/
 
-No iPhone/iPad, utilize **Compartilhar → Adicionar à Tela de Início**.
+### Vercel
+
+A API utiliza funções serverless da Vercel.
+
+As credenciais devem ser configuradas em:
+
+**Vercel → Project → Settings → Environment Variables**
+
+e nunca dentro do código-fonte.
 
 ---
 
 ## 📱 Capacitor
 
-A aplicação também possui configuração para evolução para Android e iOS.
+A estrutura também permite evolução para aplicativos Android/iOS.
 
 ```bash
 npm install
@@ -327,38 +333,24 @@ npm run cap:android
 npm run cap:ios
 ```
 
-Android requer Android Studio. iOS requer macOS com Xcode.
+**Android:** requer Android Studio.
+
+**iOS:** requer macOS + Xcode.
 
 ---
 
-## 🌐 Deploy
+## 🔄 Atualizar o projeto
 
-### GitHub Pages
-
-O frontend pode ser publicado pelo GitHub Pages:
-
-https://rafaeloliveirxis.github.io/koramarketplace/
-
-### Vercel
-
-A pasta `api/` foi organizada para funcionar como funções serverless na Vercel.
-
-As credenciais do banco e demais segredos devem ser configurados nas **Environment Variables** da Vercel e não no repositório.
-
----
-
-## 🔄 Atualizar o projeto pelo terminal
-
-Depois de alterar os arquivos:
+Depois de modificar os arquivos:
 
 ```bash
 git status
 git add .
-git commit -m "feat: atualizar KoraMarketplace"
+git commit -m "feat: atualizar FlashMarket"
 git push origin main
 ```
 
-Antes de começar um novo trabalho:
+Para sincronizar antes de começar:
 
 ```bash
 git pull origin main
@@ -366,38 +358,39 @@ git pull origin main
 
 ---
 
-## 🧪 Status do projeto
+## 📊 Status
 
 **Em desenvolvimento ativo.**
 
-O frontend, a experiência mobile, o PWA, a autenticação e a estrutura da Área de Afiliados estão em evolução.
+O projeto possui frontend responsivo, experiência mobile, PWA, autenticação, API e Área de Afiliados em evolução.
 
-Recursos que dependem de serviços externos, como banco de dados, pagamentos, estoque, pedidos reais, transportadoras e notificações, precisam estar configurados para uso em produção.
+Recursos que dependem de serviços externos precisam estar corretamente configurados para produção, incluindo banco de dados, pagamentos, estoque, transportadoras e notificações.
 
 ---
 
 ## 🔮 Próximas evoluções
 
-- Persistência completa de pedidos
-- Integração com transportadoras
-- Gateway de pagamento real
-- Estoque real
+- Integração de pagamentos reais
+- Estoque em tempo real
+- Pedidos completos
+- Transportadoras
 - Painel administrativo
 - Gestão de vendedores
-- Sistema completo de comissões e saques
-- Rastreamento de cliques e conversões por afiliado
-- Notificações push
+- Comissões e saques
 - Analytics
+- Notificações push
 - Testes automatizados
-- Melhorias contínuas de segurança
-- Publicação dos aplicativos Android/iOS
+- Melhorias de segurança
+- Evolução dos aplicativos Android/iOS
 
 ---
 
 ## 👨‍💻 Autor
 
-**Rafael Oliveira**  
-Projeto acadêmico / TCC — KoraMarketplace / FlashMarket
+**Rafael Oliveira**
+
+Projeto acadêmico / TCC  
+**FlashMarket / KoraMarketplace**
 
 GitHub: https://github.com/RafaelOliveirxis
 
@@ -405,10 +398,13 @@ GitHub: https://github.com/RafaelOliveirxis
 
 ## 📄 Licença
 
-Projeto desenvolvido para fins acadêmicos, educacionais e demonstrativos. Respeite a autoria e as licenças dos recursos de terceiros utilizados no projeto.
+Projeto desenvolvido para fins acadêmicos, educacionais e demonstrativos.
+
+Respeite a autoria e as licenças dos recursos de terceiros utilizados no projeto.
 
 ---
 
 <p align="center">
-  ⚡ <strong>KoraMarketplace</strong> — experiência de marketplace para Web e Mobile.
+  ⚡ <strong>FlashMarket</strong><br>
+  Marketplace moderno para Web, PWA e Mobile.
 </p>
