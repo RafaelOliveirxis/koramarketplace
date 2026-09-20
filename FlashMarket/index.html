@@ -1624,8 +1624,12 @@ document.addEventListener('DOMContentLoaded', function(){
     button.addEventListener('click', () => {
       const filter=document.getElementById('categoryFilter');
       if(filter){
-        filter.value=button.dataset.category;
-        filter.dispatchEvent(new Event('change'));
+        const requested = button.dataset.category;
+        const available = Array.from(filter.options).some(option => option.value === requested);
+        if(available){
+          filter.value=requested;
+          filter.dispatchEvent(new Event('change'));
+        }
       }
       const products=document.getElementById('produtos');
       if(products) products.scrollIntoView({behavior:'smooth'});
