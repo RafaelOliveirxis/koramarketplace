@@ -20,4 +20,3 @@ ExportOptions.plist
 .env*
 
 # Banco de dados local
-*.sql
