@@ -103,8 +103,6 @@ function card(p){
 function renderCategories(){
   const el=$("#categoryGrid");
   if(!el) return;
-  // A grade mobile é estática para preservar o layout app-like da home.
-  if(el.closest(".mobile-categories")) return;
   el.innerHTML=categories.map(c=>`
     <button class="category-card ${c.cls} ${currentCategory===c.name?"is-active":""}" data-category="${c.name}">
       <span>${c.icon}</span><strong>${c.name}</strong><small>${c.desc}</small>
