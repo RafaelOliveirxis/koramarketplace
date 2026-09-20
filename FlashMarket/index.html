@@ -71,7 +71,7 @@
     <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menu">☰</button>
 
     <a class="brand" href="#inicio" aria-label="FlashMarket">
-      <img src="assets/favicon.png" alt="FlashMarket" class="brand-logo">
+      <img src="assets/logo.FlashMarket.png" alt="FlashMarket" class="brand-logo">
     </a>
 
     <form class="search" id="searchForm">
@@ -1359,6 +1359,15 @@
   </div>
 </footer>
 
+
+<nav class="mobile-bottom-nav" aria-label="Navegação principal">
+  <a class="mobile-bottom-item active" href="#inicio"><span>⌂</span><b>Início</b></a>
+  <a class="mobile-bottom-item" href="#mobileCategories"><span>☷</span><b>Categorias</b></a>
+  <a class="mobile-bottom-item" href="#ofertas"><span>ϟ</span><b>Ofertas</b></a>
+  <button class="mobile-bottom-item" type="button" id="mobileFavNav"><span>♡</span><b>Favoritos</b></button>
+  <button class="mobile-bottom-item" type="button" id="mobileAccountNav"><span>♙</span><b>Conta</b></button>
+</nav>
+
 <div class="toast" id="toast"></div>
 
 <div class="modal" id="accountModal">
@@ -1634,6 +1643,22 @@
 
     render();
   })();
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    const favNav = document.getElementById('mobileFavNav');
+    const accountNav = document.getElementById('mobileAccountNav');
+    if(favNav) favNav.addEventListener('click', function(){
+      const btn = document.getElementById('favBtn');
+      if(btn) btn.click();
+    });
+    if(accountNav) accountNav.addEventListener('click', function(){
+      const btn = document.getElementById('accountBtn');
+      if(btn) btn.click();
+    });
+  });
 </script>
 
 </body>
