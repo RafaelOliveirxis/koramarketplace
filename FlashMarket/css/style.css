@@ -3473,3 +3473,688 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: env(safe-area-inset-top);
   }
 }
+
+/* =========================================================
+   FLASHMARKET — MOBILE POLISH 2026
+   Somente telas pequenas — desktop permanece intacto.
+========================================================= */
+
+@media (max-width: 767px) {
+  :root{
+    --mobile-gap: 12px;
+    --mobile-radius: 14px;
+  }
+
+  html, body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+  }
+
+  body{
+    font-size:14px;
+    -webkit-text-size-adjust:100%;
+    background:#f5f5f3;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+
+  .wrap,
+  .page-shell{
+    width:calc(100% - 24px);
+    max-width:none;
+  }
+
+  /* Topo */
+  .top-strip{
+    position:relative;
+    top:auto;
+    font-size:9px;
+    border-bottom:0;
+  }
+
+  .top-inner{
+    min-height:34px;
+    height:auto;
+    padding:7px 0;
+    gap:8px;
+  }
+
+  .top-inner strong{
+    font-size:9px;
+    white-space:nowrap;
+  }
+
+  .top-links{
+    display:none;
+  }
+
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 8px 24px rgba(0,0,0,.16);
+  }
+
+  .header-main{
+    width:100%;
+    min-height:auto;
+    display:grid;
+    grid-template-columns:44px 1fr auto;
+    grid-template-areas:
+      "menu brand actions"
+      "search search search";
+    gap:9px;
+    padding:9px 12px 11px;
+  }
+
+  .mobile-toggle{
+    grid-area:menu;
+    display:grid;
+    place-items:center;
+    width:44px;
+    height:44px;
+    min-width:44px;
+    padding:0;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:12px;
+    background:#181818;
+    font-size:20px;
+  }
+
+  .brand{
+    grid-area:brand;
+    justify-content:center;
+    min-width:0;
+  }
+
+  .brand-logo{
+    width:126px;
+    max-height:44px;
+    object-fit:contain;
+  }
+
+  .header-actions{
+    grid-area:actions;
+    gap:5px;
+  }
+
+  .head-action{
+    width:42px;
+    min-width:42px;
+    height:42px;
+    min-height:42px;
+    padding:0;
+    margin:0;
+    border-radius:11px;
+    justify-content:center;
+  }
+
+  .head-action b,
+  .head-action.balance{
+    display:none;
+  }
+
+  .head-action span{
+    font-size:18px;
+  }
+
+  .head-action.circle{
+    width:42px;
+    height:42px;
+    min-width:42px;
+    min-height:42px;
+  }
+
+  .head-action i{
+    right:-3px;
+    top:-4px;
+    min-width:17px;
+    height:17px;
+    font-size:8px;
+  }
+
+  .search{
+    grid-area:search;
+    width:100%;
+    height:44px;
+    margin:0;
+    border-width:1px;
+    border-radius:12px;
+  }
+
+  .search input{
+    min-width:0;
+    padding:0 13px;
+    font-size:13px;
+  }
+
+  .search button{
+    width:48px;
+    font-size:23px;
+  }
+
+  .main-nav{
+    display:none;
+  }
+
+  .main-nav.open,
+  .site-header.menu-open .main-nav{
+    display:block;
+    max-height:calc(100vh - 125px);
+    overflow-y:auto;
+    border-bottom-width:2px;
+  }
+
+  .nav-inner{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    padding:7px 12px;
+    gap:6px;
+  }
+
+  .nav-inner a{
+    min-height:42px;
+    padding:9px 8px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+    font-size:10px;
+    white-space:normal;
+  }
+
+  .nav-inner a.hot{
+    grid-column:1 / -1;
+  }
+
+  /* Hero */
+  .hero-content{
+    min-height:0;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:0;
+  }
+
+  .hero-copy{
+    padding:34px 0 18px;
+    text-align:left;
+  }
+
+  .hero-tag{
+    font-size:10px;
+    letter-spacing:1.5px;
+  }
+
+  .hero h1{
+    font-size:clamp(43px,13vw,65px);
+    line-height:.9;
+    letter-spacing:0;
+    margin:10px 0 16px;
+    text-shadow:3px 3px 0 #000;
+  }
+
+  .hero-copy p{
+    max-width:none;
+    font-size:13px;
+    line-height:1.55;
+    color:#ddd;
+  }
+
+  .hero-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:20px;
+  }
+
+  .btn{
+    min-height:46px;
+    padding:0 12px;
+    border-radius:10px;
+    font-size:11px;
+  }
+
+  .hero-points{
+    gap:7px 12px;
+    margin-top:14px;
+    font-size:9px;
+  }
+
+  .hero-product{
+    height:225px;
+    margin:0 -12px;
+    overflow:hidden;
+  }
+
+  .product-stage{
+    inset:12px 5% 0;
+  }
+
+  .stage-back{
+    width:82%;
+    height:68%;
+    right:-2%;
+  }
+
+  .stage-front{
+    width:70%;
+    height:64%;
+    right:9%;
+    top:10%;
+  }
+
+  .big-product{
+    font-size:76px;
+  }
+
+  .floating{
+    font-size:31px;
+  }
+
+  .f1{left:6%;top:12%}
+  .f2{right:6%;top:39%}
+  .f3{left:17%;bottom:3%}
+
+  .burst{
+    width:82px;
+    height:82px;
+    right:5%;
+    top:0;
+    font-size:9px;
+  }
+
+  .burst strong{
+    font-size:19px;
+  }
+
+  .hero-mini-tag{
+    left:7%;
+    bottom:2px;
+    padding:6px 12px;
+    border-width:2px;
+    font-size:17px;
+  }
+
+  .hero-mini-tag small{
+    font-size:7px;
+    letter-spacing:2px;
+  }
+
+  /* Seções */
+  .products-section,
+  .categories-section,
+  .benefits,
+  .newsletter,
+  .map-section{
+    padding:42px 0;
+  }
+
+  .section-head{
+    align-items:flex-start;
+    margin-bottom:18px;
+    gap:10px;
+  }
+
+  .section-label{
+    font-size:9px;
+    letter-spacing:1.5px;
+  }
+
+  .section-head h2{
+    font-size:26px;
+    margin-top:5px;
+  }
+
+  .section-head>a{
+    font-size:10px;
+    white-space:nowrap;
+    padding-top:4px;
+  }
+
+  /* Ofertas: 2 cards visíveis no celular */
+  .featured-carousel{
+    gap:6px;
+  }
+
+  .featured-viewport{
+    min-width:0;
+  }
+
+  .featured-slide{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+
+  .featured-arrow{
+    flex:0 0 34px;
+    width:34px;
+    height:34px;
+    min-width:34px;
+    min-height:34px;
+    font-size:17px;
+  }
+
+  .product-card{
+    min-width:0;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(17,17,17,.07);
+  }
+
+  .product-media{
+    aspect-ratio:1 / 1;
+  }
+
+  .sale-badge{
+    top:7px;
+    left:7px;
+    padding:5px 6px;
+    font-size:8px;
+    border-radius:5px;
+  }
+
+  .wish{
+    top:7px;
+    right:7px;
+    width:34px;
+    height:34px;
+    min-width:34px;
+    min-height:34px;
+    font-size:16px;
+  }
+
+  .product-info{
+    padding:10px;
+  }
+
+  .product-info .cat{
+    font-size:8px;
+  }
+
+  .product-info h3{
+    font-size:11px;
+    line-height:1.3;
+    min-height:2.6em;
+    margin:5px 0;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+
+  .rating{
+    font-size:9px;
+  }
+
+  .price-row{
+    gap:4px;
+    flex-wrap:wrap;
+    margin-top:5px;
+  }
+
+  .old-price{
+    font-size:8px;
+  }
+
+  .price{
+    font-size:16px;
+  }
+
+  .installments{
+    display:block;
+    font-size:8px;
+    line-height:1.3;
+    min-height:20px;
+  }
+
+  .add-cart,
+  .detail-btn{
+    min-height:40px;
+    height:40px;
+    margin-top:8px;
+    border-radius:8px;
+    font-size:9px;
+  }
+
+  .detail-btn{
+    margin-top:5px;
+  }
+
+  /* Categorias */
+  .category-grid{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding:3px 2px 10px;
+    margin-right:-12px;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+  }
+
+  .category-grid::-webkit-scrollbar{
+    display:none;
+  }
+
+  .category-card{
+    flex:0 0 145px;
+    min-height:142px;
+    padding:16px;
+    border-radius:14px;
+    scroll-snap-align:start;
+  }
+
+  .category-card span{
+    font-size:34px;
+  }
+
+  .category-card strong{
+    font-size:14px;
+  }
+
+  .category-card small{
+    font-size:9px;
+  }
+
+  /* Catálogo */
+  .catalog-section{
+    padding-bottom:44px;
+  }
+
+  .catalog-tabs{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    gap:7px;
+    padding-bottom:7px;
+    margin-right:-12px;
+    scrollbar-width:none;
+  }
+
+  .catalog-tabs::-webkit-scrollbar{
+    display:none;
+  }
+
+  .catalog-tab{
+    flex:0 0 auto;
+    padding:9px 13px;
+    font-size:10px;
+  }
+
+  .catalog-header{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .catalog-header h3{
+    font-size:20px;
+  }
+
+  .filters{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .filters select{
+    width:100%;
+    height:40px;
+    min-width:0;
+    font-size:10px;
+  }
+
+  .product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+
+  /* Benefícios */
+  .benefit-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .benefit-grid>div{
+    min-width:0;
+    padding:17px 12px;
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .benefit-grid>div:nth-child(odd){
+    border-right:1px solid var(--line);
+  }
+
+  .benefit-grid>div:nth-last-child(-n+2){
+    border-bottom:0;
+  }
+
+  .benefit-grid strong{
+    font-size:11px;
+  }
+
+  .benefit-grid span{
+    font-size:9px;
+    line-height:1.35;
+  }
+
+  /* Newsletter */
+  .newsletter-inner{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .newsletter h2{
+    font-size:28px;
+  }
+
+  .newsletter p{
+    font-size:11px;
+  }
+
+  .newsletter form{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:7px;
+    padding:7px;
+  }
+
+  .newsletter input{
+    height:42px;
+    min-width:0;
+  }
+
+  .newsletter .btn{
+    min-width:0;
+    width:100%;
+  }
+
+  .map{
+    height:280px;
+    border-radius:12px;
+  }
+
+  /* Floating support / Flash IA */
+  .support-widget{
+    right:12px;
+    bottom:calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .support-launcher{
+    width:48px;
+    height:48px;
+    padding:0;
+    justify-content:center;
+    border-radius:50%;
+  }
+
+  .support-launcher span{
+    display:none;
+  }
+
+  .support-panel{
+    right:0;
+    bottom:60px;
+    width:min(340px,calc(100vw - 24px));
+    max-height:70vh;
+  }
+
+  /* Modais e overlays */
+  .modal,
+  .modal-content,
+  .modal-card{
+    max-width:calc(100vw - 24px);
+  }
+
+  /* Evita controles pequenos */
+  button,
+  a,
+  input,
+  select{
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  input,
+  select{
+    font-size:16px;
+  }
+}
+
+/* Telas muito pequenas */
+@media (max-width:390px){
+  .header-actions{
+    gap:3px;
+  }
+
+  .head-action,
+  .head-action.circle{
+    width:39px;
+    min-width:39px;
+    height:39px;
+    min-height:39px;
+  }
+
+  .brand-logo{
+    width:112px;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  .hero-buttons{
+    grid-template-columns:1fr;
+  }
+
+  .featured-arrow{
+    flex-basis:30px;
+    width:30px;
+    min-width:30px;
+  }
+
+  .product-info{
+    padding:8px;
+  }
+
+  .price{
+    font-size:15px;
+  }
+}
