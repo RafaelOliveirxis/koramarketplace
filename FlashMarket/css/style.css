@@ -5024,3 +5024,275 @@ body{
     max-height:46px;
   }
 }
+
+
+/* =========================================================
+   KORA — NOVO DESIGN DA TELA DE LOGIN
+   ========================================================= */
+#accountModal{
+  background:rgba(15,23,42,.62);
+  backdrop-filter:blur(6px);
+  padding:18px;
+}
+#accountModal .modal-box{
+  width:min(760px,96vw);
+  max-width:760px;
+  padding:0;
+  overflow:hidden;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 28px 90px rgba(0,0,0,.28);
+}
+#accountModal .close{
+  z-index:5;
+  top:12px;
+  right:13px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:rgba(255,255,255,.9);
+  color:#667085;
+  font-size:22px;
+  line-height:32px;
+}
+.auth-shell{
+  display:grid;
+  grid-template-columns:44% 56%;
+  min-height:430px;
+}
+.auth-brand-panel{
+  position:relative;
+  overflow:hidden;
+  padding:38px 34px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  color:#fff;
+  background:linear-gradient(145deg,#ffb21b 0%,#ff7a00 52%,#ff5a00 100%);
+}
+.auth-brand-panel::before,
+.auth-brand-panel::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,.10);
+  pointer-events:none;
+}
+.auth-brand-panel::before{width:220px;height:220px;right:-110px;top:-100px}
+.auth-brand-panel::after{width:180px;height:180px;left:-100px;bottom:-90px}
+.auth-brand-logo{
+  position:relative;
+  z-index:1;
+  width:82px;
+  height:58px;
+  margin-bottom:18px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+.auth-brand-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:left center;
+  filter:brightness(0) invert(1);
+}
+.auth-kicker{
+  position:relative;
+  z-index:1;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  opacity:.92;
+}
+.auth-brand-panel h2{
+  position:relative;
+  z-index:1;
+  margin:9px 0 9px;
+  color:#fff;
+  font:900 27px/1.05 Inter,sans-serif;
+  letter-spacing:-.8px;
+}
+.auth-brand-panel>p{
+  position:relative;
+  z-index:1;
+  max-width:280px;
+  margin:0 0 20px;
+  color:rgba(255,255,255,.88);
+  font:500 10px/1.6 Inter,sans-serif;
+}
+.auth-brand-panel ul{
+  position:relative;
+  z-index:1;
+  display:grid;
+  gap:10px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.auth-brand-panel li{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#fff;
+  font:700 9px Inter,sans-serif;
+}
+.auth-brand-panel li span{
+  width:17px;
+  height:17px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  font-size:9px;
+}
+.auth-form-panel{
+  padding:38px 42px 30px;
+  background:#fff;
+}
+.auth-panel-head h3{
+  margin:5px 0 5px;
+  color:#172033;
+  font:900 24px/1.1 Inter,sans-serif;
+  letter-spacing:-.5px;
+}
+.auth-panel-head p{
+  margin:0;
+  color:#98a0ad;
+  font:500 9px/1.5 Inter,sans-serif;
+}
+.auth-mini-label{
+  color:#ff6500;
+  font:900 7px Inter,sans-serif;
+  letter-spacing:.13em;
+}
+.auth-form-panel .auth-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4px;
+  margin:22px 0 18px;
+  padding:4px;
+  border:1px solid #edf0f4;
+  border-radius:9px;
+  background:#f6f7f9;
+}
+.auth-form-panel .auth-tabs button{
+  height:34px;
+  padding:0 10px;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  color:#8992a1;
+  font:800 9px Inter,sans-serif;
+  cursor:pointer;
+}
+.auth-form-panel .auth-tabs button.active{
+  background:#ff6500;
+  color:#fff;
+  box-shadow:0 4px 12px rgba(255,101,0,.20);
+}
+.auth-form-panel .auth-panel h3,
+.auth-form-panel .auth-panel>p{
+  display:none;
+}
+.auth-field{
+  display:block;
+  margin-bottom:12px;
+}
+.auth-field>span{
+  display:block;
+  margin-bottom:6px;
+  color:#344054;
+  font:800 8px Inter,sans-serif;
+}
+.auth-field input{
+  width:100%;
+  height:40px;
+  box-sizing:border-box;
+  padding:0 12px;
+  border:1px solid #dfe3e8;
+  border-radius:7px;
+  outline:none;
+  background:#fff;
+  color:#172033;
+  font:500 9px Inter,sans-serif;
+  transition:.18s;
+}
+.auth-field input::placeholder{color:#a8afb9}
+.auth-field input:focus{
+  border-color:#ff7a00;
+  box-shadow:0 0 0 3px rgba(255,101,0,.09);
+}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:40px}
+.password-toggle{
+  position:absolute;
+  top:50%;
+  right:5px;
+  transform:translateY(-50%);
+  width:30px;
+  height:30px;
+  border:0;
+  background:transparent;
+  color:#98a0ad;
+  cursor:pointer;
+  font-size:12px;
+}
+.auth-options{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:2px 0 14px;
+}
+.auth-options label{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  color:#98a0ad;
+  font:500 7px Inter,sans-serif;
+}
+.auth-options input{accent-color:#ff6500}
+.auth-options .text-btn{
+  padding:0;
+  border:0;
+  background:none;
+  color:#ff6500;
+  font:800 7px Inter,sans-serif;
+  cursor:pointer;
+}
+.auth-submit{
+  width:100%;
+  height:40px;
+  border:0;
+  border-radius:7px;
+  background:#ff6500;
+  color:#fff;
+  cursor:pointer;
+  font:900 9px Inter,sans-serif;
+  box-shadow:0 6px 15px rgba(255,101,0,.20);
+  transition:.18s;
+}
+.auth-submit:hover{
+  background:#ed5800;
+  transform:translateY(-1px);
+}
+.auth-note{
+  min-height:14px;
+  margin:10px 0 0;
+  color:#e05252;
+  font:700 8px/1.4 Inter,sans-serif;
+}
+@media(max-width:700px){
+  #accountModal .modal-box{width:min(430px,96vw)}
+  .auth-shell{grid-template-columns:1fr;min-height:auto}
+  .auth-brand-panel{display:none}
+  .auth-form-panel{padding:34px 26px 28px}
+}
+@media(max-width:420px){
+  #accountModal{padding:10px}
+  #accountModal .modal-box{border-radius:14px}
+  .auth-form-panel{padding:30px 20px 24px}
+  .auth-options{align-items:flex-start;flex-direction:column}
+}
