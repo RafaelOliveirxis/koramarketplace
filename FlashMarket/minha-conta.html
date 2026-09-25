@@ -744,12 +744,52 @@
         height: 110px;
       }
     }
-  </style>
+  
+
+  /* Minha Conta — cabeçalho preservado e conteúdo em largura centralizada */
+  .account-page{
+    min-height:calc(100vh - 150px);
+    padding-top:36px;
+    padding-bottom:70px;
+    background:#f4f5f7;
+  }
+  .account-page .page-shell{
+    width:min(1120px,92%);
+    margin:0 auto;
+  }
+</style>
 </head>
 
 <body>
 
-  <main class="account-page account-page-no-header">
+  <div class="top-strip">
+    <div class="wrap top-inner">
+      <strong>WHATSAPP: (11) 99725-5630</strong>
+      <div class="top-links">
+        <a href="suporte.html">Central de Atendimento</a>
+        <a href="rastrear-pedido.html">Rastrear Pedido</a>
+        <a href="afiliado.html">Área de Afiliado</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="index.html" aria-label="FlashMarket">
+        <img src="assets/favicon.png" alt="FlashMarket" class="brand-logo">
+      </a>
+      <form class="search" action="index.html" method="get">
+        <input type="search" name="q" placeholder="Pesquise aqui..." autocomplete="off">
+        <button type="submit" aria-label="Pesquisar">⌕</button>
+      </form>
+      <div class="header-actions">
+        <a class="head-action" href="index.html#produtos"><span>🛒</span><b>LOJA</b></a>
+        <a class="head-action" href="minha-conta.html"><span>👤</span><b>MINHA CONTA</b></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="account-page">
     <div class="page-shell account-layout">
 
       <aside class="account-sidebar">
