@@ -4955,3 +4955,32 @@ body{
     font-size:10px;
   }
 }
+
+/* KORA — cabeçalho centralizado após remoção das sugestões */
+.kora-shopee-header .header-main{
+  width:min(1180px,94%);
+  grid-template-columns:165px minmax(320px,760px) 70px;
+  justify-content:center;
+  margin-inline:auto;
+}
+.kora-brand{
+  justify-content:center;
+}
+.kora-search{
+  width:100%;
+}
+.kora-shopee-header .header-actions{
+  justify-content:center;
+}
+@media(max-width:900px){
+  .kora-shopee-header .header-main{
+    width:100%;
+    grid-template-columns:44px minmax(0,1fr) 58px;
+    justify-content:stretch;
+  }
+}
+@media(max-width:600px){
+  .kora-shopee-header .header-main{
+    grid-template-columns:34px minmax(0,1fr) 42px;
+  }
+}
