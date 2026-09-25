@@ -352,31 +352,78 @@ function showAccount(){
   }
 
   $("#authContent").innerHTML=`
-    <div class="auth-tabs">
-      <button class="active" data-auth-tab="login">ENTRAR</button>
-      <button data-auth-tab="register">CRIAR CONTA</button>
-    </div>
-    <section class="auth-panel active" id="loginPanel">
-      <h3>Bem-vindo de volta 👋</h3>
-      <p>Acompanhe seus pedidos e salve seus favoritos.</p>
-      <form id="loginForm">
-        <input type="email" placeholder="Seu e-mail" required>
-        <input type="password" placeholder="Sua senha" required>
-        <button type="button" class="text-btn" id="forgotPassword">Esqueci minha senha</button>
-        <button class="btn yellow full">ENTRAR</button>
-      </form>
-    </section>
-    <section class="auth-panel" id="registerPanel">
-      <h3>Crie sua conta</h3>
-      <p>Cadastre-se em poucos segundos.</p>
-      <form id="registerForm">
-        <input type="text" placeholder="Seu nome" required>
-        <input type="email" placeholder="Seu e-mail" required>
-        <input type="password" placeholder="Sua senha" minlength="6" required>
-        <button class="btn yellow full">CRIAR CONTA</button>
-      </form>
-    </section>
-    <p class="auth-note" id="authNote"></p>`;
+    <div class="auth-shell">
+      <section class="auth-brand-panel">
+        <div class="auth-brand-logo">
+          <img src="assets/logo.FlashMarket.png" alt="FlashMarket">
+        </div>
+        <span class="auth-kicker">KORAMARKETPLACE</span>
+        <h2>Entre na sua conta.</h2>
+        <p>Acesse seus pedidos, acompanhe suas compras e tenha uma experiência personalizada.</p>
+        <ul>
+          <li><span>✓</span> Acompanhe seus pedidos</li>
+          <li><span>♥</span> Salve seus produtos favoritos</li>
+          <li><span>⚡</span> Compre de forma rápida e prática</li>
+        </ul>
+      </section>
+
+      <section class="auth-form-panel">
+        <div class="auth-panel-head">
+          <span class="auth-mini-label">MINHA CONTA</span>
+          <h3>Entrar</h3>
+          <p>Entre com seu e-mail e senha.</p>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button class="active" data-auth-tab="login" type="button">Entrar</button>
+          <button data-auth-tab="register" type="button">Criar conta</button>
+        </div>
+
+        <section class="auth-panel active" id="loginPanel">
+          <form id="loginForm">
+            <label class="auth-field">
+              <span>E-mail</span>
+              <input type="email" placeholder="seu@email.com" autocomplete="email" required>
+            </label>
+
+            <label class="auth-field">
+              <span>Senha</span>
+              <div class="password-wrap">
+                <input id="loginPassword" type="password" placeholder="Sua senha" autocomplete="current-password" required>
+                <button type="button" class="password-toggle" data-password-toggle="loginPassword" aria-label="Mostrar senha">◉</button>
+              </div>
+            </label>
+
+            <div class="auth-options">
+              <label><input type="checkbox"> <span>Lembrar de mim</span></label>
+              <button type="button" class="text-btn" id="forgotPassword">Esqueci minha senha</button>
+            </div>
+
+            <button class="auth-submit" type="submit">Entrar</button>
+          </form>
+        </section>
+
+        <section class="auth-panel" id="registerPanel">
+          <form id="registerForm">
+            <label class="auth-field">
+              <span>Nome</span>
+              <input type="text" placeholder="Seu nome" autocomplete="name" required>
+            </label>
+            <label class="auth-field">
+              <span>E-mail</span>
+              <input type="email" placeholder="seu@email.com" autocomplete="email" required>
+            </label>
+            <label class="auth-field">
+              <span>Senha</span>
+              <input type="password" placeholder="Crie uma senha" minlength="6" autocomplete="new-password" required>
+            </label>
+            <button class="auth-submit" type="submit">Criar conta</button>
+          </form>
+        </section>
+
+        <p class="auth-note" id="authNote"></p>
+      </section>
+    </div>`;
   openModal("accountModal");
 }
 
