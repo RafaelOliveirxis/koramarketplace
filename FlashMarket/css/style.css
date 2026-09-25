@@ -4996,3 +4996,31 @@ body{
     justify-content:flex-start;
   }
 }
+
+
+/* KORA — novo logo Flash Market no cabeçalho */
+.kora-brand .brand-logo{
+  width:92px;
+  height:58px;
+  max-width:92px;
+  max-height:58px;
+  object-fit:contain;
+  filter:none;
+  box-shadow:none;
+}
+@media(max-width:900px){
+  .kora-brand .brand-logo{
+    width:78px;
+    height:50px;
+    max-width:78px;
+    max-height:50px;
+  }
+}
+@media(max-width:600px){
+  .kora-brand .brand-logo{
+    width:68px;
+    height:46px;
+    max-width:68px;
+    max-height:46px;
+  }
+}
