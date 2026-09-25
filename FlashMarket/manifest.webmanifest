@@ -1,7 +1,7 @@
 {
-  "name": "FlashMarket - Sua Loja Online",
-  "short_name": "FlashMarket",
-  "description": "Ofertas, produtos e novidades da FlashMarket.",
+  "name": "KoraMarketplace - Sua Loja Online",
+  "short_name": "KoraMarketplace",
+  "description": "Ofertas, produtos e novidades da KoraMarketplace.",
   "id": "./index.html",
   "lang": "pt-BR",
   "dir": "ltr",
@@ -10,7 +10,7 @@
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "portrait-primary",
-  "background_color": "#050505",
+  "background_color": "#ffffff",
   "theme_color": "#ffbf16",
   "icons": [
     {
