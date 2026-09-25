@@ -5296,3 +5296,29 @@ body{
   .auth-form-panel{padding:30px 20px 24px}
   .auth-options{align-items:flex-start;flex-direction:column}
 }
+
+
+/* FlashMarket — ajuste do logo na tela de login */
+.auth-brand-logo{
+  width:118px;
+  height:82px;
+  margin-bottom:12px;
+}
+.auth-brand-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:left center;
+}
+.auth-kicker{
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:none;
+  font-weight:900;
+}
+@media(max-width:700px){
+  .auth-brand-logo{
+    width:105px;
+    height:72px;
+  }
+}
