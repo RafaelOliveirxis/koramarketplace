@@ -460,6 +460,18 @@ function applyFiltersFromCategory(cat){
 }
 
 document.addEventListener("click",e=>{
+  const passwordToggle = e.target.closest("[data-password-toggle]");
+  if(passwordToggle){
+    const input = document.getElementById(passwordToggle.dataset.passwordToggle);
+    if(input){
+      const visible = input.type === "text";
+      input.type = visible ? "password" : "text";
+      passwordToggle.textContent = visible ? "◉" : "◎";
+      passwordToggle.setAttribute("aria-label", visible ? "Mostrar senha" : "Ocultar senha");
+    }
+    return;
+  }
+
   const add=e.target.closest("[data-add]");
   if(add){ addToCart(Number(add.dataset.add)); return; }
 
