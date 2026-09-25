@@ -4984,3 +4984,15 @@ body{
     grid-template-columns:34px minmax(0,1fr) 42px;
   }
 }
+
+
+/* KORA — navegação principal centralizada */
+.kora-shopee-header .main-nav .nav-inner{
+  justify-content:center;
+  margin-inline:auto;
+}
+@media(max-width:900px){
+  .kora-shopee-header .main-nav .nav-inner{
+    justify-content:flex-start;
+  }
+}
