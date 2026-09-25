@@ -9,14 +9,14 @@
 
 <meta name="description" content="FlashMarket é um marketplace online com produtos, ofertas e lojas. Encontre tudo em um só lugar com uma experiência de compra rápida, moderna e prática.">
 
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#ff4d2d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <link rel="manifest" href="manifest.webmanifest">
 
-<title>FlashMarket | Marketplace Online</title>
+<title>KoraMarketplace | Marketplace Online</title>
 
 <link rel="icon" href="assets/favicon.png">
 
@@ -25,9 +25,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 
-<meta name="keywords" content="FlashMarket, marketplace, compras online, loja online, ofertas, produtos, eletrônicos, moda, beleza, casa">
+<meta name="keywords" content="KoraMarketplace, marketplace, compras online, ofertas, produtos, eletrônicos, moda, beleza, casa, esportes, pet shop">
 
-<meta name="author" content="FlashMarket">
+<meta name="author" content="KoraMarketplace">
 
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
@@ -38,21 +38,17 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="FlashMarket">
-<meta property="og:title" content="FlashMarket | Marketplace Online">
-<meta property="og:description" content="Encontre produtos, ofertas e lojas no FlashMarket. Uma experiência de compra rápida, moderna e prática.">
+<meta property="og:site_name" content="KoraMarketplace">
+<meta property="og:title" content="KoraMarketplace | Marketplace Online">
+<meta property="og:description" content="Encontre produtos, ofertas e novidades na KoraMarketplace. Compra simples, rápida e segura.">
 <meta property="og:url" content="https://rafaeloliveirxis.github.io/koramarketplace/">
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FlashMarket | Marketplace Online">
-<meta name="twitter:description" content="Encontre produtos, ofertas e lojas no FlashMarket.">
+<meta name="twitter:title" content="KoraMarketplace | Marketplace Online">
+<meta name="twitter:description" content="Encontre produtos, ofertas e novidades na KoraMarketplace.">
 
 <!-- Google / Mobile -->
-<meta name="theme-color" content="#ffc21c">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
 <div class="top-strip">
   <div class="wrap top-inner kora-topbar">
     <div class="kora-top-left">
@@ -92,7 +88,7 @@
 
     <div class="header-actions">
       <button class="head-action" id="accountBtn"><span>👤</span><b id="accountText">ENTRAR</b></button>
-      <button class="head-action circle cart-icon kora-cart" id="cartBtn" aria-label="Carrinho">🛒<i id="cartCount">1</i></button>
+      <button class="head-action circle cart-icon kora-cart" id="cartBtn" aria-label="Carrinho">🛒<i id="cartCount">0</i></button>
     </div>
   </div>
 
@@ -1319,7 +1315,7 @@
       <div><span class="section-label">📍 LOCALIZAÇÃO</span><h2>ENCONTRE A FLASHMARKET</h2></div>
     </div>
     <div class="map">
-      <iframe src="https://www.google.com/maps?q=Barueri%2C%20SP&amp;output=embed" loading="lazy" title="FlashMarket em Barueri"></iframe>
+      <iframe src="https://www.google.com/maps?q=Barueri%2C%20SP&amp;output=embed" loading="lazy" title="KoraMarketplace em Barueri"></iframe>
     </div>
   </div>
 </section>
@@ -1681,5 +1677,28 @@
   })();
 </script>
 
+<!-- KORA — AJUSTES FINAIS DE INTERFACE -->
+<script>
+(function(){
+  const accountBtn=document.getElementById('accountBtn');
+  const loginTop=document.getElementById('loginTop');
+  const registerTop=document.getElementById('registerTop');
+  const openAccount=(tab)=>{
+    if(accountBtn){ accountBtn.click(); }
+    setTimeout(()=>{
+      const target=document.querySelector('[data-auth-tab="'+tab+'"]');
+      if(target) target.click();
+    },50);
+  };
+  if(loginTop) loginTop.addEventListener('click',e=>{e.preventDefault();openAccount('login');});
+  if(registerTop) registerTop.addEventListener('click',e=>{e.preventDefault();openAccount('register');});
+  document.querySelectorAll('.kora-search-suggestions a[href="#produtos"]').forEach(link=>{
+    link.addEventListener('click',e=>{
+      const target=document.getElementById('produtos');
+      if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+})();
+</script>
 </body>
 </html>
