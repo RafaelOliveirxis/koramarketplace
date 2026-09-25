@@ -357,7 +357,7 @@ function showAccount(){
         <div class="auth-brand-logo">
           <img src="assets/logo.FlashMarket.png" alt="FlashMarket">
         </div>
-        <span class="auth-kicker">KORAMARKETPLACE</span>
+        <span class="auth-kicker">FlashMarket</span>
         <h2>Entre na sua conta.</h2>
         <p>Acesse seus pedidos, acompanhe suas compras e tenha uma experiência personalizada.</p>
         <ul>
