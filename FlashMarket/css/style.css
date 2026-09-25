@@ -4776,3 +4776,182 @@ body{background:var(--market-bg)}
   .kora-search-suggestions{padding-bottom:7px}
   .kora-search-suggestions a{font-size:7px}
 }
+
+
+/* =========================================================
+   KORA MARKETPLACE — AJUSTE FINAL / CONSISTÊNCIA VISUAL
+========================================================= */
+:root{
+  --kora-orange:#ff4d2d;
+  --kora-orange-dark:#ee3f20;
+  --kora-orange-soft:#fff3ef;
+  --kora-text:#222;
+  --kora-border:#e8e8e8;
+}
+body{
+  background:#f5f5f5;
+  color:var(--kora-text);
+}
+.kora-shopee-header{
+  background:var(--kora-orange);
+}
+.kora-shopee-header .header-main{
+  width:min(1200px,94%);
+}
+.kora-brand .brand-logo{
+  max-width:145px;
+  max-height:50px;
+}
+.kora-search input{
+  min-width:0;
+}
+.kora-search button:hover{
+  background:#fff7f5;
+}
+.kora-search-suggestions .wrap{
+  width:min(1200px,94%);
+}
+.kora-shopee-header .main-nav .nav-inner{
+  width:min(1200px,94%);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.kora-shopee-header .main-nav .nav-inner::-webkit-scrollbar{display:none}
+.marketplace-hero{
+  width:min(1200px,94%);
+  margin:18px auto 0;
+  border-radius:4px;
+  background:linear-gradient(135deg,#fff4ef 0%,#fff 55%,#ffe5dc 100%);
+  color:#222;
+  box-shadow:0 5px 18px rgba(0,0,0,.07);
+}
+.marketplace-banner{
+  background:linear-gradient(135deg,var(--kora-orange) 0%,#ff684d 55%,#ff8b72 100%);
+}
+.marketplace-banner-inner{
+  min-height:300px;
+}
+.marketplace-copy h1{
+  color:#fff;
+}
+.marketplace-copy p{
+  color:rgba(255,255,255,.9);
+}
+.marketplace-cta{
+  background:#fff;
+  color:var(--kora-orange);
+  border-radius:2px;
+}
+.marketplace-side-promos{
+  background:#fff;
+}
+.marketplace-shortcuts{
+  width:min(1200px,94%);
+  margin:0 auto;
+  background:#fff;
+  border:1px solid var(--kora-border);
+  border-top:0;
+}
+.products-section{
+  background:#fff;
+  color:#222;
+}
+.products-section .section-head h2{
+  color:#222;
+}
+.products-section .section-head>a{
+  color:var(--kora-orange);
+}
+.featured-arrow{
+  border-color:#ddd;
+  background:#fff;
+  color:#666;
+  box-shadow:0 3px 10px rgba(0,0,0,.06);
+}
+.featured-arrow:hover{
+  background:var(--kora-orange);
+  color:#fff;
+  border-color:var(--kora-orange);
+}
+.product-card{
+  border-radius:2px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.product-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 5px 16px rgba(0,0,0,.11);
+}
+.sale-badge{
+  background:var(--kora-orange);
+}
+.add-cart{
+  background:var(--kora-orange);
+}
+.add-cart:hover{
+  background:var(--kora-orange-dark);
+  color:#fff;
+}
+.benefits{
+  margin-top:18px;
+}
+.footer-shopee-style{
+  background:#fff;
+  border-top:1px solid #ddd;
+}
+.footer-market-col a:hover{
+  color:var(--kora-orange);
+}
+.footer-market-legal{
+  background:#fafafa;
+}
+@media(max-width:900px){
+  .marketplace-hero{
+    width:100%;
+    margin-top:0;
+    border-radius:0;
+  }
+  .marketplace-shortcuts{
+    width:100%;
+    border-left:0;
+    border-right:0;
+  }
+  .kora-brand .brand-logo{
+    max-width:115px;
+  }
+}
+@media(max-width:600px){
+  .kora-shopee-header .header-main{
+    width:100%;
+  }
+  .kora-search-suggestions .wrap{
+    width:100%;
+  }
+  .marketplace-hero{
+    margin-top:0;
+  }
+  .featured-slide{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .featured-carousel{
+    gap:5px;
+  }
+  .featured-arrow{
+    width:34px;
+    height:34px;
+    flex:0 0 34px;
+    font-size:17px;
+  }
+  .product-info{
+    padding:10px;
+  }
+  .product-info h3{
+    font-size:12px;
+  }
+  .price{
+    font-size:17px;
+  }
+  .add-cart{
+    font-size:10px;
+  }
+}
