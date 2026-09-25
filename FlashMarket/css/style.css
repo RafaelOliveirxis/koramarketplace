@@ -4605,3 +4605,174 @@ body{background:var(--market-bg)}
   .footer-market-bottom nav{flex-wrap:wrap}
   .footer-market-legal{font-size:7px;padding:13px 18px}
 }
+
+
+/* =========================================================
+   KORA MARKETPLACE — CABEÇALHO ESTILO MARKETPLACE
+========================================================= */
+.kora-shopee-header{
+  background:#ff4d2d;
+  color:#fff;
+  box-shadow:none;
+}
+.kora-topbar{
+  height:30px;
+  min-height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:9px;
+  color:#fff;
+}
+.kora-top-left,.kora-top-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  white-space:nowrap;
+}
+.kora-topbar a{
+  color:#fff;
+  opacity:.96;
+  text-decoration:none;
+  transition:opacity .15s;
+}
+.kora-topbar a:hover{opacity:.75;color:#fff}
+.kora-topbar span{opacity:.55}
+.kora-shopee-header .header-main{
+  min-height:66px;
+  grid-template-columns:165px minmax(300px,1fr) 70px;
+  gap:20px;
+  padding:7px 0 9px;
+}
+.kora-brand{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+.kora-brand .brand-logo{
+  width:145px;
+  max-height:52px;
+  object-fit:contain;
+  filter:brightness(0) invert(1);
+}
+.kora-search{
+  height:39px;
+  background:#fff;
+  border:2px solid #fff;
+  border-radius:2px;
+  box-shadow:none;
+  margin:0;
+}
+.kora-search input{
+  color:#444;
+  font-size:12px;
+  padding:0 13px;
+}
+.kora-search input::placeholder{color:#999}
+.kora-search button{
+  width:49px;
+  height:35px;
+  margin:0;
+  border-radius:0;
+  background:#fff;
+  color:#ff4d2d;
+  border-left:1px solid #ddd;
+  font-size:21px;
+}
+.kora-shopee-header .header-actions{
+  justify-content:flex-end;
+  gap:0;
+}
+.kora-shopee-header .head-action{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  color:#fff;
+  min-height:42px;
+  padding:0;
+}
+.kora-shopee-header .head-action#accountBtn{display:none}
+.kora-shopee-header .head-action.circle{
+  width:52px;
+  height:52px;
+  font-size:27px;
+}
+.kora-shopee-header .head-action.circle i{
+  background:#fff;
+  color:#ff4d2d;
+  font-size:9px;
+  width:17px;
+  height:17px;
+}
+.kora-search-suggestions{
+  background:#ff4d2d;
+  color:#fff;
+  padding:0 0 8px;
+}
+.kora-search-suggestions .wrap{
+  display:flex;
+  gap:19px;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.kora-search-suggestions a{
+  color:#fff;
+  font-size:8px;
+  text-decoration:none;
+  opacity:.95;
+}
+.kora-search-suggestions a:hover{text-decoration:underline}
+.kora-shopee-header .main-nav{
+  background:#fff;
+  border-top:1px solid rgba(0,0,0,.06);
+  border-bottom:1px solid #ddd;
+}
+.kora-shopee-header .nav-inner a{
+  color:#555;
+  font-size:10px;
+  padding:10px 14px;
+}
+.kora-shopee-header .nav-inner a:hover,
+.kora-shopee-header .nav-inner a.active{
+  background:#fff5f2;
+  color:#ff4d2d;
+}
+.kora-shopee-header .nav-inner a.hot{
+  color:#ff4d2d;
+  background:#fff5f2;
+}
+
+@media(max-width:900px){
+  .kora-topbar{padding:0 12px}
+  .kora-top-left a:nth-of-type(n+3),.kora-top-left span:nth-of-type(n+3){display:none}
+  .kora-top-right a:nth-of-type(1),.kora-top-right a:nth-of-type(2){display:none}
+  .kora-shopee-header .header-main{
+    grid-template-columns:44px 1fr 58px;
+    gap:8px;
+    padding:7px 12px;
+  }
+  .kora-brand .brand-logo{width:115px}
+  .kora-search{height:38px}
+  .kora-search-suggestions .wrap{gap:14px;padding:0 12px}
+  .kora-shopee-header .main-nav{display:none}
+}
+@media(max-width:600px){
+  .kora-topbar{font-size:7px}
+  .kora-top-left{gap:5px}
+  .kora-top-right{gap:5px}
+  .kora-top-right a:nth-of-type(3){display:none}
+  .kora-shopee-header .header-main{
+    grid-template-columns:34px 1fr 42px;
+    padding:6px 9px 7px;
+  }
+  .kora-brand .brand-logo{width:105px}
+  .kora-search input{font-size:11px}
+  .kora-search button{width:40px}
+  .kora-shopee-header .head-action.circle{
+    width:40px;
+    height:40px;
+    font-size:22px;
+  }
+  .kora-search-suggestions{padding-bottom:7px}
+  .kora-search-suggestions a{font-size:7px}
+}
