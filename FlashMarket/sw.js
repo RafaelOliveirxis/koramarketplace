@@ -1,4 +1,4 @@
-const CACHE_NAME = "koramarketplace-shell-v9";
+const CACHE_NAME = "koramarketplace-shell-v10";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -14,6 +14,8 @@ const APP_SHELL = [
   "./css/mobile-app-final.css",
   "./css/marketplace-final.css",
   "./css/catalog-footer.css",
+  "./css/kora-redesign.css",
+  "./css/kora-logo.css",
   "./js/app.js",
   "./js/auth-real.js",
   "./js/mobile-app.js",
@@ -22,7 +24,8 @@ const APP_SHELL = [
   "./js/suporte.js",
   "./js/pwa.js",
   "./assets/favicon.png",
-  "./assets/logo.FlashMarket.png"
+  "./assets/logo.FlashMarket.png",
+  "./assets/logo-kora.svg"
 ];
 
 self.addEventListener("install", event => {
