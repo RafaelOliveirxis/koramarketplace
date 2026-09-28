@@ -1,4 +1,4 @@
-const CACHE_NAME = "koramarketplace-shell-v10";
+const CACHE_NAME = "koramarketplace-shell-v11";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -16,6 +16,7 @@ const APP_SHELL = [
   "./css/catalog-footer.css",
   "./css/kora-redesign.css",
   "./css/kora-logo.css",
+  "./css/auth-reference.css",
   "./js/app.js",
   "./js/auth-real.js",
   "./js/mobile-app.js",
