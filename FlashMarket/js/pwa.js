@@ -12,6 +12,7 @@
   loadCss('css/mobile-fix.css', 'mobileFixCss');
   loadCss('css/mobile-app-v3.css', 'mobileAppV3Css');
   loadCss('css/mobile-app-final.css', 'mobileAppFinalCss');
+  loadCss('css/marketplace-final.css', 'marketplaceFinalCss');
 
   const isAffiliatePage = /\/afiliado\.html$/i.test(window.location.pathname);
   if (isAffiliatePage) {
@@ -25,6 +26,14 @@
     mobileJs.defer = true;
     mobileJs.dataset.mobileAppJs = 'true';
     document.head.appendChild(mobileJs);
+  }
+
+  if (!document.querySelector('script[data-ui-final-js]')) {
+    const uiJs = document.createElement('script');
+    uiJs.src = 'js/ui-final.js';
+    uiJs.defer = true;
+    uiJs.dataset.uiFinalJs = 'true';
+    document.head.appendChild(uiJs);
   }
 
   if (isAffiliatePage && !document.querySelector('script[data-affiliate-live-js]')) {
@@ -53,7 +62,6 @@
     const dashboard = document.getElementById('affiliatePanel') || document.querySelector('.affiliate-card');
     if (!authArea || !dashboard) return;
 
-    // A lista promocional do login não faz parte do painel real.
     document.querySelectorAll('.auth-benefits').forEach(el => el.remove());
 
     const loggedIn = () => localStorage.getItem('flashmarket_affiliate_session') === 'true' && !!localStorage.getItem('flashmarket_access_token');
@@ -94,6 +102,6 @@
   installButton.addEventListener('click', requestInstall);
   if (footerInstallButton) footerInstallButton.addEventListener('click', requestInstall);
   window.addEventListener('appinstalled', () => { deferredPrompt = null; installButton.hidden = true; });
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(error => console.error('Não foi possível ativar o modo offline da FlashMarket.', error)));
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(error => console.error('Não foi possível ativar o modo offline da KoraMarketplace.', error)));
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAffiliateSessionUI, { once: true }); else initAffiliateSessionUI();
 })();
