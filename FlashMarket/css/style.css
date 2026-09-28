@@ -1,85 +1,51 @@
 /* =========================================================
-   LOGIN — DESIGN FLASHMARKET
+   LOGIN — LAYOUT ANTERIOR COMPACTO
    ========================================================= */
-#accountModal{
-  background:rgba(20,28,42,.42);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  padding:24px;
-}
+#accountModal{padding:18px}
 #accountModal .modal-box{
-  width:min(1180px,94vw);
-  max-width:1180px;
-  min-height:700px;
-  padding:0;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.7);
-  border-radius:28px;
-  background:#fff;
-  box-shadow:0 35px 100px rgba(15,23,42,.24);
+  width:min(760px,96vw);
+  max-width:760px;
+  min-height:430px;
+  border-radius:18px;
+  box-shadow:0 28px 90px rgba(0,0,0,.28);
 }
-#accountModal .close{
-  z-index:20;
-  top:18px;
-  right:18px;
-  width:38px;
-  height:38px;
-  border:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.88);
-  color:#64748b;
-  font-size:24px;
+#accountModal .close{top:12px;right:13px;width:32px;height:32px;border-radius:50%;font-size:22px;line-height:32px}
+.auth-shell{grid-template-columns:44% 56%;min-height:430px}
+.auth-brand-panel{padding:38px 34px;justify-content:center}
+.auth-brand-panel::before{width:220px;height:220px;right:-110px;top:-100px}
+.auth-brand-panel::after{width:180px;height:180px;left:-100px;bottom:-90px}
+.auth-brand-logo{width:82px;height:58px;margin-bottom:18px;justify-content:flex-start}
+.auth-brand-logo img[src*="logo.FlashMarket.png"]{width:82px!important;height:58px!important;object-fit:contain!important}
+.auth-kicker{font-size:8px;letter-spacing:.16em;text-transform:uppercase;opacity:.92}
+.auth-brand-panel h2{margin:9px 0;color:#fff;font:900 27px/1.05 Inter,sans-serif;letter-spacing:-.8px}
+.auth-brand-panel>p{max-width:280px;margin:0 0 20px;font:500 10px/1.6 Inter,sans-serif}
+.auth-brand-panel ul{gap:10px}
+.auth-brand-panel li{gap:9px;font:700 9px Inter,sans-serif}
+.auth-brand-panel li span{width:17px;height:17px;font-size:9px}
+.auth-form-panel{padding:38px 42px 30px}
+.auth-panel-head h3{margin:5px 0 5px;font:900 24px/1.1 Inter,sans-serif;letter-spacing:-.5px}
+.auth-panel-head p{font:500 9px/1.5 Inter,sans-serif}
+.auth-form-panel .auth-tabs{gap:4px;margin:22px 0 18px;padding:4px;border-radius:9px}
+.auth-form-panel .auth-tabs button{height:34px;border-radius:7px;font:800 9px Inter,sans-serif}
+.auth-field{margin-bottom:12px}
+.auth-field>span{margin-bottom:6px;font:800 8px Inter,sans-serif}
+.auth-field input{height:40px;padding:0 12px;border-radius:7px;font:500 9px Inter,sans-serif}
+.password-wrap input{padding-right:40px}
+.password-toggle{width:30px;height:30px;font-size:12px}
+.auth-options{margin:2px 0 14px}
+.auth-options label,.auth-options .text-btn{font:500 7px Inter,sans-serif}
+.auth-options .text-btn{font-weight:800}
+.auth-submit{height:40px;border-radius:7px;font:900 9px Inter,sans-serif;box-shadow:0 6px 15px rgba(255,101,0,.20)}
+.auth-note{min-height:14px;margin:10px 0 0;font:700 8px/1.4 Inter,sans-serif}
+@media(max-width:700px){
+  #accountModal .modal-box{width:min(430px,96vw)}
+  .auth-shell{grid-template-columns:1fr;min-height:auto}
+  .auth-brand-panel{display:none}
+  .auth-form-panel{padding:34px 26px 28px}
 }
-.auth-shell{display:grid;grid-template-columns:50% 50%;min-height:700px}
-.auth-brand-panel{
-  position:relative;overflow:hidden;padding:55px 70px;
-  display:flex;flex-direction:column;justify-content:center;color:#fff;
-  background:linear-gradient(145deg,#ffb21b 0%,#ff8a00 48%,#ff6500 100%);
-}
-.auth-brand-panel::before,.auth-brand-panel::after{
-  content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.10);pointer-events:none
-}
-.auth-brand-panel::before{width:320px;height:320px;right:-160px;top:-140px}
-.auth-brand-panel::after{width:300px;height:300px;left:-160px;bottom:-150px}
-.auth-brand-logo{
-  position:relative;z-index:1;width:230px;height:205px;margin:0 0 4px;
-  display:flex;align-items:center;justify-content:flex-start;
-}
-.auth-brand-logo img{
-  width:210px;height:190px;max-width:100%;max-height:100%;
-  object-fit:contain;object-position:center;
-  filter:none!important;
-  mix-blend-mode:normal;
-}
-.auth-kicker{position:relative;z-index:1;color:#fff;font-size:16px;font-weight:900;letter-spacing:0;text-transform:none;margin-top:0}
-.auth-brand-panel h2{position:relative;z-index:1;margin:10px 0 14px;color:#fff;font:900 39px/1.05 Inter,sans-serif;letter-spacing:-1.2px}
-.auth-brand-panel>p{position:relative;z-index:1;max-width:540px;margin:0 0 28px;color:rgba(255,255,255,.94);font:500 16px/1.55 Inter,sans-serif}
-.auth-brand-panel ul{position:relative;z-index:1;display:grid;gap:17px;margin:0;padding:0;list-style:none}
-.auth-brand-panel li{display:flex;align-items:center;gap:14px;color:#fff;font:700 15px Inter,sans-serif}
-.auth-brand-panel li span{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.18);font-size:13px}
-.auth-form-panel{padding:68px 72px 50px;background:#fff}
-.auth-panel-head h3{margin:5px 0 7px;color:#172033;font:900 38px/1.1 Inter,sans-serif;letter-spacing:-1px}
-.auth-panel-head p{margin:0;color:#98a0ad;font:500 15px/1.5 Inter,sans-serif}
-.auth-mini-label{color:#ff6500;font:900 11px Inter,sans-serif;letter-spacing:.12em}
-.auth-form-panel .auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:30px 0 28px;padding:4px;border:1px solid #edf0f4;border-radius:12px;background:#f6f7f9}
-.auth-form-panel .auth-tabs button{height:48px;padding:0 10px;border:0;border-radius:9px;background:transparent;color:#8992a1;font:800 14px Inter,sans-serif;cursor:pointer}
-.auth-form-panel .auth-tabs button.active{background:#ff6500;color:#fff;box-shadow:0 7px 18px rgba(255,101,0,.20)}
-.auth-form-panel .auth-panel h3,.auth-form-panel .auth-panel>p{display:none}
-.auth-field{display:block;margin-bottom:22px}.auth-field>span{display:block;margin-bottom:9px;color:#344054;font:800 13px Inter,sans-serif}
-.auth-field input{width:100%;height:58px;box-sizing:border-box;padding:0 16px;border:1px solid #dfe3e8;border-radius:10px;outline:none;background:#fff;color:#172033;font:500 14px Inter,sans-serif;transition:.18s}
-.auth-field input::placeholder{color:#a8afb9}.auth-field input:focus{border-color:#ff7a00;box-shadow:0 0 0 3px rgba(255,101,0,.09)}
-.password-wrap{position:relative}.password-wrap input{padding-right:48px}.password-toggle{position:absolute;top:50%;right:7px;transform:translateY(-50%);width:36px;height:36px;border:0;background:transparent;color:#98a0ad;cursor:pointer;font-size:14px}
-.auth-options{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 30px}.auth-options label{display:flex;align-items:center;gap:7px;color:#98a0ad;font:500 12px Inter,sans-serif}.auth-options input{accent-color:#ff6500}.auth-options .text-btn{padding:0;border:0;background:none;color:#ff6500;font:800 12px Inter,sans-serif;cursor:pointer}
-.auth-submit{width:100%;height:58px;border:0;border-radius:10px;background:#ff6500;color:#fff;cursor:pointer;font:900 15px Inter,sans-serif;box-shadow:0 9px 22px rgba(255,101,0,.20);transition:.18s}.auth-submit:hover{background:#ed5800;transform:translateY(-1px)}
-.auth-note{min-height:18px;margin:14px 0 0;color:#e05252;font:700 12px/1.4 Inter,sans-serif}
-@media(max-width:700px){#accountModal .modal-box{width:min(430px,96vw);min-height:auto}.auth-shell{grid-template-columns:1fr;min-height:auto}.auth-brand-panel{display:none}.auth-form-panel{padding:34px 26px 28px}}
-@media(max-width:420px){#accountModal{padding:10px}#accountModal .modal-box{border-radius:14px}.auth-form-panel{padding:30px 20px 24px}.auth-options{align-items:flex-start;flex-direction:column}}
-
-/* Ajuste final do logo: mantém a arte colorida original em tamanho médio */
-.auth-brand-logo img[src*="logo.FlashMarket.png"]{
-  filter:none!important;
-  -webkit-filter:none!important;
-  width:210px!important;
-  height:190px!important;
-  object-fit:contain!important;
+@media(max-width:420px){
+  #accountModal{padding:10px}
+  #accountModal .modal-box{border-radius:14px}
+  .auth-form-panel{padding:30px 20px 24px}
+  .auth-options{align-items:flex-start;flex-direction:column}
 }
