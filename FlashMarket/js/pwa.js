@@ -16,6 +16,7 @@
   loadCss('css/catalog-footer.css', 'catalogFooterCss');
   loadCss('css/kora-redesign.css', 'koraRedesignCss');
   loadCss('css/kora-logo.css', 'koraLogoCss');
+  loadCss('css/auth-reference.css', 'authReferenceCss');
 
   const isAffiliatePage = /\/afiliado\.html$/i.test(window.location.pathname);
   if (isAffiliatePage) {
