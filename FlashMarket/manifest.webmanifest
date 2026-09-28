@@ -1,21 +1,29 @@
 {
-  "name": "KoraMarketplace - Sua Loja Online",
-  "short_name": "KoraMarketplace",
-  "description": "Ofertas, produtos e novidades da KoraMarketplace.",
+  "name": "KoraMarketplace | Marketplace Online",
+  "short_name": "Kora",
+  "description": "Marketplace online com ofertas, produtos, cupons e compras para todo o Brasil.",
   "id": "./index.html",
   "lang": "pt-BR",
   "dir": "ltr",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone"],
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait-primary",
-  "background_color": "#ffffff",
-  "theme_color": "#ffbf16",
+  "background_color": "#f5f5f5",
+  "theme_color": "#ff4d2d",
+  "categories": ["shopping", "lifestyle"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "assets/favicon.png",
       "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/favicon.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
