@@ -13,6 +13,7 @@
   loadCss('css/mobile-app-v3.css', 'mobileAppV3Css');
   loadCss('css/mobile-app-final.css', 'mobileAppFinalCss');
   loadCss('css/marketplace-final.css', 'marketplaceFinalCss');
+  loadCss('css/catalog-footer.css', 'catalogFooterCss');
 
   const isAffiliatePage = /\/afiliado\.html$/i.test(window.location.pathname);
   if (isAffiliatePage) {
