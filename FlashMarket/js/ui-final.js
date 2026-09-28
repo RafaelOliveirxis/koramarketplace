@@ -1,150 +1,66 @@
-/* KoraMarketplace — interações finais da interface */
+/* KoraMarketplace — interface final */
 (() => {
-  const onReady = fn => document.readyState === 'loading'
-    ? document.addEventListener('DOMContentLoaded', fn, { once: true })
-    : fn();
+  const onReady = fn => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn, { once:true }) : fn();
 
-  function openAccount(mode = 'login') {
-    const normalizedMode = mode === 'register' ? 'register' : 'login';
-    const account = document.getElementById('accountBtn');
-    if (account) account.click();
-    const selectTab = () => {
-      const tab = document.querySelector(`[data-auth-tab="${normalizedMode}"]`);
-      if (tab) {
-        tab.click();
-        const first = document.querySelector(normalizedMode === 'register' ? '#registerForm input' : '#loginForm input');
-        first?.focus();
-        return true;
-      }
-      return false;
+  function openAccount(mode='login') {
+    const normalized = mode === 'register' ? 'register' : 'login';
+    document.getElementById('accountBtn')?.click();
+    const select = () => {
+      const tab = document.querySelector(`[data-auth-tab="${normalized}"]`);
+      if (!tab) return false;
+      tab.click();
+      document.querySelector(normalized === 'register' ? '#registerForm input' : '#loginForm input')?.focus();
+      return true;
     };
-    if (!selectTab()) {
-      window.setTimeout(selectTab, 80);
-      window.setTimeout(selectTab, 180);
-      window.setTimeout(selectTab, 350);
-    }
+    if (!select()) [80,180,350].forEach(ms => setTimeout(select,ms));
   }
-
   window.openKoraAccount = openAccount;
 
-  function connectAuthButtons() {
-    const login = document.getElementById('loginTop');
-    const register = document.getElementById('registerTop');
-    if (login && !login.dataset.connected) {
-      login.addEventListener('click', event => { event.preventDefault(); openAccount('login'); });
-      login.dataset.connected = 'true';
-      login.setAttribute('aria-haspopup', 'dialog');
-    }
-    if (register && !register.dataset.connected) {
-      register.addEventListener('click', event => { event.preventDefault(); openAccount('register'); });
-      register.dataset.connected = 'true';
-      register.setAttribute('aria-haspopup', 'dialog');
-    }
-    document.querySelectorAll('.head-action#accountBtn').forEach(button => {
-      button.title = localStorage.getItem('flashmarket_user_session') ? 'Minha conta' : 'Entrar ou criar conta';
-    });
+  function connectAuthButtons(){
+    const login=document.getElementById('loginTop'), register=document.getElementById('registerTop');
+    if(login&&!login.dataset.connected){login.addEventListener('click',e=>{e.preventDefault();openAccount('login')});login.dataset.connected='true';login.setAttribute('aria-haspopup','dialog')}
+    if(register&&!register.dataset.connected){register.addEventListener('click',e=>{e.preventDefault();openAccount('register')});register.dataset.connected='true';register.setAttribute('aria-haspopup','dialog')}
   }
 
-  function addTrustStrip() {
-    if (document.querySelector('.trust-strip')) return;
-    const footer = document.querySelector('.footer-shopee-style');
-    const products = document.querySelector('.products-section');
-    if (!footer || !products) return;
-    const trust = document.createElement('section');
-    trust.className = 'trust-strip';
-    trust.innerHTML = `
-      <div class="trust-item"><div class="trust-icon">🔒</div><div><strong>Compra protegida</strong><span>Seus dados com segurança</span></div></div>
-      <div class="trust-item"><div class="trust-icon">🚚</div><div><strong>Frete para todo o Brasil</strong><span>Consulte condições por produto</span></div></div>
-      <div class="trust-item"><div class="trust-icon">💳</div><div><strong>Pagamento facilitado</strong><span>Opções de pagamento online</span></div></div>
-      <div class="trust-item"><div class="trust-icon">💬</div><div><strong>Atendimento</strong><span>Ajuda quando precisar</span></div></div>`;
-    footer.parentNode.insertBefore(trust, footer);
+  function addAppMeta(){
+    [['mobile-web-app-capable','yes'],['apple-mobile-web-app-capable','yes'],['apple-mobile-web-app-title','KoraMarketplace']].forEach(([name,content])=>{if(!document.querySelector(`meta[name="${name}"]`)){const m=document.createElement('meta');m.name=name;m.content=content;document.head.appendChild(m)}})
   }
 
-  function addAppMeta() {
-    const add = (name, content) => {
-      if (document.querySelector(`meta[name="${name}"]`)) return;
-      const meta = document.createElement('meta'); meta.name = name; meta.content = content; document.head.appendChild(meta);
-    };
-    add('mobile-web-app-capable', 'yes');
-    add('apple-mobile-web-app-capable', 'yes');
-    add('apple-mobile-web-app-title', 'KoraMarketplace');
-    add('application-name', 'KoraMarketplace');
-    if (!document.querySelector('link[rel="apple-touch-icon"]')) {
-      const link = document.createElement('link'); link.rel = 'apple-touch-icon'; link.href = 'assets/favicon.png'; document.head.appendChild(link);
-    }
+  function installReferenceLayout(){
+    if(document.getElementById('kora-reference-layout')) return;
+    const s=document.createElement('style');s.id='kora-reference-layout';s.textContent=`
+:root{--kora-orange:#ff4d2d;--kora-orange-dark:#e63d20;--kora-bg:#f5f5f5}
+html,body{margin:0;padding:0;background:var(--kora-bg);font-family:Inter,Arial,sans-serif;color:#222}
+.wrap{width:min(1200px,calc(100% - 32px));margin:auto}
+.top-strip{height:32px!important;background:var(--kora-orange)!important;color:#fff!important}
+.top-inner{height:32px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important}
+.kora-top-left,.kora-top-right{display:flex!important;align-items:center!important;gap:9px!important;white-space:nowrap!important;font-size:11px!important}
+.top-strip a{color:#fff!important;opacity:1!important}
+.site-header{background:var(--kora-orange)!important;color:#fff!important;box-shadow:none!important}
+.header-main{height:76px!important;display:grid!important;grid-template-columns:175px minmax(300px,1fr) 90px!important;align-items:center!important;gap:28px!important}
+.brand-logo{width:150px!important;height:56px!important;object-fit:contain!important}
+.kora-search{height:42px!important;width:100%!important;max-width:none!important;background:#fff!important;border-radius:2px!important;box-shadow:none!important;display:flex!important;overflow:hidden!important}
+.kora-search input{height:42px!important;border:0!important;outline:0!important;flex:1!important;padding:0 15px!important;font-size:13px!important;background:#fff!important}
+.kora-search button{height:42px!important;width:58px!important;border:0!important;background:#fff!important;color:var(--kora-orange)!important;font-size:23px!important;border-left:1px solid #eee!important}
+.header-actions{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:17px!important;margin:0!important}
+.head-action{border:0!important;background:transparent!important;color:#fff!important;padding:0!important;display:flex!important;align-items:center!important;gap:5px!important;cursor:pointer!important}
+.head-action b{font-size:11px!important}.kora-cart{position:relative!important;font-size:25px!important}.kora-cart i{position:absolute!important;right:-9px!important;top:-8px!important;background:#fff!important;color:var(--kora-orange)!important;font-style:normal!important;font-size:9px!important;font-weight:800!important;min-width:17px!important;height:17px!important;border-radius:50%!important;display:grid!important;place-items:center!important}
+.main-nav{background:var(--kora-orange)!important;color:#fff!important;border:0!important}
+.nav-inner{height:30px!important;display:flex!important;align-items:center!important;gap:22px!important;overflow:hidden!important;padding-bottom:7px!important}.nav-inner a{font-size:11px!important;font-weight:500!important;color:#fff!important;white-space:nowrap!important}.nav-inner a:hover,.nav-inner a.active,.nav-inner a.hot{color:#fff!important;text-decoration:none!important}.nav-inner a.hot{font-weight:800!important}
+.marketplace-hero{width:min(1200px,calc(100% - 32px))!important;margin:30px auto 0!important;display:grid!important;grid-template-columns:minmax(0,2.05fr) minmax(300px,1fr)!important;gap:6px!important}
+.marketplace-banner{min-height:235px!important;height:235px!important;background:linear-gradient(100deg,#f04a32,#ff6139)!important;border-radius:0!important;overflow:hidden!important;color:#fff!important}
+.marketplace-banner-inner{height:235px!important;min-height:235px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:25px 40px!important}.marketplace-copy{max-width:58%!important}.marketplace-kicker{font-size:11px!important;font-weight:800!important}.marketplace-copy h1{font-size:32px!important;line-height:1.05!important;margin:9px 0!important}.marketplace-copy p{font-size:13px!important;line-height:1.45!important;margin:0 0 16px!important}.marketplace-cta{display:inline-flex!important;align-items:center!important;gap:10px!important;background:#fff!important;color:var(--kora-orange)!important;padding:10px 18px!important;border-radius:2px!important;font-size:12px!important;font-weight:900!important}
+.marketplace-showcase{width:40%!important;height:220px!important;position:relative!important}.showcase-card{position:absolute!important;border-radius:10px!important;box-shadow:0 15px 30px rgba(0,0,0,.18)!important}.showcase-card-back{width:175px!important;height:185px!important;right:75px!important;top:20px!important;background:rgba(255,255,255,.2)!important}.showcase-card-front{width:175px!important;height:185px!important;right:5px!important;top:15px!important;background:#fff!important;color:#222!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;transform:rotate(5deg)!important;text-align:center!important}.showcase-icon{font-size:32px!important}.showcase-card-front strong{font-size:23px!important;line-height:.9!important}.showcase-card-front small{margin-top:12px!important;font-weight:800!important;color:var(--kora-orange)!important}.showcase-float{position:absolute!important;background:#fff!important;color:#222!important;width:40px!important;height:40px!important;border-radius:50%!important;display:grid!important;place-items:center!important;box-shadow:0 7px 16px rgba(0,0,0,.16)!important;font-size:18px!important}.float-one{left:0!important;top:30px!important}.float-two{right:0!important;bottom:25px!important}.float-three{left:45px!important;bottom:8px!important}.showcase-badge{position:absolute!important;right:-4px!important;top:0!important;background:#ffd52d!important;color:#d92c13!important;width:62px!important;height:62px!important;border-radius:50%!important;display:grid!important;place-items:center!important;text-align:center!important;font-size:9px!important;font-weight:800!important;line-height:1!important}.showcase-badge b{font-size:18px!important}
+.marketplace-side-promos{display:grid!important;grid-template-rows:115px 115px!important;gap:5px!important}.side-promo{border-radius:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important}.side-promo-orange{background:var(--kora-orange)!important;color:#fff!important;min-height:115px!important}.side-promo-orange small{font-size:11px!important;font-weight:700!important}.side-promo-orange strong{font-size:14px!important;line-height:1.25!important;margin-top:6px!important}.side-promo-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:5px!important}.side-promo-mini{background:#fff!important;border:1px solid #eee!important;min-height:115px!important}.side-promo-mini span{font-size:26px!important;margin-bottom:5px!important}.side-promo-mini b{font-size:10px!important}.side-promo-mini small{font-size:9px!important;color:#999!important;margin-top:3px!important}
+.marketplace-shortcuts{background:#fff!important;margin-top:0!important;border-bottom:1px solid #eee!important}.shortcut-scroll{display:grid!important;grid-template-columns:repeat(9,1fr)!important;padding:15px 0!important;gap:6px!important}.shortcut-scroll a{display:flex!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:6px!important;text-align:center!important;color:#333!important}.shortcut-scroll span{width:42px!important;height:42px!important;border:1px solid #ddd!important;border-radius:50%!important;display:grid!important;place-items:center!important;font-size:19px!important;background:#fff!important}.shortcut-scroll b{font-size:10px!important;font-weight:500!important}
+.products-section{background:#fff!important;margin:20px auto 0!important;width:min(1200px,calc(100% - 32px))!important;padding:20px!important;box-shadow:none!important}.section-head{display:flex!important;align-items:end!important;justify-content:space-between!important;border-bottom:1px solid #eee!important;padding-bottom:13px!important;margin-bottom:14px!important}.section-head h2{margin:3px 0 0!important;font-size:21px!important}.section-label{font-size:11px!important;color:var(--kora-orange)!important;font-weight:900!important}.section-head>a{font-size:12px!important;color:var(--kora-orange)!important}.featured-slide{grid-template-columns:repeat(4,1fr)!important;gap:10px!important}.product-card{background:#fff!important;border:1px solid #eee!important;border-radius:0!important;overflow:hidden!important}.product-media{height:205px!important;background:#f7f7f7!important}.product-media img{width:100%!important;height:100%!important;object-fit:cover!important}.sale-badge{top:8px!important;left:8px!important;background:var(--kora-orange)!important;color:#fff!important;padding:4px 7px!important;font-size:10px!important}.product-info{padding:11px!important}.product-info h3{font-size:13px!important;line-height:1.3!important;margin:5px 0 7px!important;min-height:34px!important}.price{color:var(--kora-orange)!important;font-size:19px!important}.add-cart{border:1px solid var(--kora-orange)!important;background:var(--kora-orange)!important;color:#fff!important;height:34px!important;border-radius:2px!important;font-size:10px!important}.detail-btn{border:1px solid #ddd!important;background:#fff!important;color:#555!important;height:34px!important;border-radius:2px!important;margin-top:6px!important}
+/* Modal seguindo a referência enviada */
+#accountModal{padding:18px!important;background:rgba(0,0,0,.55)!important;backdrop-filter:blur(4px)!important}#accountModal .modal-box{width:min(1000px,94vw)!important;max-width:1000px!important;min-height:590px!important;border-radius:16px!important;overflow:hidden!important;box-shadow:0 25px 80px rgba(0,0,0,.35)!important}#accountModal .close{top:18px!important;right:18px!important;z-index:30!important;width:34px!important;height:34px!important;border-radius:50%!important;background:#fff!important;color:#687386!important;font-size:22px!important;line-height:34px!important}.auth-shell{grid-template-columns:48% 52%!important;min-height:590px!important}.auth-brand-panel{padding:55px 48px!important;background:linear-gradient(145deg,#ffb31b,#ff6500 55%,#ff4d00)!important;justify-content:center!important;position:relative!important;overflow:hidden!important}.auth-brand-panel::before{width:290px!important;height:290px!important;right:-145px!important;top:-140px!important;background:rgba(255,255,255,.1)!important}.auth-brand-panel::after{width:230px!important;height:230px!important;left:-125px!important;bottom:-120px!important;background:rgba(255,255,255,.1)!important}.auth-brand-logo{width:96px!important;height:68px!important;margin-bottom:22px!important;position:relative!important;z-index:2!important}.auth-brand-logo img{max-width:100%!important;max-height:100%!important;object-fit:contain!important}.auth-kicker{font-size:11px!important;letter-spacing:.13em!important;font-weight:900!important;position:relative!important;z-index:2!important}.auth-brand-panel h2{font-size:38px!important;line-height:1.03!important;letter-spacing:-1.3px!important;margin:10px 0 16px!important;position:relative!important;z-index:2!important}.auth-brand-panel>p{max-width:370px!important;font-size:14px!important;line-height:1.55!important;margin-bottom:26px!important;position:relative!important;z-index:2!important}.auth-brand-panel ul{gap:15px!important;position:relative!important;z-index:2!important}.auth-brand-panel li{font-size:13px!important;gap:10px!important}.auth-brand-panel li span{width:25px!important;height:25px!important;font-size:12px!important;background:rgba(255,255,255,.2)!important}.auth-form-panel{padding:52px 54px 38px!important;background:#fff!important}.auth-panel-head h3{font-size:31px!important;line-height:1.1!important;letter-spacing:-.8px!important;margin:6px 0!important;color:#162033!important}.auth-panel-head p{font-size:13px!important;color:#9aa4b2!important}.auth-form-panel .auth-tabs{height:56px!important;margin:26px 0 24px!important;padding:4px!important;border-radius:11px!important;background:#f1f3f6!important}.auth-form-panel .auth-tabs button{height:47px!important;border-radius:9px!important;font-size:12px!important;font-weight:900!important;color:#8b95a5!important}.auth-form-panel .auth-tabs button.active{background:#ff6500!important;color:#fff!important;box-shadow:0 6px 18px rgba(255,101,0,.22)!important}.auth-field{margin-bottom:18px!important}.auth-field>span{font-size:11px!important;margin-bottom:7px!important;color:#273248!important;font-weight:900!important}.auth-field input{height:54px!important;border:1px solid #dce3ec!important;border-radius:10px!important;background:#edf3fc!important;padding:0 15px!important;font-size:13px!important;color:#172033!important}.auth-options{margin:6px 0 24px!important}.auth-options label,.auth-options .text-btn{font-size:10px!important;color:#99a2b0!important}.auth-options .text-btn{color:#ff5a00!important;font-weight:900!important}.auth-submit{height:54px!important;border-radius:10px!important;background:#ff6500!important;font-size:13px!important;box-shadow:0 8px 20px rgba(255,101,0,.2)!important}.auth-note{font-size:10px!important;color:#7c8796!important;margin-top:12px!important}
+@media(max-width:900px){.header-main{grid-template-columns:120px 1fr auto!important;gap:12px!important;height:auto!important;padding:8px 0!important}.brand-logo{width:120px!important}.kora-search{grid-column:1/-1!important;grid-row:2!important}.header-actions{grid-column:3!important;grid-row:1!important}.main-nav{display:none!important}.marketplace-hero{grid-template-columns:1fr!important}.marketplace-side-promos{grid-template-columns:1fr 1fr!important;grid-template-rows:115px!important}.shortcut-scroll{grid-template-columns:repeat(5,1fr)!important}.featured-slide{grid-template-columns:repeat(2,1fr)!important}.auth-shell{grid-template-columns:1fr!important;min-height:0!important}.auth-brand-panel{display:none!important}.auth-form-panel{padding:36px 28px!important}}
+@media(max-width:560px){.wrap{width:94%!important}.kora-top-left{display:none!important}.kora-top-right{margin-left:auto;font-size:10px!important}.header-main{grid-template-columns:1fr auto!important}.brand-logo{width:130px!important}.header-actions{grid-column:2!important}.marketplace-banner,.marketplace-banner-inner{min-height:260px!important;height:260px!important}.marketplace-banner-inner{padding:22px!important}.marketplace-copy{max-width:100%!important}.marketplace-copy h1{font-size:27px!important}.marketplace-showcase{display:none!important}.marketplace-side-promos{grid-template-columns:1fr!important;grid-template-rows:100px 100px!important}.shortcut-scroll{grid-template-columns:repeat(3,1fr)!important}.products-section{width:94%!important;padding:14px!important}.featured-slide{grid-template-columns:1fr 1fr!important}.product-media{height:155px!important}.auth-form-panel{padding:30px 20px!important}.auth-panel-head h3{font-size:27px!important}#accountModal{padding:8px!important}#accountModal .modal-box{min-height:0!important;border-radius:14px!important}}
+`;
+    document.head.appendChild(s);
   }
 
-  function polishHeader() {
-    const account = document.getElementById('accountBtn');
-    const session = (() => { try { return JSON.parse(localStorage.getItem('flashmarket_user_session') || 'null'); } catch (_) { return null; } })();
-    if (account && session?.name) {
-      account.classList.add('is-logged');
-      const text = document.getElementById('accountText');
-      if (text) text.textContent = session.name.split(' ')[0].toUpperCase();
-    }
-  }
-
-  /* Ajustes SOMENTE no modal de conta. O restante do design original do marketplace é preservado. */
-  function installAccountDesign() {
-    if (document.getElementById('flashmarket-account-design')) return;
-    const style = document.createElement('style');
-    style.id = 'flashmarket-account-design';
-    style.textContent = `
-      #accountModal{padding:18px!important;background:rgba(20,20,20,.58)!important;backdrop-filter:blur(5px)!important}
-      #accountModal .modal-box{width:min(1104px,94vw)!important;max-width:1104px!important;min-height:720px!important;border-radius:24px!important;overflow:hidden!important;box-shadow:0 28px 90px rgba(0,0,0,.34)!important}
-      #accountModal .close{z-index:20!important;top:25px!important;right:25px!important;width:38px!important;height:38px!important;border-radius:50%!important;background:#fff!important;color:#657084!important;font-size:25px!important;line-height:38px!important;box-shadow:none!important}
-      .auth-shell{grid-template-columns:44% 56%!important;min-height:720px!important}
-      .auth-brand-panel{padding:55px 50px!important;justify-content:center!important;background:linear-gradient(145deg,#ffb31b 0%,#ff7a00 50%,#ff5b00 100%)!important;position:relative;overflow:hidden}
-      .auth-brand-panel::before{width:330px!important;height:330px!important;right:-165px!important;top:-150px!important;background:rgba(255,255,255,.09)!important}
-      .auth-brand-panel::after{width:250px!important;height:250px!important;left:-135px!important;bottom:-135px!important;background:rgba(255,255,255,.09)!important}
-      .auth-brand-logo{width:100px!important;height:70px!important;margin-bottom:20px!important;position:relative;z-index:2}
-      .auth-brand-logo img{max-width:100%!important;max-height:100%!important;object-fit:contain!important}
-      .auth-kicker{font-size:12px!important;letter-spacing:.12em!important;font-weight:900!important;position:relative;z-index:2}
-      .auth-brand-panel h2{font-size:40px!important;line-height:1.04!important;letter-spacing:-1.5px!important;margin:12px 0 18px!important;position:relative;z-index:2}
-      .auth-brand-panel>p{max-width:400px!important;font-size:15px!important;line-height:1.55!important;margin-bottom:28px!important;position:relative;z-index:2}
-      .auth-brand-panel ul{gap:17px!important;position:relative;z-index:2}
-      .auth-brand-panel li{font-size:14px!important;gap:12px!important}
-      .auth-brand-panel li span{width:27px!important;height:27px!important;font-size:13px!important;background:rgba(255,255,255,.18)!important}
-      .auth-form-panel{padding:55px 60px 45px!important;background:#fff!important}
-      .auth-mini-label{font-size:11px!important;letter-spacing:.15em!important;color:#ff5a00!important;font-weight:900!important}
-      .auth-panel-head h3{font-size:34px!important;line-height:1.1!important;letter-spacing:-1px!important;margin:7px 0 9px!important;color:#172033!important}
-      .auth-panel-head p{font-size:14px!important;color:#9aa4b2!important}
-      .auth-form-panel .auth-tabs{height:58px!important;margin:30px 0 28px!important;padding:5px!important;border-radius:13px!important;background:#f1f3f6!important;gap:5px!important}
-      .auth-form-panel .auth-tabs button{height:48px!important;border-radius:10px!important;font-size:13px!important;font-weight:900!important;color:#8b95a5!important}
-      .auth-form-panel .auth-tabs button.active{background:#ff6500!important;color:#fff!important;box-shadow:0 7px 20px rgba(255,101,0,.24)!important}
-      .auth-field{margin-bottom:20px!important}
-      .auth-field>span{font-size:12px!important;margin-bottom:8px!important;color:#273248!important;font-weight:900!important}
-      .auth-field input{height:56px!important;border:1px solid #dce3ec!important;border-radius:11px!important;background:#edf3fc!important;padding:0 16px!important;font-size:14px!important;color:#172033!important;box-shadow:none!important}
-      .auth-field input:focus{border-color:#ff7a18!important;background:#fff!important;box-shadow:0 0 0 4px rgba(255,101,0,.10)!important}
-      .auth-options{margin:8px 0 28px!important}
-      .auth-options label,.auth-options .text-btn{font-size:11px!important;color:#99a2b0!important}
-      .auth-options .text-btn{color:#ff5a00!important;font-weight:900!important}
-      .auth-submit{height:58px!important;border-radius:11px!important;background:linear-gradient(90deg,#ff6500,#ff7000)!important;font-size:14px!important;box-shadow:0 10px 24px rgba(255,101,0,.22)!important}
-      .auth-note{font-size:11px!important;color:#7c8796!important;margin-top:14px!important}
-      .password-toggle{color:#8c98a8!important}
-      @media(max-width:900px){
-        .auth-shell{grid-template-columns:1fr!important;min-height:0!important}
-        .auth-brand-panel{display:none!important}
-        .auth-form-panel{padding:38px 28px!important}
-        .auth-panel-head h3{font-size:30px!important}
-      }
-      @media(max-width:560px){
-        #accountModal{padding:8px!important}
-        #accountModal .modal-box{min-height:0!important;border-radius:18px!important}
-        .auth-form-panel{padding:32px 20px!important}
-        .auth-form-panel .auth-tabs{height:54px!important}
-        .auth-form-panel .auth-tabs button{height:44px!important}
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  onReady(() => {
-    connectAuthButtons();
-    addTrustStrip();
-    addAppMeta();
-    polishHeader();
-    installAccountDesign();
-    window.addEventListener('storage', connectAuthButtons);
-  });
+  onReady(()=>{connectAuthButtons();addAppMeta();installReferenceLayout();window.addEventListener('storage',connectAuthButtons)});
 })();
