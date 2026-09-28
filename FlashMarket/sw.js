@@ -1,4 +1,4 @@
-const CACHE_NAME = "flashmarket-shell-v6";
+const CACHE_NAME = "koramarketplace-shell-v7";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -11,9 +11,12 @@ const APP_SHELL = [
   "./css/mobile-app.css",
   "./css/mobile-fix.css",
   "./css/mobile-app-v3.css",
+  "./css/mobile-app-final.css",
+  "./css/marketplace-final.css",
   "./js/app.js",
   "./js/auth-real.js",
   "./js/mobile-app.js",
+  "./js/ui-final.js",
   "./js/rastreamento.js",
   "./js/suporte.js",
   "./js/pwa.js",
