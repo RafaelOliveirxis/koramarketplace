@@ -1,0 +1,371 @@
+/* KoraMarketplace — acesso à conta
+   Layout baseado na segunda referência enviada pelo usuário.
+*/
+
+/* Modal: proporção e presença visual da referência */
+#accountModal{
+  position:fixed!important;
+  inset:0!important;
+  z-index:9999!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:20px!important;
+  background:rgba(22,27,36,.62)!important;
+  backdrop-filter:blur(5px)!important;
+}
+
+#accountModal .modal-box{
+  width:min(1105px,calc(100vw - 40px))!important;
+  max-width:1105px!important;
+  height:min(720px,calc(100vh - 40px))!important;
+  min-height:0!important;
+  margin:0!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  background:#fff!important;
+  box-shadow:0 28px 90px rgba(0,0,0,.38)!important;
+}
+
+#accountModal .close{
+  position:absolute!important;
+  z-index:50!important;
+  top:20px!important;
+  right:20px!important;
+  width:34px!important;
+  height:34px!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:#fff!important;
+  color:#687386!important;
+  font-size:22px!important;
+  line-height:34px!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.05)!important;
+}
+
+/* Dois painéis com a mesma leitura visual da segunda imagem */
+#accountModal .auth-shell{
+  display:grid!important;
+  grid-template-columns:44% 56%!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+}
+
+/* PAINEL LARANJA */
+#accountModal .auth-brand-panel{
+  min-width:0!important;
+  height:100%!important;
+  padding:62px 48px 50px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  background:linear-gradient(145deg,#ffb01b 0%,#ff8b0b 48%,#ff6200 100%)!important;
+  color:#fff!important;
+  position:relative!important;
+  overflow:hidden!important;
+}
+
+#accountModal .auth-brand-panel::before{
+  content:""!important;
+  position:absolute!important;
+  width:290px!important;
+  height:290px!important;
+  border-radius:50%!important;
+  right:-145px!important;
+  top:-145px!important;
+  background:rgba(255,255,255,.11)!important;
+}
+
+#accountModal .auth-brand-panel::after{
+  content:""!important;
+  position:absolute!important;
+  width:235px!important;
+  height:235px!important;
+  border-radius:50%!important;
+  left:-130px!important;
+  bottom:-130px!important;
+  background:rgba(255,255,255,.10)!important;
+}
+
+#accountModal .auth-brand-panel > *{
+  position:relative!important;
+  z-index:2!important;
+}
+
+#accountModal .auth-brand-logo{
+  width:96px!important;
+  height:74px!important;
+  margin:0 0 18px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+}
+
+#accountModal .auth-brand-logo img{
+  width:auto!important;
+  max-width:96px!important;
+  max-height:74px!important;
+  object-fit:contain!important;
+  filter:brightness(0) invert(1)!important;
+}
+
+#accountModal .auth-brand-panel .auth-kicker{
+  color:#fff!important;
+  font-size:11px!important;
+  font-weight:900!important;
+  letter-spacing:.04em!important;
+  margin:0!important;
+}
+
+#accountModal .auth-brand-panel h2{
+  margin:9px 0 18px!important;
+  color:#fff!important;
+  font-size:39px!important;
+  line-height:1.04!important;
+  letter-spacing:-1.5px!important;
+  font-weight:900!important;
+  max-width:440px!important;
+}
+
+#accountModal .auth-brand-panel > p{
+  margin:0 0 28px!important;
+  max-width:445px!important;
+  color:#fff!important;
+  font-size:15px!important;
+  line-height:1.55!important;
+  font-weight:500!important;
+}
+
+#accountModal .auth-brand-panel ul{
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:14px!important;
+  list-style:none!important;
+}
+
+#accountModal .auth-brand-panel li{
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  color:#fff!important;
+  font-size:13px!important;
+  font-weight:800!important;
+}
+
+#accountModal .auth-brand-panel li span{
+  width:27px!important;
+  height:27px!important;
+  flex:0 0 27px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.20)!important;
+  color:#fff!important;
+  font-size:13px!important;
+}
+
+/* PAINEL BRANCO */
+#accountModal .auth-form-panel{
+  min-width:0!important;
+  height:100%!important;
+  padding:64px 58px 42px!important;
+  background:#fff!important;
+  overflow-y:auto!important;
+}
+
+#accountModal .auth-panel-head .auth-mini-label,
+#accountModal .auth-panel-head .auth-kicker{
+  display:block!important;
+  margin:0 0 8px!important;
+  color:#ff6500!important;
+  font-size:11px!important;
+  line-height:1!important;
+  font-weight:900!important;
+  letter-spacing:.09em!important;
+  text-transform:uppercase!important;
+}
+
+#accountModal .auth-panel-head h3{
+  margin:0 0 9px!important;
+  color:#172033!important;
+  font-size:43px!important;
+  line-height:1!important;
+  letter-spacing:-1.8px!important;
+  font-weight:900!important;
+}
+
+#accountModal .auth-panel-head p{
+  margin:0!important;
+  color:#9aa5b5!important;
+  font-size:14px!important;
+  line-height:1.45!important;
+}
+
+/* Abas */
+#accountModal .auth-form-panel .auth-tabs{
+  width:100%!important;
+  height:58px!important;
+  margin:34px 0 30px!important;
+  padding:4px!important;
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:4px!important;
+  border:1px solid #edf0f4!important;
+  border-radius:12px!important;
+  background:#f3f5f8!important;
+}
+
+#accountModal .auth-form-panel .auth-tabs button{
+  height:48px!important;
+  margin:0!important;
+  padding:0 12px!important;
+  border:0!important;
+  border-radius:9px!important;
+  background:transparent!important;
+  color:#8d98a8!important;
+  font-size:13px!important;
+  font-weight:900!important;
+  cursor:pointer!important;
+}
+
+#accountModal .auth-form-panel .auth-tabs button.active,
+#accountModal .auth-form-panel .auth-tabs button[aria-selected="true"]{
+  background:#ff6500!important;
+  color:#fff!important;
+  box-shadow:0 7px 20px rgba(255,101,0,.22)!important;
+}
+
+/* Campos */
+#accountModal .auth-field{
+  width:100%!important;
+  margin:0 0 20px!important;
+}
+
+#accountModal .auth-field > span{
+  display:block!important;
+  margin:0 0 9px!important;
+  color:#2c3749!important;
+  font-size:12px!important;
+  font-weight:900!important;
+}
+
+#accountModal .auth-field input{
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:56px!important;
+  padding:0 16px!important;
+  border:1px solid #dce4ee!important;
+  border-radius:11px!important;
+  background:#edf3fc!important;
+  color:#172033!important;
+  font:500 14px Inter,Arial,sans-serif!important;
+  outline:none!important;
+  transition:border-color .2s,box-shadow .2s,background .2s!important;
+}
+
+#accountModal .auth-field input:focus{
+  border-color:#ff965f!important;
+  background:#fff!important;
+  box-shadow:0 0 0 3px rgba(255,101,0,.10)!important;
+}
+
+#accountModal .password-wrap{
+  position:relative!important;
+}
+
+#accountModal .password-wrap input{
+  padding-right:52px!important;
+}
+
+#accountModal .password-toggle{
+  position:absolute!important;
+  right:9px!important;
+  bottom:9px!important;
+  width:38px!important;
+  height:38px!important;
+  border:0!important;
+  border-radius:8px!important;
+  background:transparent!important;
+  color:#8c97a5!important;
+}
+
+/* Opções */
+#accountModal .auth-options{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  margin:6px 0 30px!important;
+}
+
+#accountModal .auth-options label,
+#accountModal .auth-options .text-btn{
+  color:#9ba4b1!important;
+  font-size:11px!important;
+}
+
+#accountModal .auth-options .text-btn{
+  color:#ff6500!important;
+  font-weight:900!important;
+}
+
+#accountModal .auth-submit{
+  width:100%!important;
+  height:58px!important;
+  border:0!important;
+  border-radius:11px!important;
+  background:#ff6500!important;
+  color:#fff!important;
+  font-size:14px!important;
+  font-weight:900!important;
+  box-shadow:0 10px 24px rgba(255,101,0,.20)!important;
+  cursor:pointer!important;
+}
+
+#accountModal .auth-submit:hover{
+  background:#ef5700!important;
+  transform:translateY(-1px)!important;
+}
+
+#accountModal .auth-note{
+  margin:14px 0 0!important;
+  color:#8c96a4!important;
+  font-size:10px!important;
+  line-height:1.45!important;
+  text-align:center!important;
+}
+
+/* Cadastro: mesma composição visual, sem quebrar o painel */
+#accountModal #registerPanel .auth-panel-head h3{
+  font-size:39px!important;
+}
+
+/* Desktop menor */
+@media (max-width:1050px){
+  #accountModal .modal-box{width:min(1000px,calc(100vw - 30px))!important;height:min(680px,calc(100vh - 30px))!important}
+  #accountModal .auth-form-panel{padding:54px 42px 35px!important}
+  #accountModal .auth-brand-panel{padding:52px 38px!important}
+  #accountModal .auth-brand-panel h2{font-size:35px!important}
+  #accountModal .auth-panel-head h3{font-size:38px!important}
+}
+
+/* Tablet/mobile: transforma em cartão de login limpo */
+@media (max-width:780px){
+  #accountModal{padding:12px!important}
+  #accountModal .modal-box{width:min(520px,calc(100vw - 24px))!important;height:auto!important;max-height:calc(100vh - 24px)!important;border-radius:16px!important}
+  #accountModal .auth-shell{grid-template-columns:1fr!important;height:auto!important}
+  #accountModal .auth-brand-panel{display:none!important}
+  #accountModal .auth-form-panel{height:auto!important;max-height:calc(100vh - 24px)!important;padding:42px 28px 30px!important}
+  #accountModal .auth-panel-head h3{font-size:34px!important}
+  #accountModal .auth-form-panel .auth-tabs{margin-top:25px!important}
+}
+
+@media (max-width:420px){
+  #accountModal .auth-form-panel{padding:38px 20px 24px!important}
+  #accountModal .auth-panel-head h3{font-size:31px!important}
+  #accountModal .auth-field input{height:52px!important}
+  #accountModal .auth-submit{height:54px!important}
+}
