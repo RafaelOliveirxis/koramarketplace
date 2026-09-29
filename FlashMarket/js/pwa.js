@@ -23,6 +23,8 @@
   const isAffiliatePage = /\/afiliado\.html$/i.test(window.location.pathname);
   const isHomePage = /\/index\.html$/i.test(window.location.pathname) || /\/$/.test(window.location.pathname);
 
+  if (isHomePage) loadCss('css/home-commerce.css', 'homeCommerceCss');
+
   if (isAffiliatePage) {
     loadCss('css/mobile-affiliate.css', 'mobileAffiliateCss');
     loadCss('css/affiliate-live.css', 'affiliateLiveCss');
@@ -42,6 +44,14 @@
     uiJs.defer = true;
     uiJs.dataset.uiFinalJs = 'true';
     document.head.appendChild(uiJs);
+  }
+
+  if (isHomePage && !document.querySelector('script[data-home-commerce-js]')) {
+    const homeJs = document.createElement('script');
+    homeJs.src = 'js/home-commerce.js';
+    homeJs.defer = true;
+    homeJs.dataset.homeCommerceJs = 'true';
+    document.head.appendChild(homeJs);
   }
 
   if (isAffiliatePage && !document.querySelector('script[data-affiliate-live-js]')) {
