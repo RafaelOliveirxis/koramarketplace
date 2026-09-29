@@ -1,49 +1,57 @@
-/* FlashMarket — Home Commerce v3
-   Visual final inspirado no layout enviado pelo usuário.
-   Mantém a funcionalidade existente e ajusta apenas a apresentação da Home.
-*/
-:root{--fm-orange:#f4512e;--fm-orange-dark:#e83f20;--fm-red:#ef321e;--fm-yellow:#ffd21c;--fm-bg:#f5f5f5;--fm-line:#e8e8e8;--fm-text:#202020;--fm-muted:#777}
-body{background:#f5f5f5!important}
-.top{height:62px!important;background:linear-gradient(90deg,#f43f1f,#ff4f2d)!important;font-size:15px!important}
-.top .wrap{width:min(1840px,94%)!important;justify-content:space-between!important}
-.top-left,.top-right{height:100%;display:flex;align-items:center!important}
-.top-left>*{padding:0 22px!important;border-right:1px solid rgba(255,255,255,.42)!important;font-weight:600!important}
-.top-left strong{font-size:16px!important;font-weight:800!important}
-.top-right a{padding:0 16px!important;font-weight:600!important}
-.header{position:relative!important;background:linear-gradient(115deg,#ff4a22 0%,#f34221 58%,#e92f1d 100%)!important;box-shadow:none!important}
-.header-main{width:min(1840px,94%)!important;min-height:290px!important;grid-template-columns:330px minmax(500px,1fr) 390px!important;gap:38px!important;align-items:center!important}
-.logo{height:270px!important;width:300px!important;overflow:visible!important;justify-content:center!important;align-items:center!important}
-.logo img{width:285px!important;height:315px!important;object-fit:contain!important;filter:drop-shadow(0 5px 4px rgba(0,0,0,.25))!important}
-.search{height:94px!important;border-radius:17px!important;box-shadow:0 3px 8px rgba(0,0,0,.15)!important}
+/* FlashMarket — layout inspirado na referência enviada */
+:root{--fm-orange:#f4512e;--fm-orange2:#ff5a2f;--fm-red:#e82d18;--fm-yellow:#ffd51a;--fm-white:#fff;--fm-line:rgba(255,255,255,.22)}
+body{background:#f5f5f5!important;font-family:Inter,Arial,sans-serif}
+/* faixa de benefícios */
+.top{height:64px!important;background:linear-gradient(90deg,#f12613,#ff3519)!important;color:#fff!important}
+.top .wrap{width:min(1840px,94%)!important;height:100%!important;justify-content:center!important}
+.top-left{display:flex!important;width:100%!important;height:100%!important;align-items:center!important;justify-content:space-around!important}
+.top-left>*{box-sizing:border-box!important;flex:1!important;text-align:center!important;padding:0 22px!important;border-right:1px solid rgba(255,255,255,.45)!important;font-size:0!important;font-weight:800!important;white-space:nowrap!important}
+.top-left>*:nth-child(1):after{content:'🚚  Frete Grátis  em compras acima de R$ 199';font-size:17px}
+.top-left>*:nth-child(2):after{content:'🛡️  Compra Segura  |  Seus dados protegidos';font-size:17px}
+.top-left>*:nth-child(3):after{content:'🎧  Atendimento 24h  |  Estamos sempre aqui para você';font-size:17px}
+.top-left>*:nth-child(n+4){display:none!important}
+.top-right{display:none!important}
+/* cabeçalho principal */
+.header{position:relative!important;background:linear-gradient(120deg,#ff4a21 0%,#f33b1d 55%,#e92e19 100%)!important;box-shadow:none!important;color:#fff!important}
+.header-main{width:min(1840px,94%)!important;min-height:300px!important;grid-template-columns:340px minmax(500px,1fr) 410px!important;gap:40px!important;align-items:center!important}
+.logo{width:320px!important;height:280px!important;overflow:visible!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.logo img{width:300px!important;height:325px!important;object-fit:contain!important;filter:drop-shadow(0 5px 5px rgba(0,0,0,.25))!important}
+.search{height:96px!important;border-radius:18px!important;background:#fff!important;box-shadow:0 4px 10px rgba(0,0,0,.16)!important}
 .search input{font-size:27px!important;padding:0 32px!important;color:#555!important}
-.search input::placeholder{color:#999!important}
-.search button{width:105px!important;margin:8px!important;border-radius:12px!important;background:#f04b2b!important;font-size:45px!important}
-.actions{justify-content:space-between!important;gap:22px!important;align-items:center!important}
-.action{min-width:110px!important;height:105px!important;color:#fff!important;font-size:52px!important;padding:8px!important;border-radius:10px!important}
+.search input::placeholder{color:#9a9a9a!important}
+.search button{width:108px!important;margin:9px!important;border-radius:12px!important;background:#f04a29!important;color:#fff!important;font-size:46px!important}
+.actions{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:18px!important}
+.action{position:relative!important;min-width:120px!important;height:115px!important;color:#fff!important;background:transparent!important;font-size:55px!important;padding:8px!important;border-radius:12px!important}
 .action:hover{background:rgba(255,255,255,.08)!important}
-.action.account:after{content:'Minha Conta';display:block;font-size:16px;font-weight:800;line-height:1.1;margin-top:2px}
-.action.cart:after{content:'Carrinho';display:block;font-size:16px;font-weight:800;line-height:1.1;margin-top:2px}
-.action.account:before{content:'⌄';position:absolute;right:4px;bottom:6px;font-size:18px;font-weight:900}
-.action.cart b{right:18px!important;top:1px!important;min-width:34px!important;height:34px!important;font-size:14px!important;color:#f04b2b!important}
-.nav{background:linear-gradient(90deg,#e62e18,#f24422)!important;border-top:1px solid rgba(255,255,255,.25)!important}
-.nav .wrap{width:min(1840px,94%)!important;min-height:74px!important;align-items:stretch!important;justify-content:flex-start!important}
-.nav a{display:flex!important;align-items:center!important;justify-content:center!important;color:#fff!important;font-size:18px!important;font-weight:800!important;padding:0 28px!important;border-right:1px solid rgba(255,255,255,.08)!important}
-.nav a:first-child{background:rgba(255,255,255,.12)!important}
-.nav a:hover,.nav a.active{background:rgba(255,255,255,.14)!important;color:#fff!important}
-.nav a.hot{font-weight:900!important}
+.action.account:after{content:'Minha Conta';display:block!important;font-size:17px!important;font-weight:800!important;line-height:1.1!important;margin-top:4px!important}
+.action.cart:after{content:'Carrinho';display:block!important;font-size:17px!important;font-weight:800!important;line-height:1.1!important;margin-top:4px!important}
+.action.account:before{content:'⌄';position:absolute!important;right:2px!important;bottom:10px!important;font-size:20px!important;font-weight:900!important}
+.action.cart b{right:14px!important;top:-1px!important;min-width:38px!important;height:38px!important;background:#fff!important;color:#f04a29!important;font-size:15px!important}
+/* navegação inferior */
+.nav{background:linear-gradient(90deg,#df2b17,#f04421)!important;border-top:1px solid rgba(255,255,255,.25)!important}
+.nav .wrap{width:min(1840px,94%)!important;min-height:76px!important;display:flex!important;align-items:stretch!important;justify-content:flex-start!important;overflow:hidden!important}
+.nav .wrap:before{content:'☰  Todas as Categorias  ⌄';display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:800;min-width:430px;padding:0 22px;border-right:1px solid rgba(255,255,255,.3);order:0}
+.nav a{display:flex!important;align-items:center!important;justify-content:center!important;color:#fff!important;font-size:18px!important;font-weight:800!important;padding:0 30px!important;border-right:1px solid rgba(255,255,255,.08)!important;order:2!important;white-space:nowrap!important}
+.nav a:nth-child(1){order:1!important;background:rgba(255,255,255,.10)!important;color:#ffd51a!important;position:relative!important}
+.nav a:nth-child(1):before{content:'⌂';font-size:25px;margin-right:10px}
+.nav a:nth-child(2),.nav a:nth-child(3),.nav a:nth-child(4),.nav a:nth-child(5),.nav a:nth-child(6){font-size:0!important}
+.nav a:nth-child(2):after{content:'🔥  Ofertas';font-size:18px}
+.nav a:nth-child(3):after{content:'★  Mais Vendidos';font-size:18px}
+.nav a:nth-child(4):after{content:'◆  Novidades';font-size:18px}
+.nav a:nth-child(5):after{content:'♨  Super Ofertas';font-size:18px}
+.nav a:nth-child(6):after{content:''}
+.nav a:nth-child(n+7){display:none!important}
+.nav a:hover,.nav a.active{background:rgba(255,255,255,.14)!important}
+/* home */
 main#inicio{padding-top:0!important}
-.hero{padding:28px 0 12px!important}
+.hero{padding:24px 0 14px!important}
 .hero-main,.hero-card,.flash,.banner{border-radius:14px!important}
-.hero-main{box-shadow:0 8px 28px rgba(0,0,0,.12)!important}
 .section{padding:28px 0!important}
-.section-head{border-bottom:1px solid var(--fm-line)!important;padding-bottom:12px!important}
+.section-head{border-bottom:1px solid #e5e5e5!important;padding-bottom:12px!important}
 .section-head h2{font-size:25px!important;font-weight:900!important}
-#categorias{background:#fff;border-top:1px solid var(--fm-line);border-bottom:1px solid var(--fm-line)}
-#categorias .category-card{border-radius:10px!important}
-#ofertas .flash{border-radius:14px!important}
-.banner{box-shadow:0 7px 24px rgba(244,81,46,.18)!important}
+#categorias{background:#fff;border-top:1px solid #e7e7e7;border-bottom:1px solid #e7e7e7}
 .footer{margin-top:0}
-@media(max-width:1250px){.header-main{grid-template-columns:250px minmax(400px,1fr) 270px!important;gap:18px!important}.logo{width:235px!important}.logo img{width:225px!important;height:260px!important}.search{height:76px!important}.search input{font-size:21px!important}.search button{width:80px!important;font-size:36px!important}.action{min-width:82px!important;font-size:42px!important}.action.account:after,.action.cart:after{font-size:13px}.nav a{font-size:14px!important;padding:0 17px!important}}
-@media(max-width:900px){.top{height:48px!important}.top-left{display:none!important}.top-right{width:100%;justify-content:flex-end!important}.top-right a{font-size:11px!important;padding:0 9px!important}.header-main{min-height:180px!important;grid-template-columns:120px minmax(0,1fr) 100px!important;gap:10px!important}.logo{width:115px!important;height:165px!important}.logo img{width:125px!important;height:180px!important}.search{height:58px!important;border-radius:10px!important}.search input{font-size:16px!important;padding:0 16px!important}.search button{width:60px!important;margin:5px!important;font-size:28px!important}.actions{gap:3px!important}.action{min-width:48px!important;height:68px!important;font-size:31px!important}.action.account:after,.action.cart:after{font-size:9px}.action.account:before{display:none}.nav .wrap{min-height:54px!important}.nav a{font-size:12px!important;padding:0 13px!important}}
-@media(max-width:600px){.top{height:38px!important}.top-right a:nth-child(2),.top-right a:nth-child(3),.top-right a:nth-child(4){display:none!important}.header-main{min-height:118px!important;grid-template-columns:72px minmax(0,1fr) 45px!important;gap:5px!important}.mobile{display:block!important;font-size:22px!important}.logo{width:72px!important;height:108px!important}.logo img{width:82px!important;height:120px!important}.search{height:44px!important;border-radius:8px!important}.search input{font-size:13px!important;padding:0 10px!important}.search button{width:47px!important;margin:4px!important;font-size:23px!important;border-radius:6px!important}.actions{justify-content:flex-end!important}.action.account{display:none!important}.action.cart{min-width:42px!important;height:54px!important;font-size:29px!important}.action.cart:after{font-size:8px}.action.cart b{right:-2px!important;top:-3px!important;min-width:22px!important;height:22px!important;font-size:10px!important}.nav .wrap{min-height:46px!important}.nav a{font-size:10px!important;padding:0 11px!important}.hero{padding-top:15px!important}.hero-main{padding:27px 20px!important}.hero h1{font-size:39px!important}.products{grid-template-columns:repeat(2,1fr)!important}.benefits{grid-template-columns:1fr 1fr!important}}
-@media(max-width:420px){.header-main{grid-template-columns:58px minmax(0,1fr) 40px!important}.logo{width:58px!important}.logo img{width:70px!important;height:104px!important}.products{grid-template-columns:repeat(2,1fr)!important}.benefits{grid-template-columns:1fr!important}}
+@media(max-width:1250px){.header-main{grid-template-columns:260px minmax(380px,1fr) 290px!important;gap:20px!important}.logo{width:250px!important}.logo img{width:235px!important;height:270px!important}.search{height:76px!important}.search input{font-size:21px!important}.search button{width:82px!important;font-size:36px!important}.action{min-width:82px!important;height:92px!important;font-size:42px!important}.action.account:after,.action.cart:after{font-size:13px!important}.nav .wrap:before{min-width:280px;font-size:15px}.nav a{font-size:14px!important;padding:0 18px!important}.nav a:nth-child(2):after,.nav a:nth-child(3):after,.nav a:nth-child(4):after,.nav a:nth-child(5):after{font-size:14px!important}}
+@media(max-width:900px){.top{height:50px!important}.top-left>*:after{font-size:12px!important}.header-main{min-height:190px!important;grid-template-columns:125px minmax(0,1fr) 100px!important;gap:10px!important}.logo{width:120px!important;height:170px!important}.logo img{width:125px!important;height:185px!important}.search{height:58px!important;border-radius:10px!important}.search input{font-size:16px!important;padding:0 16px!important}.search button{width:60px!important;margin:5px!important;font-size:28px!important}.action{min-width:48px!important;height:70px!important;font-size:31px!important}.action.account:after,.action.cart:after{font-size:9px!important}.action.account:before{display:none!important}.nav .wrap{min-height:58px!important;overflow-x:auto!important}.nav .wrap:before{min-width:230px;font-size:12px}.nav a{font-size:12px!important;padding:0 13px!important}.nav a:nth-child(2):after,.nav a:nth-child(3):after,.nav a:nth-child(4):after,.nav a:nth-child(5):after{font-size:12px!important}}
+@media(max-width:600px){.top{height:40px!important}.top-left>*{padding:0 5px!important}.top-left>*:nth-child(1):after{content:'🚚 Frete Grátis';font-size:10px}.top-left>*:nth-child(2):after{content:'🛡️ Compra Segura';font-size:10px}.top-left>*:nth-child(3):after{content:'🎧 Atendimento 24h';font-size:10px}.header-main{min-height:125px!important;grid-template-columns:70px minmax(0,1fr) 45px!important;gap:5px!important}.logo{width:70px!important;height:112px!important}.logo img{width:80px!important;height:122px!important}.search{height:45px!important;border-radius:8px!important}.search input{font-size:13px!important;padding:0 10px!important}.search button{width:48px!important;margin:4px!important;font-size:23px!important}.action.account{display:none!important}.action.cart{min-width:42px!important;height:55px!important;font-size:29px!important}.action.cart:after{font-size:8px!important}.action.cart b{right:-2px!important;top:-3px!important;min-width:22px!important;height:22px!important;font-size:10px!important}.nav .wrap{min-height:48px!important}.nav .wrap:before{min-width:190px;font-size:10px;padding:0 10px}.nav a{font-size:10px!important;padding:0 10px!important}.nav a:nth-child(2):after,.nav a:nth-child(3):after,.nav a:nth-child(4):after,.nav a:nth-child(5):after{font-size:10px!important}.hero{padding-top:15px!important}.hero-main{padding:27px 20px!important}.hero h1{font-size:39px!important}.products{grid-template-columns:repeat(2,1fr)!important}.benefits{grid-template-columns:1fr 1fr!important}}
+@media(max-width:420px){.header-main{grid-template-columns:58px minmax(0,1fr) 40px!important}.logo{width:58px!important}.logo img{width:70px!important;height:104px!important}.nav .wrap:before{min-width:165px;font-size:9px}.products{grid-template-columns:repeat(2,1fr)!important}.benefits{grid-template-columns:1fr!important}}
