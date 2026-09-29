@@ -1,0 +1,44 @@
+/* FlashMarket — Home Commerce v2
+   Camada visual da página inicial inspirada em grandes e-commerces,
+   preservando a identidade e os componentes existentes do projeto.
+*/
+:root{--fm-orange:#ee4d2d;--fm-orange-dark:#d94124;--fm-bg:#f5f5f5;--fm-line:#e6e6e6;--fm-text:#171717;--fm-muted:#777;--fm-green:#16a34a}
+body{background:#f5f5f5!important}
+main#inicio{padding-bottom:0}
+.hero{padding-top:18px!important}
+.hero-main,.hero-card,.flash,.banner{border-radius:10px!important}
+.hero-main{box-shadow:0 5px 18px rgba(0,0,0,.08)!important}
+.section{padding:22px 0!important}
+.section-head{min-height:44px;border-bottom:1px solid var(--fm-line);padding-bottom:10px;margin-bottom:14px}
+.section-head h2{font-weight:900!important}
+.section-head .see{white-space:nowrap}
+#categorias{background:#fff;border-top:1px solid var(--fm-line);border-bottom:1px solid var(--fm-line)}
+#categorias .wrap{padding-top:2px;padding-bottom:2px}
+#categorias .category-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+#categorias .category-card{min-height:118px;border:1px solid var(--fm-line);border-radius:8px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px;transition:.2s}
+#categorias .category-card:hover{transform:translateY(-3px);border-color:#ffc5b7;box-shadow:0 7px 20px rgba(0,0,0,.07)}
+#categorias .category-card span{font-size:30px;margin-bottom:7px}
+#categorias .category-card strong{font-size:11px;color:#222}
+#categorias .category-card small{font-size:9px;color:#999;margin-top:3px}
+#ofertas{padding-top:22px!important}
+#ofertas .flash{box-shadow:0 6px 22px rgba(0,0,0,.12);border-radius:10px!important}
+#ofertas .product{border-color:#333;background:#202020;color:#fff}
+#ofertas .product h3{color:#fff}
+#ofertas .product .cat,#ofertas .product .rating span{color:#aaa}
+#ofertas .product .old{color:#888}
+#ofertas .product .price{color:#fff}
+#ofertas .product .add{background:var(--fm-orange);border-color:var(--fm-orange);color:#fff}
+#ofertas .product .fav{background:#fff;color:#777}
+#mais-produtos .product{box-shadow:none}
+#mais-produtos .product:hover{box-shadow:0 8px 25px rgba(0,0,0,.09)}
+#mais-produtos .add{font-size:9px;height:31px}
+.banner{box-shadow:0 6px 20px rgba(238,77,45,.16)!important}
+.newsletter{margin-top:8px}
+.footer{margin-top:0}
+/* Home navigation helpers */
+.home-section-badge{display:inline-flex;align-items:center;gap:5px;background:#fff1ed;color:var(--fm-orange);border-radius:999px;padding:5px 9px;font-size:9px;font-weight:900;margin-bottom:5px}
+.home-trust-strip{width:min(1240px,94%);margin:0 auto 8px}
+.home-trust-strip .benefits{padding:12px 0}
+@media(max-width:1050px){#categorias .category-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){#categorias .category-grid{grid-template-columns:repeat(3,1fr);gap:7px}.section-head{align-items:center}.section-head h2{font-size:20px!important}.home-section-badge{font-size:8px}}
+@media(max-width:500px){#categorias .category-grid{grid-template-columns:repeat(2,1fr)}#categorias .category-card{min-height:105px}.home-trust-strip{width:100%;padding:0 3%}}
