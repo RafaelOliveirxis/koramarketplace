@@ -8,6 +8,7 @@
     document.head.appendChild(link);
   };
 
+  /* Camada visual final: carregada por último para evitar conflitos entre os vários CSS antigos. */
   loadCss('css/mobile-app.css', 'mobileAppCss');
   loadCss('css/mobile-fix.css', 'mobileFixCss');
   loadCss('css/mobile-app-v3.css', 'mobileAppV3Css');
@@ -17,6 +18,7 @@
   loadCss('css/kora-redesign.css', 'koraRedesignCss');
   loadCss('css/kora-logo.css', 'koraLogoCss');
   loadCss('css/auth-reference.css', 'authReferenceCss');
+  loadCss('css/site-system.css', 'siteSystemCss');
 
   const isAffiliatePage = /\/afiliado\.html$/i.test(window.location.pathname);
   const isHomePage = /\/index\.html$/i.test(window.location.pathname) || /\/$/.test(window.location.pathname);
@@ -50,6 +52,16 @@
     document.head.appendChild(affiliateJs);
   }
 
+  /* Normaliza logos e evita elementos duplicados criados por versões anteriores. */
+  function normalizeSharedUI() {
+    document.querySelectorAll('.brand-logo,.logo img,.logo-image,.site-logo,.footer-logo,img[alt*="FlashMarket" i],img[alt*="FLASH MARKET" i]').forEach(img => {
+      if (img.tagName === 'IMG') img.src = 'assets/logo-kora.svg';
+    });
+
+    const footers = [...document.querySelectorAll('footer')];
+    if (footers.length > 1) footers.slice(1).forEach(el => el.remove());
+  }
+
   const installButton = document.createElement('button');
   installButton.type = 'button';
   installButton.className = 'pwa-install';
@@ -59,28 +71,29 @@
 
   const footerInstallButton = document.querySelector('.footer-install');
   const style = document.createElement('style');
-  style.textContent = `.pwa-install{position:fixed;right:16px;bottom:16px;z-index:80;border:0;border-radius:999px;padding:13px 18px;background:#ffbf16;color:#111;font:800 12px Inter,Arial,sans-serif;box-shadow:0 8px 25px #0004}.pwa-install[hidden]{display:none}.footer-install{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a3a3a;border-radius:7px;padding:9px 13px;background:#111;color:#fff;font:800 10px Inter,Arial,sans-serif}.footer-install:hover{background:#ffbf16;border-color:#ffbf16;color:#111}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(82px + env(safe-area-inset-bottom));padding:11px 15px;font-size:10px}}`;
+  style.textContent = `.pwa-install{position:fixed;right:16px;bottom:16px;z-index:80;border:0;border-radius:999px;padding:13px 18px;background:#ee4d2d;color:#fff;font:800 12px Inter,Arial,sans-serif;box-shadow:0 8px 25px #0004}.pwa-install[hidden]{display:none}.footer-install{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a3a3a;border-radius:7px;padding:9px 13px;background:#111;color:#fff;font:800 10px Inter,Arial,sans-serif}.footer-install:hover{background:#ee4d2d;border-color:#ee4d2d;color:#fff}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(82px + env(safe-area-inset-bottom));padding:11px 15px;font-size:10px}}`;
   document.head.appendChild(style);
 
   function arrangeHomeSections() {
     if (!isHomePage) return;
     const main = document.querySelector('main#inicio');
     const offers = document.querySelector('#ofertas');
-    const products = document.querySelector('#mais-produtos');
-    const catalog = document.querySelector('#categorias');
+    const products = document.querySelector('#produtos, #mais-produtos');
+    const catalog = document.querySelector('#catalogo, #categorias');
     if (!main || !offers || !products || !catalog) return;
 
-    /* Ordem desejada: Ofertas Flash -> Compre por categoria -> Mais produtos. */
     main.style.display = 'flex';
     main.style.flexDirection = 'column';
     main.style.alignItems = 'stretch';
-
-    [offers, catalog, products].forEach(section => {
-      section.style.order = '';
-    });
+    [offers, products, catalog].forEach(section => { section.style.order = ''; });
     offers.style.order = '1';
-    catalog.style.order = '2';
-    products.style.order = '3';
+    products.style.order = '2';
+    catalog.style.order = '3';
+
+    const title = products.querySelector('.section-head h2');
+    if (title) title.textContent = 'Mais produtos';
+    const catalogTitle = catalog.querySelector('.section-head h2');
+    if (catalogTitle) catalogTitle.textContent = 'Compre por categoria';
   }
 
   function initAffiliateSessionUI() {
@@ -88,24 +101,16 @@
     const authArea = document.getElementById('authArea') || document.querySelector('.auth-box');
     const dashboard = document.getElementById('affiliatePanel') || document.querySelector('.affiliate-card');
     if (!authArea || !dashboard) return;
-
     document.querySelectorAll('.auth-benefits').forEach(el => el.remove());
-
     const loggedIn = () => localStorage.getItem('flashmarket_affiliate_session') === 'true' && !!localStorage.getItem('flashmarket_access_token');
     const sync = () => {
       const active = loggedIn();
       authArea.hidden = active;
       dashboard.hidden = !active;
-      authArea.setAttribute('aria-hidden', String(active));
-      dashboard.setAttribute('aria-hidden', String(!active));
       authArea.style.display = active ? 'none' : '';
       dashboard.style.display = active ? '' : 'none';
       document.body.classList.toggle('affiliate-logged-in', active);
     };
-
-    const addStyle = document.createElement('style');
-    addStyle.textContent = `.affiliate-card[hidden],#affiliatePanel[hidden],.auth-box[hidden]{display:none!important}.auth-benefits{display:none!important}body.affiliate-logged-in .affiliate-layout{max-width:1420px!important;display:block!important}body.affiliate-logged-in #affiliatePanel{width:100%!important}`;
-    document.head.appendChild(addStyle);
     sync();
     document.addEventListener('submit', event => {
       if (event.target?.closest('#authForm, .auth-form')) {
@@ -118,9 +123,16 @@
   }
 
   let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; installButton.hidden = false; });
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    deferredPrompt = event;
+    installButton.hidden = false;
+  });
   async function requestInstall() {
-    if (!deferredPrompt) { alert('No iPhone/iPad, use Compartilhar > Adicionar à Tela de Início. No Android, abra o menu do navegador e escolha Instalar app.'); return; }
+    if (!deferredPrompt) {
+      alert('No iPhone/iPad, use Compartilhar > Adicionar à Tela de Início. No Android, abra o menu do navegador e escolha Instalar app.');
+      return;
+    }
     deferredPrompt.prompt();
     await deferredPrompt.userChoice;
     deferredPrompt = null;
@@ -129,12 +141,14 @@
   installButton.addEventListener('click', requestInstall);
   if (footerInstallButton) footerInstallButton.addEventListener('click', requestInstall);
   window.addEventListener('appinstalled', () => { deferredPrompt = null; installButton.hidden = true; });
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(error => console.error('Não foi possível ativar o modo offline da KoraMarketplace.', error)));
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(error => console.error('Não foi possível ativar o modo offline do FlashMarket.', error)));
 
-  const initHome = () => {
+  const init = () => {
+    normalizeSharedUI();
     arrangeHomeSections();
-    if (isAffiliatePage) initAffiliateSessionUI();
+    initAffiliateSessionUI();
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initHome, { once: true }); else initHome();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
 })();
