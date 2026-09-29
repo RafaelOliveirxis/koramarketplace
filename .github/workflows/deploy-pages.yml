@@ -13,9 +13,11 @@ permissions:
   pages: write
   id-token: write
 
+# Evita cancelar um deploy válido só porque outro commit chegou em seguida.
+# Os deploys ficam em fila e o GitHub Pages processa cada execução normalmente.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
