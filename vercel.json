@@ -1,4 +1,9 @@
 {
   "installCommand": "npm install",
-  "outputDirectory": "FlashMarket"
+  "outputDirectory": "FlashMarket",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs22.x"
+    }
+  }
 }
