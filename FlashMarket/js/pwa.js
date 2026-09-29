@@ -19,6 +19,7 @@
   loadCss('css/kora-logo.css', 'koraLogoCss');
   loadCss('css/auth-reference.css', 'authReferenceCss');
   loadCss('css/site-system.css', 'siteSystemCss');
+  loadCss('css/flashmarket-premium.css', 'flashmarketPremiumCss');
 
   const isAffiliatePage = /\/afiliado\.html$/i.test(window.location.pathname);
   const isHomePage = /\/index\.html$/i.test(window.location.pathname) || /\/$/.test(window.location.pathname);
@@ -62,12 +63,10 @@
     document.head.appendChild(affiliateJs);
   }
 
-  /* Normaliza logos e evita elementos duplicados criados por versões anteriores. */
   function normalizeSharedUI() {
     document.querySelectorAll('.brand-logo,.logo img,.logo-image,.site-logo,.footer-logo,img[alt*="FlashMarket" i],img[alt*="FLASH MARKET" i]').forEach(img => {
       if (img.tagName === 'IMG') img.src = 'assets/logo-kora.svg';
     });
-
     const footers = [...document.querySelectorAll('footer')];
     if (footers.length > 1) footers.slice(1).forEach(el => el.remove());
   }
@@ -91,7 +90,6 @@
     const products = document.querySelector('#produtos, #mais-produtos');
     const catalog = document.querySelector('#catalogo, #categorias');
     if (!main || !offers || !products || !catalog) return;
-
     main.style.display = 'flex';
     main.style.flexDirection = 'column';
     main.style.alignItems = 'stretch';
@@ -99,7 +97,6 @@
     offers.style.order = '1';
     products.style.order = '2';
     catalog.style.order = '3';
-
     const title = products.querySelector('.section-head h2');
     if (title) title.textContent = 'Mais produtos';
     const catalogTitle = catalog.querySelector('.section-head h2');
