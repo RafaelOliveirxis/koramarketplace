@@ -19,6 +19,8 @@
   loadCss('css/auth-reference.css', 'authReferenceCss');
 
   const isAffiliatePage = /\/afiliado\.html$/i.test(window.location.pathname);
+  const isHomePage = /\/index\.html$/i.test(window.location.pathname) || /\/$/.test(window.location.pathname);
+
   if (isAffiliatePage) {
     loadCss('css/mobile-affiliate.css', 'mobileAffiliateCss');
     loadCss('css/affiliate-live.css', 'affiliateLiveCss');
@@ -59,6 +61,37 @@
   const style = document.createElement('style');
   style.textContent = `.pwa-install{position:fixed;right:16px;bottom:16px;z-index:80;border:0;border-radius:999px;padding:13px 18px;background:#ffbf16;color:#111;font:800 12px Inter,Arial,sans-serif;box-shadow:0 8px 25px #0004}.pwa-install[hidden]{display:none}.footer-install{display:inline-flex;align-items:center;gap:7px;border:1px solid #3a3a3a;border-radius:7px;padding:9px 13px;background:#111;color:#fff;font:800 10px Inter,Arial,sans-serif}.footer-install:hover{background:#ffbf16;border-color:#ffbf16;color:#111}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(82px + env(safe-area-inset-bottom));padding:11px 15px;font-size:10px}}`;
   document.head.appendChild(style);
+
+  function arrangeHomeSections() {
+    if (!isHomePage) return;
+    const main = document.querySelector('main#inicio');
+    const offers = document.querySelector('#ofertas');
+    const products = document.querySelector('#produtos');
+    const catalog = document.querySelector('#catalogo');
+    if (!main || !offers || !products || !catalog) return;
+
+    /* Ordem da página inicial: Ofertas Flash -> Mais produtos -> Categorias. */
+    main.style.display = 'flex';
+    main.style.flexDirection = 'column';
+    main.style.alignItems = 'stretch';
+
+    [offers, products, catalog].forEach(section => {
+      section.style.order = '';
+    });
+    offers.style.order = '1';
+    products.style.order = '2';
+    catalog.style.order = '3';
+
+    const title = products.querySelector('.section-head h2');
+    if (title) title.textContent = 'Mais produtos';
+    const label = products.querySelector('.section-head .section-label');
+    if (label) label.textContent = 'DESTAQUES';
+
+    const catalogTitle = catalog.querySelector('.section-head h2');
+    if (catalogTitle) catalogTitle.textContent = 'Compre por categoria';
+    const catalogLabel = catalog.querySelector('.section-head .section-label');
+    if (catalogLabel) catalogLabel.textContent = 'CATEGORIAS';
+  }
 
   function initAffiliateSessionUI() {
     if (!isAffiliatePage) return;
@@ -107,5 +140,11 @@
   if (footerInstallButton) footerInstallButton.addEventListener('click', requestInstall);
   window.addEventListener('appinstalled', () => { deferredPrompt = null; installButton.hidden = true; });
   if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(error => console.error('Não foi possível ativar o modo offline da KoraMarketplace.', error)));
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAffiliateSessionUI, { once: true }); else initAffiliateSessionUI();
+
+  const initHome = () => {
+    arrangeHomeSections();
+    if (isAffiliatePage) initAffiliateSessionUI();
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initHome, { once: true }); else initHome();
 })();
