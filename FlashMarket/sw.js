@@ -1,4 +1,4 @@
-const CACHE_NAME = "koramarketplace-shell-v11";
+const CACHE_NAME = "flashmarket-shell-v12";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -6,8 +6,15 @@ const APP_SHELL = [
   "./minha-conta.html",
   "./rastrear-pedido.html",
   "./suporte.html",
+  "./login.html",
+  "./produtos.html",
+  "./carrinho.html",
+  "./checkout.html",
+  "./resetar-senha.html",
   "./manifest.webmanifest",
   "./css/style.css",
+  "./css/interno.css",
+  "./css/site-system.css",
   "./css/mobile-app.css",
   "./css/mobile-fix.css",
   "./css/mobile-app-v3.css",
@@ -24,15 +31,14 @@ const APP_SHELL = [
   "./js/rastreamento.js",
   "./js/suporte.js",
   "./js/pwa.js",
+  "./js/interno.js",
   "./assets/favicon.png",
   "./assets/logo.FlashMarket.png",
   "./assets/logo-kora.svg"
 ];
 
 self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL))
-  );
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
   self.skipWaiting();
 });
 
@@ -47,7 +53,6 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
-
   event.respondWith(
     fetch(event.request)
       .then(response => {
