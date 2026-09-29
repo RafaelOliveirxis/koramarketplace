@@ -66,31 +66,21 @@
     if (!isHomePage) return;
     const main = document.querySelector('main#inicio');
     const offers = document.querySelector('#ofertas');
-    const products = document.querySelector('#produtos');
-    const catalog = document.querySelector('#catalogo');
+    const products = document.querySelector('#mais-produtos');
+    const catalog = document.querySelector('#categorias');
     if (!main || !offers || !products || !catalog) return;
 
-    /* Ordem da página inicial: Ofertas Flash -> Mais produtos -> Categorias. */
+    /* Ordem desejada: Ofertas Flash -> Compre por categoria -> Mais produtos. */
     main.style.display = 'flex';
     main.style.flexDirection = 'column';
     main.style.alignItems = 'stretch';
 
-    [offers, products, catalog].forEach(section => {
+    [offers, catalog, products].forEach(section => {
       section.style.order = '';
     });
     offers.style.order = '1';
-    products.style.order = '2';
-    catalog.style.order = '3';
-
-    const title = products.querySelector('.section-head h2');
-    if (title) title.textContent = 'Mais produtos';
-    const label = products.querySelector('.section-head .section-label');
-    if (label) label.textContent = 'DESTAQUES';
-
-    const catalogTitle = catalog.querySelector('.section-head h2');
-    if (catalogTitle) catalogTitle.textContent = 'Compre por categoria';
-    const catalogLabel = catalog.querySelector('.section-head .section-label');
-    if (catalogLabel) catalogLabel.textContent = 'CATEGORIAS';
+    catalog.style.order = '2';
+    products.style.order = '3';
   }
 
   function initAffiliateSessionUI() {
