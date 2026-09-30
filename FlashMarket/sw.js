@@ -1,4 +1,4 @@
-const CACHE_NAME = "flashmarket-shell-v15";
+const CACHE_NAME = "flashmarket-shell-v16";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -65,7 +65,7 @@ self.addEventListener("fetch", event => {
         const type = response.headers.get("content-type") || "";
         if (response.ok && isHome && type.includes("text/html")) {
           const html = await response.text();
-          const css = '<link rel="stylesheet" href="./css/home-proportional.css?v=15">';
+          const css = '<link rel="stylesheet" href="./css/home-proportional.css?v=16">';
           const updated = html.includes("home-proportional.css") ? html : html.replace("</head>", css + "</head>");
           response = new Response(updated, {status: response.status, statusText: response.statusText, headers: response.headers});
         }
