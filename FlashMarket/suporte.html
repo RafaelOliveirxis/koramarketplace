@@ -1,1 +1,105 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Central de atendimento FlashMarket"><title>FlashMarket | Suporte</title><link rel="icon" href="assets/favicon.png"><link rel="stylesheet" href="css/interno.css"></head><body class="fm-page"><div data-fm-header></div><main class="fm-container fm-section"><div class="fm-hero"><span class="fm-kicker">● ATENDIMENTO ONLINE</span><h1 class="fm-title">Como podemos ajudar?</h1><p class="fm-subtitle">Encontre respostas rápidas ou fale com nosso atendimento. Estamos aqui para ajudar com pedidos, pagamentos, trocas, conta e produtos.</p></div><div class="fm-grid"><button class="fm-card fm-card-pad" onclick="faq('pedido')" style="text-align:left;border:0;cursor:pointer"><strong>📦 Pedido e entrega</strong><p style="color:#777;font-size:11px;margin-top:7px">Rastreio, prazo e status da compra.</p></button><button class="fm-card fm-card-pad" onclick="faq('pagamento')" style="text-align:left;border:0;cursor:pointer"><strong>💳 Pagamento</strong><p style="color:#777;font-size:11px;margin-top:7px">Dúvidas sobre cobrança e formas de pagamento.</p></button><button class="fm-card fm-card-pad" onclick="faq('troca')" style="text-align:left;border:0;cursor:pointer"><strong>🔄 Troca e devolução</strong><p style="color:#777;font-size:11px;margin-top:7px">Veja como solicitar atendimento.</p></button></div><section style="margin-top:25px" class="fm-card fm-card-pad"><div class="fm-section-head"><div><h2>Perguntas frequentes</h2><p>Informações para resolver as dúvidas mais comuns.</p></div></div><div id="faq"><details open><summary>Como acompanho meu pedido?</summary><p style="color:#777;font-size:12px;margin-top:9px">Acesse <a href="rastrear-pedido.html"><strong>Rastrear Pedido</strong></a> e informe o código da compra.</p></details><hr style="border:0;border-top:1px solid var(--fm-line);margin:15px 0"><details><summary>Como faço uma troca?</summary><p style="color:#777;font-size:12px;margin-top:9px">Entre em contato pelo atendimento informando o número do pedido e o motivo da solicitação.</p></details><hr style="border:0;border-top:1px solid var(--fm-line);margin:15px 0"><details><summary>Esqueci minha senha. O que faço?</summary><p style="color:#777;font-size:12px;margin-top:9px">Acesse a área de login e utilize a opção de recuperação de senha.</p></details><hr style="border:0;border-top:1px solid var(--fm-line);margin:15px 0"><details><summary>Como falar com o atendimento?</summary><p style="color:#777;font-size:12px;margin-top:9px">Use o WhatsApp informado na loja ou envie uma solicitação pelo canal de suporte.</p></details></div></section><section class="fm-grid" style="margin-top:18px"><div class="fm-card fm-card-pad"><span class="fm-kicker">WHATSAPP</span><h3 style="margin:12px 0 6px">Atendimento rápido</h3><p style="font-size:11px;color:#777">Fale com nossa equipe pelo WhatsApp.</p><a class="fm-btn orange" style="display:inline-flex;margin-top:14px" href="https://wa.me/5511997255630" target="_blank" rel="noopener">ABRIR WHATSAPP</a></div><div class="fm-card fm-card-pad"><span class="fm-kicker">AUTOATENDIMENTO</span><h3 style="margin:12px 0 6px">Resolva online</h3><p style="font-size:11px;color:#777">Acesse sua conta para consultar pedidos, carrinho e dados.</p><a class="fm-btn light" style="display:inline-flex;margin-top:14px" href="minha-conta.html">MINHA CONTA</a></div></section></main><footer class="fm-footer"><div class="fm-container fm-footer-grid"><div><h3>FlashMarket</h3><p>Compra simples, moderna e segura.</p></div><div><h3>Links</h3><a href="produtos.html">Produtos</a><br><a href="carrinho.html">Carrinho</a></div><div><h3>Conta</h3><a href="login.html">Entrar / cadastrar</a><br><a href="minha-conta.html">Minha conta</a></div></div></footer><script src="js/interno.js"></script><script>function faq(topic){document.querySelector('#faq').scrollIntoView({behavior:'smooth'});fmToast('Confira as perguntas frequentes abaixo.')}</script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Central de atendimento FlashMarket — pedidos, pagamentos, trocas, conta e suporte.">
+<title>FlashMarket | Central de Suporte</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="css/interno.css">
+<link rel="stylesheet" href="css/suporte.css?v=20260930-1">
+</head>
+<body class="fm-page support-page">
+<div data-fm-header></div>
+
+<main class="support-wrap fm-container">
+  <section class="support-hero">
+    <span class="support-kicker">● CENTRAL DE ATENDIMENTO</span>
+    <h1>Como podemos ajudar?</h1>
+    <p>Encontre respostas, acompanhe seu pedido ou fale com o atendimento. Organizamos tudo em um só lugar para você resolver sua dúvida com mais rapidez.</p>
+    <form class="support-search" id="supportSearch">
+      <input id="supportQuery" type="search" placeholder="Digite sua dúvida... ex.: rastrear pedido, troca, pagamento" autocomplete="off">
+      <button type="submit">BUSCAR AJUDA</button>
+    </form>
+  </section>
+
+  <section class="support-grid" aria-label="Categorias de atendimento">
+    <button class="support-topic" data-topic="pedido">
+      <span class="topic-icon">📦</span><span class="topic-arrow">→</span>
+      <h3>Pedido e entrega</h3><p>Rastreio, prazo, status e acompanhamento da compra.</p>
+    </button>
+    <button class="support-topic" data-topic="pagamento">
+      <span class="topic-icon">💳</span><span class="topic-arrow">→</span>
+      <h3>Pagamento</h3><p>Pagamento aprovado, pendente ou dúvidas sobre cobrança.</p>
+    </button>
+    <button class="support-topic" data-topic="troca">
+      <span class="topic-icon">🔄</span><span class="topic-arrow">→</span>
+      <h3>Troca e devolução</h3><p>Orientações para solicitar atendimento após a compra.</p>
+    </button>
+    <button class="support-topic" data-topic="conta">
+      <span class="topic-icon">👤</span><span class="topic-arrow">→</span>
+      <h3>Conta e acesso</h3><p>Login, senha, dados pessoais e foto de perfil.</p>
+    </button>
+    <button class="support-topic" data-topic="afiliado">
+      <span class="topic-icon">🤝</span><span class="topic-arrow">→</span>
+      <h3>Afiliados</h3><p>Cadastro, área de afiliado e informações do programa.</p>
+    </button>
+    <button class="support-topic" data-topic="produtos">
+      <span class="topic-icon">🛍️</span><span class="topic-arrow">→</span>
+      <h3>Produtos</h3><p>Disponibilidade, características e dúvidas sobre produtos.</p>
+    </button>
+  </section>
+
+  <section class="support-main">
+    <div>
+      <section class="support-panel" id="faqSection">
+        <div class="support-head">
+          <div><h2>Perguntas frequentes</h2><p>Pesquise abaixo ou abra uma pergunta para ver a orientação.</p></div>
+          <span class="support-badge">● Atendimento online</span>
+        </div>
+        <input class="fm-input" id="faqSearch" type="search" placeholder="Filtrar perguntas frequentes...">
+        <div class="faq-list" id="supportFaq" style="margin-top:12px"></div>
+      </section>
+
+      <section class="support-panel ticket">
+        <div class="support-head">
+          <div><h2>Não encontrou o que precisava?</h2><p>Envie uma solicitação e registre sua dúvida pelo próprio site.</p></div>
+        </div>
+        <form class="ticket-form" id="ticketForm">
+          <div class="ticket-field"><label>Nome</label><input name="name" required placeholder="Seu nome"></div>
+          <div class="ticket-field"><label>E-mail</label><input name="email" type="email" required placeholder="voce@email.com"></div>
+          <div class="ticket-field"><label>Assunto</label><select name="subject" required><option value="">Selecione</option><option>Pedido e entrega</option><option>Pagamento</option><option>Troca e devolução</option><option>Conta e acesso</option><option>Produtos</option><option>Afiliados</option><option>Outro</option></select></div>
+          <div class="ticket-field"><label>Número do pedido</label><input name="order" placeholder="Se houver, informe o pedido"></div>
+          <div class="ticket-field wide"><label>Mensagem</label><textarea name="message" required placeholder="Conte o que aconteceu e como podemos ajudar..."></textarea></div>
+          <div class="wide"><button class="ticket-btn" type="submit">ENVIAR SOLICITAÇÃO →</button><p class="ticket-note">No modo demonstração, a solicitação fica salva neste navegador.</p><div id="ticketSuccess" class="fm-alert" style="display:none;margin-top:10px"></div></div>
+        </form>
+      </section>
+    </div>
+
+    <aside class="support-side">
+      <section class="track-card">
+        <h3>🔎 Rastrear pedido</h3>
+        <p>Consulte rapidamente uma compra usando o número do pedido ou o código de rastreio.</p>
+        <form class="track-form" id="trackForm"><input id="trackCode" placeholder="FM-20260930-123456"><button>RASTREAR</button></form>
+        <div class="track-result" id="trackResult"></div>
+      </section>
+
+      <section class="side-info">
+        <h3>Fale com a gente</h3>
+        <div class="side-row"><span class="sicon">💬</span><div><strong>WhatsApp</strong><span>Atendimento rápido</span><a href="https://wa.me/5511997255630" target="_blank" rel="noopener">Abrir conversa →</a></div></div>
+        <div class="side-row"><span class="sicon">👤</span><div><strong>Minha conta</strong><span>Pedidos, dados e benefícios</span><a href="minha-conta.html">Acessar conta →</a></div></div>
+        <div class="side-row"><span class="sicon">📦</span><div><strong>Minhas compras</strong><span>Consulte seus pedidos</span><a href="minhas-compras.html">Ver pedidos →</a></div></div>
+      </section>
+
+      <section class="secure-box"><strong>🔒 Atendimento seguro</strong><p>Nunca compartilhe senhas, códigos de segurança ou dados completos do cartão com terceiros.</p></section>
+    </aside>
+  </section>
+
+  <p class="support-footer-note">FlashMarket · Suporte · Pedidos · Pagamentos · Conta · Produtos</p>
+</main>
+
+<footer class="fm-footer"><div class="fm-container fm-footer-grid"><div><h3>FlashMarket</h3><p>Compra simples, moderna e segura.</p></div><div><h3>Links</h3><a href="produtos.html">Produtos</a><br><a href="carrinho.html">Carrinho</a><br><a href="rastrear-pedido.html">Rastrear pedido</a></div><div><h3>Conta</h3><a href="login.html">Entrar / cadastrar</a><br><a href="minha-conta.html">Minha conta</a></div></div></footer>
+<script src="js/interno.js"></script>
+<script src="js/suporte.js?v=20260930-1"></script>
+</body>
+</html>
