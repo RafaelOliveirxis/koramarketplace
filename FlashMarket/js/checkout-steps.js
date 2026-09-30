@@ -2,7 +2,7 @@
   'use strict';
   const el=id=>document.getElementById(id);
   const money=window.fmMoney||((v)=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}));
-  const DEMO_PAYMENT=true; // Modo demonstração: nenhum pagamento real é cobrado.
+  const DEMO_PAYMENT=true;
 
   function parse(raw){if(!raw)return null;try{return typeof raw==='string'?JSON.parse(raw):raw}catch{return null}}
   function normalize(raw){
@@ -20,7 +20,9 @@
   }
 
   const cart=readCart();
-  const catalog=Array.isArray(window.FM_PRODUCTS)?window.FM_PRODUCTS:[];
+  // interno.js declares FM_PRODUCTS with `const`, so it is available in the
+  // global lexical scope but is NOT exposed as window.FM_PRODUCTS.
+  const catalog=(typeof FM_PRODUCTS!=='undefined'&&Array.isArray(FM_PRODUCTS))?FM_PRODUCTS:[];
   const products=cart.map(x=>{
     const raw=x.product||x.p||{};
     const p=Object.keys(raw).length?raw:catalog.find(item=>Number(item.id)===Number(x.id));
