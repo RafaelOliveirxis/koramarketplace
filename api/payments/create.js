@@ -2,7 +2,6 @@ const { randomUUID } = require('crypto');
 const { getPool } = require('../_lib/db');
 const { mpRequest } = require('../_lib/mercadopago');
 const { applyCors } = require('../_lib/cors');
-const { getToken } = (() => { try { return require('../_lib/auth'); } catch { return {}; } })();
 const jwt = require('jsonwebtoken');
 
 function optionalUser(req) {
@@ -67,6 +66,10 @@ module.exports = async (req, res) => {
     const publicId = `FM-${Date.now().toString(36).toUpperCase()}-${randomUUID().slice(0, 6).toUpperCase()}`;
     const externalReference = publicId.replace(/[^A-Z0-9_-]/g, '').slice(0, 64);
     const user = optionalUser(req);
+    const frontendUrl = (process.env.FRONTEND_URL || '').replace(/\/$/, '');
+    const successUrl = frontendUrl ? `${frontendUrl}/pagamento-retorno.html?order=${encodeURIComponent(publicId)}&result=success` : undefined;
+    const failureUrl = frontendUrl ? `${frontendUrl}/pagamento-retorno.html?order=${encodeURIComponent(publicId)}&result=failure` : undefined;
+    const pendingUrl = frontendUrl ? `${frontendUrl}/pagamento-retorno.html?order=${encodeURIComponent(publicId)}&result=pending` : undefined;
 
     const [insert] = await db.execute(
       `INSERT INTO fm_orders (public_id,user_id,customer_name,customer_email,customer_phone,cep,state,city,address,complement,shipping_amount,payment_method,total_amount,status,mp_external_reference) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,'creating',?)`,
@@ -81,6 +84,14 @@ module.exports = async (req, res) => {
       );
     }
 
+    const onlineConfig = {};
+    if (successUrl) {
+      onlineConfig.success_url = successUrl;
+      onlineConfig.failure_url = failureUrl;
+      onlineConfig.pending_url = pendingUrl;
+      onlineConfig.auto_return = 'approved';
+    }
+
     const mpOrder = await mpRequest('/v1/orders', {
       method: 'POST',
       headers: { 'X-Idempotency-Key': randomUUID() },
@@ -92,6 +103,7 @@ module.exports = async (req, res) => {
         external_reference: externalReference,
         description: `Compra FlashMarket ${publicId}`,
         payer: { email: customerEmail, first_name: customerName.split(/\s+/)[0] },
+        ...(Object.keys(onlineConfig).length ? { config: { online: onlineConfig } } : {}),
         items: orderItems.map(item => ({
           title: item.name,
           quantity: item.qty,
