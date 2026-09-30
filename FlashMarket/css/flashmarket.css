@@ -1,0 +1,17 @@
+/* FlashMarket Unified Stylesheet
+   Entry point único para a camada visual compartilhada.
+   A ordem abaixo preserva o comportamento visual atual enquanto reduz a duplicação de carregamento. */
+@import url('./style.css');
+@import url('./interno.css');
+@import url('./site-system.css');
+@import url('./mobile-app.css');
+@import url('./mobile-fix.css');
+@import url('./mobile-app-v3.css');
+@import url('./mobile-app-final.css');
+@import url('./marketplace-final.css');
+@import url('./catalog-footer.css');
+@import url('./kora-redesign.css');
+@import url('./kora-logo.css');
+@import url('./auth-reference.css');
+@import url('./flashmarket-premium.css');
+@import url('./design-system.css');
