@@ -1,4 +1,4 @@
-const CACHE_NAME = "flashmarket-shell-v12";
+const CACHE_NAME = "flashmarket-shell-v13";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -24,6 +24,7 @@ const APP_SHELL = [
   "./css/kora-redesign.css",
   "./css/kora-logo.css",
   "./css/auth-reference.css",
+  "./css/home-proportional.css",
   "./js/app.js",
   "./js/auth-real.js",
   "./js/mobile-app.js",
@@ -55,8 +56,19 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
   event.respondWith(
     fetch(event.request)
-      .then(response => {
-        if (response.ok && new URL(event.request.url).origin === self.location.origin) {
+      .then(async response => {
+        const url = new URL(event.request.url);
+        const isHome = url.origin === self.location.origin && (url.pathname.endsWith("/FlashMarket/") || url.pathname.endsWith("/FlashMarket/index.html"));
+        const type = response.headers.get("content-type") || "";
+
+        if (response.ok && isHome && type.includes("text/html")) {
+          const html = await response.text();
+          const css = '<link rel="stylesheet" href="./css/home-proportional.css?v=13">';
+          const updated = html.includes("home-proportional.css") ? html : html.replace("</head>", css + "</head>");
+          response = new Response(updated, {status: response.status, statusText: response.statusText, headers: response.headers});
+        }
+
+        if (response.ok && url.origin === self.location.origin) {
           const copy = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
         }
