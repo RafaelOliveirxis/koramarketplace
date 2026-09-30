@@ -13,7 +13,7 @@
 <div data-fm-header></div>
 <main class="fm-container flow-main checkout-page">
 <div class="flow-breadcrumb"><a href="index.html">Início</a> / <a href="carrinho.html">Carrinho</a> / Checkout</div>
-<section class="fm-hero checkout-heading"><span class="fm-kicker">🔒 CHECKOUT SEGURO</span><h1 class="fm-title">Finalizar compra</h1><p class="fm-subtitle">Preencha seus dados, escolha a entrega e siga para o pagamento seguro do Mercado Pago.</p></section>
+<section class="fm-hero checkout-heading"><span class="fm-kicker">🔒 CHECKOUT SEGURO</span><h1 class="fm-title">Finalizar compra</h1><p class="fm-subtitle">Preencha seus dados, escolha a entrega e conclua seu pedido com segurança.</p></section>
 <div class="checkout-steps" id="checkoutSteps"><button type="button" class="checkout-step active" data-step="1"><span>1</span><b>Entrega</b></button><div class="step-line"></div><button type="button" class="checkout-step" data-step="2"><span>2</span><b>Pagamento</b></button><div class="step-line"></div><button type="button" class="checkout-step" data-step="3"><span>3</span><b>Confirmação</b></button></div>
 <div id="checkoutApp">
 <div class="checkout-layout">
@@ -35,23 +35,23 @@
 <button type="button" class="checkout-next" data-next="2">CONTINUAR PARA PAGAMENTO <b>→</b></button>
 </section>
 <section class="checkout-panel checkout-section" data-panel="2" hidden>
-<div class="panel-heading"><div class="panel-icon">💳</div><div><h2>Pagamento seguro</h2><p>Escolha uma opção e conclua a cobrança no ambiente seguro do Mercado Pago.</p></div></div>
-<div class="payment-methods"><label class="checkout-option payment-option selected"><input type="radio" name="payment" value="pix" checked><span><strong>PIX</strong><small>Pagamento instantâneo pelo Mercado Pago.</small></span><b>✓</b></label><label class="checkout-option payment-option"><input type="radio" name="payment" value="card"><span><strong>Cartão de crédito</strong><small>Os dados do cartão serão preenchidos diretamente no Mercado Pago.</small></span><b>✓</b></label><label class="checkout-option payment-option"><input type="radio" name="payment" value="boleto"><span><strong>Boleto bancário</strong><small>Disponibilidade e vencimento serão exibidos no Mercado Pago.</small></span><b>✓</b></label></div>
-<div class="payment-info" id="paymentInfo"></div><div class="payment-secure-card"><div class="card-mark">🔒</div><div><strong>Pagamento protegido</strong><small>O FlashMarket não recebe nem armazena número de cartão, validade ou CVV.</small></div></div><div class="secure large">🔐 Seus dados de pagamento são processados no ambiente do Mercado Pago.</div>
+<div class="panel-heading"><div class="panel-icon">💳</div><div><h2>Pagamento</h2><p>Escolha uma forma de pagamento para a simulação da compra.</p></div></div>
+<div class="payment-methods"><label class="checkout-option payment-option selected"><input type="radio" name="payment" value="pix" checked><span><strong>PIX</strong><small>Pagamento instantâneo simulado.</small></span><b>✓</b></label><label class="checkout-option payment-option"><input type="radio" name="payment" value="card"><span><strong>Cartão de crédito</strong><small>Pagamento simulado com cartão.</small></span><b>✓</b></label><label class="checkout-option payment-option"><input type="radio" name="payment" value="boleto"><span><strong>Boleto bancário</strong><small>Boleto simulado para demonstração.</small></span><b>✓</b></label></div>
+<div class="payment-info" id="paymentInfo"></div><div class="payment-secure-card"><div class="card-mark">🧪</div><div><strong>Modo demonstração</strong><small>Nenhuma cobrança real será feita. O pedido será salvo apenas no navegador para testes.</small></div></div><div class="secure large">🔒 Esta versão está preparada para testar o fluxo completo antes da ativação do pagamento real.</div>
 <div class="step-actions"><button type="button" class="checkout-back" data-back="1">← VOLTAR</button><button type="button" class="checkout-next" data-next="3">REVISAR PEDIDO <b>→</b></button></div>
 </section>
 <section class="checkout-panel checkout-section" data-panel="3" hidden>
-<div class="panel-heading"><div class="panel-icon">✓</div><div><h2>Confirmação</h2><p>Confira tudo antes de criar o pedido e abrir o pagamento.</p></div></div>
+<div class="panel-heading"><div class="panel-icon">✓</div><div><h2>Confirmação</h2><p>Confira tudo antes de criar o pedido.</p></div></div>
 <div class="confirmation-box"><div><span>👤 Cliente</span><strong id="confirmCustomer">Preencha seus dados</strong></div><div><span>📍 Entrega</span><strong id="confirmAddress">Preencha o endereço</strong></div><div><span>🚚 Frete</span><strong id="confirmShipping">Frete grátis · 5 a 10 dias úteis</strong></div><div><span>💳 Pagamento</span><strong id="confirmPayment">PIX</strong></div></div>
-<div class="secure large">🔐 O servidor recalcula os produtos e o total antes de criar a cobrança.</div>
-<div class="step-actions"><button type="button" class="checkout-back" data-back="2">← VOLTAR</button><button type="button" class="checkout-confirm" id="confirm">CRIAR PEDIDO E PAGAR <b>→</b></button></div>
+<div class="secure large">🧪 <b>Modo demonstração:</b> o pedido será aprovado apenas para teste e nenhuma cobrança será realizada.</div>
+<div class="step-actions"><button type="button" class="checkout-back" data-back="2">← VOLTAR</button><button type="button" class="checkout-confirm" id="confirm">CRIAR PEDIDO E SIMULAR PAGAMENTO →</button></div>
 </section>
 </div>
-<aside class="checkout-summary"><section class="summary-card"><div class="summary-heading"><h2>Resumo do pedido</h2><span id="summaryCount">0 itens</span></div><div id="items"></div><div class="sum-row"><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div><div class="sum-row"><span>Frete</span><strong id="shipping">Grátis</strong></div><div class="sum-row sum-total"><span>Total</span><strong id="total">R$ 0,00</strong></div><div class="summary-trust"><span>🔒 <b>Compra protegida</b></span><span>🚚 Envio com acompanhamento</span><span>↩ Trocas e atendimento</span></div></section></aside>
+<aside class="checkout-summary"><section class="summary-card"><div class="summary-heading"><h2>Resumo do pedido</h2><span id="summaryCount">0 itens</span></div><div id="items"></div><div class="sum-row"><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div><div class="sum-row"><span>Frete</span><strong id="shipping">Grátis</strong></div><div class="sum-row sum-total"><span>Total</span><strong id="total">R$ 0,00</strong></div><div class="summary-trust"><span>🔒 <b>Compra protegida</b></span><span>🚚 Envio com acompanhamento</span><span>🧪 Pagamento simulado</span></div></section></aside>
 </div></div>
-<section class="flow-card order-success-card hidden" id="success"><div class="order-success-icon">✓</div><h2>Pedido criado!</h2><p class="flow-muted" id="successText"></p><span class="order-number" id="orderNumber"></span><div class="order-actions"><a class="fm-btn orange" id="payAgain" href="#">ABRIR PAGAMENTO</a><a class="fm-btn light" href="minha-conta.html">VER MINHAS COMPRAS</a><a class="fm-btn light" href="rastrear-pedido.html">RASTREAR PEDIDO</a></div></section>
+<section class="flow-card order-success-card hidden" id="success"><div class="order-success-icon">✓</div><h2>Pedido confirmado!</h2><p class="flow-muted" id="successText"></p><span class="order-number" id="orderNumber"></span><div class="order-actions"><a class="fm-btn orange" id="payAgain" href="minha-conta.html">VER PEDIDO</a><a class="fm-btn light" href="minha-conta.html">VER MINHAS COMPRAS</a><a class="fm-btn light" href="rastrear-pedido.html">RASTREAR PEDIDO</a></div></section>
 </main>
 <footer class="fm-footer"><div class="fm-container"><strong>FlashMarket</strong> · Compra segura · Atendimento · Rastreio</div></footer>
-<script src="js/interno.js?v=20260930-3"></script>
-<script src="js/checkout-steps.js?v=20260930-3"></script>
+<script src="js/interno.js?v=20260930-6"></script>
+<script src="js/checkout-steps.js?v=20260930-6"></script>
 </body></html>
