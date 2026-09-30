@@ -1,4 +1,4 @@
-const CACHE_NAME = "flashmarket-shell-v13";
+const CACHE_NAME = "flashmarket-shell-v14";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -25,6 +25,7 @@ const APP_SHELL = [
   "./css/kora-logo.css",
   "./css/auth-reference.css",
   "./css/home-proportional.css",
+  "./css/minha-conta.css",
   "./js/app.js",
   "./js/auth-real.js",
   "./js/mobile-app.js",
@@ -33,6 +34,7 @@ const APP_SHELL = [
   "./js/suporte.js",
   "./js/pwa.js",
   "./js/interno.js",
+  "./js/minha-conta.js",
   "./assets/favicon.png",
   "./assets/logo.FlashMarket.png",
   "./assets/logo-kora.svg"
@@ -45,9 +47,7 @@ self.addEventListener("install", event => {
 
 self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
-    )
+    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
   );
   self.clients.claim();
 });
@@ -60,14 +60,12 @@ self.addEventListener("fetch", event => {
         const url = new URL(event.request.url);
         const isHome = url.origin === self.location.origin && (url.pathname.endsWith("/FlashMarket/") || url.pathname.endsWith("/FlashMarket/index.html"));
         const type = response.headers.get("content-type") || "";
-
         if (response.ok && isHome && type.includes("text/html")) {
           const html = await response.text();
-          const css = '<link rel="stylesheet" href="./css/home-proportional.css?v=13">';
+          const css = '<link rel="stylesheet" href="./css/home-proportional.css?v=14">';
           const updated = html.includes("home-proportional.css") ? html : html.replace("</head>", css + "</head>");
           response = new Response(updated, {status: response.status, statusText: response.statusText, headers: response.headers});
         }
-
         if (response.ok && url.origin === self.location.origin) {
           const copy = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
