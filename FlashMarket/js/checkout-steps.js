@@ -2,17 +2,18 @@
   'use strict';
   const el=id=>document.getElementById(id);
   const money=window.fmMoney||((v)=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}));
+  const DEMO_PAYMENT=true; // Modo demonstração: nenhum pagamento real é cobrado.
 
-  // O checkout aceita o carrinho normal e o pacote enriquecido enviado pelo carrinho.
   function parse(raw){if(!raw)return null;try{return typeof raw==='string'?JSON.parse(raw):raw}catch{return null}}
   function normalize(raw){
     const value=parse(raw);if(!value)return [];
     const list=Array.isArray(value)?value:Object.entries(value).map(([id,qty])=>({id,qty}));
-    return list.map(x=>({id:Number(x.id),qty:Math.max(1,Number(x.qty)||1),product:x.product||x.p||null})).filter(x=>Number.isFinite(x.id));
+    return list.map(x=>({id:Number(x.id),qty:Math.max(1,Number(x.qty)||1),product:x.product||x.p||null})).filter(x=>Number.isFinite(x.id)&&x.id>0);
   }
   function readCart(){
     const keys=['flashmarket_checkout_cart','flashmarket_cart','FM_CART','cartItems','cart'];
-    for(const storage of [sessionStorage,localStorage]){
+    const storages=[sessionStorage,localStorage];
+    for(const storage of storages){
       for(const key of keys){const items=normalize(storage.getItem(key));if(items.length)return items;}
     }
     return [];
@@ -21,16 +22,18 @@
   const cart=readCart();
   const catalog=Array.isArray(window.FM_PRODUCTS)?window.FM_PRODUCTS:[];
   const products=cart.map(x=>{
-    const p=x.product||catalog.find(item=>Number(item.id)===Number(x.id));
+    const raw=x.product||x.p||{};
+    const p=Object.keys(raw).length?raw:catalog.find(item=>Number(item.id)===Number(x.id));
     if(!p)return null;
-    return {id:Number(x.id),qty:x.qty,p:{id:Number(p.id),n:p.n||p.name,p:Number(p.p??p.price),i:p.i||p.image,c:p.c||p.category}};
+    const price=Number(p.p??p.price??0);
+    const name=p.n||p.name||'Produto';
+    const image=p.i||p.image||'assets/logo-flashmarket.png';
+    const category=p.c||p.category||'Produto';
+    if(!price)return null;
+    return {id:Number(x.id),qty:x.qty,p:{id:Number(x.id),n:name,p:price,i:image,c:category}};
   }).filter(Boolean);
-  let subtotal=products.reduce((s,x)=>s+x.p.p*x.qty,0),currentStep=1;
 
-  // O GitHub Pages publica apenas o frontend. O pagamento real precisa de uma URL de API.
-  const configuredApi=(localStorage.getItem('flashmarket_api_url')||'').replace(/\/$/,'');
-  const isGithubPages=location.hostname.endsWith('github.io');
-  const API_BASE=configuredApi||((!isGithubPages&&location.origin)?location.origin:'');
+  let subtotal=products.reduce((s,x)=>s+x.p.p*x.qty,0),currentStep=1;
 
   function injectHeaderFallback(){
     const host=document.querySelector('[data-fm-header]');
@@ -39,8 +42,7 @@
   setTimeout(injectHeaderFallback,300);
 
   if(!products.length){
-    const savedCount=cart.reduce((s,x)=>s+x.qty,0);
-    el('checkoutApp').innerHTML='<section class="flow-card order-success-card"><div class="order-success-icon">🛍️</div><h2>Não conseguimos carregar os produtos</h2><p class="flow-muted">O navegador encontrou '+savedCount+' item(ns) no carrinho, mas os dados do produto não foram carregados. Volte ao carrinho e clique novamente em <b>IR PARA CHECKOUT</b>.</p><br><a class="fm-btn orange" href="carrinho.html">VOLTAR AO CARRINHO</a></section>';
+    el('checkoutApp').innerHTML='<section class="flow-card order-success-card"><div class="order-success-icon">🛍️</div><h2>Seu carrinho está vazio</h2><p class="flow-muted">Não encontramos produtos disponíveis para finalizar. Volte ao carrinho, adicione um produto e clique novamente em <b>IR PARA CHECKOUT</b>.</p><br><a class="fm-btn orange" href="carrinho.html">VOLTAR AO CARRINHO</a></section>';
     return;
   }
 
@@ -61,22 +63,43 @@
   async function lookupCEP(v){try{const r=await fetch('https://viacep.com.br/ws/'+digits(v)+'/json/');const d=await r.json();if(d.erro){mark('cep',false,'CEP não encontrado.');return}if(d.logradouro&&!el('address').value)el('address').value=d.logradouro;if(d.localidade)el('city').value=d.localidade;if(d.uf)el('uf').value=d.uf;['cep','address','city','uf'].forEach(id=>{if(el(id).value.trim())mark(id,true)})}catch{mark('cep',false,'Não foi possível consultar o CEP agora.')}}
   function mark(id,ok,msg=''){const i=el(id);if(!i)return false;const f=i.closest('.field'),e=f&&f.querySelector('.field-error');f.classList.toggle('is-valid',ok);f.classList.toggle('is-invalid',!ok);if(e)e.textContent=msg;return ok}
   function validateField(id,show){const v=el(id).value.trim();let ok=true,msg='';if(!v){ok=false;msg='Campo obrigatório.'}if(id==='customerName'&&v&&v.split(/\s+/).length<2){ok=false;msg='Informe nome e sobrenome.'}if(id==='customerEmail'&&v&&!/^\S+@\S+\.\S+$/.test(v)){ok=false;msg='Informe um e-mail válido.'}if(id==='customerCpf'&&v&&!validCPF(v)){ok=false;msg='CPF inválido.'}if(id==='customerPhone'&&v&&digits(v).length<10){ok=false;msg='Celular inválido.'}if(id==='cep'&&v&&digits(v).length!==8){ok=false;msg='CEP inválido.'}if(show||v)mark(id,ok,msg);return ok}
-  function shipping(){const v=Number(document.querySelector('input[name=shipping]:checked').value);el('shipping').textContent=v?'R$ 19,90':'Grátis';el('total').textContent=money(subtotal+v);document.querySelectorAll('input[name=shipping]').forEach(r=>r.closest('.checkout-option').classList.toggle('selected',r.checked));if(el('confirmShipping'))el('confirmShipping').textContent=v?'Entrega expressa · 2 a 5 dias úteis · R$ 19,90':'Frete grátis · 5 a 10 dias úteis';return v}
-  function payment(){const r=document.querySelector('input[name=payment]:checked'),names={pix:'PIX',card:'Cartão de crédito',boleto:'Boleto bancário'},desc={pix:'Pagamento instantâneo pelo Mercado Pago.',card:'Pagamento seguro no ambiente do Mercado Pago.',boleto:'O vencimento será informado no Mercado Pago.'};document.querySelectorAll('.payment-option').forEach(x=>x.classList.toggle('selected',x.querySelector('input').checked));if(el('confirmPayment'))el('confirmPayment').textContent=names[r.value];if(el('paymentInfo'))el('paymentInfo').innerHTML='<strong>'+names[r.value]+' selecionado</strong><span>'+desc[r.value]+'</span>'}
+  function shipping(){const input=document.querySelector('input[name=shipping]:checked');const v=input?Number(input.value):0;el('shipping').textContent=v?'R$ 19,90':'Grátis';el('total').textContent=money(subtotal+v);document.querySelectorAll('input[name=shipping]').forEach(r=>r.closest('.checkout-option').classList.toggle('selected',r.checked));if(el('confirmShipping'))el('confirmShipping').textContent=v?'Entrega expressa · 2 a 5 dias úteis · R$ 19,90':'Frete grátis · 5 a 10 dias úteis';return v}
+  function payment(){const r=document.querySelector('input[name=payment]:checked');if(!r)return;const names={pix:'PIX',card:'Cartão de crédito',boleto:'Boleto bancário'},desc={pix:'Pagamento simulado instantâneo.',card:'Pagamento simulado com cartão.',boleto:'Boleto simulado para demonstração.'};document.querySelectorAll('.payment-option').forEach(x=>x.classList.toggle('selected',x.querySelector('input').checked));if(el('confirmPayment'))el('confirmPayment').textContent=names[r.value];if(el('paymentInfo'))el('paymentInfo').innerHTML='<strong>'+names[r.value]+' selecionado</strong><span>'+desc[r.value]+'</span>'}
   function deliveryOK(){let ok=true;fieldIds.forEach(id=>{if(!validateField(id,true))ok=false});if(!ok){const first=document.querySelector('.field.is-invalid input,.field.is-invalid select');if(first)first.focus();if(window.fmToast)fmToast('Revise os campos destacados antes de continuar.')}return ok}
   function go(step){if(step===2&&!deliveryOK())return;if(step===3){payment();shipping();el('confirmCustomer').textContent=el('customerName').value+' · '+el('customerEmail').value;el('confirmAddress').textContent=[el('address').value,el('complement').value,el('city').value,el('uf').value,el('cep').value].filter(Boolean).join(', ')}currentStep=step;document.querySelectorAll('.checkout-section').forEach(p=>{const active=Number(p.dataset.panel)===step;p.hidden=!active;p.classList.toggle('active',active)});document.querySelectorAll('.checkout-step').forEach(s=>{const n=Number(s.dataset.step);s.classList.toggle('active',n===step);s.classList.toggle('done',n<step)});window.scrollTo({top:0,behavior:'smooth'})}
   document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.next))));document.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.back))));document.querySelectorAll('.checkout-step').forEach(b=>b.addEventListener('click',()=>{const n=Number(b.dataset.step);if(n<=currentStep)go(n)}));document.querySelectorAll('input[name=shipping]').forEach(x=>x.addEventListener('change',shipping));document.querySelectorAll('input[name=payment]').forEach(x=>x.addEventListener('change',payment));
 
-  async function createPayment(){
-    if(!deliveryOK())return;
-    if(!API_BASE){
-      const message=isGithubPages?'O site está aberto pelo GitHub Pages. Essa versão hospeda apenas o frontend; para criar pedidos e cobrar pelo Mercado Pago, configure a API em uma hospedagem com Node/Vercel e informe a URL em localStorage.flashmarket_api_url.':'A API de pagamentos ainda não está configurada.';
-      if(window.fmToast)fmToast(message);else alert(message);return;
-    }
-    const button=el('confirm'),shippingAmount=shipping(),paymentMethod=document.querySelector('input[name=payment]:checked').value;button.disabled=true;button.innerHTML='CRIANDO PEDIDO <span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>';
-    const token=localStorage.getItem('flashmarket_token');
-    const payload={customer:{name:el('customerName').value.trim(),email:el('customerEmail').value.trim(),phone:el('customerPhone').value.trim()},address:{cep:el('cep').value.trim(),state:el('uf').value.trim(),city:el('city').value.trim(),address:el('address').value.trim(),complement:el('complement').value.trim()},shippingAmount,paymentMethod,items:products.map(x=>({id:x.id,qty:x.qty}))};
-    try{const response=await fetch(API_BASE+'/api/payments/create',{method:'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:JSON.stringify(payload)});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||'Não foi possível criar o pedido.');const localOrder={id:data.order.id,total:data.order.total,status:data.order.status,date:new Date().toISOString(),items:products.map(x=>({id:x.id,n:x.p.n,qty:x.qty,p:x.p.p,i:x.p.i})),shipping:shippingAmount,payment:paymentMethod,address:payload.address,customer:payload.customer,mercadoPagoOrderId:data.order.mercadoPagoOrderId};const orders=JSON.parse(localStorage.getItem('flashmarket_orders')||'[]');orders.unshift(localOrder);localStorage.setItem('flashmarket_orders',JSON.stringify(orders));localStorage.setItem('flashmarket_last_order',JSON.stringify(localOrder));localStorage.removeItem('flashmarket_cart');localStorage.removeItem('flashmarket_checkout_cart');sessionStorage.removeItem('flashmarket_checkout_cart');el('checkoutApp').classList.add('hidden');el('success').classList.remove('hidden');el('successText').textContent='Pedido '+data.order.id+' criado. Você será direcionado ao ambiente seguro do Mercado Pago.';el('orderNumber').textContent='Pedido '+data.order.id;el('payAgain').href=data.order.checkoutUrl||'pagamento-retorno.html?order='+encodeURIComponent(data.order.id);if(data.order.checkoutUrl){window.location.href=data.order.checkoutUrl;return}window.scrollTo({top:0,behavior:'smooth'})}catch(error){if(window.fmToast)fmToast(error.message||'Não foi possível iniciar o pagamento.');else alert(error.message);button.disabled=false;button.innerHTML='CRIAR PEDIDO E PAGAR <b>→</b>')}
+  function saveDemoOrder(){
+    const shippingAmount=shipping();
+    const paymentMethod=document.querySelector('input[name=payment]:checked')?.value||'pix';
+    const now=new Date();
+    const stamp=now.getFullYear().toString()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
+    const seq=String(Date.now()).slice(-6);
+    const orderId='FM-'+stamp+'-'+seq;
+    const payload={customer:{name:el('customerName').value.trim(),email:el('customerEmail').value.trim(),phone:el('customerPhone').value.trim()},address:{cep:el('cep').value.trim(),state:el('uf').value.trim(),city:el('city').value.trim(),address:el('address').value.trim(),complement:el('complement').value.trim()},shipping:shippingAmount,payment:paymentMethod};
+    const order={id:orderId,total:Number((subtotal+shippingAmount).toFixed(2)),status:'approved_demo',statusLabel:'Pagamento aprovado (simulação)',date:now.toISOString(),items:products.map(x=>({id:x.id,n:x.p.n,qty:x.qty,p:x.p.p,i:x.p.i,c:x.p.c})),shipping:shippingAmount,payment:paymentMethod,address:payload.address,customer:payload.customer,demo:true};
+    const orders=parse(localStorage.getItem('flashmarket_orders'))||[];orders.unshift(order);localStorage.setItem('flashmarket_orders',JSON.stringify(orders));localStorage.setItem('flashmarket_last_order',JSON.stringify(order));
+    localStorage.removeItem('flashmarket_cart');localStorage.removeItem('flashmarket_checkout_cart');sessionStorage.removeItem('flashmarket_checkout_cart');
+    return order;
   }
-  el('confirm').addEventListener('click',createPayment);shipping();payment();
+
+  function createPayment(){
+    if(!deliveryOK())return;
+    if(!DEMO_PAYMENT)return;
+    const button=el('confirm');button.disabled=true;button.innerHTML='PROCESSANDO PAGAMENTO <span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>';
+    setTimeout(()=>{
+      const order=saveDemoOrder();
+      el('checkoutApp').classList.add('hidden');el('success').classList.remove('hidden');
+      el('successText').textContent='Seu pedido foi registrado com sucesso em modo demonstração. Nenhuma cobrança real foi realizada.';
+      el('orderNumber').textContent='Pedido '+order.id;
+      el('payAgain').textContent='VER PEDIDO';el('payAgain').href='minha-conta.html';
+      window.scrollTo({top:0,behavior:'smooth'});
+      if(window.fmToast)fmToast('Pagamento simulado aprovado!');
+    },1100);
+  }
+
+  const demo=document.createElement('div');demo.className='secure large';demo.style.marginBottom='16px';demo.innerHTML='🧪 <b>Modo demonstração</b> · pagamento simulado, sem cobrança real.';const panel=document.querySelector('.checkout-panel[data-panel="2"]');if(panel)panel.insertBefore(demo,panel.querySelector('.payment-methods'));
+  el('confirm').textContent='CRIAR PEDIDO E SIMULAR PAGAMENTO →';
+  shipping();payment();
+  el('confirm').addEventListener('click',createPayment);
 })();
