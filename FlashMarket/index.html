@@ -16,7 +16,7 @@
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 18px)}body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45;padding-top:var(--header-h)}a{text-decoration:none;color:inherit}button,input{font:inherit}button{border:0;cursor:pointer}img{display:block;max-width:100%}.wrap{width:min(1440px,94%);margin:auto}
 .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--red);box-shadow:0 7px 24px rgba(0,0,0,.18)}
 .top{height:40px;background:linear-gradient(90deg,#ff2f1b,#ff4a24);color:#fff;font-size:12px}.top .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}.top-left,.top-right{display:flex;align-items:center;gap:20px;white-space:nowrap}.top a{color:#fff}.top strong{font-weight:900}.sep{opacity:.45}
-.header{background:linear-gradient(90deg,#ff461e,#ff2f19)}.header-main{min-height:102px;display:grid;grid-template-columns:230px minmax(360px,1fr) 390px;align-items:center;gap:28px}.brand{display:flex;align-items:center;justify-content:flex-start;height:100%}.logo{width:215px;height:92px;object-fit:contain;filter:drop-shadow(0 4px 2px rgba(0,0,0,.16))}.brand-name{display:none}
+.header{background:linear-gradient(90deg,#ff461e,#ff2f19)}.header-main{min-height:102px;display:grid;grid-template-columns:230px minmax(360px,1fr) 390px;align-items:center;gap:28px}.brand{display:flex;align-items:center;justify-content:flex-start;height:100%}.logo{width:215px;height:92px;object-fit:contain;filter:drop-shadow(0 4px 2px rgba(0,0,0,.16))}.brand-name{display:none;font-size:25px;font-weight:900;color:#fff}.brand-name span{color:#ffd400}
 .search{height:58px;display:flex;background:#fff;border:3px solid rgba(255,255,255,.42);border-radius:14px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.10)}.search input{flex:1;min-width:0;border:0;outline:0;background:#fff;padding:0 22px;font-size:16px;color:#333}.search input::placeholder{color:#9a9a9a}.search button{width:68px;margin:4px;background:var(--red);border-radius:10px;color:#fff;font-size:30px;font-weight:900}.search button:hover{background:var(--red2)}
 .actions{display:flex;align-items:center;justify-content:flex-end;height:100%}.action-wrap{min-height:62px;padding:7px 18px;display:flex;align-items:center;gap:10px;color:#fff;border-left:1px solid rgba(255,255,255,.25)}.action-wrap:first-child{border-left:0}.action{position:relative;width:48px;height:48px;background:transparent;color:#fff;font-size:31px;line-height:1}.action-label{display:flex;flex-direction:column;line-height:1.15}.action-label strong{font-size:13px;font-weight:900}.action-label small{font-size:10px;opacity:.9;margin-top:4px}.action-chevron{font-size:12px}.cart b{position:absolute;right:-4px;top:-6px;min-width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#b9140a;color:#fff;border:2px solid #fff;font-size:10px}.mobile{display:none;background:transparent;color:#fff;font-size:27px}
 .nav{height:54px;background:linear-gradient(90deg,#ef321a,#ff3b1f);border-top:1px solid rgba(255,255,255,.18)}.nav .wrap{height:100%;display:flex;align-items:center;overflow:auto;scrollbar-width:none}.nav .wrap::-webkit-scrollbar{display:none}.nav a{height:100%;display:flex;align-items:center;position:relative;padding:0 20px;color:#fff;font-size:13px;font-weight:900;white-space:nowrap}.nav a:hover{background:rgba(255,255,255,.07)}.nav a.active{color:var(--yellow)}.nav a.active:after{content:"";position:absolute;left:20px;right:20px;bottom:0;height:4px;background:var(--yellow);border-radius:4px 4px 0 0}.nav .menu-link{gap:11px;padding-left:0!important;margin-right:8px;border-right:1px solid rgba(255,255,255,.25)}.hamb{font-size:30px;line-height:1}
@@ -28,14 +28,14 @@
 .newsletter{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:20px}.newsletter-box{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center;padding:34px 0}.newsletter h2{font-size:27px;letter-spacing:-1px}.newsletter p{font-size:12px;color:var(--muted);margin-top:5px}.subscribe{height:50px;display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}.subscribe input{flex:1;border:0;outline:0;padding:0 15px;font-size:12px}.subscribe button{background:var(--red);color:#fff;padding:0 20px;font-weight:900;font-size:10px}.footer{background:#151515;color:#ddd;padding:46px 0 20px}.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px}.footer-logo{width:92px;height:80px;object-fit:contain;margin-bottom:5px}.footer-brand{font-size:19px;font-weight:900;color:#fff}.footer-brand span{color:var(--red)}.footer h3{font-size:12px;color:#fff;margin-bottom:12px}.footer p,.footer a{font-size:10px;color:#999;display:block;margin:7px 0}.footer a:hover{color:#fff}.copy{text-align:center;border-top:1px solid #292929;margin-top:28px;padding-top:16px;font-size:9px;color:#666}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(5px);z-index:1200;display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-box{width:min(440px,100%);background:#fff;border-radius:20px;padding:30px;position:relative;box-shadow:0 25px 80px rgba(0,0,0,.25)}.close{position:absolute;right:14px;top:14px;width:32px;height:32px;border-radius:50%;background:#f1f1f1;font-size:21px;color:#555}.modal h2{font-size:24px}.modal p{font-size:11px;color:var(--muted);margin:5px 0 18px}.field{margin:12px 0}.field label{display:block;font-size:10px;font-weight:900;margin-bottom:6px}.field input{width:100%;height:44px;border:1px solid var(--line);border-radius:9px;padding:0 12px;outline:0}.field input:focus{border-color:#ff9b88;box-shadow:0 0 0 3px rgba(255,59,31,.08)}.primary{width:100%;height:45px;background:var(--red);color:#fff;border-radius:9px;font-weight:900;margin-top:8px}
 @media(max-width:1180px){.wrap{width:min(96%,1180px)}.header-main{grid-template-columns:190px minmax(300px,1fr) 310px;gap:16px}.logo{width:180px}.action-wrap{padding:7px 10px}.action-label small{display:none}.products{grid-template-columns:repeat(4,1fr)}.category-grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:820px){:root{--header-h:142px}.top{height:34px}.top-left{display:none}.top-right{width:100%;justify-content:center;font-size:10px;gap:12px}.top-right a{display:none}.header-main{min-height:72px;grid-template-columns:32px 82px minmax(0,1fr) 44px;gap:7px}.mobile{display:block}.logo{width:82px;height:65px}.search{height:43px;border-width:2px}.search input{font-size:11px;padding:0 10px}.search button{width:49px;font-size:22px}.actions .action-wrap:not(:last-child){display:none}.action-wrap{padding:0;border:0;min-height:0}.action-label{display:none}.action{font-size:27px}.nav{height:36px}.nav a{padding:0 12px;font-size:10px}.nav a.active:after{left:12px;right:12px;height:3px}.nav .menu-link{padding-left:0!important}.hero-grid{grid-template-columns:1fr}.hero-main{min-height:340px;padding:34px 26px}.hero h1{font-size:46px}.hero-side{grid-template-columns:1fr 1fr}.hero-card{min-height:145px;padding:20px}.hero-card strong{font-size:20px}.hero-card .emoji{font-size:50px}.benefits{grid-template-columns:1fr 1fr}.products{grid-template-columns:repeat(3,1fr);gap:11px}.category-grid{grid-template-columns:repeat(4,1fr)}.newsletter-box{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:820px){:root{--header-h:142px}.top{height:34px}.top-left{display:none}.top-right{width:100%;justify-content:center;font-size:10px;gap:12px}.top-right a{display:none}.header-main{min-height:72px;grid-template-columns:32px 82px minmax(0,1fr) 44px;gap:7px}.mobile{display:block}.logo{width:82px;height:65px}.search{height:43px;border-width:2px}.search input{font-size:11px;padding:0 10px}.search button{width:49px;font-size:22px}.actions .action-wrap:not(:last-child){display:none}.action-wrap{padding:0;border:0;min-height:0}.action-label{display:none}.action{font-size:27px}.actions{min-width:0}.nav{height:36px}.nav a{padding:0 12px;font-size:10px}.nav a.active:after{left:12px;right:12px;height:3px}.nav .menu-link{padding-left:0!important}.hero-grid{grid-template-columns:1fr}.hero-main{min-height:340px;padding:34px 26px}.hero h1{font-size:46px}.hero-side{grid-template-columns:1fr 1fr}.hero-card{min-height:145px;padding:20px}.hero-card strong{font-size:20px}.hero-card .emoji{font-size:50px}.benefits{grid-template-columns:1fr 1fr}.products{grid-template-columns:repeat(3,1fr);gap:11px}.category-grid{grid-template-columns:repeat(4,1fr)}.newsletter-box{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){:root{--header-h:140px}.wrap{width:94%}.header-main{grid-template-columns:29px 70px minmax(0,1fr) 40px}.logo{width:70px;height:60px}.top-right a:first-child{font-size:9px}.search{height:40px}.search input{font-size:10px}.search button{width:44px;font-size:20px}.nav a{font-size:9px;padding:0 10px}.hero{padding-top:14px}.hero-main{min-height:355px;padding:30px 22px}.hero h1{font-size:39px;letter-spacing:-2.3px}.hero p{font-size:12px}.hero-actions{flex-wrap:wrap}.cta{min-height:43px;padding:0 17px}.hero-side{grid-template-columns:1fr}.hero-card{min-height:125px}.benefits{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr);gap:9px}.category-grid{grid-template-columns:repeat(2,1fr)}.section{padding:22px 0}.section-head h2{font-size:21px}.flash{padding:20px;border-radius:18px}.banner{display:block;padding:27px}.banner .cta{margin-top:15px}.newsletter-box{padding:26px 0}.footer-grid{grid-template-columns:1fr}.footer{padding-top:34px}}
 </style>
 </head>
 <body>
 <header class="site-header">
 <div class="top"><div class="wrap"><div class="top-left"><strong>🚚 Frete Grátis em compras acima de R$ 199</strong><span class="sep">|</span><span>🔒 Compra Segura</span><span class="sep">|</span><span>🛡️ Seus dados protegidos</span></div><div class="top-right"><span>🎧 Atendimento 24h</span><span class="sep">|</span><a href="suporte.html">Central de Atendimento</a></div></div></div>
-<div class="header"><div class="wrap header-main"><button class="mobile" id="menuBtn" aria-label="Abrir menu">☰</button><a class="brand" href="#inicio" aria-label="FlashMarket"><img class="logo" src="assets/logo-kora.svg" alt="FlashMarket"></a><form class="search" id="searchForm"><input id="searchInput" type="search" placeholder="Buscar produtos, categorias e ofertas..." autocomplete="off"><button type="submit" aria-label="Buscar">⌕</button></form><div class="actions"><div class="action-wrap"><button class="action" id="accountBtn" aria-label="Minha conta">👤</button><div class="action-label"><strong>Minha Conta</strong><small>Entrar / Cadastrar</small></div><span class="action-chevron">⌄</span></div><div class="action-wrap"><button class="action" id="favBtn" aria-label="Favoritos">♡</button><div class="action-label"><strong>Favoritos</strong><small>Seus produtos</small></div><span class="action-chevron">⌄</span></div><div class="action-wrap"><button class="action cart" id="cartBtn" aria-label="Carrinho">🛒<b id="cartCount">0</b></button><div class="action-label"><strong>Carrinho</strong><small>Ver compras</small></div></div></div></div></div>
+<div class="header"><div class="wrap header-main"><button class="mobile" id="menuBtn" aria-label="Abrir menu">☰</button><a class="brand" href="#inicio" aria-label="FlashMarket"><img class="logo" src="assets/logo-kora.svg" alt="FlashMarket" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-name">Flash<span>Market</span></span></a><form class="search" id="searchForm"><input id="searchInput" type="search" placeholder="Buscar produtos, categorias e ofertas..." autocomplete="off"><button type="submit" aria-label="Buscar">⌕</button></form><div class="actions"><div class="action-wrap"><button class="action" id="accountBtn" aria-label="Minha conta">👤</button><div class="action-label"><strong>Minha Conta</strong><small>Entrar / Cadastrar</small></div><span class="action-chevron">⌄</span></div><div class="action-wrap"><button class="action" id="favBtn" aria-label="Favoritos">♡</button><div class="action-label"><strong>Favoritos</strong><small>Seus produtos</small></div><span class="action-chevron">⌄</span></div><div class="action-wrap"><button class="action cart" id="cartBtn" aria-label="Carrinho">🛒<b id="cartCount">0</b></button><div class="action-label"><strong>Carrinho</strong><small>Ver compras</small></div></div></div></div></div>
 <nav class="nav"><div class="wrap"><a class="menu-link" href="#categorias"><span class="hamb">☰</span><span>Todas as Categorias</span><span>⌄</span></a><a class="active" href="#inicio">⌂ &nbsp; Início</a><a href="#ofertas">🔥 &nbsp; Ofertas</a><a href="#mais-produtos">☆ &nbsp; Mais Vendidos</a><a href="#novidades">🏷️ &nbsp; Novidades</a><a href="#ofertas">⚡ &nbsp; Super Ofertas</a><a href="rastrear-pedido.html">Rastrear pedido</a><a href="afiliado.html">Afiliados</a></div></nav>
 </header>
 <main id="inicio">
@@ -47,25 +47,181 @@
 <section class="section" id="novidades"><div class="wrap"><div class="banner"><div><h3>Descubra algo novo hoje.</h3><p>Ofertas, novidades e produtos para facilitar sua rotina.</p></div><a class="cta" href="produtos.html">Ver catálogo →</a></div></div></section>
 <section class="newsletter"><div class="wrap newsletter-box"><div><h2>Receba nossas novidades</h2><p>Cadastre seu e-mail para ficar por dentro de ofertas e lançamentos.</p></div><form class="subscribe" id="newsletter"><input type="email" placeholder="Seu melhor e-mail" required><button>CADASTRAR</button></form></div></section>
 </main>
-<footer class="footer"><div class="wrap"><div class="footer-grid"><div><img class="footer-logo" src="assets/logo-kora.svg" alt="FlashMarket"><div class="footer-brand">Flash<span>Market</span></div><p>Marketplace online com produtos, ofertas e novidades para facilitar suas compras.</p></div><div><h3>Atendimento</h3><a href="suporte.html">Central de ajuda</a><a href="rastrear-pedido.html">Rastrear pedido</a><a href="minha-conta.html">Minha conta</a></div><div><h3>Institucional</h3><a href="#inicio">Sobre a FlashMarket</a><a href="afiliado.html">Programa de afiliados</a><a href="#categorias">Categorias</a></div><div><h3>Contato</h3><p>contato@flashmarket.com</p><p>(11) 99999-9999</p><p>São Paulo — SP</p></div></div><div class="copy">© 2026 FlashMarket. Todos os direitos reservados.</div></div></footer>
+<footer class="footer"><div class="wrap"><div class="footer-grid"><div><img class="footer-logo" src="assets/logo-kora.svg" alt="FlashMarket" onerror="this.style.display='none'"><div class="footer-brand">Flash<span>Market</span></div><p>Marketplace online com produtos, ofertas e novidades para facilitar suas compras.</p></div><div><h3>Atendimento</h3><a href="suporte.html">Central de ajuda</a><a href="rastrear-pedido.html">Rastrear pedido</a><a href="minha-conta.html">Minha conta</a></div><div><h3>Institucional</h3><a href="#inicio">Sobre a FlashMarket</a><a href="afiliado.html">Programa de afiliados</a><a href="#categorias">Categorias</a></div><div><h3>Contato</h3><p>contato@flashmarket.com</p><p>(11) 99999-9999</p><p>São Paulo — SP</p></div></div><div class="copy">© 2026 FlashMarket. Todos os direitos reservados.</div></div></footer>
 <div class="modal" id="modal"><div class="modal-box"><button class="close" id="closeModal">×</button><h2 id="modalTitle">Entrar</h2><p>Acesse sua conta para acompanhar seus pedidos.</p><form id="authForm"><div class="field"><label>E-mail</label><input type="email" id="email" required placeholder="voce@email.com"></div><div class="field"><label>Senha</label><input type="password" id="password" required placeholder="Sua senha"></div><button class="primary" type="submit">CONTINUAR</button></form></div></div>
 <script>
-const products=[
-{id:1,name:'Fone Bluetooth Pocket',cat:'Eletrônicos',old:'R$ 199,90',price:'R$ 149,90',off:'25% OFF',img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80'},
-{id:2,name:'Luminária LED de Mesa',cat:'Casa',old:'R$ 129,90',price:'R$ 89,90',off:'31% OFF',img:'assets/luminaria de led.png'},
-{id:3,name:'Mochila Urbana',cat:'Moda',old:'R$ 159,90',price:'R$ 109,90',off:'31% OFF',img:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'},
-{id:4,name:'Kit Garrafas Esportivas',cat:'Esportes',old:'R$ 79,90',price:'R$ 54,90',off:'31% OFF',img:'https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80'},
-{id:5,name:'Caderno Criativo Premium',cat:'Papelaria',old:'R$ 49,90',price:'R$ 34,90',off:'30% OFF',img:'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80'},
-{id:6,name:'Kit Potes Herméticos',cat:'Casa',old:'R$ 89,90',price:'R$ 59,90',off:'33% OFF',img:'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80'},
-{id:7,name:'Camiseta Básica Oversized',cat:'Moda',old:'R$ 79,90',price:'R$ 59,90',off:'25% OFF',img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80'},
-{id:8,name:'Mouse Sem Fio Slim',cat:'Eletrônicos',old:'R$ 89,90',price:'R$ 64,90',off:'28% OFF',img:'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=800&q=80'}];
-const cart=JSON.parse(localStorage.getItem('flashmarket_cart')||'[]'),favs=JSON.parse(localStorage.getItem('flashmarket_favs')||'[]');
-const productGrid=document.getElementById('productGrid'),offerGrid=document.getElementById('offerGrid'),cartCount=document.getElementById('cartCount');
-function card(p){const active=favs.includes(p.id);return `<article class="product"><div class="media"><img src="${p.img}" alt="${p.name}" loading="lazy"><span class="badge">${p.off}</span><button class="fav ${active?'active':''}" data-fav="${p.id}" aria-label="Favoritar">${active?'♥':'♡'}</button></div><div class="info"><span class="cat">${p.cat}</span><h3>${p.name}</h3><div class="rating">★★★★★ <span>4.8</span></div><span class="old">${p.old}</span><strong class="price">${p.price}</strong><span class="install">ou em até 3x sem juros</span><button class="add" data-add="${p.id}">ADICIONAR AO CARRINHO</button></div></article>`}
-function renderCards(){productGrid.innerHTML=products.map(card).join('');offerGrid.innerHTML=products.slice(0,5).map(card).join('');cartCount.textContent=cart.length;bindCards()}
-function bindCards(){document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{cart.push(+b.dataset.add);localStorage.setItem('flashmarket_cart',JSON.stringify(cart));cartCount.textContent=cart.length;b.textContent='ADICIONADO ✓';setTimeout(()=>b.textContent='ADICIONAR AO CARRINHO',1200)});document.querySelectorAll('[data-fav]').forEach(b=>b.onclick=()=>{const id=+b.dataset.fav,idx=favs.indexOf(id);if(idx>=0)favs.splice(idx,1);else favs.push(id);localStorage.setItem('flashmarket_favs',JSON.stringify(favs));renderCards()})}
-const modal=document.getElementById('modal');function openAuth(title){document.getElementById('modalTitle').textContent=title;modal.classList.add('open')}
-document.getElementById('accountBtn').onclick=()=>openAuth('Entrar na FlashMarket');document.getElementById('closeModal').onclick=()=>modal.classList.remove('open');modal.onclick=e=>{if(e.target===modal)modal.classList.remove('open')};document.getElementById('authForm').onsubmit=e=>{e.preventDefault();localStorage.setItem('flashmarket_session',document.getElementById('email').value);modal.classList.remove('open');alert('Acesso demonstrativo realizado com sucesso!')};document.getElementById('cartBtn').onclick=()=>location.href='carrinho.html';document.getElementById('favBtn').onclick=()=>document.getElementById('categorias').scrollIntoView({behavior:'smooth'});document.getElementById('searchForm').onsubmit=e=>{e.preventDefault();const q=document.getElementById('searchInput').value.trim();location.href='produtos.html'+(q?'?q='+encodeURIComponent(q):'')};document.getElementById('newsletter').onsubmit=e=>{e.preventDefault();alert('E-mail cadastrado com sucesso!')};document.getElementById('menuBtn').onclick=()=>document.querySelector('.nav').scrollIntoView({behavior:'smooth',block:'nearest'});renderCards();
+const products = [
+  {id:1,name:'Fone Bluetooth Pocket',cat:'Eletrônicos',old:'R$ 199,90',price:'R$ 149,90',off:'25% OFF',img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80'},
+  {id:2,name:'Luminária LED de Mesa',cat:'Casa',old:'R$ 129,90',price:'R$ 89,90',off:'31% OFF',img:'assets/luminaria de led.png'},
+  {id:3,name:'Mochila Urbana',cat:'Moda',old:'R$ 159,90',price:'R$ 109,90',off:'31% OFF',img:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'},
+  {id:4,name:'Kit Garrafas Esportivas',cat:'Esportes',old:'R$ 79,90',price:'R$ 54,90',off:'31% OFF',img:'https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80'},
+  {id:5,name:'Caderno Criativo Premium',cat:'Papelaria',old:'R$ 49,90',price:'R$ 34,90',off:'30% OFF',img:'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80'},
+  {id:6,name:'Kit Potes Herméticos',cat:'Casa',old:'R$ 89,90',price:'R$ 59,90',off:'33% OFF',img:'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80'},
+  {id:7,name:'Camiseta Básica Oversized',cat:'Moda',old:'R$ 79,90',price:'R$ 59,90',off:'25% OFF',img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80'},
+  {id:8,name:'Mouse Sem Fio Slim',cat:'Eletrônicos',old:'R$ 89,90',price:'R$ 64,90',off:'28% OFF',img:'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=800&q=80'}
+];
+
+const getStorageArray = key => {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || '[]');
+    return Array.isArray(value) ? value : [];
+  } catch {
+    return [];
+  }
+};
+
+const cart = getStorageArray('flashmarket_cart');
+const favs = getStorageArray('flashmarket_favs');
+
+const $ = id => document.getElementById(id);
+const productGrid = $('productGrid');
+const offerGrid = $('offerGrid');
+const cartCount = $('cartCount');
+const modal = $('modal');
+
+function updateCartCount() {
+  cartCount.textContent = cart.length;
+}
+
+function saveCart() {
+  localStorage.setItem('flashmarket_cart', JSON.stringify(cart));
+  updateCartCount();
+}
+
+function saveFavs() {
+  localStorage.setItem('flashmarket_favs', JSON.stringify(favs));
+}
+
+function card(p) {
+  const active = favs.includes(p.id);
+  return `
+    <article class="product">
+      <div class="media">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"
+             onerror="this.src='assets/logo-kora.svg';this.style.objectFit='contain';">
+        <span class="badge">${p.off}</span>
+        <button class="fav ${active ? 'active' : ''}" data-fav="${p.id}" aria-label="${active ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
+          ${active ? '♥' : '♡'}
+        </button>
+      </div>
+      <div class="info">
+        <span class="cat">${p.cat}</span>
+        <h3>${p.name}</h3>
+        <div class="rating" aria-label="Avaliação 4,8 de 5">★★★★★ <span>4.8</span></div>
+        <span class="old">${p.old}</span>
+        <strong class="price">${p.price}</strong>
+        <span class="install">ou em até 3x sem juros</span>
+        <button class="add" data-add="${p.id}">ADICIONAR AO CARRINHO</button>
+      </div>
+    </article>`;
+}
+
+function renderCards() {
+  productGrid.innerHTML = products.map(card).join('');
+  offerGrid.innerHTML = products.slice(0, 5).map(card).join('');
+  updateCartCount();
+  bindCards();
+}
+
+function bindCards() {
+  document.querySelectorAll('[data-add]').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = Number(button.dataset.add);
+      cart.push(id);
+      saveCart();
+
+      const original = button.textContent;
+      button.textContent = 'ADICIONADO ✓';
+      button.disabled = true;
+
+      setTimeout(() => {
+        button.textContent = original;
+        button.disabled = false;
+      }, 1200);
+    });
+  });
+
+  document.querySelectorAll('[data-fav]').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = Number(button.dataset.fav);
+      const index = favs.indexOf(id);
+
+      if (index >= 0) favs.splice(index, 1);
+      else favs.push(id);
+
+      saveFavs();
+      renderCards();
+    });
+  });
+}
+
+function openAuth(title = 'Entrar na FlashMarket') {
+  $('modalTitle').textContent = title;
+  modal.classList.add('open');
+  $('email').focus();
+}
+
+function closeAuth() {
+  modal.classList.remove('open');
+}
+
+$('accountBtn').addEventListener('click', () => openAuth());
+$('closeModal').addEventListener('click', closeAuth);
+
+modal.addEventListener('click', event => {
+  if (event.target === modal) closeAuth();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeAuth();
+});
+
+$('authForm').addEventListener('submit', event => {
+  event.preventDefault();
+  const email = $('email').value.trim();
+
+  if (!email) return;
+
+  localStorage.setItem('flashmarket_session', email);
+  closeAuth();
+  alert('Acesso demonstrativo realizado com sucesso!');
+});
+
+$('cartBtn').addEventListener('click', () => {
+  window.location.href = 'carrinho.html';
+});
+
+$('favBtn').addEventListener('click', () => {
+  const firstFavorite = favs.length
+    ? products.find(product => product.id === favs[0])
+    : null;
+
+  if (firstFavorite) {
+    alert(`Você possui ${favs.length} produto(s) favorito(s).`);
+  } else {
+    $('categorias').scrollIntoView({behavior:'smooth'});
+  }
+});
+
+$('searchForm').addEventListener('submit', event => {
+  event.preventDefault();
+  const query = $('searchInput').value.trim();
+  window.location.href = `produtos.html${query ? `?q=${encodeURIComponent(query)}` : ''}`;
+});
+
+$('newsletter').addEventListener('submit', event => {
+  event.preventDefault();
+  const input = event.currentTarget.querySelector('input');
+  alert(`E-mail ${input.value} cadastrado com sucesso!`);
+  event.currentTarget.reset();
+});
+
+$('menuBtn').addEventListener('click', () => {
+  const nav = document.querySelector('.nav');
+  nav.scrollIntoView({behavior:'smooth', block:'nearest'});
+});
+
+renderCards();
 </script>
 </body>
 </html>
