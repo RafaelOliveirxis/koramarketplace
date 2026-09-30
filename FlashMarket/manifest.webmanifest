@@ -1,31 +1,26 @@
 {
-  "name": "KoraMarketplace | Marketplace Online",
-  "short_name": "Kora",
-  "description": "Marketplace online com ofertas, produtos, cupons e compras para todo o Brasil.",
-  "id": "./index.html",
+  "name": "FlashMarket | Marketplace Online",
+  "short_name": "FlashMarket",
+  "description": "Compre produtos, ofertas e novidades no FlashMarket.",
+  "id": "/koramarketplace/",
   "lang": "pt-BR",
   "dir": "ltr",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "/koramarketplace/index.html",
+  "scope": "/koramarketplace/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "portrait-primary",
-  "background_color": "#f5f5f5",
+  "background_color": "#f5f6f8",
   "theme_color": "#ff4d2d",
   "categories": ["shopping", "lifestyle"],
   "prefer_related_applications": false,
+  "shortcuts": [
+    {"name":"Ofertas","short_name":"Ofertas","url":"/koramarketplace/produtos.html?ofertas=1","icons":[{"src":"assets/favicon.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"Carrinho","short_name":"Carrinho","url":"/koramarketplace/carrinho.html","icons":[{"src":"assets/favicon.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"Minha conta","short_name":"Conta","url":"/koramarketplace/minha-conta.html","icons":[{"src":"assets/favicon.png","sizes":"192x192","type":"image/png"}]}
+  ],
   "icons": [
-    {
-      "src": "assets/favicon.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/favicon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    {"src":"assets/favicon.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"assets/favicon.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
