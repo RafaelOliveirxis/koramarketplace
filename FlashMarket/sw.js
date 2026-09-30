@@ -1,4 +1,4 @@
-const CACHE_NAME = "flashmarket-shell-v14";
+const CACHE_NAME = "flashmarket-shell-v15";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -31,10 +31,13 @@ const APP_SHELL = [
   "./js/mobile-app.js",
   "./js/ui-final.js",
   "./js/rastreamento.js",
+  "./js/pedido-rastreio.js",
+  "./js/rastreio-pedidos-reais.js",
   "./js/suporte.js",
   "./js/pwa.js",
   "./js/interno.js",
   "./js/minha-conta.js",
+  "./js/checkout-steps.js",
   "./assets/favicon.png",
   "./assets/logo.FlashMarket.png",
   "./assets/logo-kora.svg"
@@ -62,7 +65,7 @@ self.addEventListener("fetch", event => {
         const type = response.headers.get("content-type") || "";
         if (response.ok && isHome && type.includes("text/html")) {
           const html = await response.text();
-          const css = '<link rel="stylesheet" href="./css/home-proportional.css?v=14">';
+          const css = '<link rel="stylesheet" href="./css/home-proportional.css?v=15">';
           const updated = html.includes("home-proportional.css") ? html : html.replace("</head>", css + "</head>");
           response = new Response(updated, {status: response.status, statusText: response.statusText, headers: response.headers});
         }
