@@ -143,3 +143,20 @@ body:not(.fm-page) .footlogo{background:#fff!important;border-radius:12px!import
  body:not(.fm-page) .logo{width:62px!important;height:52px!important}
  body:not(.fm-page) .hero h1{font-size:40px!important}
 }
+
+
+/* Final layout normalization — evita estilos herdados e garante escala natural */
+html,body{width:100%;max-width:100%;min-width:0}
+body{overflow-x:hidden}
+body:not(.fm-page){zoom:1!important;transform:none!important;transform-origin:top left!important}
+body:not(.fm-page) .menu{display:none!important}
+body:not(.fm-page) .wrap{max-width:1280px!important;margin-left:auto!important;margin-right:auto!important}
+body:not(.fm-page) .head{width:100%!important}
+body:not(.fm-page) .nav .wrap{max-width:1280px!important}
+body:not(.fm-page) img{max-width:100%}
+@media(max-width:760px){
+  body:not(.fm-page) .menu{display:block!important}
+  body:not(.fm-page) .head{grid-template-columns:44px 62px minmax(0,1fr) 40px!important}
+  body:not(.fm-page) .search{min-width:0!important}
+  body:not(.fm-page) .nav{overflow:hidden}
+}
