@@ -136,7 +136,10 @@
       });
 
       saveAuth(data);
-      window.location.href = 'minha-conta.html';
+      const params = new URLSearchParams(window.location.search);
+      const returnTo = params.get('return');
+      const safeReturn = returnTo && /^[a-zA-Z0-9_./?=&%-]+$/.test(returnTo) && !returnTo.startsWith('http') && !returnTo.startsWith('//') ? returnTo : 'minha-conta.html';
+      window.location.href = safeReturn;
     } catch (error) {
       if (note) {
         note.className = 'auth-note error';
