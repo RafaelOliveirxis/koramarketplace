@@ -28,6 +28,10 @@ module.exports = async (req, res) => {
           if (!tickets.length) return res.status(404).json({ error: 'Chamado não encontrado.' });
           await db.execute('UPDATE fm_support_tickets SET status=? WHERE id=?',[status,tickets[0].id]);
           if (message) await db.execute('INSERT INTO fm_support_messages (ticket_id,author_type,author_id,message) VALUES (?,?,?,?)',[tickets[0].id,'admin',auth.id,message]);
+          const [customerRows] = await db.execute('SELECT o.public_id,o.customer_name,o.customer_email,t.subject FROM fm_support_tickets t INNER JOIN fm_orders o ON o.id=t.order_id WHERE t.id=? LIMIT 1',[tickets[0].id]);
+          if (customerRows.length) {
+            try { await sendOrderEventEmail({email:customerRows[0].customer_email,name:customerRows[0].customer_name,orderId:customerRows[0].public_id,title:'Atualização do atendimento',description:(message || ('Status do chamado: '+status))}); } catch(emailError){ console.error('support/update email',emailError); }
+          }
           return res.json({ ok:true });
         }
         if (action === 'support_create' || action === 'cancel_request' || action === 'return_request') {
@@ -49,6 +53,7 @@ module.exports = async (req, res) => {
             ticket={id:ins.insertId,public_id:publicTicket};
             await db.execute('INSERT INTO fm_support_messages (ticket_id,author_type,author_id,message) VALUES (?,?,?,?)',[ticket.id,'customer',auth.id,message]);
           }
+          try { await sendOrderEventEmail({email:orders[0].customer_email,name:orders[0].customer_name,orderId:orders[0].public_id,title:'Atendimento aberto',description:'Seu chamado '+ticket.public_id+' foi registrado. Nossa equipe poderá responder pelo pedido.'}); } catch(emailError){ console.error('support/create email',emailError); }
           return res.json({ok:true,ticketId:ticket.public_id});
         }
         if (action === 'support_reply') {
@@ -92,15 +97,6 @@ module.exports = async (req, res) => {
           ok: true,
           event: { status, title, description: description || null, trackingCode: trackingCode || null, carrier: carrier || null }
         });
-      }
-      if (action === 'support_reply') {
-        const ticketId=String(req.body?.ticketId||'').trim(), message=String(req.body?.message||'').trim().slice(0,4000);
-        if(!ticketId||!message)return res.status(400).json({error:'Informe o chamado e a mensagem.'});
-        const [tickets]=await db.execute('SELECT id FROM fm_support_tickets WHERE public_id=? AND user_id=? LIMIT 1',[ticketId,auth.id]);
-        if(!tickets.length)return res.status(404).json({error:'Chamado não encontrado.'});
-        await db.execute('INSERT INTO fm_support_messages (ticket_id,author_type,author_id,message) VALUES (?,?,?,?)',[tickets[0].id,'customer',auth.id,message]);
-        await db.execute('UPDATE fm_support_tickets SET status="open" WHERE id=? AND status="waiting_customer"',[tickets[0].id]);
-        return res.json({ok:true});
       }
       const productId = Number(req.body?.productId);
       if (!['add','remove','toggle'].includes(action) || !Number.isInteger(productId) || productId <= 0) {
