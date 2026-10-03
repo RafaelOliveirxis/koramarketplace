@@ -45,3 +45,38 @@ async function sendPasswordResetEmail({ email, name, resetUrl }) {
 }
 
 module.exports = { sendPasswordResetEmail };
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+async function sendOrderEventEmail({ email, name, orderId, title, description, trackingCode, carrier }) {
+  if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL || !email) return { skipped: true };
+  const safeName = escapeHtml(name || 'cliente');
+  const safeOrder = escapeHtml(orderId);
+  const safeTitle = escapeHtml(title);
+  const safeDescription = escapeHtml(description || '');
+  const safeCarrier = escapeHtml(carrier || '');
+  const safeTracking = escapeHtml(trackingCode || '');
+  const frontendUrl = (process.env.FRONTEND_URL || '').replace(/\/$/, '');
+  const trackingUrl = frontendUrl ? frontendUrl + '/rastrear-pedidos.html?order=' + encodeURIComponent(orderId) : '';
+  const button = trackingUrl ? '<p><a href="' + trackingUrl + '" style="display:inline-block;padding:12px 18px;background:#ffc21c;color:#111;text-decoration:none;border-radius:8px;font-weight:700">ACOMPANHAR PEDIDO</a></p>' : '';
+  const tracking = safeTracking ? '<p><b>' + safeCarrier + '</b>: ' + safeTracking + '</p>' : '';
+  const html = '<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#151619"><h2>FlashMarket</h2><p>Olá, ' + safeName + '!</p><h3>' + safeTitle + '</h3><p>Pedido <b>#' + safeOrder + '</b></p><p>' + safeDescription + '</p>' + tracking + button + '<p style="font-size:12px;color:#777">Você recebeu esta atualização porque houve uma alteração real no seu pedido.</p></div>';
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + process.env.RESEND_API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from: process.env.RESEND_FROM_EMAIL,
+      to: [email],
+      subject: safeTitle + ' | Pedido #' + safeOrder + ' | FlashMarket',
+      html,
+      headers: { 'X-Entity-Ref-ID': 'flashmarket-order-' + String(orderId) + '-' + String(title).replace(/\s+/g, '-').toLowerCase().slice(0, 60) }
+    })
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.message || 'Falha ao enviar e-mail transacional.');
+  return { id: data.id };
+}
+
+module.exports = { sendPasswordResetEmail, sendOrderEventEmail };
