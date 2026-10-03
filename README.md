@@ -408,3 +408,5 @@ Respeite a autoria e as licenças dos recursos de terceiros utilizados no projet
   ⚡ <strong>FlashMarket</strong><br>
   Marketplace moderno para Web, PWA e Mobile.
 </p>
+
+<!-- Vercel production redeploy: Node.js 22 LTS runtime verification — 2026-10-03 -->
