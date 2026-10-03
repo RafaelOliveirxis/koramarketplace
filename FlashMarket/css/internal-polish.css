@@ -1,0 +1,95 @@
+/* FlashMarket — acabamento visual interno unificado */
+:root{
+  --fm-yellow:#ffd21c;
+  --fm-yellow-strong:#f5b700;
+  --fm-black:#111111;
+  --fm-bg:#f5f5f3;
+  --fm-card:#ffffff;
+  --fm-line:#e5e5df;
+  --fm-text:#171717;
+  --fm-muted:#707070;
+  --fm-green:#17864f;
+  --fm-radius:16px;
+  --fm-shadow:0 12px 35px rgba(17,17,17,.07);
+}
+body.fm-page{background:var(--fm-bg)!important;color:var(--fm-text)!important}
+.fm-container{width:min(1240px,calc(100% - 32px))!important}
+.fm-top{background:var(--fm-black)!important;border-bottom:3px solid var(--fm-yellow)!important;padding:8px 0!important}
+.fm-header{background:rgba(255,255,255,.98)!important;color:var(--fm-black)!important;border-bottom:1px solid var(--fm-line)!important;box-shadow:0 5px 22px rgba(0,0,0,.06)!important}
+.fm-header-main{min-height:84px!important;grid-template-columns:150px minmax(0,1fr) auto!important;gap:22px!important}
+.fm-logo{width:140px!important;height:68px!important;background:none!important;display:flex!important;align-items:center!important;justify-content:flex-start!important}
+.fm-logo img{width:100%!important;height:100%!important;object-fit:contain!important;display:block!important}
+.fm-search{height:48px!important;border-radius:12px!important;background:#f6f6f3!important;border:1px solid #dcdcd5!important}
+.fm-search input{font-size:13px!important}
+.fm-search button{background:var(--fm-black)!important;color:#fff!important}
+.fm-search button:hover{background:var(--fm-yellow)!important;color:#111!important}
+.fm-actions{gap:5px!important}
+.fm-icon-btn{border-radius:10px!important;color:#222!important}
+.fm-icon-btn:hover{background:#f3f3ef!important}
+.fm-nav{background:var(--fm-black)!important;border-bottom:3px solid var(--fm-yellow)!important}
+.fm-nav a{font-size:10px!important;padding:12px 14px!important}
+.fm-nav a:hover{background:#202020!important;color:var(--fm-yellow)!important}
+.flow-main,.fm-section{padding-top:24px!important}
+.flow-breadcrumb{margin-top:0!important}
+.fm-hero{background:transparent!important}
+.fm-kicker{background:#fff6cc!important;color:#806300!important;border:1px solid #f2df82!important}
+.fm-title{color:#111!important}
+.fm-subtitle{color:#707070!important}
+.flow-card,.fm-card,.account-card,.account-stat,.account-sidebar,.pd-card{
+  border:1px solid var(--fm-line)!important;
+  border-radius:18px!important;
+  box-shadow:var(--fm-shadow)!important;
+}
+.fm-btn.orange,.checkout-next,.checkout-confirm{
+  background:var(--fm-black)!important;color:#fff!important;
+}
+.fm-btn.orange:hover,.checkout-next:hover,.checkout-confirm:hover{
+  background:var(--fm-yellow)!important;color:#111!important;
+}
+.fm-btn.light,.checkout-back{
+  background:#fff!important;color:#222!important;border:1px solid #dcdcd5!important;
+}
+.fm-product{border-radius:16px!important}
+.fm-product:hover{border-color:#d8d3b4!important}
+.fm-product-cat{color:#8b6900!important}
+.flow-price{color:#111!important}
+.flow-old{color:#999!important}
+.flow-tags span{background:#fff8d9!important;color:#755c00!important;border-color:#f0df91!important}
+.qty{border-color:#dcdcd5!important}
+.qty button{border:0!important;background:#f7f7f4!important}
+.qty button:hover{background:var(--fm-yellow)!important}
+.cart-summary,.summary-card{border-radius:18px!important}
+.sum-total div{color:#111!important}
+.coupon button{background:#111!important}
+.payment-secure-card,.secure{background:#effaf4!important;border-color:#c9e8d5!important;color:#17683b!important}
+.account .hero,.account-hero{
+  background:linear-gradient(135deg,#111,#272727)!important;
+  border-radius:18px!important;
+}
+.account .hero h1,.account-hero h1{color:#fff!important}
+.account-btn.primary{background:#111!important;color:#fff!important}
+.account-btn.primary:hover{background:var(--fm-yellow)!important;color:#111!important}
+.account-btn.secondary{background:#fff!important;color:#111!important}
+.fm-footer{background:#111!important;border-top:3px solid var(--fm-yellow)!important}
+.fm-footer a:hover{color:var(--fm-yellow)!important}
+.fm-toast{background:#111!important;border:1px solid #333!important}
+.pd-btn:not(.light){background:#111!important}
+.pd-btn:not(.light):hover{background:var(--fm-yellow)!important;color:#111!important}
+.pd-status{background:#fff6cc!important;color:#806300!important}
+.pd-dot{background:#f5b700!important;box-shadow:0 0 0 4px #fff6cc!important}
+@media(max-width:900px){
+  .fm-header-main{grid-template-columns:110px minmax(0,1fr) auto!important;min-height:72px!important}
+  .fm-logo{width:105px!important;height:58px!important}
+}
+@media(max-width:600px){
+  .fm-container{width:calc(100% - 22px)!important}
+  .fm-header-main{grid-template-columns:1fr auto!important;gap:8px!important}
+  .fm-logo{width:100px!important;height:55px!important}
+  .fm-search{grid-column:1/-1!important;grid-row:2!important}
+  .fm-actions{grid-column:2!important;grid-row:1!important}
+  .fm-action-label{display:none!important}
+  .fm-icon-btn{padding:0 6px!important}
+  .fm-nav a{padding:10px 11px!important}
+  .flow-card.pad,.checkout-panel{padding:17px!important}
+  .flow-title{font-size:28px!important}
+}
