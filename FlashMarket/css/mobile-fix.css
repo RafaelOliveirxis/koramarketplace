@@ -136,3 +136,36 @@
     .price{font-size:10px!important}
   }
 }
+
+
+/* Fluxos internos: checkout, carrinho e rastreio em telas estreitas */
+@media (max-width: 700px){
+  .checkout-page,.flow-main{padding-left:10px!important;padding-right:10px!important}
+  .checkout-layout,.cart-layout,.tracking-grid,.tracking-summary-card{display:block!important;width:100%!important}
+  .checkout-content,.checkout-summary,.cart-side,.timeline-card,.order-details{width:100%!important;min-width:0!important}
+  .checkout-summary,.cart-side{margin-top:12px!important}
+  .fields{grid-template-columns:1fr!important;gap:10px!important}
+  .field.wide{grid-column:auto!important}
+  .checkout-panel,.summary-card,.cart-item,.flow-card{box-sizing:border-box!important;max-width:100%!important}
+  .checkout-option{min-height:52px!important;padding:10px!important}
+  .step-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .checkout-next,.checkout-confirm,.checkout-back{min-height:46px!important;width:100%!important}
+  .cart-item{display:grid!important;grid-template-columns:62px minmax(0,1fr)!important;gap:9px!important;padding:10px!important}
+  .cart-item>div:last-child{text-align:left!important;grid-column:2!important}
+  .cart-item img{width:62px!important;height:62px!important;object-fit:cover!important}
+  .cart-item h3{font-size:12px!important;line-height:1.25!important}
+  .qty{display:flex!important;align-items:center!important;gap:8px!important;margin-top:7px!important}
+  .tracking-search-card,.tracking-summary-card,.tracking-grid{border-radius:12px!important}
+  .tracking-search-form{grid-template-columns:1fr!important;gap:9px!important}
+  .tracking-search-form .primary-btn{width:100%!important}
+  .summary-info{grid-template-columns:1fr 1fr!important}
+  .tracking-ai-chat{max-width:calc(100vw - 20px)!important}
+}
+@media (max-width:380px){
+  .summary-info{grid-template-columns:1fr!important}
+  .step-actions{grid-template-columns:1fr!important}
+  .checkout-steps{gap:3px!important}
+  .checkout-step b{font-size:7px!important}
+  .cart-item{grid-template-columns:54px minmax(0,1fr)!important}
+  .cart-item img{width:54px!important;height:54px!important}
+}
