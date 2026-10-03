@@ -1,6 +1,7 @@
 const { getPool } = require('../_lib/db');
 const { mpRequest } = require('../_lib/mercadopago');
 const { applyCors } = require('../_lib/cors');
+const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
 
 function mapStatus(order) {
   const status = String(order?.status || '').toLowerCase();
@@ -21,6 +22,7 @@ module.exports = async (req, res) => {
   if (!publicId) return res.status(400).json({ error: 'Informe o número do pedido.' });
   try {
     const db = getPool();
+    await ensurePaymentsSchema(db);
     const [rows] = await db.execute('SELECT id,public_id,total_amount,status,status_detail,mp_order_id,created_at,paid_at FROM fm_orders WHERE public_id=? LIMIT 1', [publicId]);
     if (!rows.length) return res.status(404).json({ error: 'Pedido não encontrado.' });
     const local = rows[0];
