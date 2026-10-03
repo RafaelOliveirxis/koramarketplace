@@ -2,6 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "npm install",
   "outputDirectory": "FlashMarket",
+  "rewrites": [
+    { "source": "/api/affiliate/click", "destination": "/api/affiliate/products" }
+  ],
   "functions": {
     "api/**/*.js": {
       "maxDuration": 30
