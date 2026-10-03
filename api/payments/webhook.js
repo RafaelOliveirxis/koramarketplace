@@ -7,7 +7,10 @@ function mapStatus(order) {
   const detail = String(order.status_detail || '').toLowerCase();
   if (status === 'processed' || detail.includes('accredited') || Number(order.total_paid_amount || 0) >= Number(order.total_amount || 0)) return 'paid';
   if (status === 'action_required') return 'action_required';
+  if (status === 'failed') return 'failed';
+  if (status === 'refunded') return 'refunded';
   if (status === 'cancelled' || status === 'canceled') return 'cancelled';
+  if (status === 'processing') return 'pending';
   return 'pending';
 }
 
