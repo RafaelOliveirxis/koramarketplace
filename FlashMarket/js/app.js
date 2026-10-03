@@ -64,6 +64,46 @@ const money = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
+async function syncFavoritesFromAccount(){
+  const token = localStorage.getItem('flashmarket_access_token');
+  if(!token) return;
+  try {
+    const data = await fetch('/api/auth/me?include=favorites', { headers:{Authorization:`Bearer ${token}`} }).then(async response => {
+      const body = await response.json().catch(()=>({}));
+      if(!response.ok) throw Object.assign(new Error(body.error || 'Não foi possível sincronizar favoritos.'), {status:response.status});
+      return body;
+    });
+    if(Array.isArray(data.favorites)){
+      favorites = data.favorites.filter(Number.isInteger);
+      saveState();
+      updateHeader(); renderFeatured(); renderProducts(); renderFavorites();
+    }
+  } catch(error){
+    if(error.status === 401){ localStorage.removeItem('flashmarket_access_token'); }
+    console.warn('Favoritos não sincronizados:', error.message);
+  }
+}
+
+async function persistFavorite(id, shouldAdd){
+  const token = localStorage.getItem('flashmarket_access_token');
+  if(!token) return;
+  try {
+    const response = await fetch('/api/auth/me', {
+      method:'POST', headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},
+      body:JSON.stringify({action:shouldAdd?'add':'remove', productId:id})
+    });
+    const data = await response.json().catch(()=>({}));
+    if(!response.ok) throw new Error(data.error || 'Não foi possível salvar o favorito.');
+    if(Array.isArray(data.favorites)) favorites=data.favorites.filter(Number.isInteger);
+    saveState(); updateHeader(); renderFeatured(); renderProducts(); renderFavorites();
+  } catch(error){
+    if(shouldAdd) favorites=favorites.filter(x=>x!==id); else if(!favorites.includes(id)) favorites.push(id);
+    saveState(); updateHeader(); renderFeatured(); renderProducts(); renderFavorites();
+    toast('Não foi possível sincronizar o favorito.');
+    console.warn(error);
+  }
+}
+
 function saveState(){
   localStorage.setItem("flashmarket_cart",JSON.stringify(cart));
   localStorage.setItem("flashmarket_favorites",JSON.stringify(favorites));
@@ -330,10 +370,11 @@ function removeFromCart(id){
   toast("Produto removido.");
 }
 function toggleFavorite(id){
-  if(favorites.includes(id)) favorites=favorites.filter(x=>x!==id);
-  else favorites.push(id);
+  const shouldAdd = !favorites.includes(id);
+  if(shouldAdd) favorites.push(id); else favorites=favorites.filter(x=>x!==id);
   saveState(); updateHeader(); renderFeatured(); renderProducts(); renderFavorites();
-  toast(favorites.includes(id)?"Adicionado aos favoritos!":"Removido dos favoritos.");
+  toast(shouldAdd?"Adicionado aos favoritos!":"Removido dos favoritos.");
+  persistFavorite(id, shouldAdd);
 }
 
 function openModal(id){
@@ -458,6 +499,8 @@ function applyFiltersFromCategory(cat){
   renderProducts();
   document.querySelector("#catalogo").scrollIntoView({behavior:"smooth"});
 }
+
+syncFavoritesFromAccount();
 
 document.addEventListener("click",e=>{
   const passwordToggle = e.target.closest("[data-password-toggle]");
