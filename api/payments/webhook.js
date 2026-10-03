@@ -2,6 +2,7 @@ const { getPool } = require('../_lib/db');
 const { mpRequest, validateWebhookSignature } = require('../_lib/mercadopago');
 const { applyCors } = require('../_lib/cors');
 const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
+const { sendOrderEventEmail } = require('../_lib/mailer');
 
 function mapStatus(order) {
   const status = String(order.status || '').toLowerCase();
@@ -51,7 +52,7 @@ module.exports = async (req, res) => {
 
     if (result.affectedRows > 0 && eventMap[status]) {
       const [orders] = await db.execute(
-        'SELECT id FROM fm_orders WHERE mp_order_id=? OR mp_external_reference=? ORDER BY id DESC LIMIT 1',
+        'SELECT id,customer_name,customer_email,public_id FROM fm_orders WHERE mp_order_id=? OR mp_external_reference=? ORDER BY id DESC LIMIT 1',
         [order.id, order.external_reference || '']
       );
       if (orders.length) {
@@ -65,6 +66,17 @@ module.exports = async (req, res) => {
             'INSERT INTO fm_order_tracking (order_id,status,title,description) VALUES (?,?,?,?)',
             [orders[0].id, event[0], event[1], event[2]]
           );
+          try {
+            await sendOrderEventEmail({
+              email: orders[0].customer_email,
+              name: orders[0].customer_name,
+              orderId: orders[0].public_id,
+              title: event[1],
+              description: event[2]
+            });
+          } catch (emailError) {
+            console.error('payment/webhook email', emailError);
+          }
         }
       }
     }
