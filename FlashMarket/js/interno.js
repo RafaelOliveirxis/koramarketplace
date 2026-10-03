@@ -1,4 +1,4 @@
-const FM_PRODUCTS=[
+let FM_PRODUCTS=[
 {id:1,n:'Luminária LED de Mesa',c:'Casa & Decor',p:89.9,o:129.9,i:'assets/luminaria de led.png'},
 {id:2,n:'Organizador Multiuso Minimalista',c:'Casa & Decor',p:39.9,o:59.9,i:'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=700&q=80'},
 {id:3,n:'Moletom Street Flash',c:'Vestuário',p:119.9,o:169.9,i:'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=80'},
@@ -49,6 +49,23 @@ const FM_PRODUCTS=[
 {id:48,n:'Luminária RGB Ambiente',c:'Casa & Decor',p:69.9,o:99.9,i:'https://images.unsplash.com/photo-1550985543-f47f0e4b8a3a?auto=format&fit=crop&w=700&q=80'},
 {id:49,n:'Copo Térmico com Tampa',c:'Casa & Decor',p:49.9,o:74.9,i:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=80'},
 {id:50,n:'Kit Escritório Organizado',c:'Papelaria',p:64.9,o:94.9,i:'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=80'}];
+async function fmLoadRealCatalog(){
+  try{
+    const base=window.FLASHMARKET_API_BASE||'https://koramarketplace-tcc21.vercel.app';
+    const response=await fetch(base+'/api/products',{headers:{Accept:'application/json'}});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok||!Array.isArray(data.products)||!data.products.length) throw new Error(data.error||'Catálogo indisponível.');
+    const local=new Map(FM_PRODUCTS.map(p=>[Number(p.id),p]));
+    FM_PRODUCTS=data.products.map(p=>{
+      const old=local.get(Number(p.id))||{};
+      return {...old,id:Number(p.id),n:p.name||old.n,p:Number(p.price),o:Number(old.o||p.price),c:p.category||old.c||'Ofertas',i:old.i||'assets/logo-kora.svg'};
+    });
+    window.FM_PRODUCTS=FM_PRODUCTS;
+    window.FM_CATALOG_READY=true;
+    window.dispatchEvent(new CustomEvent('flashmarket:catalog-ready',{detail:{count:FM_PRODUCTS.length}}));
+  }catch(error){console.warn('[FlashMarket] usando catálogo local de emergência:',error);}
+}
+
 const fmMoney=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const fmGetCart=()=>{try{return JSON.parse(localStorage.getItem('flashmarket_cart')||'[]')}catch{return[]}};
 const fmSetCart=c=>localStorage.setItem('flashmarket_cart',JSON.stringify(c));
@@ -60,3 +77,5 @@ function fmToast(t){let e=document.querySelector('.fm-toast');if(!e){e=document.
 function fmHeader(){return `<div class="fm-top"><div class="fm-container"><strong>⚡ FRETE E OFERTAS FLASHMARKET</strong><span>Compra segura · Pagamento online · Acompanhamento do pedido</span></div></div><header class="fm-header"><div class="fm-container fm-header-main"><a class="fm-logo" href="index.html" aria-label="FlashMarket"><img src="assets/logo-kora.svg" alt="FlashMarket"></a><form class="fm-search" action="produtos.html" role="search"><input name="q" placeholder="Buscar produtos, marcas e categorias..." aria-label="Buscar produtos"><button type="submit" aria-label="Buscar">⌕</button></form><div class="fm-actions"><a class="fm-icon-btn" href="minha-conta.html">👤 <span class="fm-action-label">Minha conta</span></a><a class="fm-icon-btn" href="carrinho.html">🛒 <span class="fm-action-label">Carrinho</span> <span data-cart-count>0</span></a></div></div></header><nav class="fm-nav"><div class="fm-container"><a href="index.html">Início</a><a href="produtos.html">Todos os produtos</a><a href="produtos.html?c=Eletrônicos">Eletrônicos</a><a href="produtos.html?c=Vestuário">Moda</a><a href="produtos.html?c=Casa%20%26%20Decor">Casa e decoração</a><a href="produtos.html?c=Beleza">Beleza</a><a href="produtos.html?c=Esportes">Esportes</a><a href="produtos.html?c=Pet%20Shop">Pet</a><a href="rastrear-pedido.html">Rastrear pedido</a><a href="suporte.html">Atendimento</a></div></nav>`}
 function fmLoadBrandStyles(){if(!document.querySelector('link[data-fm-brand]')){const l=document.createElement('link');l.rel='stylesheet';l.href='css/brand-overhaul.css?v=20261003';l.dataset.fmBrand='1';document.head.appendChild(l)}if(!document.querySelector('link[data-fm-internal-polish]')){const l2=document.createElement('link');l2.rel='stylesheet';l2.href='css/internal-polish.css?v=20261003-1';l2.dataset.fmInternalPolish='1';document.head.appendChild(l2)}}
 document.addEventListener('DOMContentLoaded',()=>{fmLoadBrandStyles();const h=document.querySelector('[data-fm-header]');if(h)h.innerHTML=fmHeader();fmUpdateCount()});
+
+document.addEventListener('DOMContentLoaded',()=>fmLoadRealCatalog());
