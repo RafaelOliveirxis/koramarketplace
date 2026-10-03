@@ -1,6 +1,7 @@
 const { getPool } = require('../_lib/db');
 const { bcrypt, sign, normalizeEmail, validEmail, passwordStrength } = require('../_lib/auth');
 const { applyCors } = require('../_lib/cors');
+const { ensureAuthSchema } = require('../_lib/ensureAuthSchema');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
@@ -12,6 +13,7 @@ module.exports = async (req, res) => {
     const phone = req.body?.phone ? String(req.body.phone).trim() : null;
     if (name.length < 2 || name.length > 120 || !validEmail(email) || !passwordStrength(password)) return res.status(400).json({ error: 'Informe nome, e-mail válido e uma senha de 8 a 128 caracteres.' });
     const db = getPool();
+    await ensureAuthSchema(db);
     const [exists] = await db.execute('SELECT id FROM users WHERE email = ? LIMIT 1', [email]);
     if (exists.length) return res.status(409).json({ error: 'Este e-mail já está cadastrado.' });
     const hash = await bcrypt.hash(password, 12);
