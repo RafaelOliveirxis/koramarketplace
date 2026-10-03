@@ -3,6 +3,7 @@ const { requireAuth } = require('../_lib/auth');
 const { applyCors } = require('../_lib/cors');
 const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
 const { sendOrderEventEmail } = require('../_lib/mailer');
+const { ensureAuthSchema } = require('../_lib/ensureAuthSchema');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
@@ -11,6 +12,7 @@ module.exports = async (req, res) => {
   if (!auth) return;
   try {
     const db = getPool();
+    await ensureAuthSchema(db);
     await ensurePaymentsSchema(db);
     if (req.method === 'POST') {
       const action = String(req.body?.action || '').trim().toLowerCase();
