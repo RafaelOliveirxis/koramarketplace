@@ -5,7 +5,7 @@
   const SESSION_KEY = 'flashmarket_user_session';
   const API_BASE = window.FLASHMARKET_API_BASE || (
     window.location.hostname.endsWith('github.io')
-      ? 'https://koramarketplace.vercel.app'
+      ? 'https://koramarketplace-tcc21.vercel.app'
       : ''
   );
 
