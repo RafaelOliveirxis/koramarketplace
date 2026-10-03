@@ -131,6 +131,10 @@ module.exports = async (req, res) => {
       'UPDATE fm_orders SET mp_order_id=?,mp_checkout_url=?,status=?,status_detail=? WHERE id=?',
       [mpOrder.id, mpOrder.checkout_url || null, mpOrder.status || 'created', mpOrder.status_detail || null, orderId]
     );
+    await db.execute(
+      'INSERT INTO fm_order_tracking (order_id,status,title,description) VALUES (?,?,?,?)',
+      [orderId, 'created', 'Pedido criado', 'Pedido registrado e aguardando a confirmação do pagamento.']
+    );
 
     return res.status(201).json({
       success: true,
