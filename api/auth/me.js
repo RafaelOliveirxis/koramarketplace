@@ -59,8 +59,24 @@ module.exports = async (req, res) => {
     const includeFavorites = includes.includes('favorites');
     const includeOrders = includes.includes('orders');
     const includeAdminOrders = includes.includes('admin-orders');
+    const includeNotifications = includes.includes('notifications');
     const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(x => x.trim().toLowerCase()).filter(Boolean);
     const isAdmin = admins.includes(String(rows[0].email || '').toLowerCase());
+    if (includeNotifications) {
+      const [events] = await db.execute(
+        `SELECT t.order_id,t.status,t.title,t.description,t.tracking_code,t.carrier,t.event_at,o.public_id
+         FROM fm_order_tracking t INNER JOIN fm_orders o ON o.id=t.order_id
+         WHERE o.user_id=? ORDER BY t.event_at DESC,t.id DESC LIMIT 30`, [auth.id]
+      );
+      return res.json({
+        user: rows[0],
+        notifications: events.map(e => ({
+          orderId: e.public_id, status: e.status, title: e.title,
+          description: e.description || null, trackingCode: e.tracking_code || null,
+          carrier: e.carrier || null, date: e.event_at
+        }))
+      });
+    }
     if (includeAdminOrders) {
       if (!isAdmin) return res.status(403).json({ error: 'Acesso administrativo não autorizado.' });
       const [adminOrders] = await db.execute(
