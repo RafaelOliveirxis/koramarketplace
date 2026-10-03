@@ -3,6 +3,7 @@ function applyCors(req, res) {
   const allowed = [
     'https://rafaeloliveirxis.github.io',
     'https://koramarketplace.vercel.app',
+    'https://koramarketplace-tcc21.vercel.app',
     'http://localhost:5500',
     'http://127.0.0.1:5500',
     'http://localhost:3000',
