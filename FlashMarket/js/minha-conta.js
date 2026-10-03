@@ -70,7 +70,7 @@
   async function loadRealOrders() {
     try {
       if (!window.KoraAuth?.request) return;
-      const data = await window.KoraAuth.request('/api/orders/mine');
+      const data = await window.KoraAuth.request('/api/auth/me?include=orders');
       realOrders = Array.isArray(data.orders) ? data.orders : [];
       renderOrders();
       updateStats();
