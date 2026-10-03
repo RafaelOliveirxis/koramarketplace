@@ -29,13 +29,14 @@ module.exports = async (req, res) => {
     let remote = null;
     if (local.mp_order_id) { try { remote = await mpRequest('/v1/orders/' + encodeURIComponent(local.mp_order_id), { method: 'GET' }); } catch {} }
     const paymentStatus = remote ? mapStatus(remote) : mapStatus({ status: local.status, status_detail: local.status_detail });
+    const [trackingRows] = await db.execute('SELECT status,title,description,tracking_code,carrier,event_at FROM fm_order_tracking WHERE order_id=? ORDER BY event_at ASC,id ASC', [local.id]);
     const remoteStatus = remote?.status || local.status;
     const remoteDetail = remote?.status_detail || local.status_detail || null;
     const paidAt = paymentStatus === 'paid' ? (local.paid_at || new Date()) : null;
     if (remote && ['paid','action_required','failed','refunded','cancelled'].includes(paymentStatus)) {
       await db.execute('UPDATE fm_orders SET status=?,status_detail=?,paid_at=COALESCE(?,paid_at) WHERE id=?', [paymentStatus, remoteDetail, paidAt, local.id]);
     }
-    return res.status(200).json({ order: { id: local.public_id, total: Number(local.total_amount), status: remoteStatus, paymentStatus, statusDetail: remoteDetail, paidAt: paidAt || local.paid_at, createdAt: local.created_at } });
+    return res.status(200).json({ order: { id: local.public_id, total: Number(local.total_amount), status: remoteStatus, paymentStatus, statusDetail: remoteDetail, paidAt: paidAt || local.paid_at, createdAt: local.created_at, tracking: trackingRows.map(event => ({ status:event.status, title:event.title, description:event.description, trackingCode:event.tracking_code, carrier:event.carrier, date:event.event_at })) } });
   } catch (error) {
     console.error('payment/status', error);
     if (error.code === 'CONFIGURATION_ERROR') return res.status(503).json({ error: 'Configure o banco de dados no servidor.' });
