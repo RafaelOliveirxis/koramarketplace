@@ -54,6 +54,7 @@ module.exports = async (req, res) => {
 
   try {
     db = getPool();
+    await ensurePaymentsSchema(db);
     const ids = [...new Set(normalized.map(item => item.id))];
     const placeholders = ids.map(() => '?').join(',');
     const [rows] = await db.execute(`SELECT product_id, name, price, active FROM fm_catalog WHERE active = 1 AND product_id IN (${placeholders})`, ids);
