@@ -46,8 +46,11 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Itens ou quantidades inválidos.' });
   }
 
+  let db = null;
+  let orderId = null;
+
   try {
-    const db = getPool();
+    db = getPool();
     const ids = [...new Set(normalized.map(item => item.id))];
     const placeholders = ids.map(() => '?').join(',');
     const [rows] = await db.execute(`SELECT product_id, name, price, active FROM fm_catalog WHERE active = 1 AND product_id IN (${placeholders})`, ids);
@@ -75,7 +78,7 @@ module.exports = async (req, res) => {
       `INSERT INTO fm_orders (public_id,user_id,customer_name,customer_email,customer_phone,cep,state,city,address,complement,shipping_amount,payment_method,total_amount,status,mp_external_reference) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,'creating',?)`,
       [publicId, user?.id || null, customerName, customerEmail, customerPhone || null, cep, state, city, street, complement || null, shippingAmount, paymentMethod, total, externalReference]
     );
-    const orderId = insert.insertId;
+    orderId = insert.insertId;
 
     for (const item of orderItems) {
       await db.execute(
@@ -114,6 +117,12 @@ module.exports = async (req, res) => {
       })
     });
 
+    if (!mpOrder?.id || !mpOrder?.checkout_url) {
+      const error = new Error('Mercado Pago não retornou uma URL de checkout válida.');
+      error.status = 502;
+      throw error;
+    }
+
     await db.execute(
       'UPDATE fm_orders SET mp_order_id=?,mp_checkout_url=?,status=?,status_detail=? WHERE id=?',
       [mpOrder.id, mpOrder.checkout_url || null, mpOrder.status || 'created', mpOrder.status_detail || null, orderId]
@@ -125,8 +134,21 @@ module.exports = async (req, res) => {
     });
   } catch (error) {
     console.error('payment/create', error);
+
+    if (db && orderId) {
+      try {
+        await db.execute(
+          'UPDATE fm_orders SET status=?,status_detail=? WHERE id=?',
+          ['failed', clean(error.message || 'Falha na criação do pagamento.', 80), orderId]
+        );
+      } catch (dbError) {
+        console.error('payment/create status update', dbError);
+      }
+    }
+
     if (error.code === 'CONFIGURATION_ERROR') return res.status(503).json({ error: 'Configure MySQL e MP_ACCESS_TOKEN nas variáveis de ambiente.' });
     if (error.status >= 400 && error.status < 500) return res.status(502).json({ error: 'O Mercado Pago recusou a criação do pagamento.', details: error.details });
+    if (error.status === 502) return res.status(502).json({ error: error.message });
     return res.status(500).json({ error: 'Não foi possível iniciar o pagamento.' });
   }
 };
