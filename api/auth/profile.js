@@ -12,11 +12,15 @@ module.exports = async (req, res) => {
     const { name, email, phone = null } = req.body || {};
     const normalizedEmail = String(email || '').trim().toLowerCase();
     const normalizedName = String(name || '').trim();
+    const current = await db.execute('SELECT email,email_verified FROM users WHERE id = ? LIMIT 1', [auth.id]);
     if (!normalizedName || !normalizedEmail) {
       return res.status(400).json({ error: 'Nome e e-mail são obrigatórios.' });
     }
 
     const db = getPool();
+    const [currentRows] = await db.execute('SELECT email,email_verified FROM users WHERE id = ? LIMIT 1', [auth.id]);
+    if (!currentRows.length) return res.status(404).json({ error: 'Usuário não encontrado.' });
+    const emailChanged = currentRows[0].email !== normalizedEmail;
     const [existing] = await db.execute(
       'SELECT id FROM users WHERE email = ? AND id <> ? LIMIT 1',
       [normalizedEmail, auth.id]
@@ -24,8 +28,8 @@ module.exports = async (req, res) => {
     if (existing.length) return res.status(409).json({ error: 'Este e-mail já está cadastrado.' });
 
     await db.execute(
-      'UPDATE users SET name = ?, email = ?, phone = ? WHERE id = ?',
-      [normalizedName, normalizedEmail, phone ? String(phone).trim() : null, auth.id]
+      'UPDATE users SET name = ?, email = ?, phone = ?, email_verified = ? WHERE id = ?',
+      [normalizedName, normalizedEmail, phone ? String(phone).trim() : null, emailChanged ? 0 : currentRows[0].email_verified, auth.id]
     );
     const user = { id: auth.id, name: normalizedName, email: normalizedEmail, phone: phone ? String(phone).trim() : null };
     return res.json({ user, token: sign(user) });
