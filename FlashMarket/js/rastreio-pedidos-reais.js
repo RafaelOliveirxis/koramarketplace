@@ -34,6 +34,14 @@
         };
         const info = labels[o.paymentStatus] || labels.pending;
         const hasShipping = Boolean(o.trackingCode);
+        const lastStatus = String(o.tracking?.at(-1)?.status || o.paymentStatus || '').toLowerCase();
+        const progressMap = {
+          paid: [25, 1], pending: [10, 1], action_required: [10, 1],
+          processing: [50, 2], ready_to_ship: [50, 2], shipped: [65, 2],
+          in_transit: [75, 3], out_for_delivery: [90, 3], delivered: [100, 4],
+          failed: [0, 0], cancelled: [0, 0], refunded: [0, 0]
+        };
+        const progress = progressMap[lastStatus] || (hasShipping ? [50, 2] : [info[2], info[3]]);
         const events = Array.isArray(o.tracking) && o.tracking.length
           ? o.tracking.map(event => ({
               titulo: event.title || info[0],
@@ -52,8 +60,8 @@
           status: hasShipping ? (o.tracking?.at(-1)?.title || info[0]) : info[0],
           statusAtual: hasShipping ? (o.tracking?.at(-1)?.title || 'Em preparação') : info[0],
           descricao: hasShipping ? 'O pedido possui dados logísticos reais registrados pela loja.' : info[1],
-          progresso: hasShipping ? 50 : info[2],
-          etapa: hasShipping ? 2 : info[3],
+          progresso: progress[0],
+          etapa: progress[1],
           previsao: hasShipping ? 'Acompanhe os próximos eventos de envio' : 'Após postagem',
           endereco: 'Disponível nos detalhes do pedido na sua conta.',
           produtos: [],
