@@ -19,7 +19,7 @@
       if (!code) { if (typeof window.mostrarErro === 'function') window.mostrarErro(); return; }
       if (window.loadingState) window.loadingState.classList.remove('hidden');
       try {
-        const base = window.FLASHMARKET_API_BASE || (location.hostname.endsWith('github.io') ? 'https://koramarketplace.vercel.app' : '');
+        const base = window.FLASHMARKET_API_BASE || ((location.protocol === 'file:' || !location.hostname || location.hostname.endsWith('github.io') || location.hostname.endsWith('vercel.app')) ? 'https://koramarketplace-tcc21.vercel.app' : '');
         const response = await fetch(base + '/api/payments/status?order=' + encodeURIComponent(code), { cache: 'no-store' });
         const data = await response.json().catch(() => ({}));
         if (!response.ok) throw new Error(data.error || 'Pedido não encontrado.');
