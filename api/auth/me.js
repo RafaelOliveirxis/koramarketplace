@@ -13,6 +13,33 @@ module.exports = async (req, res) => {
     await ensurePaymentsSchema(db);
     if (req.method === 'POST') {
       const action = String(req.body?.action || '').trim().toLowerCase();
+
+      if (action === 'admin_tracking') {
+        const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(x => x.trim().toLowerCase()).filter(Boolean);
+        if (!admins.length || !admins.includes(String(auth.email || '').toLowerCase())) {
+          return res.status(403).json({ error: 'Acesso administrativo não autorizado.' });
+        }
+        const publicId = String(req.body?.publicId || '').trim();
+        const status = String(req.body?.status || '').trim().toLowerCase();
+        const title = String(req.body?.title || '').trim();
+        const description = String(req.body?.description || '').trim();
+        const carrier = String(req.body?.carrier || '').trim().slice(0, 120);
+        const trackingCode = String(req.body?.trackingCode || '').trim().slice(0, 80);
+        const allowedStatuses = ['processing','ready_to_ship','shipped','in_transit','out_for_delivery','delivered'];
+        if (!publicId || !allowedStatuses.includes(status) || !title) {
+          return res.status(400).json({ error: 'Dados de expedição inválidos.' });
+        }
+        const [orders] = await db.execute('SELECT id,public_id FROM fm_orders WHERE public_id=? LIMIT 1', [publicId]);
+        if (!orders.length) return res.status(404).json({ error: 'Pedido não encontrado.' });
+        await db.execute(
+          'INSERT INTO fm_order_tracking (order_id,status,title,description,tracking_code,carrier,event_at) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)',
+          [orders[0].id,status,title,description || null,trackingCode || null,carrier || null]
+        );
+        return res.json({
+          ok: true,
+          event: { status, title, description: description || null, trackingCode: trackingCode || null, carrier: carrier || null }
+        });
+      }
       const productId = Number(req.body?.productId);
       if (!['add','remove','toggle'].includes(action) || !Number.isInteger(productId) || productId <= 0) {
         return res.status(400).json({ error: 'Favorito inválido.' });
@@ -31,7 +58,39 @@ module.exports = async (req, res) => {
     const includes = String(req.query?.include || '').split(',').map(x => x.trim());
     const includeFavorites = includes.includes('favorites');
     const includeOrders = includes.includes('orders');
-    if (!includeOrders && !includeFavorites) return res.json({ user: rows[0] });
+    const includeAdminOrders = includes.includes('admin-orders');
+    const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(x => x.trim().toLowerCase()).filter(Boolean);
+    const isAdmin = admins.includes(String(rows[0].email || '').toLowerCase());
+    if (includeAdminOrders) {
+      if (!isAdmin) return res.status(403).json({ error: 'Acesso administrativo não autorizado.' });
+      const [adminOrders] = await db.execute(
+        'SELECT id,public_id,total_amount,status,status_detail,mp_order_id,created_at,paid_at FROM fm_orders ORDER BY created_at DESC LIMIT 100'
+      );
+      if (!adminOrders.length) return res.json({ user: rows[0], isAdmin: true, orders: [] });
+      const adminIds = adminOrders.map(o => o.id);
+      const [adminTracking] = await db.execute(
+        `SELECT order_id,status,title,description,tracking_code,carrier,event_at FROM fm_order_tracking WHERE order_id IN (${adminIds.map(() => '?').join(',')}) ORDER BY event_at DESC,id DESC`,
+        adminIds
+      );
+      const latest = new Map();
+      for (const e of adminTracking) if (!latest.has(e.order_id)) latest.set(e.order_id, e);
+      return res.json({
+        user: rows[0],
+        isAdmin: true,
+        orders: adminOrders.map(o => {
+          const e = latest.get(o.id);
+          return {
+            id: o.public_id, total: Number(o.total_amount), paymentStatus: o.status,
+            statusDetail: o.status_detail || null, mpOrderId: o.mp_order_id || null,
+            date: o.created_at, paidAt: o.paid_at,
+            shippingStatus: e?.status || 'processing',
+            trackingCode: e?.tracking_code || null, carrier: e?.carrier || null,
+            latestTracking: e ? { title: e.title, description: e.description || null, date: e.event_at } : null
+          };
+        })
+      });
+    }
+    if (!includeOrders && !includeFavorites) return res.json({ user: rows[0], isAdmin });
     if (includeFavorites && !includeOrders) {
       const [favorites] = await db.execute('SELECT product_id FROM fm_favorites WHERE user_id=? ORDER BY created_at DESC', [auth.id]);
       return res.json({ user: rows[0], favorites: favorites.map(row => Number(row.product_id)) });
