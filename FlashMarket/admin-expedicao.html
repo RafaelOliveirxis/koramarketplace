@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FlashMarket — Expedição</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+body{background:#f5f6f8}.fm-admin{max-width:1180px;margin:0 auto;padding:28px 18px 60px}.fm-head{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:22px}.fm-head h1{margin:0;font-size:28px}.fm-head p{margin:5px 0 0;color:#6b7280}.fm-btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer}.fm-btn.dark{background:#151619;color:#fff}.fm-btn.yellow{background:#ffc21c;color:#151619}.fm-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 4px 18px rgba(0,0,0,.04)}.fm-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}.fm-orders{display:grid;gap:10px}.fm-order{border:1px solid #e5e7eb;border-radius:12px;padding:13px;cursor:pointer}.fm-order.active{border-color:#ffc21c;box-shadow:0 0 0 2px rgba(255,194,28,.18)}.fm-order strong{display:block}.fm-meta{font-size:12px;color:#6b7280;margin-top:5px}.fm-status{display:inline-block;margin-top:8px;padding:4px 8px;border-radius:999px;background:#f1f3f5;font-size:11px;font-weight:800}.fm-form{display:grid;gap:11px}.fm-form label{font-size:12px;font-weight:800}.fm-form input,.fm-form select,.fm-form textarea{width:100%;box-sizing:border-box;border:1px solid #d8dce1;border-radius:10px;padding:11px;background:#fff;font:inherit}.fm-form textarea{min-height:90px;resize:vertical}.fm-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fm-note{font-size:12px;color:#6b7280}.fm-alert{padding:12px;border-radius:10px;background:#fff4cf;margin-bottom:15px;font-size:13px}.hidden{display:none!important}@media(max-width:760px){.fm-grid{grid-template-columns:1fr}.fm-head{align-items:flex-start;flex-direction:column}.fm-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="fm-admin">
+<header class="fm-head">
+<div><h1>Expedição & rastreamento</h1><p>Atualize a etapa logística dos pedidos reais.</p></div>
+<button class="fm-btn dark" id="back">Voltar à conta</button>
+</header>
+<div id="alert" class="fm-alert hidden"></div>
+<div class="fm-grid">
+<section class="fm-card"><h2>Pedidos</h2><div id="orders" class="fm-orders"><p class="fm-note">Carregando...</p></div></section>
+<section class="fm-card">
+<h2 id="formTitle">Selecione um pedido</h2>
+<form id="shippingForm" class="fm-form hidden">
+<div class="fm-row"><div><label>Pedido</label><input id="publicId" readonly></div><div><label>Status logístico</label><select id="status">
+<option value="processing">Em preparação</option><option value="ready_to_ship">Pronto para envio</option><option value="shipped">Postado</option><option value="in_transit">Em trânsito</option><option value="out_for_delivery">Saiu para entrega</option><option value="delivered">Entregue</option>
+</select></div></div>
+<div class="fm-row"><div><label>Transportadora</label><input id="carrier" maxlength="120" placeholder="Ex.: Correios, Jadlog"></div><div><label>Código de rastreio</label><input id="trackingCode" maxlength="80" placeholder="Ex.: BR123456789"></div></div>
+<div><label>Título do evento</label><input id="title" maxlength="120" required></div>
+<div><label>Descrição</label><textarea id="description" maxlength="500" placeholder="Detalhe o andamento do pedido."></textarea></div>
+<button class="fm-btn yellow" type="submit">Atualizar rastreamento</button>
+<p class="fm-note">Cada atualização cria um novo evento real no histórico do cliente.</p>
+</form>
+</section>
+</div>
+</main>
+<script src="js/auth-real.js?v=20261001-1"></script>
+<script>
+(()=>{const $=s=>document.querySelector(s);let orders=[],selected=null;
+const labels={processing:'Em preparação',ready_to_ship:'Pronto para envio',shipped:'Postado',in_transit:'Em trânsito',out_for_delivery:'Saiu para entrega',delivered:'Entregue'};
+const alertBox=(m)=>{const e=$('#alert');e.textContent=m;e.classList.remove('hidden');setTimeout(()=>e.classList.add('hidden'),4500)};
+const token=()=>localStorage.getItem('flashmarket_access_token');
+function auth(){if(!token()){location.href='login.html?return=admin-expedicao.html';return false}return true}
+async function load(){if(!auth())return;try{const r=await fetch('/api/auth/me?include=admin-orders',{headers:{Authorization:'Bearer '+token()}});const d=await r.json();if(!r.ok)throw new Error(d.error||'Não autorizado.');orders=d.orders||[];render()}catch(e){alertBox(e.message);if(e.message.includes('autorizado'))setTimeout(()=>location.href='minha-conta.html',900)}}
+function render(){const box=$('#orders');if(!orders.length){box.innerHTML='<p class="fm-note">Nenhum pedido encontrado.</p>';return}box.innerHTML=orders.map(o=>'<article class="fm-order '+(selected===o.id?'active':'')+'" data-id="'+o.id+'"><strong>Pedido #'+o.id+'</strong><div class="fm-meta">R$ '+Number(o.total||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+' · '+new Date(o.date).toLocaleDateString('pt-BR')+'</div><span class="fm-status">'+(labels[o.shippingStatus]||o.shippingStatus)+' · '+(o.trackingCode||'sem rastreio')+'</span></article>').join('');box.querySelectorAll('[data-id]').forEach(e=>e.onclick=()=>select(e.dataset.id))}
+function select(id){selected=id;const o=orders.find(x=>x.id===id);if(!o)return;render();$('#shippingForm').classList.remove('hidden');$('#formTitle').textContent='Pedido #'+o.id;$('#publicId').value=o.id;$('#status').value=o.shippingStatus||'processing';$('#carrier').value=o.carrier||'';$('#trackingCode').value=o.trackingCode||'';$('#title').value=labels[o.shippingStatus]||'Atualização de expedição';$('#description').value=o.latestTracking?.description||''}
+$('#shippingForm').onsubmit=async e=>{e.preventDefault();if(!selected)return;const body={action:'admin_tracking',publicId:selected,status:$('#status').value,title:$('#title').value.trim(),description:$('#description').value.trim(),carrier:$('#carrier').value.trim(),trackingCode:$('#trackingCode').value.trim()};try{const r=await fetch('/api/auth/me',{method:'POST',headers:{Authorization:'Bearer '+token(),'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw new Error(d.error||'Não foi possível atualizar.');alertBox('Rastreamento atualizado com sucesso.');await load();select(selected)}catch(e){alertBox(e.message)}};
+$('#back').onclick=()=>location.href='minha-conta.html';load()})()
+</script>
+</body></html>
