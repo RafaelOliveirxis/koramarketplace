@@ -16,7 +16,7 @@
     "mobile:prepare": "npm run cap:sync",
     "mobile:prepare:all": "npm run mobile:configure && npm run mobile:assets && npm run cap:sync",
     "web:serve": "npx --yes serve FlashMarket",
-    "web:check": "node -e \"const fs=require('fs'); if(!fs.existsSync('FlashMarket/index.html')) process.exit(1); console.log('FlashMarket web OK')\""
+    "web:check": "node -e \"const fs=require('fs'); const required=['FlashMarket/index.html','FlashMarket/manifest.webmanifest','FlashMarket/sw.js']; const missing=required.filter(f=>!fs.existsSync(f)); if(missing.length){console.error('Missing:',missing.join(', ')); process.exit(1)} console.log('FlashMarket web OK')\""
   },
   "dependencies": {
     "@capacitor/core": "^7.4.0",
@@ -30,5 +30,8 @@
     "@capacitor/cli": "^7.4.0",
     "@capacitor/ios": "^7.4.0",
     "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
