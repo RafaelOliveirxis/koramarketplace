@@ -1,9 +1,10 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "npm install",
   "outputDirectory": "FlashMarket",
   "functions": {
     "api/**/*.js": {
-      "runtime": "nodejs22.x"
+      "maxDuration": 30
     }
   }
 }
