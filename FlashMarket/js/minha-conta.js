@@ -63,7 +63,25 @@
     renderAvatar();
   }
 
-  function getOrders() { return safeJSON('flashmarket_orders', []); }
+  let realOrders = [];
+  function getOrders() { return realOrders; }
+
+  async function loadRealOrders() {
+    try {
+      if (!window.KoraAuth?.request) return;
+      const data = await window.KoraAuth.request('/api/orders/mine');
+      realOrders = Array.isArray(data.orders) ? data.orders : [];
+      renderOrders();
+      updateStats();
+    } catch (error) {
+      if (error.status === 401) {
+        localStorage.removeItem('flashmarket_access_token');
+        location.href = 'login.html?return=minha-conta.html';
+        return;
+      }
+      toast(error.message || 'Não foi possível carregar seus pedidos.');
+    }
+  }
   function getCartCount() { try { return typeof fmGetCart === 'function' ? fmGetCart().reduce((s, x) => s + Number(x.qty || 0), 0) : safeJSON('flashmarket_cart', []).reduce((s, x) => s + Number(x.qty || 0), 0); } catch { return 0; } }
   function getFavs() { return safeJSON('flashmarket_favorites', []); }
 
@@ -107,11 +125,8 @@
     $$('[data-advance]').forEach(btn => btn.onclick = () => advanceOrder(btn.dataset.advance));
   }
 
-  function advanceOrder(id) {
-    const orders = getOrders(); const order = orders.find(x => String(x.id) === String(id)); if (!order) return;
-    const flow = ['a-pagar','preparando','a-caminho','finalizado']; const index = flow.indexOf(order.status);
-    if (index >= 0 && index < flow.length - 1) order.status = flow[index + 1];
-    setJSON('flashmarket_orders', orders); setJSON('flashmarket_last_order', order); renderOrders(); toast('Status do pedido atualizado.');
+  function advanceOrder() {
+    toast('O status do pedido é atualizado automaticamente pelo pagamento e pelo processamento da loja.');
   }
 
   function tab(id) {
@@ -167,14 +182,31 @@
     const reader = new FileReader(); reader.onload = () => { localStorage.setItem(photoKey, reader.result); renderAvatar(); toast('Foto de perfil atualizada.'); }; reader.readAsDataURL(file);
   });
   $('#removePhoto')?.addEventListener('click', () => { localStorage.removeItem(photoKey); renderAvatar(); toast('Foto de perfil removida.'); });
-  $('#profileForm')?.addEventListener('submit', event => {
+  $('#profileForm')?.addEventListener('submit', async event => {
     event.preventDefault();
     const nextName = ($('#pname')?.value || '').trim() || name;
-    profile = {...profile, name: nextName, phone: ($('#phone')?.value || '').trim()};
-    name = nextName; localStorage.setItem(userKey, nextName); setJSON(profileKey, profile); renderIdentity(); toast('Perfil atualizado com sucesso.');
+    const nextPhone = ($('#phone')?.value || '').trim();
+    try {
+      const data = await window.KoraAuth.request('/api/auth/profile', {
+        method: 'PUT',
+        body: JSON.stringify({ name: nextName, email: profile.email || '', phone: nextPhone })
+      });
+      if (data.token && data.user) {
+        localStorage.setItem('flashmarket_access_token', data.token);
+        localStorage.setItem(profileKey, JSON.stringify(data.user));
+        localStorage.setItem('flashmarket_user_session', JSON.stringify(data.user));
+        localStorage.setItem(userKey, data.user.name);
+        profile = data.user;
+        name = data.user.name;
+        renderIdentity();
+        toast('Perfil atualizado com sucesso.');
+      }
+    } catch (error) {
+      toast(error.message || 'Não foi possível atualizar o perfil.');
+    }
   });
   $('#copyProfile')?.addEventListener('click', () => { const email = profile.email || ''; if (email) { navigator.clipboard?.writeText(email); toast('E-mail copiado.'); } });
   $('#logoutBtn')?.addEventListener('click', () => { localStorage.removeItem(userKey); localStorage.removeItem(profileKey); location.href='index.html'; });
 
-  renderIdentity(); updateStats(); renderOrders(); renderNotifications(); renderCoupons();
+  renderIdentity(); updateStats(); renderOrders(); renderNotifications(); renderCoupons(); loadRealOrders();
 })();
