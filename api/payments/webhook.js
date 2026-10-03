@@ -15,6 +15,15 @@ function mapStatus(order) {
   return 'pending';
 }
 
+const eventMap = {
+  paid: ['paid', 'Pagamento confirmado', 'Pagamento aprovado. O pedido está pronto para processamento.'],
+  pending: ['pending', 'Pagamento em processamento', 'Aguardando confirmação do pagamento.'],
+  action_required: ['action_required', 'Ação necessária no pagamento', 'É necessária uma ação para concluir o pagamento.'],
+  failed: ['failed', 'Pagamento não concluído', 'O pagamento não foi concluído.'],
+  cancelled: ['cancelled', 'Pedido cancelado', 'O pedido/pagamento foi cancelado.'],
+  refunded: ['refunded', 'Pagamento reembolsado', 'O pagamento foi reembolsado.']
+};
+
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido.' });
@@ -29,15 +38,36 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const order = await mpRequest(`/v1/orders/${encodeURIComponent(dataId)}`, { method: 'GET' });
+    const order = await mpRequest('/v1/orders/' + encodeURIComponent(dataId), { method: 'GET' });
     const status = mapStatus(order);
     const paidAt = status === 'paid' ? new Date().toISOString().slice(0, 19).replace('T', ' ') : null;
     const db = getPool();
     await ensurePaymentsSchema(db);
+
     const [result] = await db.execute(
       `UPDATE fm_orders SET status=?,status_detail=?,paid_at=COALESCE(?,paid_at) WHERE mp_order_id=? OR mp_external_reference=?`,
       [status, order.status_detail || null, paidAt, order.id, order.external_reference || '']
     );
+
+    if (result.affectedRows > 0 && eventMap[status]) {
+      const [orders] = await db.execute(
+        'SELECT id FROM fm_orders WHERE mp_order_id=? OR mp_external_reference=? ORDER BY id DESC LIMIT 1',
+        [order.id, order.external_reference || '']
+      );
+      if (orders.length) {
+        const [latest] = await db.execute(
+          'SELECT status FROM fm_order_tracking WHERE order_id=? ORDER BY event_at DESC,id DESC LIMIT 1',
+          [orders[0].id]
+        );
+        const event = eventMap[status];
+        if (!latest.length || latest[0].status !== event[0]) {
+          await db.execute(
+            'INSERT INTO fm_order_tracking (order_id,status,title,description) VALUES (?,?,?,?)',
+            [orders[0].id, event[0], event[1], event[2]]
+          );
+        }
+      }
+    }
 
     return res.status(200).json({ received: true, updated: result.affectedRows, status });
   } catch (error) {
