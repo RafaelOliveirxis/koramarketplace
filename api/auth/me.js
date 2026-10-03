@@ -1,6 +1,7 @@
 const { getPool } = require('../_lib/db');
 const { requireAuth } = require('../_lib/auth');
 const { applyCors } = require('../_lib/cors');
+const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
@@ -9,6 +10,7 @@ module.exports = async (req, res) => {
   if (!auth) return;
   try {
     const db = getPool();
+    await ensurePaymentsSchema(db);
     const [rows] = await db.execute('SELECT id,name,email,phone,email_verified,created_at,updated_at FROM users WHERE id = ? LIMIT 1', [auth.id]);
     if (!rows.length) return res.status(404).json({ error: 'Usuário não encontrado.' });
     const includeOrders = String(req.query?.include || '').split(',').map(x => x.trim()).includes('orders');
