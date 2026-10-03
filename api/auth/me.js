@@ -44,6 +44,18 @@ module.exports = async (req, res) => {
     if (!orders.length) return res.json({ user: rows[0], orders: [] });
 
     const ids = orders.map(o => o.id);
+    const [trackingRows] = await db.execute(
+      `SELECT order_id,status,title,description,tracking_code,carrier,event_at FROM fm_order_tracking WHERE order_id IN (${ids.map(() => '?').join(',')}) ORDER BY event_at ASC,id ASC`,
+      ids
+    );
+    const trackingGrouped = new Map();
+    for (const event of trackingRows) {
+      if (!trackingGrouped.has(event.order_id)) trackingGrouped.set(event.order_id, []);
+      trackingGrouped.get(event.order_id).push({
+        status: event.status, title: event.title, description: event.description || null,
+        trackingCode: event.tracking_code || null, carrier: event.carrier || null, date: event.event_at
+      });
+    }
     const placeholders = ids.map(() => '?').join(',');
     const [items] = await db.execute(
       `SELECT order_id,product_id,product_name,unit_price,quantity,total_amount FROM fm_order_items WHERE order_id IN (${placeholders}) ORDER BY id ASC`,
@@ -83,7 +95,8 @@ module.exports = async (req, res) => {
         mercadoPagoOrderId: order.mp_order_id || null,
         paidAt: order.paid_at,
         date: order.created_at,
-        items: grouped.get(order.id) || []
+        items: grouped.get(order.id) || [],
+        tracking: trackingGrouped.get(order.id) || []
       }))
     });
   } catch (error) {
