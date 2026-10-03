@@ -36,6 +36,21 @@ module.exports = async (req, res) => {
     if (remote && ['paid','action_required','failed','refunded','cancelled'].includes(paymentStatus)) {
       await db.execute('UPDATE fm_orders SET status=?,status_detail=?,paid_at=COALESCE(?,paid_at) WHERE id=?', [paymentStatus, remoteDetail, paidAt, local.id]);
     }
+    const eventMap = {
+      paid: ['paid','Pagamento confirmado','Pagamento aprovado. O pedido está pronto para processamento.'],
+      pending: ['pending','Pagamento em processamento','Aguardando confirmação do pagamento.'],
+      action_required: ['action_required','Ação necessária no pagamento','É necessária uma ação para concluir o pagamento.'],
+      failed: ['failed','Pagamento não concluído','O pagamento não foi concluído.'],
+      cancelled: ['cancelled','Pedido cancelado','O pedido/pagamento foi cancelado.'],
+      refunded: ['refunded','Pagamento reembolsado','O pagamento foi reembolsado.']
+    };
+    const event = eventMap[paymentStatus];
+    if (event) {
+      const [latest] = await db.execute('SELECT status FROM fm_order_tracking WHERE order_id=? ORDER BY event_at DESC,id DESC LIMIT 1', [local.id]);
+      if (!latest.length || latest[0].status !== event[0]) {
+        await db.execute('INSERT INTO fm_order_tracking (order_id,status,title,description) VALUES (?,?,?,?)', [local.id,event[0],event[1],event[2]]);
+      }
+    }
     return res.status(200).json({ order: { id: local.public_id, total: Number(local.total_amount), status: remoteStatus, paymentStatus, statusDetail: remoteDetail, paidAt: paidAt || local.paid_at, createdAt: local.created_at, tracking: trackingRows.map(event => ({ status:event.status, title:event.title, description:event.description, trackingCode:event.tracking_code, carrier:event.carrier, date:event.event_at })) } });
   } catch (error) {
     console.error('payment/status', error);
