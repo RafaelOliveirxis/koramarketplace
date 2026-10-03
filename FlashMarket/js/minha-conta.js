@@ -230,7 +230,7 @@
     }
   });
   $('#copyProfile')?.addEventListener('click', () => { const email = profile.email || ''; if (email) { navigator.clipboard?.writeText(email); toast('E-mail copiado.'); } });
-  $('#logoutBtn')?.addEventListener('click', () => { localStorage.removeItem(userKey); localStorage.removeItem(profileKey); location.href='index.html'; });
+  $('#logoutBtn')?.addEventListener('click', () => { if (window.KoraAuth?.logout) window.KoraAuth.logout(); else { localStorage.removeItem(userKey); localStorage.removeItem(profileKey); localStorage.removeItem('flashmarket_access_token'); location.href='index.html'; } });
 
   renderIdentity(); updateStats(); renderOrders(); renderNotifications(); renderCoupons(); renderFavs(); loadRealOrders(); loadRealFavorites(); loadRealNotifications();
 })();
