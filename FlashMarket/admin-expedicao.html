@@ -4,20 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FlashMarket — Expedição</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/admin-polish.css">
 <style>
 body{background:#f5f6f8}.fm-admin{max-width:1180px;margin:0 auto;padding:28px 18px 60px}.fm-head{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:22px}.fm-head h1{margin:0;font-size:28px}.fm-head p{margin:5px 0 0;color:#6b7280}.fm-btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer}.fm-btn.dark{background:#151619;color:#fff}.fm-btn.yellow{background:#ffc21c;color:#151619}.fm-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 4px 18px rgba(0,0,0,.04)}.fm-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}.fm-orders{display:grid;gap:10px}.fm-order{border:1px solid #e5e7eb;border-radius:12px;padding:13px;cursor:pointer}.fm-order.active{border-color:#ffc21c;box-shadow:0 0 0 2px rgba(255,194,28,.18)}.fm-order strong{display:block}.fm-meta{font-size:12px;color:#6b7280;margin-top:5px}.fm-status{display:inline-block;margin-top:8px;padding:4px 8px;border-radius:999px;background:#f1f3f5;font-size:11px;font-weight:800}.fm-form{display:grid;gap:11px}.fm-form label{font-size:12px;font-weight:800}.fm-form input,.fm-form select,.fm-form textarea{width:100%;box-sizing:border-box;border:1px solid #d8dce1;border-radius:10px;padding:11px;background:#fff;font:inherit}.fm-form textarea{min-height:90px;resize:vertical}.fm-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fm-note{font-size:12px;color:#6b7280}.fm-alert{padding:12px;border-radius:10px;background:#fff4cf;margin-bottom:15px;font-size:13px}.hidden{display:none!important}@media(max-width:760px){.fm-grid{grid-template-columns:1fr}.fm-head{align-items:flex-start;flex-direction:column}.fm-row{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
-<main class="fm-admin">
+<body class="fm-admin-page">
+<main class="fm-admin fm-admin-shell">
 <header class="fm-head">
 <div><h1>Expedição & rastreamento</h1><p>Atualize a etapa logística dos pedidos reais.</p></div>
 <button class="fm-btn dark" id="back">Voltar à conta</button>
 </header>
 <div id="alert" class="fm-alert hidden"></div>
 <div class="fm-grid">
-<section class="fm-card"><h2>Pedidos</h2><div id="orders" class="fm-orders"><p class="fm-note">Carregando...</p></div></section>
+<section class="fm-card fm-admin-card"><h2>Pedidos</h2><div id="orders" class="fm-orders"><p class="fm-note">Carregando...</p></div></section>
 <section class="fm-card">
 <h2 id="formTitle">Selecione um pedido</h2>
 <form id="shippingForm" class="fm-form hidden">
