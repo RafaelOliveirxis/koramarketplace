@@ -9,7 +9,8 @@
   const notifKey = 'flashmarket_notification_settings';
   const couponsKey = 'flashmarket_used_coupons';
   const raw = localStorage.getItem(userKey);
-  if (!raw) { location.href = 'login.html?return=minha-conta.html'; return; }
+  const accessToken = localStorage.getItem('flashmarket_access_token');
+  if (!raw || !accessToken) { location.href = 'login.html?return=minha-conta.html'; return; }
 
   let profile = safeJSON(profileKey, {});
   const fallbackName = typeof raw === 'string' ? raw : 'Cliente';
