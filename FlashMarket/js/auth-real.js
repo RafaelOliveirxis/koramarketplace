@@ -3,9 +3,13 @@
   const TOKEN_KEY = 'flashmarket_access_token';
   const PROFILE_KEY = 'flashmarket_user_profile';
   const SESSION_KEY = 'flashmarket_user_session';
+  const PROD_API = 'https://koramarketplace-tcc21.vercel.app';
   const API_BASE = window.FLASHMARKET_API_BASE || (
-    window.location.hostname.endsWith('github.io')
-      ? 'https://koramarketplace-tcc21.vercel.app'
+    window.location.protocol === 'file:' ||
+    !window.location.hostname ||
+    window.location.hostname.endsWith('github.io') ||
+    window.location.hostname.endsWith('vercel.app')
+      ? PROD_API
       : ''
   );
 
