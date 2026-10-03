@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
         if (!publicId || !allowedStatuses.includes(status) || !title) {
           return res.status(400).json({ error: 'Dados de expedição inválidos.' });
         }
-        const [orders] = await db.execute('SELECT id,public_id FROM fm_orders WHERE public_id=? LIMIT 1', [publicId]);
+        const [orders] = await db.execute('SELECT id,public_id,customer_name,customer_email FROM fm_orders WHERE public_id=? LIMIT 1', [publicId]);
         if (!orders.length) return res.status(404).json({ error: 'Pedido não encontrado.' });
         await db.execute(
           'INSERT INTO fm_order_tracking (order_id,status,title,description,tracking_code,carrier,event_at) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)',
