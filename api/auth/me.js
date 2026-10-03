@@ -15,7 +15,54 @@ module.exports = async (req, res) => {
     if (req.method === 'POST') {
       const action = String(req.body?.action || '').trim().toLowerCase();
 
-      if (action === 'admin_tracking') {
+      if (action === 'support_create' || action === 'support_reply' || action === 'cancel_request' || action === 'return_request' || action === 'admin_support_update') {
+        const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(x => x.trim().toLowerCase()).filter(Boolean);
+        const isAdmin = admins.includes(String(auth.email || '').toLowerCase());
+        if (action === 'admin_support_update') {
+          if (!isAdmin) return res.status(403).json({ error: 'Acesso administrativo não autorizado.' });
+          const ticketId = String(req.body?.ticketId || '').trim();
+          const status = String(req.body?.status || '').trim().toLowerCase();
+          const message = String(req.body?.message || '').trim().slice(0, 4000);
+          if (!ticketId || !['open','in_progress','waiting_customer','resolved','closed'].includes(status)) return res.status(400).json({ error: 'Atualização de chamado inválida.' });
+          const [tickets] = await db.execute('SELECT id,public_id,order_id,user_id FROM fm_support_tickets WHERE public_id=? LIMIT 1',[ticketId]);
+          if (!tickets.length) return res.status(404).json({ error: 'Chamado não encontrado.' });
+          await db.execute('UPDATE fm_support_tickets SET status=? WHERE id=?',[status,tickets[0].id]);
+          if (message) await db.execute('INSERT INTO fm_support_messages (ticket_id,author_type,author_id,message) VALUES (?,?,?,?)',[tickets[0].id,'admin',auth.id,message]);
+          return res.json({ ok:true });
+        }
+        if (action === 'support_create' || action === 'cancel_request' || action === 'return_request') {
+          const publicId = String(req.body?.publicId || '').trim();
+          const message = String(req.body?.message || '').trim().slice(0, 4000);
+          const type = action === 'cancel_request' ? 'cancelamento' : action === 'return_request' ? 'devolucao' : String(req.body?.type || 'duvida').trim().slice(0,30);
+          if (!publicId || !message) return res.status(400).json({ error: 'Informe o pedido e a mensagem.' });
+          const [orders] = await db.execute('SELECT id,public_id,customer_name,customer_email,total_amount,status FROM fm_orders WHERE public_id=? AND user_id=? LIMIT 1',[publicId,auth.id]);
+          if (!orders.length) return res.status(404).json({ error: 'Pedido não encontrado.' });
+          const [existing] = await db.execute('SELECT id,public_id FROM fm_support_tickets WHERE order_id=? AND user_id=? AND status NOT IN ("resolved","closed") ORDER BY id DESC LIMIT 1',[orders[0].id,auth.id]);
+          let ticket;
+          if (existing.length) {
+            ticket=existing[0];
+            await db.execute('INSERT INTO fm_support_messages (ticket_id,author_type,author_id,message) VALUES (?,?,?,?)',[ticket.id,'customer',auth.id,message]);
+          } else {
+            const publicTicket='SUP-'+Date.now().toString(36).toUpperCase();
+            const subject=type==='cancelamento'?'Solicitação de cancelamento':type==='devolucao'?'Solicitação de devolução':'Atendimento sobre o pedido';
+            const [ins]=await db.execute('INSERT INTO fm_support_tickets (public_id,user_id,order_id,type,status,subject) VALUES (?,?,?,?,?,?)',[publicTicket,auth.id,orders[0].id,type,'open',subject]);
+            ticket={id:ins.insertId,public_id:publicTicket};
+            await db.execute('INSERT INTO fm_support_messages (ticket_id,author_type,author_id,message) VALUES (?,?,?,?)',[ticket.id,'customer',auth.id,message]);
+          }
+          return res.json({ok:true,ticketId:ticket.public_id});
+        }
+        if (action === 'support_reply') {
+          const ticketId=String(req.body?.ticketId||'').trim(), message=String(req.body?.message||'').trim().slice(0,4000);
+          if(!ticketId||!message)return res.status(400).json({error:'Informe o chamado e a mensagem.'});
+          const [tickets]=await db.execute('SELECT id FROM fm_support_tickets WHERE public_id=? AND user_id=? LIMIT 1',[ticketId,auth.id]);
+          if(!tickets.length)return res.status(404).json({error:'Chamado não encontrado.'});
+          await db.execute('INSERT INTO fm_support_messages (ticket_id,author_type,author_id,message) VALUES (?,?,?,?)',[tickets[0].id,'customer',auth.id,message]);
+          await db.execute('UPDATE fm_support_tickets SET status="open" WHERE id=? AND status="waiting_customer"',[tickets[0].id]);
+          return res.json({ok:true});
+        }
+      }
+
+    if (action === 'admin_tracking') {
         const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(x => x.trim().toLowerCase()).filter(Boolean);
         if (!admins.length || !admins.includes(String(auth.email || '').toLowerCase())) {
           return res.status(403).json({ error: 'Acesso administrativo não autorizado.' });
@@ -66,8 +113,28 @@ module.exports = async (req, res) => {
     const includeOrders = includes.includes('orders');
     const includeAdminOrders = includes.includes('admin-orders');
     const includeNotifications = includes.includes('notifications');
+    const includeSupport = includes.includes('support');
+    const includeAdminSupport = includes.includes('admin-support');
     const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(x => x.trim().toLowerCase()).filter(Boolean);
     const isAdmin = admins.includes(String(rows[0].email || '').toLowerCase());
+    if (includeAdminSupport) {
+      if (!isAdmin) return res.status(403).json({ error: 'Acesso administrativo não autorizado.' });
+      const [tickets]=await db.execute(`SELECT t.id,t.public_id,t.type,t.status,t.subject,t.created_at,t.updated_at,o.public_id AS order_public_id,o.customer_name,o.customer_email
+        FROM fm_support_tickets t INNER JOIN fm_orders o ON o.id=t.order_id ORDER BY t.updated_at DESC LIMIT 100`);
+      const ids=tickets.map(t=>t.id);
+      let messages=[];
+      if(ids.length){ const [rows]=await db.execute(`SELECT ticket_id,author_type,message,created_at FROM fm_support_messages WHERE ticket_id IN (${ids.map(()=>'?').join(',')}) ORDER BY created_at ASC,id ASC`,ids); messages=rows; }
+      const grouped=new Map(); for(const m of messages){if(!grouped.has(m.ticket_id))grouped.set(m.ticket_id,[]);grouped.get(m.ticket_id).push({author:m.author_type,message:m.message,date:m.created_at});}
+      return res.json({user:rows[0],isAdmin:true,tickets:tickets.map(t=>({id:t.public_id,type:t.type,status:t.status,subject:t.subject,orderId:t.order_public_id,customerName:t.customer_name,customerEmail:t.customer_email,createdAt:t.created_at,updatedAt:t.updated_at,messages:grouped.get(t.id)||[]}))});
+    }
+    if (includeSupport) {
+      const [tickets]=await db.execute(`SELECT t.id,t.public_id,t.type,t.status,t.subject,t.created_at,t.updated_at,o.public_id AS order_public_id
+        FROM fm_support_tickets t INNER JOIN fm_orders o ON o.id=t.order_id WHERE t.user_id=? ORDER BY t.updated_at DESC LIMIT 50`,[auth.id]);
+      const ids=tickets.map(t=>t.id); let messages=[];
+      if(ids.length){const [rows]=await db.execute(`SELECT ticket_id,author_type,message,created_at FROM fm_support_messages WHERE ticket_id IN (${ids.map(()=>'?').join(',')}) ORDER BY created_at ASC,id ASC`,ids);messages=rows;}
+      const grouped=new Map();for(const m of messages){if(!grouped.has(m.ticket_id))grouped.set(m.ticket_id,[]);grouped.get(m.ticket_id).push({author:m.author_type,message:m.message,date:m.created_at});}
+      return res.json({user:rows[0],tickets:tickets.map(t=>({id:t.public_id,type:t.type,status:t.status,subject:t.subject,orderId:t.order_public_id,createdAt:t.created_at,updatedAt:t.updated_at,messages:grouped.get(t.id)||[]}))});
+    }
     if (includeNotifications) {
       const [events] = await db.execute(
         `SELECT t.order_id,t.status,t.title,t.description,t.tracking_code,t.carrier,t.event_at,o.public_id
