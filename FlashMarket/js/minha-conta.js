@@ -84,7 +84,19 @@
     }
   }
   function getCartCount() { try { return typeof fmGetCart === 'function' ? fmGetCart().reduce((s, x) => s + Number(x.qty || 0), 0) : safeJSON('flashmarket_cart', []).reduce((s, x) => s + Number(x.qty || 0), 0); } catch { return 0; } }
-  function getFavs() { return safeJSON('flashmarket_favorites', []); }
+  let accountFavorites = safeJSON('flashmarket_favorites', []);
+  function getFavs() { return accountFavorites; }
+  async function loadRealFavorites() {
+    try {
+      const data = await window.KoraAuth.request('/api/auth/me?include=favorites');
+      accountFavorites = Array.isArray(data.favorites) ? data.favorites.map(Number).filter(Number.isInteger) : [];
+      setJSON('flashmarket_favorites', accountFavorites);
+      renderFavs(); updateStats();
+    } catch (error) {
+      if (error.status === 401) { localStorage.removeItem('flashmarket_access_token'); location.href='login.html?return=minha-conta.html'; return; }
+      toast(error.message || 'Não foi possível sincronizar favoritos.');
+    }
+  }
 
   function updateStats() {
     const orders = getOrders();
@@ -209,5 +221,5 @@
   $('#copyProfile')?.addEventListener('click', () => { const email = profile.email || ''; if (email) { navigator.clipboard?.writeText(email); toast('E-mail copiado.'); } });
   $('#logoutBtn')?.addEventListener('click', () => { localStorage.removeItem(userKey); localStorage.removeItem(profileKey); location.href='index.html'; });
 
-  renderIdentity(); updateStats(); renderOrders(); renderNotifications(); renderCoupons(); loadRealOrders();
+  renderIdentity(); updateStats(); renderOrders(); renderNotifications(); renderCoupons(); renderFavs(); loadRealOrders(); loadRealFavorites();
 })();
