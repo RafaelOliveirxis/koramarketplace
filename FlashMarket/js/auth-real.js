@@ -49,8 +49,16 @@
     }
 
     const data = await response.json().catch(() => ({}));
+    const messageFrom = (value) => {
+      if (typeof value === 'string' && value.trim()) return value.trim();
+      if (value && typeof value === 'object') {
+        return String(value.message || value.error || value.detail || value.title || '').trim();
+      }
+      return '';
+    };
     if (!response.ok) {
-      const error = new Error(data.error || 'Não foi possível concluir a operação.');
+      const message = messageFrom(data?.error) || messageFrom(data) || `Falha na autenticação (HTTP ${response.status}).`;
+      const error = new Error(message);
       error.status = response.status;
       error.code = response.status >= 500 ? 'API_UNAVAILABLE' : 'API_ERROR';
       throw error;
@@ -128,7 +136,10 @@
     } catch (error) {
       if (note) {
         note.className = 'auth-note error';
-        note.textContent = error.message || 'Não foi possível concluir o acesso.';
+        const message = error && typeof error === 'object'
+          ? String(error.message || error.error || error.detail || '').trim()
+          : String(error || '').trim();
+        note.textContent = message || 'Não foi possível concluir o acesso.';
       }
       if (button) {
         button.disabled = false;
