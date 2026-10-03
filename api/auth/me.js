@@ -5,16 +5,37 @@ const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
-  if (req.method !== 'GET') return res.status(405).json({ error: 'Método não permitido.' });
+  if (!['GET','POST'].includes(req.method)) return res.status(405).json({ error: 'Método não permitido.' });
   const auth = requireAuth(req, res);
   if (!auth) return;
   try {
     const db = getPool();
     await ensurePaymentsSchema(db);
+    if (req.method === 'POST') {
+      const action = String(req.body?.action || '').trim().toLowerCase();
+      const productId = Number(req.body?.productId);
+      if (!['add','remove','toggle'].includes(action) || !Number.isInteger(productId) || productId <= 0) {
+        return res.status(400).json({ error: 'Favorito inválido.' });
+      }
+      const [product] = await db.execute('SELECT product_id FROM fm_catalog WHERE product_id=? AND active=1 LIMIT 1', [productId]);
+      if (!product.length) return res.status(404).json({ error: 'Produto não encontrado.' });
+      const [existing] = await db.execute('SELECT product_id FROM fm_favorites WHERE user_id=? AND product_id=? LIMIT 1', [auth.id, productId]);
+      const shouldAdd = action === 'add' || (action === 'toggle' && !existing.length);
+      if (shouldAdd) await db.execute('INSERT IGNORE INTO fm_favorites (user_id,product_id) VALUES (?,?)', [auth.id, productId]);
+      else await db.execute('DELETE FROM fm_favorites WHERE user_id=? AND product_id=?', [auth.id, productId]);
+      const [favorites] = await db.execute('SELECT product_id FROM fm_favorites WHERE user_id=? ORDER BY created_at DESC', [auth.id]);
+      return res.json({ favorites: favorites.map(row => Number(row.product_id)), favorite: shouldAdd });
+    }
     const [rows] = await db.execute('SELECT id,name,email,phone,email_verified,created_at,updated_at FROM users WHERE id = ? LIMIT 1', [auth.id]);
     if (!rows.length) return res.status(404).json({ error: 'Usuário não encontrado.' });
-    const includeOrders = String(req.query?.include || '').split(',').map(x => x.trim()).includes('orders');
-    if (!includeOrders) return res.json({ user: rows[0] });
+    const includes = String(req.query?.include || '').split(',').map(x => x.trim());
+    const includeFavorites = includes.includes('favorites');
+    const includeOrders = includes.includes('orders');
+    if (!includeOrders && !includeFavorites) return res.json({ user: rows[0] });
+    if (includeFavorites && !includeOrders) {
+      const [favorites] = await db.execute('SELECT product_id FROM fm_favorites WHERE user_id=? ORDER BY created_at DESC', [auth.id]);
+      return res.json({ user: rows[0], favorites: favorites.map(row => Number(row.product_id)) });
+    }
 
     const [orders] = await db.execute(
       'SELECT id,public_id,total_amount,shipping_amount,payment_method,status,status_detail,mp_order_id,created_at,paid_at FROM fm_orders WHERE user_id=? ORDER BY created_at DESC LIMIT 100',
