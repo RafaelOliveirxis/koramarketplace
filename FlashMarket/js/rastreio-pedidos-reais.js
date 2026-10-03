@@ -144,7 +144,9 @@
           numero: o.id, rastreio: 'Ainda não gerado', transportadora: 'Aguardando postagem',
           status: info[0], statusAtual: info[0], descricao: info[1], progresso: info[2], etapa: info[3],
           previsao: 'Após postagem', endereco: 'Disponível nos detalhes do pedido na sua conta.',
-          produtos: [], eventos: [{ titulo: info[0], descricao: info[1], data: new Date(o.createdAt || Date.now()).toLocaleDateString('pt-BR'), hora: '—', local: 'FlashMarket / Mercado Pago' }],
+          produtos: [], eventos: Array.isArray(o.tracking) && o.tracking.length ? o.tracking.map(event => ({
+            titulo:event.title || info[0], descricao:event.description || '', data:formatDate(event.date), hora:'—', local:event.carrier || 'FlashMarket',
+          })) : [{ titulo: info[0], descricao: info[1], data: new Date(o.createdAt || Date.now()).toLocaleDateString('pt-BR'), hora: '—', local: 'FlashMarket / Mercado Pago' }],
           total: Number(o.total || 0)
         });
         localStorage.setItem('flashmarket_ultimo_pedido', code);
