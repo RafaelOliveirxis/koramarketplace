@@ -175,11 +175,22 @@
     $$('[data-copy]').forEach(btn => btn.onclick = async () => { const code = btn.dataset.copy; try { await navigator.clipboard.writeText(code); } catch {} const next = [...new Set([...used, code])]; setJSON(couponsKey,next); btn.textContent='COPIADO'; toast(`Cupom ${code} copiado.`); });
   }
 
+  let realNotifications = [];
+  async function loadRealNotifications() {
+    try { const data = await window.KoraAuth.request('/api/auth/me?include=notifications'); realNotifications = Array.isArray(data.notifications) ? data.notifications : []; renderNotifications(); }
+    catch (error) { if (error.status === 401) { localStorage.removeItem('flashmarket_access_token'); location.href='login.html?return=minha-conta.html'; return; } toast(error.message || 'Não foi possível carregar as notificações.'); }
+  }
+
   function renderNotifications() {
     const saved = {...notificationDefaults, ...safeJSON(notifKey, {})};
     $$('[data-notification]').forEach(input => { input.checked = Boolean(saved[input.dataset.notification]); });
     const enabled = Object.values(saved).filter(Boolean).length;
     const counter = $('#notificationCount'); if (counter) counter.textContent = `${enabled} ativadas`;
+    const box = $('.notification-settings'); if (!box) return;
+    const old = $('#realNotifications'); if (old) old.remove();
+    const feed = document.createElement('div'); feed.id='realNotifications'; feed.style='margin-top:16px;padding-top:16px;border-top:1px solid #eee';
+    feed.innerHTML = '<h3 style="font-size:14px;margin:0 0 10px">Atualizações reais</h3>' + (realNotifications.length ? realNotifications.map(n => `<article style="padding:11px;border:1px solid #eee;border-radius:10px;margin-bottom:8px"><b>${n.title}</b><div style="font-size:11px;color:#777;margin-top:4px">Pedido #${n.orderId} · ${new Date(n.date).toLocaleString('pt-BR')}</div>${n.description ? `<p style="font-size:11px;margin:6px 0 0;color:#555">${n.description}</p>` : ''}${n.trackingCode ? `<small style="display:block;margin-top:6px">${n.carrier || 'Rastreio'}: <b>${n.trackingCode}</b></small>` : ''}</article>`).join('') : '<p style="font-size:11px;color:#888">Nenhuma atualização de pedido disponível.</p>');
+    box.appendChild(feed);
   }
   $$('.account-nav button[data-tab]').forEach(btn => btn.addEventListener('click', () => tab(btn.dataset.tab)));
   $$('.account-quick [data-tab]').forEach(btn => btn.addEventListener('click', () => tab(btn.dataset.tab)));
@@ -221,5 +232,5 @@
   $('#copyProfile')?.addEventListener('click', () => { const email = profile.email || ''; if (email) { navigator.clipboard?.writeText(email); toast('E-mail copiado.'); } });
   $('#logoutBtn')?.addEventListener('click', () => { localStorage.removeItem(userKey); localStorage.removeItem(profileKey); location.href='index.html'; });
 
-  renderIdentity(); updateStats(); renderOrders(); renderNotifications(); renderCoupons(); renderFavs(); loadRealOrders(); loadRealFavorites();
+  renderIdentity(); updateStats(); renderOrders(); renderNotifications(); renderCoupons(); renderFavs(); loadRealOrders(); loadRealFavorites(); loadRealNotifications();
 })();
