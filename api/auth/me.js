@@ -36,6 +36,11 @@ module.exports = async (req, res) => {
           'INSERT INTO fm_order_tracking (order_id,status,title,description,tracking_code,carrier,event_at) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)',
           [orders[0].id,status,title,description || null,trackingCode || null,carrier || null]
         );
+        try {
+          await sendOrderEventEmail({ email: orders[0].customer_email, name: orders[0].customer_name, orderId: orders[0].public_id, title, description, trackingCode, carrier });
+        } catch (emailError) {
+          console.error('admin/tracking email', emailError);
+        }
         return res.json({
           ok: true,
           event: { status, title, description: description || null, trackingCode: trackingCode || null, carrier: carrier || null }
