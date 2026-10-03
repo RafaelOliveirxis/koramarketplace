@@ -1,6 +1,7 @@
 const { getPool } = require('../_lib/db');
 const { bcrypt, sign, normalizeEmail, validEmail } = require('../_lib/auth');
 const { applyCors } = require('../_lib/cors');
+const { ensureAuthSchema } = require('../_lib/ensureAuthSchema');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
@@ -10,6 +11,7 @@ module.exports = async (req, res) => {
     const password = String(req.body?.password || '');
     if (!validEmail(email) || !password) return res.status(400).json({ error: 'Informe um e-mail válido e sua senha.' });
     const db = getPool();
+    await ensureAuthSchema(db);
     const [rows] = await db.execute('SELECT id,name,email,phone,password_hash,email_verified FROM users WHERE email = ? LIMIT 1', [email]);
     if (!rows.length || !(await bcrypt.compare(password, rows[0].password_hash))) return res.status(401).json({ error: 'E-mail ou senha inválidos.' });
     const user = { id: rows[0].id, name: rows[0].name, email: rows[0].email, phone: rows[0].phone, email_verified: !!rows[0].email_verified };
