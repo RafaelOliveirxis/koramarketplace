@@ -10,6 +10,11 @@ async function ensurePaymentsSchema(db) {
         product_id INT NOT NULL, name VARCHAR(200) NOT NULL, price DECIMAL(10,2) NOT NULL,
         active TINYINT(1) NOT NULL DEFAULT 1, PRIMARY KEY (product_id)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+      await db.execute(`CREATE TABLE IF NOT EXISTS fm_favorites (
+        user_id BIGINT UNSIGNED NOT NULL, product_id INT NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (user_id, product_id), KEY ix_fm_favorites_product (product_id)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
       await db.execute(`CREATE TABLE IF NOT EXISTS fm_orders (
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, public_id VARCHAR(32) NOT NULL,
         user_id BIGINT UNSIGNED NULL, customer_name VARCHAR(120) NOT NULL, customer_email VARCHAR(190) NOT NULL,
