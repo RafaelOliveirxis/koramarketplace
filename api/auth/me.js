@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     if (req.method === 'POST') {
       const action = String(req.body?.action || '').trim().toLowerCase();
 
-      if (action === 'support_create' || action === 'support_reply' || action === 'cancel_request' || action === 'return_request' || action === 'admin_support_update') {
+      if (action === 'support_create' || action === 'cancel_request' || action === 'return_request' || action === 'admin_support_update') {
         const admins = String(process.env.ADMIN_EMAILS || '').split(',').map(x => x.trim().toLowerCase()).filter(Boolean);
         const isAdmin = admins.includes(String(auth.email || '').toLowerCase());
         if (action === 'admin_support_update') {
@@ -92,6 +92,15 @@ module.exports = async (req, res) => {
           ok: true,
           event: { status, title, description: description || null, trackingCode: trackingCode || null, carrier: carrier || null }
         });
+      }
+      if (action === 'support_reply') {
+        const ticketId=String(req.body?.ticketId||'').trim(), message=String(req.body?.message||'').trim().slice(0,4000);
+        if(!ticketId||!message)return res.status(400).json({error:'Informe o chamado e a mensagem.'});
+        const [tickets]=await db.execute('SELECT id FROM fm_support_tickets WHERE public_id=? AND user_id=? LIMIT 1',[ticketId,auth.id]);
+        if(!tickets.length)return res.status(404).json({error:'Chamado não encontrado.'});
+        await db.execute('INSERT INTO fm_support_messages (ticket_id,author_type,author_id,message) VALUES (?,?,?,?)',[tickets[0].id,'customer',auth.id,message]);
+        await db.execute('UPDATE fm_support_tickets SET status="open" WHERE id=? AND status="waiting_customer"',[tickets[0].id]);
+        return res.json({ok:true});
       }
       const productId = Number(req.body?.productId);
       if (!['add','remove','toggle'].includes(action) || !Number.isInteger(productId) || productId <= 0) {
