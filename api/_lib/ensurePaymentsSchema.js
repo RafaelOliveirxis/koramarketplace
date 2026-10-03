@@ -15,6 +15,14 @@ async function ensurePaymentsSchema(db) {
         created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (user_id, product_id), KEY ix_fm_favorites_product (product_id)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+      await db.execute(`CREATE TABLE IF NOT EXISTS fm_order_tracking (
+        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, order_id BIGINT UNSIGNED NOT NULL,
+        status VARCHAR(40) NOT NULL, title VARCHAR(120) NOT NULL, description VARCHAR(500) NULL,
+        tracking_code VARCHAR(80) NULL, carrier VARCHAR(120) NULL, event_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id), KEY ix_fm_tracking_order (order_id), KEY ix_fm_tracking_event (event_at),
+        CONSTRAINT fk_fm_tracking_order FOREIGN KEY (order_id) REFERENCES fm_orders(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
       await db.execute(`CREATE TABLE IF NOT EXISTS fm_orders (
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, public_id VARCHAR(32) NOT NULL,
         user_id BIGINT UNSIGNED NULL, customer_name VARCHAR(120) NOT NULL, customer_email VARCHAR(190) NOT NULL,
