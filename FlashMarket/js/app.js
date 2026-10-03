@@ -1,4 +1,4 @@
-const products = [
+let products = [
   {id:1,name:"Luminária LED de Mesa",category:"Home Office",price:89.90,old:129.90,discount:31,rating:4.9,image:"assets/luminaria de led.png"},
   {id:2,name:"Organizador Multiuso Minimalista",category:"Casa & Decor",price:39.90,old:59.90,discount:33,rating:4.8,image:"https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=900&q=80"},
   {id:3,name:"Moletom Street Flash",category:"Vestuário",price:119.90,old:169.90,discount:29,rating:4.9,image:"https://raw.githubusercontent.com/RafaelOliveirxis/Kora-Marketplace/refs/heads/main/Kora%20Marketplace/assets/Moletom%20Street%20Flash.png"},
@@ -34,6 +34,32 @@ const categories = [
   {name:"Vestuário",icon:"👕",desc:"Estilo em alta",cls:"cat-purple"},
   {name:"Papelaria",icon:"✏️",desc:"Para criar mais",cls:"cat-green"}
 ];
+
+let catalogReady = false;
+async function loadRealCatalog(){
+  try{
+    const base = window.FLASHMARKET_API_BASE || 'https://koramarketplace-tcc21.vercel.app';
+    const response = await fetch(base + '/api/products', { headers:{'Accept':'application/json'} });
+    const data = await response.json().catch(()=>({}));
+    if(!response.ok || !Array.isArray(data.products) || !data.products.length) throw new Error(data.error || 'Catálogo indisponível.');
+    const byId = new Map(products.map(p => [Number(p.id), p]));
+    products = data.products.map(item => {
+      const old = byId.get(Number(item.id)) || {};
+      return {...old,id:Number(item.id),name:item.name || old.name || `Produto #${item.id}`,
+        price:Number(item.price),p:Number(item.price),n:item.name || old.name || `Produto #${item.id}`,
+        i:item.image || old.image || 'assets/logo-kora.svg',c:item.category || old.category || 'Ofertas',
+        category:item.category || old.category || 'Ofertas',old:Number(item.old_price || old.old || item.price),
+        discount:Number(item.discount || old.discount || 0),rating:Number(item.rating || old.rating || 5),
+        active:item.active !== false};
+    }).filter(p=>p.active);
+    catalogReady=true;
+    window.FM_PRODUCTS=products.map(p=>({id:p.id,n:p.name,p:p.price,i:p.image,c:p.category}));
+    if(typeof renderFeatured==='function') renderFeatured();
+    if(typeof renderProducts==='function') renderProducts();
+    if(typeof renderFavorites==='function') renderFavorites();
+    if(typeof renderCart==='function') renderCart();
+  }catch(error){ console.warn('[FlashMarket] catálogo real indisponível; mantendo catálogo local de emergência.',error); }
+}
 
 let currentCategory = "all";
 
@@ -300,20 +326,8 @@ function userOrdersKey(){
 }
 
 function saveOrder(){
-  const items = cart.map(item => {
-    const product = products.find(candidate => candidate.id === item.id);
-    return product ? { name: product.name, qty: item.qty, price: product.price } : null;
-  }).filter(Boolean);
-  const order = {
-    id: `FM-${Date.now().toString().slice(-6)}`,
-    product: items.map(item => `${item.name} (${item.qty}x)`).join(", "),
-    price: total(),
-    status: "pago",
-    date: new Date().toISOString().slice(0, 10),
-    image: "📦"
-  };
-  const orders = readStoredArray(userOrdersKey());
-  localStorage.setItem(userOrdersKey(), JSON.stringify([order, ...orders]));
+  // Pedidos reais são criados exclusivamente por /api/payments/create.
+  // Não registramos pedidos como "pagos" no navegador.
 }
 
 function renderCart(){
@@ -726,3 +740,6 @@ renderProducts();
 renderCart();
 renderFavorites();
 updateHeader();
+
+
+loadRealCatalog();
