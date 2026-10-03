@@ -66,12 +66,10 @@
           <div><h2>Não encontrou o que precisava?</h2><p>Envie uma solicitação e registre sua dúvida pelo próprio site.</p></div>
         </div>
         <form class="ticket-form" id="ticketForm">
-          <div class="ticket-field"><label>Nome</label><input name="name" required placeholder="Seu nome"></div>
-          <div class="ticket-field"><label>E-mail</label><input name="email" type="email" required placeholder="voce@email.com"></div>
-          <div class="ticket-field"><label>Assunto</label><select name="subject" required><option value="">Selecione</option><option>Pedido e entrega</option><option>Pagamento</option><option>Troca e devolução</option><option>Conta e acesso</option><option>Produtos</option><option>Afiliados</option><option>Outro</option></select></div>
-          <div class="ticket-field"><label>Número do pedido</label><input name="order" placeholder="Se houver, informe o pedido"></div>
+          <div class="ticket-field"><label>Número do pedido</label><input name="order" required placeholder="Ex.: FM-20261003-ABC123"></div>
+          <div class="ticket-field"><label>Tipo de atendimento</label><select name="type" required><option value="duvida">Dúvida sobre o pedido</option><option value="cancelamento">Solicitar cancelamento</option><option value="devolucao">Solicitar devolução</option></select></div>
           <div class="ticket-field wide"><label>Mensagem</label><textarea name="message" required placeholder="Conte o que aconteceu e como podemos ajudar..."></textarea></div>
-          <div class="wide"><button class="ticket-btn" type="submit">ENVIAR SOLICITAÇÃO →</button><p class="ticket-note">No modo demonstração, a solicitação fica salva neste navegador.</p><div id="ticketSuccess" class="fm-alert" style="display:none;margin-top:10px"></div></div>
+          <div class="wide"><button class="ticket-btn" type="submit">ENVIAR SOLICITAÇÃO →</button><p class="ticket-note">Para abrir um atendimento real, entre na sua conta e informe o número do pedido. A solicitação ficará vinculada ao pedido e poderá ser respondida pela equipe.</p><div id="ticketSuccess" class="fm-alert" style="display:none;margin-top:10px"></div></div>
         </form>
       </section>
     </div>
