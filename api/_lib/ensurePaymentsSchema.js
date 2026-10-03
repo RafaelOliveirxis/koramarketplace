@@ -44,6 +44,23 @@ async function ensurePaymentsSchema(db) {
         PRIMARY KEY (id), KEY ix_fm_tracking_order (order_id), KEY ix_fm_tracking_event (event_at),
         CONSTRAINT fk_fm_tracking_order FOREIGN KEY (order_id) REFERENCES fm_orders(id) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+      await db.execute(`CREATE TABLE IF NOT EXISTS fm_support_tickets (
+        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, public_id VARCHAR(32) NOT NULL,
+        user_id BIGINT UNSIGNED NOT NULL, order_id BIGINT UNSIGNED NOT NULL,
+        type VARCHAR(30) NOT NULL, status VARCHAR(30) NOT NULL DEFAULT 'open',
+        subject VARCHAR(160) NOT NULL, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (id), UNIQUE KEY uq_fm_support_public_id (public_id),
+        KEY ix_fm_support_user (user_id), KEY ix_fm_support_order (order_id), KEY ix_fm_support_status (status),
+        CONSTRAINT fk_fm_support_ticket_order FOREIGN KEY (order_id) REFERENCES fm_orders(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+      await db.execute(`CREATE TABLE IF NOT EXISTS fm_support_messages (
+        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ticket_id BIGINT UNSIGNED NOT NULL,
+        author_type VARCHAR(20) NOT NULL, author_id BIGINT UNSIGNED NULL,
+        message TEXT NOT NULL, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id), KEY ix_fm_support_messages_ticket (ticket_id), KEY ix_fm_support_messages_date (created_at),
+        CONSTRAINT fk_fm_support_message_ticket FOREIGN KEY (ticket_id) REFERENCES fm_support_tickets(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
       const values=[]; for (const p of products) values.push(...p,1);
       const placeholders=products.map(()=>'(?,?,?,?)').join(',');
       await db.execute(`INSERT INTO fm_catalog (product_id,name,price,active) VALUES ${placeholders}
