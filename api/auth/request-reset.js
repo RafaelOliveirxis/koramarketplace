@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const { getPool } = require('../_lib/db');
 const { sendPasswordResetEmail } = require('../_lib/mailer');
 const { applyCors } = require('../_lib/cors');
+const { ensureAuthSchema } = require('../_lib/ensureAuthSchema');
 
 const message = 'Se o e-mail estiver cadastrado, você receberá um link de recuperação em instantes.';
 
@@ -13,6 +14,7 @@ module.exports = async (req, res) => {
 
   try {
     const db = getPool();
+    await ensureAuthSchema(db);
     const [users] = await db.execute('SELECT id,name,email FROM users WHERE email = ? LIMIT 1', [email]);
     if (!users.length) return res.status(200).json({ message });
 
