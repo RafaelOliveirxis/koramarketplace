@@ -119,26 +119,38 @@
 
     const input = form.querySelector('#trackingCode');
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', async function (event) {
       event.preventDefault();
       const code = input.value.trim().toUpperCase();
-      if (!code) {
-        if (typeof window.mostrarErro === 'function') window.mostrarErro();
-        return;
-      }
-
-      const dynamic = findOrder(code);
-      if (dynamic) {
+      if (!code) { if (typeof window.mostrarErro === 'function') window.mostrarErro(); return; }
+      if (window.loadingState) window.loadingState.classList.remove('hidden');
+      try {
+        const base = window.FLASHMARKET_API_BASE || (location.hostname.endsWith('github.io') ? 'https://koramarketplace.vercel.app' : '');
+        const response = await fetch(base + '/api/payments/status?order=' + encodeURIComponent(code), { cache: 'no-store' });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || 'Pedido não encontrado.');
+        const o = data.order || {};
+        const labels = {
+          paid: ['Pagamento confirmado', 'O pagamento foi confirmado. O pedido está registrado e aguardando processamento logístico.', 25, 1],
+          pending: ['Pagamento pendente', 'O pagamento ainda está em processamento. O status será atualizado automaticamente.', 10, 1],
+          action_required: ['Ação necessária', 'O Mercado Pago solicitou uma ação para concluir o pagamento.', 10, 1],
+          failed: ['Pagamento recusado', 'O pagamento não foi concluído.', 0, 0],
+          cancelled: ['Pedido cancelado', 'O pagamento/pedido foi cancelado.', 0, 0],
+          refunded: ['Pagamento reembolsado', 'O pagamento consta como reembolsado.', 0, 0]
+        };
+        const info = labels[o.paymentStatus] || labels.pending;
         if (window.loadingState) window.loadingState.classList.add('hidden');
-        showDynamicOrder(dynamic);
-        return;
-      }
-
-      /* Mantém os códigos demonstrativos antigos funcionando. */
-      if (typeof window.consultarPedido === 'function') {
-        window.consultarPedido(code);
-      } else if (typeof window.mostrarErro === 'function') {
-        window.mostrarErro();
+        window.renderizarPedido({
+          numero: o.id, rastreio: 'Ainda não gerado', transportadora: 'Aguardando postagem',
+          status: info[0], statusAtual: info[0], descricao: info[1], progresso: info[2], etapa: info[3],
+          previsao: 'Após postagem', endereco: 'Disponível nos detalhes do pedido na sua conta.',
+          produtos: [], eventos: [{ titulo: info[0], descricao: info[1], data: new Date(o.createdAt || Date.now()).toLocaleDateString('pt-BR'), hora: '—', local: 'FlashMarket / Mercado Pago' }],
+          total: Number(o.total || 0)
+        });
+        localStorage.setItem('flashmarket_ultimo_pedido', code);
+      } catch (error) {
+        if (window.loadingState) window.loadingState.classList.add('hidden');
+        if (typeof window.mostrarErro === 'function') window.mostrarErro();
       }
     });
 
