@@ -24,10 +24,12 @@ module.exports = async (req, res) => {
   const items = Array.isArray(body.items) ? body.items : [];
   const shippingAmount = Number(body.shippingAmount || 0);
   const paymentMethod = clean(body.paymentMethod, 30) || 'checkout_pro';
+  const couponCode = clean(body.couponCode, 30).toUpperCase();
 
   if (!items.length) return res.status(400).json({ error: 'O carrinho está vazio.' });
   if (!['pix', 'card', 'boleto'].includes(paymentMethod)) return res.status(400).json({ error: 'Forma de pagamento inválida.' });
   if (![0, 19.9].includes(shippingAmount)) return res.status(400).json({ error: 'Frete inválido.' });
+  if (couponCode && couponCode !== 'FLASH10') return res.status(400).json({ error: 'Cupom inválido.' });
 
   const customerName = clean(customer.name, 120);
   const customerEmail = clean(customer.email, 190).toLowerCase();
@@ -66,7 +68,8 @@ module.exports = async (req, res) => {
     });
 
     const subtotal = orderItems.reduce((sum, item) => sum + item.total, 0);
-    const total = Number((subtotal + shippingAmount).toFixed(2));
+    const discount = couponCode === 'FLASH10' ? Number((subtotal * 0.10).toFixed(2)) : 0;
+    const total = Number((subtotal - discount + shippingAmount).toFixed(2));
     const publicId = `FM-${Date.now().toString(36).toUpperCase()}-${randomUUID().slice(0, 6).toUpperCase()}`;
     const externalReference = publicId.replace(/[^A-Z0-9_-]/g, '').slice(0, 64);
     const user = optionalUser(req);
@@ -131,7 +134,7 @@ module.exports = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      order: { id: publicId, total, status: mpOrder.status || 'created', checkoutUrl: mpOrder.checkout_url, mercadoPagoOrderId: mpOrder.id }
+      order: { id: publicId, total, subtotal, discount, shipping: shippingAmount, couponCode: couponCode || null, status: mpOrder.status || 'created', checkoutUrl: mpOrder.checkout_url, mercadoPagoOrderId: mpOrder.id }
     });
   } catch (error) {
     console.error('payment/create', error);
