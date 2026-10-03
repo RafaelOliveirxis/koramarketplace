@@ -1,6 +1,7 @@
 const { getPool } = require('./_lib/db');
 const { applyCors } = require('./_lib/cors');
 const { ensurePaymentsSchema } = require('./_lib/ensurePaymentsSchema');
+// Catálogo público: preços e disponibilidade vêm do MySQL.
 
 const meta = {
   1:{category:'Casa & Decor'},2:{category:'Casa & Decor'},3:{category:'Vestuário'},4:{category:'Papelaria'},
