@@ -1,6 +1,7 @@
 const { getPool } = require('../_lib/db');
 const { mpRequest, validateWebhookSignature } = require('../_lib/mercadopago');
 const { applyCors } = require('../_lib/cors');
+const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
 
 function mapStatus(order) {
   const status = String(order.status || '').toLowerCase();
@@ -32,6 +33,7 @@ module.exports = async (req, res) => {
     const status = mapStatus(order);
     const paidAt = status === 'paid' ? new Date().toISOString().slice(0, 19).replace('T', ' ') : null;
     const db = getPool();
+    await ensurePaymentsSchema(db);
     const [result] = await db.execute(
       `UPDATE fm_orders SET status=?,status_detail=?,paid_at=COALESCE(?,paid_at) WHERE mp_order_id=? OR mp_external_reference=?`,
       [status, order.status_detail || null, paidAt, order.id, order.external_reference || '']
