@@ -2,6 +2,7 @@ const { getPool } = require('../_lib/db');
 const { requireAuth } = require('../_lib/auth');
 const { applyCors } = require('../_lib/cors');
 const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
+const { sendOrderEventEmail } = require('../_lib/mailer');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
