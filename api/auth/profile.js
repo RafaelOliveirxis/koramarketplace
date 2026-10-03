@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
     const { name, email, phone = null } = req.body || {};
     const normalizedEmail = String(email || '').trim().toLowerCase();
     const normalizedName = String(name || '').trim();
-    const current = await db.execute('SELECT email,email_verified FROM users WHERE id = ? LIMIT 1', [auth.id]);
     if (!normalizedName || !normalizedEmail) {
       return res.status(400).json({ error: 'Nome e e-mail são obrigatórios.' });
     }
