@@ -40,6 +40,7 @@
     if(!enriched.length)return false;
     sessionStorage.setItem('flashmarket_checkout_cart',JSON.stringify(enriched));
     localStorage.setItem('flashmarket_checkout_cart',JSON.stringify(enriched));
+    localStorage.setItem('flashmarket_checkout_snapshot',JSON.stringify(enriched));
     localStorage.setItem('flashmarket_cart',JSON.stringify(cart));
     return true;
   };
