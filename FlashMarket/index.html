@@ -783,7 +783,7 @@ function getCart(){return typeof fmGetCart==='function'?fmGetCart():[]}
 function saveCart(c){localStorage.setItem('flashmarket_cart',JSON.stringify(c));if(typeof fmUpdateCount==='function')fmUpdateCount()}
 function addCart(id){if(typeof fmAdd==='function'){fmAdd(Number(id));return}}
 function searchProducts(e){e.preventDefault();const q=document.getElementById('searchInput').value.trim();location.href=q?'produtos.html?q='+encodeURIComponent(q):'produtos.html';return false}
-function subscribe(e){e.preventDefault();alert('Cadastro realizado! Você receberá nossas novidades e ofertas.');e.target.reset()}
+function subscribe(e){e.preventDefault();if(typeof fmToast==='function')fmToast('Cadastro realizado! Você receberá nossas novidades e ofertas.');e.target.reset()}
 document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{b.textContent=b.textContent==='♡'?'♥':'♡';b.style.color=b.textContent==='♥'?'#ff3b1f':'#777'}));if(typeof fmUpdateCount==='function')fmUpdateCount();
 </script>
 </body>
