@@ -214,7 +214,263 @@ body.reference-home main{background:#fff}
   body.reference-home .nav a.category-link .hamburger{font-size:26px!important;margin-right:8px!important}
   body.reference-home .nav a.active:after{height:4px!important;width:50px!important}
 }
-</style>\n</head>
+</style>\n<style id="home-identity">
+/* ===== CONTEÚDO DA HOME — MESMA IDENTIDADE DO HEADER ===== */
+body.reference-home{
+  --home-red:#ff321f;--home-red-dark:#e92316;--home-red-soft:#fff1ee;
+  --home-yellow:#ffd21c;--home-ink:#171717;--home-muted:#777;
+  background:#fff!important;
+}
+body.reference-home .menu{display:none!important}
+
+/* Hero */
+body.reference-home .hero{
+  padding:22px 0 12px!important;
+  background:#fff!important;
+}
+body.reference-home .hero-grid{
+  width:min(1770px,calc(100% - 80px))!important;
+  grid-template-columns:minmax(0,1.72fr) minmax(300px,.72fr)!important;
+  gap:18px!important;
+}
+body.reference-home .hero-main{
+  min-height:430px!important;border-radius:4px!important;
+  padding:54px 58px!important;
+  background:linear-gradient(112deg,#ff321f 0%,#ff4027 52%,#e92517 100%)!important;
+  box-shadow:none!important;
+}
+body.reference-home .hero-main:before{
+  width:600px!important;height:600px!important;right:-270px!important;top:-290px!important;
+  border:2px solid rgba(255,255,255,.10)!important;
+}
+body.reference-home .hero-main:after{
+  width:390px!important;height:390px!important;right:40px!important;bottom:-240px!important;
+  background:radial-gradient(circle,rgba(255,210,28,.28),transparent 68%)!important;
+}
+body.reference-home .hero .eyebrow{
+  color:#fff!important;font-size:13px!important;letter-spacing:1.6px!important;
+}
+body.reference-home .hero h1{
+  font-size:clamp(48px,5.4vw,78px)!important;
+  line-height:.93!important;letter-spacing:-3.5px!important;
+  margin:14px 0 18px!important;
+}
+body.reference-home .hero h1 span{color:#ffd21c!important}
+body.reference-home .hero p{
+  color:rgba(255,255,255,.9)!important;font-size:15px!important;
+  max-width:650px!important;
+}
+body.reference-home .hero .buttons{margin-top:28px!important}
+body.reference-home .hero .btn{
+  height:52px!important;border-radius:4px!important;padding:0 27px!important;
+  font-size:12px!important;
+}
+body.reference-home .hero .btn.primary{
+  background:#ffd21c!important;color:#111!important;
+  box-shadow:0 7px 0 rgba(0,0,0,.12)!important;
+}
+body.reference-home .hero .btn.white{background:#fff!important;color:#ef2b1b!important}
+
+/* Cards laterais */
+body.reference-home .hero-side{gap:18px!important}
+body.reference-home .promo{
+  min-height:206px!important;border-radius:4px!important;
+  padding:30px!important;box-shadow:none!important;
+}
+body.reference-home .promo strong{font-size:28px!important;line-height:1!important}
+body.reference-home .promo small{font-size:12px!important;color:#666!important}
+body.reference-home .promo em{font-size:58px!important;right:25px!important;bottom:14px!important}
+body.reference-home .promo.p1{
+  color:#fff!important;
+  background:linear-gradient(135deg,#ff321f,#ef2516)!important;
+  border:0!important;
+}
+body.reference-home .promo.p1 small{color:rgba(255,255,255,.86)!important}
+body.reference-home .promo.p2{
+  background:#fff!important;border:2px solid #ff321f!important;
+}
+body.reference-home .promo.p2 strong{color:#ff321f!important}
+
+/* Faixa de confiança */
+body.reference-home .benefits{
+  width:min(1770px,calc(100% - 80px))!important;
+  grid-template-columns:repeat(4,1fr)!important;gap:0!important;
+  padding:18px 0 4px!important;
+}
+body.reference-home .benefit{
+  min-height:78px!important;border:0!important;border-right:1px solid #eee!important;
+  border-radius:0!important;box-shadow:none!important;padding:12px 25px!important;
+}
+body.reference-home .benefit:last-child{border-right:0!important}
+body.reference-home .benefit i{
+  width:48px!important;height:48px!important;border-radius:50%!important;
+  background:var(--home-red-soft)!important;color:#ff321f!important;font-size:22px!important;
+}
+body.reference-home .benefit strong{font-size:13px!important}
+body.reference-home .benefit small{font-size:10px!important;color:#888!important}
+
+/* Seções */
+body.reference-home .section{
+  padding:42px 0!important;background:#fff!important;
+}
+body.reference-home .section:nth-of-type(4){background:#fafafa!important}
+body.reference-home .section-title{margin-bottom:20px!important}
+body.reference-home .section-title h2{
+  font-size:29px!important;letter-spacing:-1.1px!important;
+  font-weight:900!important;color:#171717!important;
+}
+body.reference-home .section-title p{font-size:12px!important;color:#888!important}
+body.reference-home .link{
+  color:#ff321f!important;font-size:12px!important;
+}
+body.reference-home .link:hover{text-decoration:underline}
+
+/* Categorias */
+body.reference-home .categories{
+  grid-template-columns:repeat(8,1fr)!important;gap:12px!important;
+}
+body.reference-home .cat{
+  min-height:125px!important;background:#fff!important;
+  border:1px solid #e9e9e9!important;border-radius:4px!important;
+  padding:18px 7px!important;box-shadow:0 4px 14px rgba(0,0,0,.035)!important;
+}
+body.reference-home .cat:hover{
+  transform:translateY(-4px)!important;
+  border-color:#ff321f!important;
+  box-shadow:0 9px 22px rgba(255,50,31,.13)!important;
+}
+body.reference-home .cat i{
+  width:58px!important;height:58px!important;margin-bottom:10px!important;
+  background:#fff1ee!important;color:#ff321f!important;font-size:25px!important;
+}
+body.reference-home .cat b{font-size:11px!important}
+body.reference-home .cat small{font-size:9px!important;color:#999!important}
+
+/* Produtos */
+body.reference-home .products{gap:14px!important}
+body.reference-home .product{
+  border:1px solid #e7e7e7!important;border-radius:4px!important;
+  box-shadow:0 3px 14px rgba(0,0,0,.04)!important;
+}
+body.reference-home .product:hover{
+  transform:translateY(-5px)!important;
+  border-color:#ffb9af!important;
+  box-shadow:0 12px 28px rgba(255,50,31,.11)!important;
+}
+body.reference-home .visual{
+  background:#fafafa!important;min-height:210px!important;
+}
+body.reference-home .visual.red{background:#fff0ed!important}
+body.reference-home .visual.yellow{background:#fff9df!important}
+body.reference-home .visual.blue{background:#eef8fa!important}
+body.reference-home .visual.green{background:#f1f8ec!important}
+body.reference-home .visual span{font-size:78px!important}
+body.reference-home .tag{
+  background:#ff321f!important;color:#fff!important;border-radius:3px!important;
+  font-size:9px!important;padding:6px 8px!important;
+}
+body.reference-home .heart{
+  width:34px!important;height:34px!important;right:10px!important;top:10px!important;
+  border:1px solid #eee!important;box-shadow:0 4px 12px rgba(0,0,0,.07)!important;
+}
+body.reference-home .info{padding:15px!important}
+body.reference-home .catname{font-size:9px!important;color:#999!important}
+body.reference-home .product h3{
+  font-size:13px!important;line-height:1.35!important;margin:7px 0!important;
+}
+body.reference-home .stars{font-size:10px!important;color:#f3aa00!important}
+body.reference-home .old{font-size:9px!important}
+body.reference-home .price{font-size:21px!important;color:#171717!important}
+body.reference-home .install{font-size:9px!important;color:#1b8a50!important}
+body.reference-home .add{
+  height:39px!important;border-radius:3px!important;background:#ff321f!important;
+  color:#fff!important;font-size:9px!important;margin-top:12px!important;
+}
+body.reference-home .add:hover{background:#e92316!important;color:#fff!important}
+
+/* Ofertas relâmpago */
+body.reference-home #ofertas{
+  background:#fff!important;padding-top:28px!important;
+}
+body.reference-home #ofertas .flash{
+  background:#ff321f!important;border-radius:4px!important;
+  padding:30px!important;box-shadow:none!important;
+}
+body.reference-home #ofertas .flash .section-title h2{color:#fff!important}
+body.reference-home #ofertas .flash .section-title p{color:rgba(255,255,255,.8)!important}
+body.reference-home #ofertas .flash .link{color:#ffd21c!important}
+body.reference-home #ofertas .flash .product{
+  background:#fff!important;border-color:rgba(255,255,255,.5)!important;
+}
+body.reference-home #ofertas .flash .visual{background:#fff8f6!important}
+body.reference-home #ofertas .flash .product h3{color:#171717!important}
+body.reference-home #ofertas .flash .add{background:#171717!important}
+body.reference-home #ofertas .flash .add:hover{background:#ffd21c!important;color:#111!important}
+
+/* Banner */
+body.reference-home .banner{
+  margin-top:18px!important;border-radius:4px!important;
+  background:#171717!important;border:0!important;padding:34px 38px!important;
+}
+body.reference-home .banner h2{font-size:30px!important;color:#fff!important}
+body.reference-home .banner p{font-size:12px!important;color:#bbb!important}
+body.reference-home .banner .btn{
+  background:#ffd21c!important;color:#111!important;border-radius:3px!important;
+}
+
+/* Newsletter */
+body.reference-home .news{margin-top:0!important;border:0!important;background:#fff1ee!important}
+body.reference-home .news .wrap{padding:42px 0!important}
+body.reference-home .news h2{font-size:27px!important}
+body.reference-home .news p{font-size:11px!important;color:#777!important}
+body.reference-home .form{height:50px!important;border-radius:3px!important;border-color:#ddd!important;background:#fff!important}
+body.reference-home .form button{background:#ff321f!important;color:#fff!important;font-size:10px!important}
+body.reference-home .form button:hover{background:#e92316!important}
+
+/* Footer */
+body.reference-home .footer{background:#171717!important;border-top:5px solid #ff321f!important}
+body.reference-home .footer h3{color:#fff!important}
+body.reference-home .footer a:hover{color:#ffd21c!important}
+
+/* Responsivo */
+@media(max-width:1200px){
+  body.reference-home .hero-grid,
+  body.reference-home .benefits{width:94%!important}
+  body.reference-home .categories{grid-template-columns:repeat(4,1fr)!important}
+  body.reference-home .products{grid-template-columns:repeat(4,1fr)!important}
+}
+@media(max-width:800px){
+  body.reference-home .menu{display:block!important;background:transparent!important;color:#fff!important;font-size:28px!important}
+  body.reference-home .hero{padding-top:12px!important}
+  body.reference-home .hero-grid{width:94%!important;grid-template-columns:1fr!important}
+  body.reference-home .hero-main{min-height:360px!important;padding:34px 26px!important}
+  body.reference-home .hero h1{font-size:48px!important}
+  body.reference-home .hero p{font-size:13px!important}
+  body.reference-home .hero-side{grid-template-columns:1fr 1fr!important}
+  body.reference-home .promo{min-height:145px!important;padding:18px!important}
+  body.reference-home .promo strong{font-size:19px!important}
+  body.reference-home .promo em{font-size:40px!important}
+  body.reference-home .benefits{width:94%!important;grid-template-columns:repeat(2,1fr)!important}
+  body.reference-home .benefit{border-right:0!important;border-bottom:1px solid #eee!important}
+  body.reference-home .categories{grid-template-columns:repeat(4,1fr)!important}
+  body.reference-home .products{grid-template-columns:repeat(2,1fr)!important}
+  body.reference-home .visual{min-height:170px!important}
+  body.reference-home .visual span{font-size:58px!important}
+}
+@media(max-width:430px){
+  body.reference-home .hero-side{grid-template-columns:1fr!important}
+  body.reference-home .benefits{grid-template-columns:1fr!important}
+  body.reference-home .categories{gap:7px!important}
+  body.reference-home .cat{min-height:105px!important;padding:12px 3px!important}
+  body.reference-home .cat i{width:43px!important;height:43px!important;font-size:19px!important}
+  body.reference-home .cat b{font-size:9px!important}
+  body.reference-home .cat small{font-size:7px!important}
+  body.reference-home .section{padding:30px 0!important}
+  body.reference-home #ofertas .flash{padding:20px 12px!important}
+  body.reference-home .banner{padding:26px 22px!important}
+}
+</style>
+</head>
 <body class="reference-home">
 <div class="top">
   <div class="wrap">
