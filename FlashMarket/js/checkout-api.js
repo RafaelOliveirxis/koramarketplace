@@ -36,7 +36,7 @@
         }
         const order=localOrder(body);
         location.href='pedido.html?pedido='+encodeURIComponent(order.id);
-      }catch(error){b.disabled=false;b.textContent='CRIAR PEDIDO E PAGAR →';fmToast?.(error.message||'Não foi possível criar o pedido.')}
+      }catch(error){b.disabled=false;b.textContent='CRIAR PEDIDO (SIMULAÇÃO) →';fmToast?.(error.message||'Não foi possível criar o pedido.')}
     });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(go,500),{once:true});else setTimeout(go,500);
