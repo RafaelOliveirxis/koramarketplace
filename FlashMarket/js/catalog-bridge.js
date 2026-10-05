@@ -42,6 +42,7 @@
     localStorage.setItem('flashmarket_checkout_cart',JSON.stringify(enriched));
     localStorage.setItem('flashmarket_checkout_snapshot',JSON.stringify(enriched));
     localStorage.setItem('flashmarket_cart',JSON.stringify(cart));
+    try{window.fmCheckoutPayload=btoa(unescape(encodeURIComponent(JSON.stringify(enriched))));}catch{}
     return true;
   };
   if(!exposeCatalog()){
