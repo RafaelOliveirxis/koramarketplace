@@ -553,6 +553,129 @@ body.reference-home .flash .visual img{min-height:205px!important}
   body.reference-home .promo{grid-template-columns:1fr 100px!important}
 }
 </style>
+<style id="final-home-polish">
+/* ===== POLIMENTO FINAL — HOME COMERCIAL ===== */
+body.reference-home{background:#f7f7f7!important;color:#171717!important}
+body.reference-home main{overflow:hidden}
+body.reference-home .hero{padding:18px 0 10px!important;background:#f7f7f7!important}
+body.reference-home .hero-grid{max-width:1770px!important}
+body.reference-home .hero-main{
+  min-height:445px!important;border-radius:12px!important;
+  box-shadow:0 16px 35px rgba(0,0,0,.10)!important;
+}
+body.reference-home .hero-product{
+  background:rgba(255,255,255,.10);border-radius:18px;padding:12px;
+}
+body.reference-home .hero-product img{
+  mix-blend-mode:normal!important;background:#fff;border-radius:14px!important;
+  padding:10px;box-shadow:0 18px 30px rgba(0,0,0,.16);
+}
+body.reference-home .hero-product:before{display:none!important}
+body.reference-home .hero-product-label{left:20px!important;bottom:18px!important}
+body.reference-home .hero-trust span{
+  padding:7px 10px;background:rgba(0,0,0,.13);border:1px solid rgba(255,255,255,.15);
+  border-radius:99px;
+}
+body.reference-home .promo{
+  border-radius:12px!important;box-shadow:0 10px 25px rgba(0,0,0,.07)!important;
+}
+body.reference-home .promo.p1{background:linear-gradient(135deg,#ff321f,#e82316)!important}
+body.reference-home .promo.p1 strong,body.reference-home .promo.p1 small{color:#fff!important}
+body.reference-home .promo.p2{background:#fff!important;border:1px solid #eee!important}
+body.reference-home .promo img{mix-blend-mode:normal!important;background:#f8f8f8}
+body.reference-home .benefits{background:#fff;border:1px solid #eee;border-radius:12px;margin-top:6px!important;padding:6px!important;box-shadow:0 5px 20px rgba(0,0,0,.04)}
+body.reference-home .benefit{background:transparent!important;border-right:1px solid #eee!important}
+body.reference-home .section{padding:44px 0!important}
+body.reference-home .section-title h2{font-size:27px!important}
+body.reference-home .categories{grid-template-columns:repeat(8,minmax(0,1fr))!important}
+body.reference-home .cat{border-radius:10px!important}
+body.reference-home .products{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+body.reference-home .product{border-radius:10px!important;box-shadow:0 5px 18px rgba(0,0,0,.045)!important}
+body.reference-home .visual{min-height:220px!important}
+body.reference-home .visual img{min-height:220px!important;background:transparent!important;mix-blend-mode:normal!important}
+body.reference-home .info{min-height:174px!important;display:flex;flex-direction:column}
+body.reference-home .product h3{min-height:36px!important}
+body.reference-home .add{margin-top:auto!important}
+body.reference-home #ofertas .flash{border-radius:12px!important;box-shadow:0 12px 30px rgba(255,50,31,.15)!important}
+body.reference-home #ofertas .flash .products{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+body.reference-home .banner{border-radius:12px!important;box-shadow:0 10px 25px rgba(0,0,0,.12)!important}
+body.reference-home .news{margin-top:10px!important}
+body.reference-home .footer{padding-top:48px!important}
+
+/* Header: corrigir estrutura e manter navegação consistente */
+body.reference-home .header{box-shadow:0 6px 20px rgba(0,0,0,.10)!important}
+body.reference-home .head{position:relative!important}
+body.reference-home .actions .action{cursor:pointer}
+body.reference-home .action .i{font-family:Arial,sans-serif!important}
+body.reference-home .nav{overflow:hidden}
+body.reference-home .nav .wrap{overflow-x:auto!important;scrollbar-width:none}
+body.reference-home .nav .wrap::-webkit-scrollbar{display:none}
+
+/* Evita quebra visual das imagens externas */
+body.reference-home img{max-width:100%}
+body.reference-home .promo img{object-fit:cover!important}
+body.reference-home .hero-product img{object-fit:contain!important}
+
+/* Mobile realmente utilizável */
+@media(max-width:1200px){
+  body.reference-home .products,
+  body.reference-home #ofertas .flash .products{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media(max-width:800px){
+  body.reference-home .top{height:38px!important}
+  body.reference-home .top .wrap{height:38px!important}
+  body.reference-home .header{position:sticky!important;top:0!important}
+  body.reference-home .head{
+    min-height:76px!important;width:94%!important;
+    grid-template-columns:34px 58px minmax(0,1fr) 44px!important;
+    gap:7px!important;
+  }
+  body.reference-home .head>.menu{grid-column:1!important;display:block!important}
+  body.reference-home .head>a:first-of-type{grid-column:2!important}
+  body.reference-home .head>.search{grid-column:3!important}
+  body.reference-home .head>.actions{grid-column:4!important}
+  body.reference-home .logo{width:58px!important;height:58px!important}
+  body.reference-home .search{height:44px!important}
+  body.reference-home .search input{font-size:11px!important}
+  body.reference-home .search button{width:45px!important;font-size:24px!important}
+  body.reference-home .actions{height:44px!important}
+  body.reference-home .action:last-child{width:44px!important;height:44px!important}
+  body.reference-home .nav{height:50px!important}
+  body.reference-home .nav .wrap{height:50px!important}
+  body.reference-home .nav a{height:50px!important;font-size:11px!important;padding:0 12px!important}
+  body.reference-home .nav a.category-link .hamburger{font-size:24px!important}
+  body.reference-home .hero-main{min-height:auto!important;border-radius:10px!important}
+  body.reference-home .hero-product{min-height:230px!important}
+  body.reference-home .hero-product img{height:210px!important}
+  body.reference-home .benefits{border-radius:10px!important}
+  body.reference-home .categories{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  body.reference-home .products,
+  body.reference-home #ofertas .flash .products{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body.reference-home .visual{min-height:175px!important}
+  body.reference-home .visual img{min-height:175px!important}
+  body.reference-home .info{min-height:175px!important}
+}
+@media(max-width:430px){
+  body.reference-home .head{
+    grid-template-columns:30px 48px minmax(0,1fr) 40px!important;
+    gap:5px!important;
+  }
+  body.reference-home .logo{width:48px!important;height:50px!important}
+  body.reference-home .search{height:40px!important}
+  body.reference-home .search input{font-size:10px!important;padding:0 8px!important}
+  body.reference-home .search button{width:40px!important;margin:4px!important}
+  body.reference-home .action:last-child{width:40px!important;height:40px!important}
+  body.reference-home .hero h1{font-size:39px!important;letter-spacing:-2px!important}
+  body.reference-home .hero p{font-size:12px!important}
+  body.reference-home .hero-trust{display:grid!important;grid-template-columns:1fr 1fr!important}
+  body.reference-home .hero-trust span{font-size:7px!important;text-align:center}
+  body.reference-home .categories{gap:6px!important}
+  body.reference-home .cat{min-height:100px!important}
+  body.reference-home .visual,.body.reference-home .visual img{min-height:155px!important}
+  body.reference-home .info{min-height:168px!important;padding:11px!important}
+  body.reference-home .price{font-size:17px!important}
+}
+</style>
 </head>
 <body class="reference-home">
 <div class="top">
@@ -647,7 +770,7 @@ body.reference-home .flash .visual img{min-height:205px!important}
   </div>
 </section>
 <section class="wrap benefits"><div class="benefit"><i>🚚</i><div><strong>Frete grátis</strong><small>Consulte condições</small></div></div><div class="benefit"><i>🔒</i><div><strong>Compra segura</strong><small>Ambiente protegido</small></div></div><div class="benefit"><i>💳</i><div><strong>Até 12x</strong><small>Condições no checkout</small></div></div><div class="benefit"><i>↩️</i><div><strong>Compra tranquila</strong><small>Suporte ao cliente</small></div></div></section>
-<section id="categorias" class="section"><div class="wrap"><div class="section-title"><div><h2>Compre por categoria</h2><p>Encontre tudo de forma rápida e organizada</p></div><a class="link" href="produtos.html">Ver todas →</a></div><div class="categories"><a class="cat" href="produtos.html?c=Eletrônicos"><i>📱</i><b>Eletrônicos</b><small>Tecnologia</small></a><a class="cat" href="produtos.html?c=Vestuário"><i>👕</i><b>Moda</b><small>Estilo</small></a><a class="cat" href="produtos.html?c=Casa%20%26%20Decor"><i>🏠</i><b>Casa</b><small>Utilidades</small></a><a class="cat" href="produtos.html?c=Beleza"><i>💄</i><b>Beleza</b><small>Cuidados</small></a><a class="cat" href="produtos.html?c=Esportes"><i>⚽</i><b>Esportes</b><small>Movimento</small></a><a class="cat" href="produtos.html?c=Pet%20Shop"><i>🐶</i><b>Pet Shop</b><small>Seu pet</small></a><a class="cat" href="produtos.html?c=Papelaria"><i>📚</i><b>Livros</b><small>Conhecimento</small></a><a class="cat" href="produtos.html"><i>🔥</i><b>Ofertas</b><small>Imperdíveis</small></a></div></div></section>
+<section id="categorias" class="section"><div class="wrap"><div class="section-title"><div><h2>Compre por categoria</h2><p>Encontre tudo de forma rápida e organizada</p></div><a class="link" href="produtos.html">Ver todas →</a></div><div class="categories"><a class="cat" href="produtos.html?c=Eletrônicos"><i>📱</i><b>Eletrônicos</b><small>Tecnologia</small></a><a class="cat" href="produtos.html?c=Vestuário"><i>👕</i><b>Moda</b><small>Estilo</small></a><a class="cat" href="produtos.html?c=Casa%20%26%20Decor"><i>🏠</i><b>Casa</b><small>Utilidades</small></a><a class="cat" href="produtos.html?c=Beleza"><i>💄</i><b>Beleza</b><small>Cuidados</small></a><a class="cat" href="produtos.html?c=Esportes"><i>⚽</i><b>Esportes</b><small>Movimento</small></a><a class="cat" href="produtos.html?c=Pet%20Shop"><i>🐶</i><b>Pet Shop</b><small>Seu pet</small></a><a class="cat" href="produtos.html?c=Papelaria"><i>📚</i><b>Livros & Papelaria</b><small>Conhecimento</small></a><a class="cat" href="produtos.html"><i>🔥</i><b>Ofertas</b><small>Imperdíveis</small></a></div></div></section>
 <section class="section"><div class="wrap"><div class="section-title"><div><h2>Mais vendidos</h2><p>Produtos em destaque no FlashMarket</p></div><a class="link" href="produtos.html">Ver catálogo →</a></div><div class="products" id="products"><article class="product" data-name="SmartGrip Pro"><div class="visual red"><img src="https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=700&q=88" alt="SmartGrip Pro" loading="lazy"><b class="tag">-30%</b><button class="heart">♡</button></div><div class="info"><span class="catname">Eletrônicos</span><h3>SmartGrip Pro — suporte universal</h3><div class="stars">★★★★★</div><span class="old">R$ 129,90</span><span class="price">R$ 89,90</span><span class="install">ou 12x sem juros</span><button class="add" onclick="fmAdd(46)">ADICIONAR AO CARRINHO</button></div></article><article class="product" data-name="Fone Bluetooth"><div class="visual blue"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=88" alt="Fone Bluetooth Pro" loading="lazy"><b class="tag">OFERTA</b><button class="heart">♡</button></div><div class="info"><span class="catname">Eletrônicos</span><h3>Fone Bluetooth Pro</h3><div class="stars">★★★★★</div><span class="old">R$ 199,90</span><span class="price">R$ 149,90</span><span class="install">ou 12x sem juros</span><button class="add" onclick="fmAdd(5)">ADICIONAR AO CARRINHO</button></div></article><article class="product" data-name="Luminária LED"><div class="visual yellow"><img src="assets/luminaria de led.png" alt="Luminária LED inteligente" loading="lazy"><button class="heart">♡</button></div><div class="info"><span class="catname">Casa</span><h3>Luminária LED inteligente</h3><div class="stars">★★★★★</div><span class="old">R$ 129,90</span><span class="price">R$ 89,90</span><span class="install">ou 12x sem juros</span><button class="add" onclick="fmAdd(1)">ADICIONAR AO CARRINHO</button></div></article><article class="product" data-name="Mochila Urbana"><div class="visual green"><img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=88" alt="Mochila Urbana Multiuso" loading="lazy"><button class="heart">♡</button></div><div class="info"><span class="catname">Moda</span><h3>Mochila Urbana Multiuso</h3><div class="stars">★★★★☆</div><span class="old">R$ 159,90</span><span class="price">R$ 109,90</span><span class="install">ou 12x sem juros</span><button class="add" onclick="fmAdd(16)">ADICIONAR AO CARRINHO</button></div></article><article class="product" data-name="Organizador Multiuso"><div class="visual"><img src="https://images.unsplash.com/photo-1558997519-83ea9252edf8?auto=format&fit=crop&w=700&q=88" alt="Organizador Multiuso Premium" loading="lazy"><b class="tag">-25%</b><button class="heart">♡</button></div><div class="info"><span class="catname">Casa</span><h3>Organizador Multiuso Premium</h3><div class="stars">★★★★★</div><span class="old">R$ 79,90</span><span class="price">R$ 39,90</span><span class="install">ou 12x sem juros</span><button class="add" onclick="fmAdd(2)">ADICIONAR AO CARRINHO</button></div></article></div></div></section>
 <section id="ofertas" class="section"><div class="wrap"><div class="flash"><div class="section-title"><div><h2>⚡ Ofertas relâmpago</h2><p>Preços especiais por tempo limitado</p></div><a class="link" href="produtos.html">Ver todas →</a></div><div class="products"><article class="product"><div class="visual red"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=88" alt="Smartwatch Fit" loading="lazy"><b class="tag">-40%</b></div><div class="info"><span class="catname">Eletrônicos</span><h3>Smartwatch Fit</h3><span class="old">R$ 299,90</span><span class="price">R$ 199,90</span><button class="add" onclick="fmAdd(9)">COMPRAR</button></div></article><article class="product"><div class="visual yellow"><img src="https://images.unsplash.com/photo-1558997519-83ea9252edf8?auto=format&fit=crop&w=700&q=88" alt="Kit organizador doméstico" loading="lazy"><b class="tag">-35%</b></div><div class="info"><span class="catname">Casa</span><h3>Kit organizador doméstico</h3><span class="old">R$ 79,90</span><span class="price">R$ 49,90</span><button class="add" onclick="fmAdd(24)">COMPRAR</button></div></article><article class="product"><div class="visual blue"><img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=700&q=88" alt="Caixa de som portátil" loading="lazy"><b class="tag">-30%</b></div><div class="info"><span class="catname">Eletrônicos</span><h3>Caixa de som portátil</h3><span class="old">R$ 179,90</span><span class="price">R$ 129,90</span><button class="add" onclick="fmAdd(10)">COMPRAR</button></div></article><article class="product"><div class="visual green"><img src="https://images.unsplash.com/photo-1601758064138-7322f5c0e2b4?auto=format&fit=crop&w=700&q=88" alt="Brinquedo interativo para pet" loading="lazy"><b class="tag">-20%</b></div><div class="info"><span class="catname">Pet Shop</span><h3>Brinquedo interativo para pet</h3><span class="old">R$ 59,90</span><span class="price">R$ 39,90</span><button class="add" onclick="fmAdd(31)">COMPRAR</button></div></article><article class="product"><div class="visual"><img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=700&q=88" alt="Bolsa casual urbana" loading="lazy"><b class="tag">-25%</b></div><div class="info"><span class="catname">Moda</span><h3>Bolsa casual urbana</h3><span class="old">R$ 99,90</span><span class="price">R$ 69,90</span><button class="add" onclick="fmAdd(21)">COMPRAR</button></div></article></div></div><div class="banner"><div><h2>🚀 Achou. Gostou. Comprou.</h2><p>Explore o catálogo completo e descubra novidades todos os dias.</p></div><a class="btn" href="produtos.html">EXPLORAR CATÁLOGO →</a></div></div></section>
 <section class="news"><div class="wrap"><div><h2>Receba ofertas em primeira mão</h2><p>Cadastre seu e-mail para receber novidades e promoções.</p></div><form class="form" onsubmit="subscribe(event)"><input type="email" required placeholder="Seu melhor e-mail"><button>QUERO RECEBER</button></form></div></section>
