@@ -2,7 +2,7 @@
    Sem API externa, cria o pedido localmente e mantém todo o fluxo navegável no GitHub Pages. */
 (function(){
   const parse=v=>{try{return JSON.parse(v||'null')}catch{return null}};
-  const cart=()=>{for(const s of [sessionStorage,localStorage])for(const k of ['flashmarket_checkout_snapshot','flashmarket_checkout_cart','flashmarket_cart','FM_CART','cartItems','cart']){const v=parse(s.getItem(k));if(v){const a=Array.isArray(v)?v:Object.entries(v).map(([id,qty])=>({id,qty}));if(a.length)return a.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1))})).filter(x=>x.id>0)}}return[]};
+  const cart=()=>{try{const encoded=new URLSearchParams(location.search).get('cart');if(encoded){const decoded=decodeURIComponent(escape(atob(encoded)));const v=parse(decoded);if(Array.isArray(v)&&v.length)return v.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1))})).filter(x=>x.id>0)}}catch{}for(const s of [sessionStorage,localStorage])for(const k of ['flashmarket_checkout_snapshot','flashmarket_checkout_cart','flashmarket_cart','FM_CART','cartItems','cart']){const v=parse(s.getItem(k));if(v){const a=Array.isArray(v)?v:Object.entries(v).map(([id,qty])=>({id,qty}));if(a.length)return a.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1))})).filter(x=>x.id>0)}}return[]};
   function localOrder(body){
     const catalog=Array.isArray(window.FM_PRODUCTS)?window.FM_PRODUCTS:[];
     const products=cart().map(x=>{const p=catalog.find(y=>Number(y.id)===Number(x.id));return p?{id:Number(p.id),n:p.n,p:Number(p.p),i:p.i,c:p.c,qty:x.qty,total:Number(p.p)*x.qty}:null}).filter(Boolean);
