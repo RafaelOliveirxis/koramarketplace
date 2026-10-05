@@ -1,3 +1,4 @@
+@import url("./home-final.css?v=20261005");
 /* FlashMarket — identidade visual 2026 */
 :root{
   --fm-brand:#111111;
@@ -160,6 +161,3 @@ body:not(.fm-page) img{max-width:100%}
   body:not(.fm-page) .search{min-width:0!important}
   body:not(.fm-page) .nav{overflow:hidden}
 }
-
-/* Home final: stylesheet carregado por último */
-@import url("./home-final.css?v=20261005");
