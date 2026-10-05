@@ -893,3 +893,184 @@ body.reference-home #beneficios{
   body.reference-home .market-offers{padding:20px 0!important}
   body.reference-home .offer-card strong{font-size:18px!important}
 }
+
+
+/* =========================================================
+   AJUSTE DE PROPORÇÃO E APROVEITAMENTO — 05/10/2026
+   Mantém o layout limpo em telas grandes sem deixar o
+   conteúdo concentrado no centro.
+   ========================================================= */
+@media (min-width: 1201px){
+  body.reference-home .wrap,
+  body.reference-home .head,
+  body.reference-home .nav .wrap,
+  body.reference-home .hero-grid,
+  body.reference-home .benefits,
+  body.reference-home .section > .wrap{
+    width:calc(100% - 64px)!important;
+    max-width:1600px!important;
+  }
+
+  body.reference-home .head{
+    grid-template-columns:180px minmax(420px,1fr) 450px!important;
+    gap:28px!important;
+  }
+
+  body.reference-home .logo{
+    width:160px!important;
+    height:72px!important;
+  }
+
+  body.reference-home .search{
+    height:50px!important;
+  }
+
+  body.reference-home .actions{
+    height:62px!important;
+  }
+
+  body.reference-home .action{
+    height:62px!important;
+    padding-inline:16px!important;
+    grid-template-columns:42px minmax(0,1fr)!important;
+  }
+
+  body.reference-home .action .i{
+    font-size:28px!important;
+  }
+
+  body.reference-home .action .action-main{
+    font-size:13px!important;
+  }
+
+  body.reference-home .action .action-sub{
+    font-size:10px!important;
+  }
+
+  body.reference-home .hero{
+    padding-top:22px!important;
+  }
+
+  body.reference-home .hero-grid{
+    grid-template-columns:minmax(0,2.12fr) minmax(340px,.88fr)!important;
+    gap:16px!important;
+  }
+
+  body.reference-home .hero-main{
+    min-height:410px!important;
+    height:410px!important;
+    padding:42px!important;
+    grid-template-columns:minmax(0,1.02fr) minmax(330px,.98fr)!important;
+  }
+
+  body.reference-home .hero h1{
+    font-size:clamp(44px,3.35vw,66px)!important;
+  }
+
+  body.reference-home .hero p{
+    font-size:14px!important;
+    max-width:560px!important;
+  }
+
+  body.reference-home .hero-product{
+    height:330px!important;
+  }
+
+  body.reference-home .promo{
+    height:197px!important;
+    padding:24px!important;
+    grid-template-columns:minmax(0,1fr) 125px!important;
+  }
+
+  body.reference-home .promo > img{
+    width:125px!important;
+    height:125px!important;
+  }
+
+  body.reference-home .section{
+    padding:32px 0!important;
+  }
+
+  body.reference-home .section-title{
+    margin-bottom:18px!important;
+  }
+
+  body.reference-home .section-title h2{
+    font-size:24px!important;
+  }
+
+  body.reference-home .section-title p{
+    font-size:10px!important;
+  }
+
+  body.reference-home .categories{
+    gap:14px!important;
+  }
+
+  body.reference-home .cat{
+    min-height:126px!important;
+  }
+
+  body.reference-home .products,
+  body.reference-home #ofertas .flash .products{
+    gap:16px!important;
+  }
+
+  body.reference-home .visual{
+    aspect-ratio:1/1!important;
+  }
+
+  body.reference-home .info{
+    padding:14px!important;
+  }
+
+  body.reference-home .product h3{
+    font-size:13px!important;
+  }
+
+  body.reference-home .price{
+    font-size:21px!important;
+  }
+
+  body.reference-home .add{
+    height:40px!important;
+    font-size:9px!important;
+  }
+
+  body.reference-home #ofertas .flash{
+    padding:26px!important;
+  }
+
+  body.reference-home .banner{
+    min-height:82px!important;
+    padding:20px 24px!important;
+  }
+
+  body.reference-home .benefits{
+    gap:14px!important;
+    padding:16px 0 8px!important;
+  }
+}
+
+/* Evita que o conteúdo fique estreito em notebooks e monitores médios. */
+@media (min-width: 901px) and (max-width: 1200px){
+  body.reference-home .wrap,
+  body.reference-home .head,
+  body.reference-home .nav .wrap,
+  body.reference-home .hero-grid,
+  body.reference-home .benefits,
+  body.reference-home .section > .wrap{
+    width:calc(100% - 40px)!important;
+    max-width:none!important;
+  }
+
+  body.reference-home .hero-main{
+    height:360px!important;
+    min-height:360px!important;
+    padding:30px!important;
+  }
+
+  body.reference-home .hero h1{
+    font-size:clamp(36px,4.5vw,54px)!important;
+  }
+}
