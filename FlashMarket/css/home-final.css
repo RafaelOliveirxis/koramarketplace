@@ -1074,3 +1074,270 @@ body.reference-home #beneficios{
     font-size:clamp(36px,4.5vw,54px)!important;
   }
 }
+
+
+/* =========================================================
+   CORREÇÃO VISUAL FINAL — HERO / HEADER / NAV
+   Objetivo: eliminar cortes, excesso de escala e espaços
+   desproporcionais em desktop e manter responsividade.
+   ========================================================= */
+
+/* Desktop largo */
+@media (min-width:1201px){
+  body.reference-home .hero-grid{
+    width:calc(100% - 56px)!important;
+    max-width:1540px!important;
+    grid-template-columns:minmax(0,2.12fr) minmax(360px,.88fr)!important;
+    gap:16px!important;
+  }
+
+  body.reference-home .hero-main{
+    height:400px!important;
+    min-height:400px!important;
+    padding:30px 34px!important;
+    grid-template-columns:minmax(0,1.04fr) minmax(300px,.96fr)!important;
+  }
+
+  body.reference-home .hero h1{
+    max-width:540px!important;
+    font-size:clamp(44px,3.45vw,58px)!important;
+    line-height:.94!important;
+    letter-spacing:-2px!important;
+  }
+
+  body.reference-home .hero p{
+    max-width:470px!important;
+    font-size:13px!important;
+    line-height:1.45!important;
+  }
+
+  body.reference-home .buttons{
+    margin-top:18px!important;
+  }
+
+  body.reference-home .hero-product{
+    height:300px!important;
+    padding:14px!important;
+  }
+
+  body.reference-home .hero-product img{
+    max-width:350px!important;
+    height:272px!important;
+  }
+
+  body.reference-home .hero-product-label{
+    left:22px!important;
+    bottom:20px!important;
+  }
+
+  body.reference-home .hero-side{
+    gap:16px!important;
+  }
+
+  body.reference-home .promo{
+    height:192px!important;
+    padding:18px!important;
+    grid-template-columns:minmax(0,1fr) 104px!important;
+    gap:10px!important;
+  }
+
+  body.reference-home .promo strong{
+    display:block!important;
+    font-size:18px!important;
+    line-height:1.02!important;
+    overflow-wrap:anywhere!important;
+  }
+
+  body.reference-home .promo span{
+    display:block!important;
+    font-size:9px!important;
+    margin-bottom:5px!important;
+  }
+
+  body.reference-home .promo small{
+    display:block!important;
+    max-width:210px!important;
+    font-size:8px!important;
+    line-height:1.25!important;
+  }
+
+  body.reference-home .promo > img{
+    width:104px!important;
+    height:104px!important;
+  }
+}
+
+/* Monitores médios / notebooks */
+@media (min-width:801px) and (max-width:1200px){
+  body.reference-home .hero-grid{
+    width:calc(100% - 40px)!important;
+    max-width:none!important;
+    grid-template-columns:minmax(0,1.9fr) minmax(285px,.9fr)!important;
+    gap:12px!important;
+  }
+
+  body.reference-home .hero-main{
+    height:360px!important;
+    min-height:360px!important;
+    padding:26px!important;
+    grid-template-columns:minmax(0,1.05fr) minmax(230px,.95fr)!important;
+  }
+
+  body.reference-home .hero h1{
+    font-size:clamp(34px,4vw,48px)!important;
+    letter-spacing:-1.5px!important;
+  }
+
+  body.reference-home .hero p{
+    font-size:11px!important;
+  }
+
+  body.reference-home .hero-product{
+    height:270px!important;
+  }
+
+  body.reference-home .hero-product img{
+    height:240px!important;
+  }
+
+  body.reference-home .promo{
+    height:174px!important;
+    padding:15px!important;
+    grid-template-columns:minmax(0,1fr) 82px!important;
+    gap:8px!important;
+  }
+
+  body.reference-home .promo strong{
+    font-size:15px!important;
+  }
+
+  body.reference-home .promo > img{
+    width:82px!important;
+    height:82px!important;
+  }
+}
+
+/* Navegação: evita corte visual e deixa os itens equilibrados. */
+@media (min-width:901px){
+  body.reference-home .nav .wrap{
+    width:calc(100% - 40px)!important;
+    max-width:1540px!important;
+  }
+
+  body.reference-home .nav a{
+    padding:0 12px!important;
+    font-size:10.5px!important;
+  }
+
+  body.reference-home .nav a.category-link{
+    padding-right:16px!important;
+    margin-right:3px!important;
+  }
+
+  body.reference-home .nav a.active::after{
+    left:12px!important;
+    right:12px!important;
+  }
+}
+
+/* Proteções gerais contra estouro de conteúdo. */
+body.reference-home .hero-copy,
+body.reference-home .promo > div,
+body.reference-home .action,
+body.reference-home .nav a{
+  min-width:0!important;
+}
+
+body.reference-home .hero-copy,
+body.reference-home .promo > div{
+  overflow:hidden!important;
+}
+
+body.reference-home .hero h1,
+body.reference-home .promo strong,
+body.reference-home .action-main,
+body.reference-home .action-sub{
+  overflow-wrap:break-word!important;
+}
+
+/* Celular: hero e promoções sempre cabem dentro da viewport. */
+@media (max-width:800px){
+  body.reference-home .hero{
+    padding-top:12px!important;
+  }
+
+  body.reference-home .hero-grid{
+    width:94%!important;
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+
+  body.reference-home .hero-main{
+    height:auto!important;
+    min-height:0!important;
+    padding:24px!important;
+    grid-template-columns:1fr!important;
+    gap:20px!important;
+  }
+
+  body.reference-home .hero h1{
+    max-width:100%!important;
+    font-size:clamp(34px,10vw,48px)!important;
+  }
+
+  body.reference-home .hero-product{
+    height:260px!important;
+  }
+
+  body.reference-home .hero-product img{
+    height:230px!important;
+    max-width:300px!important;
+  }
+
+  body.reference-home .hero-side{
+    grid-template-columns:1fr 1fr!important;
+    grid-template-rows:1fr!important;
+    gap:10px!important;
+  }
+
+  body.reference-home .promo{
+    height:150px!important;
+    padding:12px!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:1fr 54px!important;
+    gap:6px!important;
+  }
+
+  body.reference-home .promo > img{
+    width:54px!important;
+    height:54px!important;
+    justify-self:end!important;
+    grid-row:1 / span 2!important;
+  }
+
+  body.reference-home .promo strong{
+    font-size:13px!important;
+  }
+
+  body.reference-home .promo small{
+    font-size:7px!important;
+  }
+}
+
+@media (max-width:520px){
+  body.reference-home .hero-side{
+    grid-template-columns:1fr!important;
+  }
+
+  body.reference-home .promo{
+    height:128px!important;
+    grid-template-columns:minmax(0,1fr) 70px!important;
+    grid-template-rows:1fr!important;
+  }
+
+  body.reference-home .promo > img{
+    width:70px!important;
+    height:70px!important;
+    grid-row:auto!important;
+  }
+}
