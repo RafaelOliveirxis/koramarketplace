@@ -38,8 +38,7 @@ const categories = [
 let catalogReady = false;
 async function loadRealCatalog(){
   try{
-    const base = window.FLASHMARKET_API_BASE || 'https://koramarketplace-tcc21.vercel.app';
-    const response = await fetch(base + '/api/products', { headers:{'Accept':'application/json'} });
+    const base = window.FLASHMARKET_API_BASE || ''; if(!base) return; const response = await fetch(base + '/api/products', { headers:{'Accept':'application/json'} });
     const data = await response.json().catch(()=>({}));
     if(!response.ok || !Array.isArray(data.products) || !data.products.length) throw new Error(data.error || 'Catálogo indisponível.');
     const byId = new Map(products.map(p => [Number(p.id), p]));
