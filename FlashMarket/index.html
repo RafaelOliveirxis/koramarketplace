@@ -68,7 +68,7 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}button{cursor:poi
 @media(max-width:430px){.wrap{width:94%}.hero-side{grid-template-columns:1fr}.benefits{grid-template-columns:1fr}.categories{grid-template-columns:repeat(4,1fr);gap:7px}.cat{padding:11px 3px}.cat i{width:40px;height:40px;font-size:19px}.product h3{font-size:10px}.price{font-size:16px}.footgrid{grid-template-columns:1fr}.top{font-size:9px}}
 </style>
 <link rel="stylesheet" href="css/brand-overhaul.css?v=20261005-2">
-<link rel="stylesheet" href="css/home-final.css?v=20261005">
+<link rel="stylesheet" href="css/home-final.css?v=20261005-3">
 <style id="reference-header">/* ===== HEADER REFERENCE DESIGN ===== */
 body.reference-home{font-family:Arial,Helvetica,sans-serif;background:#fff!important;color:#222}
 body.reference-home .top{
@@ -675,6 +675,92 @@ body.reference-home .hero-product img{object-fit:contain!important}
   body.reference-home .visual,.body.reference-home .visual img{min-height:155px!important}
   body.reference-home .info{min-height:168px!important;padding:11px!important}
   body.reference-home .price{font-size:17px!important}
+}
+<style id="layout-proportion-final">
+/* ===== AJUSTE FINAL DE LARGURA E PROPORÇÃO ===== */
+@media (min-width:1201px){
+  body.reference-home .top .wrap,
+  body.reference-home .head,
+  body.reference-home .hero-grid,
+  body.reference-home .benefits,
+  body.reference-home .section > .wrap,
+  body.reference-home .news .wrap,
+  body.reference-home .footer > .wrap{
+    width:calc(100% - 80px)!important;
+    max-width:none!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+
+  body.reference-home .hero-grid{
+    grid-template-columns:minmax(0,2.05fr) minmax(330px,.82fr)!important;
+    gap:18px!important;
+  }
+
+  body.reference-home .hero-main{
+    min-height:430px!important;
+    height:430px!important;
+  }
+
+  body.reference-home .hero-product{
+    min-width:0!important;
+  }
+
+  body.reference-home .hero-product img{
+    width:100%!important;
+    max-width:410px!important;
+    height:320px!important;
+  }
+
+  body.reference-home .promo{
+    min-width:0!important;
+  }
+
+  body.reference-home .categories{
+    grid-template-columns:repeat(8,minmax(0,1fr))!important;
+  }
+
+  body.reference-home .products,
+  body.reference-home #ofertas .flash .products{
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  }
+
+  body.reference-home .visual{
+    aspect-ratio:1/1!important;
+    min-height:0!important;
+  }
+
+  body.reference-home .visual img{
+    min-height:0!important;
+    height:100%!important;
+  }
+
+  body.reference-home .info{
+    min-height:174px!important;
+  }
+}
+
+@media (min-width:801px) and (max-width:1200px){
+  body.reference-home .hero-grid,
+  body.reference-home .benefits,
+  body.reference-home .section > .wrap{
+    width:calc(100% - 40px)!important;
+    max-width:none!important;
+  }
+
+  body.reference-home .products,
+  body.reference-home #ofertas .flash .products{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
+}
+
+@media (max-width:800px){
+  body.reference-home .hero-grid,
+  body.reference-home .benefits,
+  body.reference-home .section > .wrap{
+    width:94%!important;
+    max-width:none!important;
+  }
 }
 </style>
 </head>
