@@ -30,7 +30,7 @@ O projeto faz parte do **KoraMarketplace**, cujo código-fonte está disponível
 |---|---|
 | 📦 Repositório | https://github.com/RafaelOliveirxis/koramarketplace |
 | 🌍 Site / GitHub Pages | https://rafaeloliveirxis.github.io/koramarketplace/ |
-| 🚀 API / Backend | https://koramarketplace.vercel.app |
+| 🔐 Autenticação | Local no GitHub Pages; API própria opcional |
 | 👨‍💻 GitHub do autor | https://github.com/RafaelOliveirxis |
 
 ---
@@ -106,7 +106,7 @@ A plataforma possui uma área dedicada ao usuário.
 js/auth-real.js
 ```
 
-A autenticação de produção utiliza a API hospedada na Vercel e o banco de dados MySQL configurado no backend.
+A autenticação da versão publicada funciona no próprio navegador, sem depender de Vercel. O projeto também mantém uma API opcional que pode ser apontada por `window.FLASHMARKET_API_BASE` quando houver um backend próprio.
 
 ---
 
@@ -395,7 +395,7 @@ O backend está localizado no diretório:
 api/
 ```
 
-A API é preparada para execução em ambiente serverless/Vercel.
+A pasta `api/` mantém uma implementação de backend opcional. O frontend publicado não depende dela para login, carrinho, pedidos locais e navegação.
 
 ## Estrutura principal
 
@@ -445,14 +445,13 @@ api/
 - JWT.
 - bcryptjs.
 - MySQL.
-- Vercel Functions.
+- API Node.js opcional.
 
 ## Desenvolvimento
 
 - Git.
 - GitHub.
 - Visual Studio Code.
-- Vercel.
 - MySQL.
 - Capacitor.
 - Google Fonts.
@@ -662,17 +661,11 @@ Site atual:
 https://rafaeloliveirxis.github.io/koramarketplace/
 ```
 
-## Vercel
+## GitHub Pages e hospedagem própria
 
-A API/backend utiliza a Vercel.
+O frontend é publicado no GitHub Pages e não depende de Vercel.
 
-Endpoint principal:
-
-```text
-https://koramarketplace.vercel.app
-```
-
-Para produção, as variáveis de ambiente devem estar configuradas no projeto da Vercel.
+Para usar um backend real com MySQL, hospede a pasta `api/` em uma infraestrutura própria compatível com Node.js e configure `window.FLASHMARKET_API_BASE` para o endereço dessa API.
 
 ---
 
@@ -813,8 +806,7 @@ O FlashMarket / KoraMarketplace foi desenvolvido como projeto acadêmico e demon
 - Banco de dados MySQL.
 - Git.
 - GitHub.
-- Deploy.
-- Vercel.
+- Deploy no GitHub Pages.
 - Organização de projeto.
 - Preparação para aplicativos mobile.
 
