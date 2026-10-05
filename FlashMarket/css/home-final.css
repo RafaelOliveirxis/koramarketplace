@@ -821,3 +821,75 @@ body.reference-home .copy{
 
 /* não permitir zoom/transform de outras camadas */
 body.reference-home{zoom:1!important;transform:none!important;transform-origin:top left!important}
+
+/* ===== HOME: BLOCOS COMERCIAIS ===== */
+body.reference-home .market-offers{
+  background:#f7f7f7!important;
+  padding:26px 0!important;
+}
+body.reference-home .offer-strip{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+body.reference-home .offer-card{
+  min-height:118px!important;
+  padding:20px 22px!important;
+  border-radius:8px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:15px!important;
+  color:#fff!important;
+  overflow:hidden!important;
+  position:relative!important;
+  transition:transform .2s ease,box-shadow .2s ease!important;
+}
+body.reference-home .offer-card:hover{
+  transform:translateY(-3px)!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.12)!important;
+}
+body.reference-home .offer-card span{
+  display:block!important;
+  font-size:8px!important;
+  font-weight:900!important;
+  letter-spacing:1px!important;
+  opacity:.85!important;
+}
+body.reference-home .offer-card strong{
+  display:block!important;
+  margin-top:5px!important;
+  font-size:22px!important;
+  line-height:1.05!important;
+}
+body.reference-home .offer-card small{
+  display:block!important;
+  margin-top:7px!important;
+  font-size:8px!important;
+  opacity:.82!important;
+}
+body.reference-home .offer-card>b{
+  width:38px!important;
+  height:38px!important;
+  flex:0 0 38px!important;
+  border-radius:50%!important;
+  display:grid!important;
+  place-items:center!important;
+  background:rgba(255,255,255,.18)!important;
+  font-size:18px!important;
+}
+body.reference-home .offer-card--red{background:linear-gradient(135deg,#ef321f,#ff644d)!important}
+body.reference-home .offer-card--yellow{background:linear-gradient(135deg,#f2b900,#ffd84a)!important;color:#222!important}
+body.reference-home .offer-card--yellow>b{background:rgba(0,0,0,.10)!important}
+body.reference-home .offer-card--dark{background:linear-gradient(135deg,#202020,#454545)!important}
+body.reference-home #beneficios{
+  margin-top:0!important;
+}
+@media(max-width:900px){
+  body.reference-home .offer-strip{grid-template-columns:1fr!important}
+  body.reference-home .offer-card{min-height:100px!important}
+}
+@media(max-width:700px){
+  body.reference-home .market-offers{padding:20px 0!important}
+  body.reference-home .offer-card strong{font-size:18px!important}
+}
