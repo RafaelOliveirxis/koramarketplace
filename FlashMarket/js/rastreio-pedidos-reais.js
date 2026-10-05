@@ -1,87 +1,12 @@
-/* FLASHMARKET — rastreamento real de pedidos */
-(function () {
-  'use strict';
-  function formatDate(value) {
-    if (!value) return '—';
-    const date = new Date(value);
-    return Number.isNaN(date.getTime()) ? '—' : date.toLocaleDateString('pt-BR');
-  }
-  function init() {
-    const original = document.getElementById('trackingForm');
-    if (!original) return;
-    const form = original.cloneNode(true);
-    original.replaceWith(form);
-    const input = form.querySelector('#trackingCode');
-
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
-      const code = input.value.trim().toUpperCase();
-      if (!code) { if (typeof window.mostrarErro === 'function') window.mostrarErro(); return; }
-      if (window.loadingState) window.loadingState.classList.remove('hidden');
-      try {
-        const base = window.FLASHMARKET_API_BASE || ((location.protocol === 'file:' || !location.hostname || location.hostname.endsWith('github.io') || location.hostname.endsWith('vercel.app')) ? 'https://koramarketplace-tcc21.vercel.app' : '');
-        const response = await fetch(base + '/api/payments/status?order=' + encodeURIComponent(code), { cache: 'no-store' });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok) throw new Error(data.error || 'Pedido não encontrado.');
-        const o = data.order || {};
-        const labels = {
-          paid: ['Pagamento confirmado', 'O pagamento foi confirmado. O pedido está registrado e aguardando processamento logístico.', 25, 1],
-          pending: ['Pagamento pendente', 'O pagamento ainda está em processamento.', 10, 1],
-          action_required: ['Ação necessária', 'É necessária uma ação para concluir o pagamento.', 10, 1],
-          failed: ['Pagamento não concluído', 'O pagamento não foi concluído.', 0, 0],
-          cancelled: ['Pedido cancelado', 'O pagamento/pedido foi cancelado.', 0, 0],
-          refunded: ['Pagamento reembolsado', 'O pagamento consta como reembolsado.', 0, 0]
-        };
-        const info = labels[o.paymentStatus] || labels.pending;
-        const hasShipping = Boolean(o.trackingCode);
-        const lastStatus = String(o.tracking?.at(-1)?.status || o.paymentStatus || '').toLowerCase();
-        const progressMap = {
-          paid: [25, 1], pending: [10, 1], action_required: [10, 1],
-          processing: [50, 2], ready_to_ship: [50, 2], shipped: [65, 2],
-          in_transit: [75, 3], out_for_delivery: [90, 3], delivered: [100, 4],
-          failed: [0, 0], cancelled: [0, 0], refunded: [0, 0]
-        };
-        const progress = progressMap[lastStatus] || (hasShipping ? [50, 2] : [info[2], info[3]]);
-        const events = Array.isArray(o.tracking) && o.tracking.length
-          ? o.tracking.map(event => ({
-              titulo: event.title || info[0],
-              descricao: event.description || '',
-              data: formatDate(event.date),
-              hora: '—',
-              local: event.carrier || 'FlashMarket'
-            }))
-          : [{ titulo: info[0], descricao: info[1], data: formatDate(o.createdAt), hora: '—', local: 'FlashMarket / Mercado Pago' }];
-
-        if (window.loadingState) window.loadingState.classList.add('hidden');
-        window.renderizarPedido({
-          numero: o.id,
-          rastreio: o.trackingCode || 'Ainda não gerado',
-          transportadora: o.carrier || 'Aguardando postagem',
-          status: hasShipping ? (o.tracking?.at(-1)?.title || info[0]) : info[0],
-          statusAtual: hasShipping ? (o.tracking?.at(-1)?.title || 'Em preparação') : info[0],
-          descricao: hasShipping ? 'O pedido possui dados logísticos reais registrados pela loja.' : info[1],
-          progresso: progress[0],
-          etapa: progress[1],
-          previsao: hasShipping ? 'Acompanhe os próximos eventos de envio' : 'Após postagem',
-          endereco: 'Disponível nos detalhes do pedido na sua conta.',
-          produtos: [],
-          eventos,
-          total: Number(o.total || 0)
-        });
-        localStorage.setItem('flashmarket_ultimo_pedido', code);
-      } catch (error) {
-        if (window.loadingState) window.loadingState.classList.add('hidden');
-        if (typeof window.mostrarErro === 'function') window.mostrarErro();
-      }
-    });
-
-    form.querySelectorAll('[data-example]').forEach(button => {
-      button.addEventListener('click', function () {
-        input.value = button.dataset.example || '';
-        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-      });
-    });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
+/* Rastreamento FlashMarket — funciona localmente e aceita API própria configurada. */
+(function(){'use strict';
+const date=v=>v?new Date(v).toLocaleDateString('pt-BR'):'—';
+function init(){const original=document.getElementById('trackingForm');if(!original)return;const form=original.cloneNode(true);original.replaceWith(form);const input=form.querySelector('#trackingCode');
+form.addEventListener('submit',async e=>{e.preventDefault();const code=input.value.trim().toUpperCase();if(!code){window.mostrarErro?.();return}window.loadingState?.classList.remove('hidden');
+try{let o=null;const base=String(window.FLASHMARKET_API_BASE||'').replace(/\/$/,'');if(base){const r=await fetch(base+'/api/payments/status?order='+encodeURIComponent(code),{cache:'no-store'});if(r.ok){const d=await r.json();o=d.order||null}}
+if(!o)o=(JSON.parse(localStorage.getItem('flashmarket_local_orders')||'[]')||[]).find(x=>String(x.id).toUpperCase()===code);
+if(!o)throw Error('Pedido não encontrado.');
+const tracking=Array.isArray(o.tracking)?o.tracking:[],last=tracking.at(-1),status=o.status==='a-pagar'?'Pagamento pendente':o.statusDetail||'Pedido criado',progress=o.status==='finalizado'?100:o.status==='a-caminho'?75:o.status==='preparando'?50:10;
+window.loadingState?.classList.add('hidden');window.renderizarPedido?.({numero:o.id,rastreio:last?.trackingCode||'Ainda não gerado',transportadora:last?.carrier||'Aguardando postagem',status:status,statusAtual:status,descricao:o.statusDetail||'Pedido registrado na FlashMarket.',progresso:progress,etapa:progress>=100?4:progress>=70?3:progress>=40?2:1,previsao:o.status==='finalizado'?'Entregue':'Após postagem',endereco:'Disponível nos detalhes do pedido.',produtos:o.items||[],eventos:tracking.length?tracking.map(t=>({titulo:t.title||t.status,descricao:t.description||'',data:date(t.date),hora:'—',local:t.carrier||'FlashMarket'})):[{titulo:status,descricao:o.statusDetail||'',data:date(o.date),hora:'—',local:'FlashMarket'}],total:Number(o.total||0)});localStorage.setItem('flashmarket_ultimo_pedido',code)
+}catch(error){window.loadingState?.classList.add('hidden');window.mostrarErro?.()}});form.querySelectorAll('[data-example]').forEach(btn=>btn.addEventListener('click',()=>{input.value=btn.dataset.example||'';form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}))}))}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
