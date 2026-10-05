@@ -2,7 +2,7 @@
 (() => {
   if (!/\/afiliado\.html$/i.test(window.location.pathname)) return;
 
-  const API = (window.FLASHMARKET_API_URL || 'https://koramarketplace.vercel.app/api').replace(/\/$/, '');
+  const API = String(window.FLASHMARKET_API_URL || '').replace(/\/$/, '');
   const $ = id => document.getElementById(id);
   const money = value => new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(value || 0));
   const getToken = () => localStorage.getItem('flashmarket_access_token') || '';
@@ -24,7 +24,7 @@
     try {
       response = await fetch(`${API}${path}`, {...options, headers});
     } catch {
-      throw new Error('Não foi possível conectar ao servidor. Verifique se a API da Vercel está online.');
+      throw new Error('Não foi possível conectar ao servidor. Se quiser usar dados online, configure sua própria API.');
     }
 
     let data = {};
