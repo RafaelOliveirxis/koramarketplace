@@ -1341,3 +1341,245 @@ body.reference-home .action-sub{
     grid-row:auto!important;
   }
 }
+
+
+/* =========================================================
+   ESCALA FINAL DA HOME — proporção natural / sem elementos
+   gigantes ou textos cortados.
+   ========================================================= */
+@media (min-width:1201px){
+  body.reference-home .wrap,
+  body.reference-home .head,
+  body.reference-home .nav .wrap,
+  body.reference-home .hero-grid,
+  body.reference-home .benefits,
+  body.reference-home .section > .wrap{
+    width:calc(100% - 48px)!important;
+    max-width:1500px!important;
+  }
+
+  body.reference-home .head{
+    height:76px!important;
+    min-height:76px!important;
+    grid-template-columns:150px minmax(420px,1fr) 390px!important;
+    gap:20px!important;
+  }
+
+  body.reference-home .logo{
+    width:130px!important;
+    height:60px!important;
+  }
+
+  body.reference-home .search{
+    height:44px!important;
+  }
+
+  body.reference-home .search button{
+    height:40px!important;
+    width:48px!important;
+    font-size:20px!important;
+  }
+
+  body.reference-home .actions{
+    height:54px!important;
+  }
+
+  body.reference-home .action{
+    height:54px!important;
+    padding:4px 9px!important;
+    grid-template-columns:32px minmax(0,1fr)!important;
+    column-gap:6px!important;
+  }
+
+  body.reference-home .action .i{font-size:23px!important}
+  body.reference-home .action .action-main{font-size:10px!important}
+  body.reference-home .action .action-sub{font-size:8px!important}
+
+  body.reference-home .nav,
+  body.reference-home .nav .wrap,
+  body.reference-home .nav a{
+    height:44px!important;
+  }
+
+  body.reference-home .nav a{
+    padding:0 10px!important;
+    font-size:10px!important;
+  }
+
+  body.reference-home .nav a.category-link{
+    padding-right:14px!important;
+    margin-right:0!important;
+  }
+
+  body.reference-home .nav a.category-link .hamburger{
+    font-size:16px!important;
+  }
+
+  body.reference-home .hero{
+    padding-top:14px!important;
+  }
+
+  body.reference-home .hero-grid{
+    grid-template-columns:minmax(0,2.05fr) minmax(310px,.95fr)!important;
+    gap:14px!important;
+  }
+
+  body.reference-home .hero-main{
+    height:350px!important;
+    min-height:350px!important;
+    padding:26px 30px!important;
+    grid-template-columns:minmax(0,1.06fr) minmax(250px,.94fr)!important;
+  }
+
+  body.reference-home .eyebrow{
+    font-size:9px!important;
+    letter-spacing:1.2px!important;
+  }
+
+  body.reference-home .hero h1{
+    max-width:500px!important;
+    margin:8px 0 11px!important;
+    font-size:clamp(40px,3.05vw,52px)!important;
+    line-height:.96!important;
+    letter-spacing:-1.6px!important;
+  }
+
+  body.reference-home .hero p{
+    max-width:440px!important;
+    font-size:11px!important;
+    line-height:1.45!important;
+  }
+
+  body.reference-home .buttons{
+    margin-top:16px!important;
+    gap:8px!important;
+  }
+
+  body.reference-home .btn{
+    height:38px!important;
+    min-height:38px!important;
+    padding:0 15px!important;
+    font-size:9px!important;
+  }
+
+  body.reference-home .hero-trust{
+    gap:8px!important;
+    margin-top:10px!important;
+  }
+
+  body.reference-home .hero-trust span{
+    font-size:8px!important;
+  }
+
+  body.reference-home .hero-product{
+    height:270px!important;
+    padding:12px!important;
+  }
+
+  body.reference-home .hero-product img{
+    max-width:310px!important;
+    height:246px!important;
+  }
+
+  body.reference-home .hero-product-label{
+    left:18px!important;
+    bottom:17px!important;
+    padding:7px 9px!important;
+  }
+
+  body.reference-home .hero-product-label strong{font-size:9px!important}
+  body.reference-home .hero-product-label small{font-size:6px!important}
+
+  body.reference-home .hero-discount{
+    top:3px!important;
+    right:2px!important;
+    padding:6px 8px!important;
+    font-size:10px!important;
+  }
+
+  body.reference-home .hero-side{
+    gap:14px!important;
+  }
+
+  body.reference-home .promo{
+    height:168px!important;
+    padding:16px!important;
+    grid-template-columns:minmax(0,1fr) 90px!important;
+    gap:8px!important;
+  }
+
+  body.reference-home .promo strong{
+    font-size:17px!important;
+    line-height:1.04!important;
+    max-width:190px!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+
+  body.reference-home .promo small{
+    max-width:185px!important;
+    font-size:8px!important;
+    line-height:1.25!important;
+  }
+
+  body.reference-home .promo > img{
+    width:90px!important;
+    height:90px!important;
+  }
+}
+
+/* Notebook / telas médias */
+@media (min-width:801px) and (max-width:1200px){
+  body.reference-home .hero-grid{
+    grid-template-columns:minmax(0,2fr) minmax(270px,.9fr)!important;
+  }
+
+  body.reference-home .hero-main{
+    height:330px!important;
+    min-height:330px!important;
+    padding:22px!important;
+  }
+
+  body.reference-home .hero h1{
+    font-size:clamp(32px,4vw,44px)!important;
+  }
+
+  body.reference-home .hero-product{
+    height:245px!important;
+  }
+
+  body.reference-home .hero-product img{
+    height:220px!important;
+  }
+
+  body.reference-home .promo{
+    height:158px!important;
+    padding:13px!important;
+    grid-template-columns:minmax(0,1fr) 74px!important;
+  }
+
+  body.reference-home .promo strong{font-size:14px!important}
+  body.reference-home .promo > img{width:74px!important;height:74px!important}
+}
+
+/* Corrige os cards laterais: texto nunca deve ficar escondido atrás da imagem. */
+body.reference-home .promo > div:first-child{
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:visible!important;
+}
+
+body.reference-home .promo strong,
+body.reference-home .promo small{
+  overflow:visible!important;
+  white-space:normal!important;
+}
+
+/* Mantém o conteúdo inteiro da página dentro da viewport. */
+body.reference-home main,
+body.reference-home .hero,
+body.reference-home .hero-grid,
+body.reference-home .hero-main,
+body.reference-home .hero-side{
+  max-width:100%!important;
+}
