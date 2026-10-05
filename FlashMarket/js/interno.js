@@ -51,7 +51,7 @@ let FM_PRODUCTS=[
 {id:50,n:'Kit Escritório Organizado',c:'Papelaria',p:64.9,o:94.9,i:'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=80'}];
 async function fmLoadRealCatalog(){
   try{
-    const base=window.FLASHMARKET_API_BASE||'https://koramarketplace-tcc21.vercel.app';
+    const base=window.FLASHMARKET_API_BASE || '';
     const response=await fetch(base+'/api/products',{headers:{Accept:'application/json'}});
     const data=await response.json().catch(()=>({}));
     if(!response.ok||!Array.isArray(data.products)||!data.products.length) throw new Error(data.error||'Catálogo indisponível.');
