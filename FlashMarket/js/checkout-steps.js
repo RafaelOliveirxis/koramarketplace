@@ -5,7 +5,7 @@ const parse=raw=>{if(!raw)return null;try{return typeof raw==='string'?JSON.pars
 function normalize(raw){const value=parse(raw);if(!value)return[];const list=Array.isArray(value)?value:Object.entries(value).map(([id,qty])=>({id,qty}));return list.map(x=>({id:Number(x.id),qty:Math.max(1,Number(x.qty)||1),product:x.product||x.p||null})).filter(x=>Number.isFinite(x.id)&&x.id>0)}
 function readCart(){
   if(typeof fmPrepareCheckout==='function'&&fmPrepareCheckout()){}
-  const keys=['flashmarket_checkout_cart','flashmarket_cart','FM_CART','cartItems','cart'];
+  const keys=['flashmarket_checkout_snapshot','flashmarket_checkout_cart','flashmarket_cart','FM_CART','cartItems','cart'];
   for(const storage of [sessionStorage,localStorage])for(const key of keys){const items=normalize(storage.getItem(key));if(items.length)return items}
   if(typeof fmGetCartSafe==='function')return fmGetCartSafe();
   return typeof fmGetCart==='function'?normalize(fmGetCart()):[];
