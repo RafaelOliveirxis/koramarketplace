@@ -216,7 +216,8 @@ body.reference-home main{background:#fff}
   body.reference-home .nav a.category-link .hamburger{font-size:26px!important;margin-right:8px!important}
   body.reference-home .nav a.active:after{height:4px!important;width:50px!important}
 }
-</style>\n<style id="home-identity">
+</style>
+<style id="home-identity">
 /* ===== CONTEÚDO DA HOME — MESMA IDENTIDADE DO HEADER ===== */
 body.reference-home{
   --home-red:#ff321f;--home-red-dark:#e92316;--home-red-soft:#fff1ee;
@@ -934,6 +935,117 @@ body.reference-home .header{overflow:visible!important}
 }
 </style>
 
+<style id="category-header-final">
+/* ===== HEADER ORGANIZADO — LOGO + CATEGORIAS ===== */
+body.reference-home .header{position:sticky!important;top:0!important;z-index:300!important;background:#ff3b20!important}
+body.reference-home .head{
+  width:calc(100% - 80px)!important;
+  max-width:none!important;
+  min-height:130px!important;
+  grid-template-columns:minmax(360px,420px) minmax(320px,1fr) minmax(430px,650px)!important;
+  gap:28px!important;
+}
+body.reference-home .brand-area{
+  display:flex!important;align-items:center!important;gap:18px!important;min-width:0!important;
+}
+body.reference-home .brand-logo{
+  width:150px!important;height:112px!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;flex:none!important;
+}
+body.reference-home .brand-logo .logo{width:150px!important;height:112px!important}
+body.reference-home .category-dropdown{position:relative!important;z-index:500!important}
+body.reference-home .category-trigger{
+  height:52px!important;min-width:205px!important;padding:0 15px!important;
+  display:flex!important;align-items:center!important;gap:10px!important;
+  background:#fff!important;color:#171717!important;border:0!important;border-radius:9px!important;
+  font-size:14px!important;font-weight:900!important;box-shadow:0 7px 20px rgba(0,0,0,.12)!important;
+  white-space:nowrap!important;
+}
+body.reference-home .category-trigger:hover,
+body.reference-home .category-trigger[aria-expanded="true"]{background:#fff8f5!important;color:#ff321f!important}
+body.reference-home .category-trigger-icon{font-size:23px!important;line-height:1!important}
+body.reference-home .category-chevron{margin-left:auto;font-size:16px!important;transition:transform .2s}
+body.reference-home .category-trigger[aria-expanded="true"] .category-chevron{transform:rotate(180deg)}
+body.reference-home .category-panel{
+  position:absolute!important;left:0!important;top:calc(100% + 10px)!important;
+  width:360px!important;padding:10px!important;background:#fff!important;
+  border:1px solid #ececec!important;border-radius:14px!important;
+  box-shadow:0 18px 45px rgba(0,0,0,.20)!important;
+  opacity:0!important;visibility:hidden!important;transform:translateY(-7px)!important;
+  transition:.18s ease!important;pointer-events:none!important;
+}
+body.reference-home .category-panel.open{
+  opacity:1!important;visibility:visible!important;transform:none!important;pointer-events:auto!important;
+}
+body.reference-home .category-panel-title{
+  padding:8px 10px 10px!important;font-size:11px!important;font-weight:900!important;
+  text-transform:uppercase!important;letter-spacing:.08em!important;color:#999!important;
+  border-bottom:1px solid #eee!important;margin-bottom:5px!important;
+}
+body.reference-home .category-panel>a{
+  display:flex!important;align-items:center!important;gap:12px!important;width:100%!important;
+  padding:11px 10px!important;border-radius:9px!important;color:#222!important;
+  background:#fff!important;text-align:left!important;
+}
+body.reference-home .category-panel>a:hover{background:#fff1ee!important;color:#ff321f!important}
+body.reference-home .category-panel>a>span{
+  width:36px!important;height:36px!important;border-radius:9px!important;background:#fff1ee!important;
+  display:grid!important;place-items:center!important;font-size:18px!important;flex:none!important;
+}
+body.reference-home .category-panel>a div{min-width:0!important}
+body.reference-home .category-panel>a strong{display:block!important;font-size:11px!important}
+body.reference-home .category-panel>a small{display:block!important;color:#999!important;font-size:8px!important;margin-top:2px!important}
+body.reference-home .category-panel>a:hover small{color:#777!important}
+body.reference-home .header>.nav{display:none!important}
+
+/* Textos do cabeçalho e hero mais limpos */
+body.reference-home .search input::placeholder{font-size:17px!important}
+body.reference-home .hero h1{max-width:700px!important}
+body.reference-home .hero-copy .eyebrow{font-size:11px!important}
+body.reference-home .hero-copy p{font-size:14px!important;line-height:1.55!important}
+body.reference-home .hero h1 span{white-space:nowrap!important}
+
+@media(max-width:1200px){
+  body.reference-home .head{
+    width:94%!important;
+    grid-template-columns:minmax(300px,350px) minmax(250px,1fr) minmax(350px,430px)!important;
+    gap:15px!important;
+  }
+  body.reference-home .brand-logo{width:115px!important;height:90px!important}
+  body.reference-home .brand-logo .logo{width:115px!important;height:90px!important}
+  body.reference-home .category-trigger{min-width:185px!important;font-size:12px!important}
+  body.reference-home .search input{font-size:15px!important}
+  body.reference-home .action .action-main{font-size:15px!important}
+  body.reference-home .action .action-sub{font-size:12px!important}
+}
+@media(max-width:800px){
+  body.reference-home .head{
+    width:calc(100% - 20px)!important;min-height:68px!important;height:68px!important;
+    grid-template-columns:minmax(0,1fr) 42px!important;gap:7px!important;
+  }
+  body.reference-home .brand-area{gap:7px!important}
+  body.reference-home .brand-logo{width:54px!important;height:58px!important}
+  body.reference-home .brand-logo .logo{width:54px!important;height:58px!important}
+  body.reference-home .category-trigger{
+    min-width:0!important;height:42px!important;padding:0 9px!important;font-size:10px!important;gap:6px!important;
+  }
+  body.reference-home .category-trigger-icon{font-size:18px!important}
+  body.reference-home .category-panel{
+    position:fixed!important;left:10px!important;right:10px!important;top:108px!important;
+    width:auto!important;max-height:calc(100vh - 120px)!important;overflow:auto!important;
+  }
+  body.reference-home .search{grid-column:1!important;grid-row:2!important}
+  body.reference-home .brand-area{grid-column:1!important;grid-row:1!important}
+  body.reference-home .actions{grid-column:2!important;grid-row:1 / span 2!important}
+  body.reference-home .actions .action:last-child{display:grid!important}
+  body.reference-home .hero h1 span{white-space:normal!important}
+}
+@media(max-width:430px){
+  body.reference-home .brand-logo{width:46px!important;height:50px!important}
+  body.reference-home .brand-logo .logo{width:46px!important;height:50px!important}
+  body.reference-home .category-trigger{font-size:9px!important}
+}
+</style>
 </head>
 <body class="reference-home">
 <div class="top">
@@ -954,8 +1066,27 @@ body.reference-home .header{overflow:visible!important}
 </div>
 <header class="header">
   <div class="wrap head">
-    <button type="button" class="menu" aria-label="Abrir menu" onclick="document.querySelector('.nav').classList.toggle('open')">☰</button>
-    <a href="index.html"><img class="logo" src="assets/logo-kora.svg" alt="FlashMarket"></a>
+    <div class="brand-area">
+      <a href="index.html" class="brand-logo"><img class="logo" src="assets/logo-kora.svg" alt="FlashMarket"></a>
+      <div class="category-dropdown">
+        <button type="button" class="category-trigger" id="categoryTrigger" aria-expanded="false" aria-controls="categoryPanel">
+          <span class="category-trigger-icon">☰</span>
+          <span>Todas as Categorias</span>
+          <span class="category-chevron">⌄</span>
+        </button>
+        <div class="category-panel" id="categoryPanel" role="menu">
+          <div class="category-panel-title">Comprar por categoria</div>
+          <a href="produtos.html?c=Eletrônicos" role="menuitem"><span>📱</span><div><strong>Eletrônicos</strong><small>Celulares, acessórios e tecnologia</small></div></a>
+          <a href="produtos.html?c=Vestuário" role="menuitem"><span>👕</span><div><strong>Moda</strong><small>Roupas, calçados e acessórios</small></div></a>
+          <a href="produtos.html?c=Casa%20%26%20Decor" role="menuitem"><span>🏠</span><div><strong>Casa & Decor</strong><small>Utilidades e decoração</small></div></a>
+          <a href="produtos.html?c=Beleza" role="menuitem"><span>💄</span><div><strong>Beleza</strong><small>Cuidados e acessórios</small></div></a>
+          <a href="produtos.html?c=Esportes" role="menuitem"><span>⚽</span><div><strong>Esportes</strong><small>Fitness e movimento</small></div></a>
+          <a href="produtos.html?c=Pet%20Shop" role="menuitem"><span>🐶</span><div><strong>Pet Shop</strong><small>Produtos para seu pet</small></div></a>
+          <a href="produtos.html?c=Papelaria" role="menuitem"><span>📚</span><div><strong>Livros & Papelaria</strong><small>Estudos e organização</small></div></a>
+          <a href="produtos.html" role="menuitem"><span>🔥</span><div><strong>Ofertas</strong><small>As melhores oportunidades</small></div></a>
+        </div>
+      </div>
+    </div>
     <form class="search" onsubmit="return searchProducts(event)">
       <input id="searchInput" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar produtos">
       <button type="submit" aria-label="Pesquisar">⌕</button>
@@ -982,18 +1113,6 @@ body.reference-home .header{overflow:visible!important}
       </a>
     </div>
   </div>
-  <nav class="nav">
-    <div class="wrap">
-      <a class="category-link" href="produtos.html"><span class="hamburger">☰</span><span>Todas as Categorias</span><span class="chevron">⌄</span></a>
-      <a class="active" href="index.html"><span class="nav-icon">⌂</span>Início</a>
-      <a href="#ofertas"><span class="nav-icon">🔥</span>Ofertas</a>
-      <a href="produtos.html"><span class="nav-icon">★</span>Mais Vendidos</a>
-      <a href="produtos.html"><span class="nav-icon">🏷️</span>Novidades</a>
-      <a href="#ofertas"><span class="nav-icon">⚡</span>Super Ofertas</a>
-      <a href="rastrear-pedido.html">Rastrear pedido</a>
-      <a href="afiliado.html">Afiliados</a>
-    </div>
-  </nav>
 </header>
 <main>
 <section class="hero">
@@ -1001,7 +1120,7 @@ body.reference-home .header{overflow:visible!important}
     <div class="hero-main">
       <div class="hero-copy">
         <div class="eyebrow">🔥 OFERTA ESPECIAL • FLASHMARKET</div>
-        <h1>TECNOLOGIA QUE<br><span>FACILITA SUA VIDA.</span></h1>
+        <h1>TECNOLOGIA QUE <span>FACILITA SUA VIDA.</span></h1>
         <p>Descubra produtos inteligentes, úteis e modernos com preços especiais, frete grátis e compra segura.</p>
         <div class="buttons">
           <a class="btn primary" href="produto.html?id=46">COMPRAR AGORA →</a>
@@ -1055,6 +1174,22 @@ function addCart(id){if(typeof fmAdd==='function'){fmAdd(Number(id));return}}
 function searchProducts(e){e.preventDefault();const q=document.getElementById('searchInput').value.trim();location.href=q?'produtos.html?q='+encodeURIComponent(q):'produtos.html';return false}
 function subscribe(e){e.preventDefault();if(typeof fmToast==='function')fmToast('Cadastro realizado! Você receberá nossas novidades e ofertas.');e.target.reset()}
 document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{b.textContent=b.textContent==='♡'?'♥':'♡';b.style.color=b.textContent==='♥'?'#ff3b1f':'#777'}));if(typeof fmUpdateCount==='function')fmUpdateCount();
+</script>
+<script id="category-menu-script">
+(function(){
+  const trigger=document.getElementById('categoryTrigger');
+  const panel=document.getElementById('categoryPanel');
+  if(!trigger||!panel)return;
+  function close(){panel.classList.remove('open');trigger.setAttribute('aria-expanded','false')}
+  trigger.addEventListener('click',function(e){
+    e.stopPropagation();
+    const open=panel.classList.toggle('open');
+    trigger.setAttribute('aria-expanded',open?'true':'false');
+  });
+  panel.addEventListener('click',e=>e.stopPropagation());
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
 </script>
 </body>
 </html>
