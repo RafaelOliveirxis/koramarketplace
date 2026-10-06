@@ -684,24 +684,9 @@
         </form>
 
         <div class="tracking-examples">
-
-          <span>Exemplos:</span>
-
-          <button type="button" data-example="FM-20487">
-            FM-20487
-          </button>
-
-          <button type="button" data-example="FM-31592">
-            FM-31592
-          </button>
-
-          <button type="button" data-example="FM-78214">
-            FM-78214
-          </button>
-
-        </div>
-
-      </section>
+  <span>Use o número do pedido (ex.: FM-XXXXXXXX) ou o código de rastreio informado pela transportadora.</span>
+</div>
+</section>
 
 
       <!-- LOADING -->
@@ -1503,6 +1488,124 @@
       document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
     })();
   </script>
-  <script src="js/pwa.js"></script>
+  <script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const form = $('trackingForm');
+  const input = $('trackingCode');
+  const result = $('trackingResult');
+  const loading = $('loadingState');
+  const error = $('errorState');
+
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+
+  const money = value => Number(value || 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const date = value => value ? new Date(value).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}) : '—';
+
+  const statusLabel = status => ({
+    created:'Pedido criado',
+    processing:'Preparando pedido',
+    ready_to_ship:'Pronto para envio',
+    shipped:'Pedido enviado',
+    in_transit:'Em trânsito',
+    out_for_delivery:'Saiu para entrega',
+    delivered:'Pedido entregue',
+    canceled:'Pedido cancelado',
+    cancelled:'Pedido cancelado',
+    failed:'Pagamento não aprovado',
+    refunded:'Reembolso processado',
+    action_required:'Ação necessária',
+    processed:'Pedido processado'
+  }[String(status || '').toLowerCase()] || 'Pedido em processamento');
+
+  function setLoading(on){
+    loading.classList.toggle('hidden', !on);
+    if(on){ result.classList.add('hidden'); error.classList.add('hidden'); }
+  }
+
+  function showError(message){
+    setLoading(false);
+    error.classList.remove('hidden');
+    const p=error.querySelector('p');
+    if(p) p.textContent=message;
+  }
+
+  function render(order){
+    const events=Array.isArray(order.tracking) ? order.tracking : [];
+    const latest=order.latest || events[events.length-1] || null;
+    const progress=Math.max(0,Math.min(100,Number(order.progress || 0)));
+
+    $('orderNumber').textContent=order.id || '—';
+    $('orderStatus').textContent=statusLabel(order.status);
+    $('trackingNumber').textContent=order.trackingCode || 'Ainda não informado';
+    $('carrier').textContent=order.carrier || 'Ainda não informado';
+    $('deliveryDate').textContent=order.status === 'delivered' && latest?.date ? date(latest.date) : 'Previsão não informada';
+    $('currentTitle').textContent=latest?.title || statusLabel(order.status);
+    $('currentDescription').textContent=latest?.description || order.statusDetail || 'O pedido está registrado no sistema e aguardando a próxima atualização.';
+    $('progressPercentage').textContent=progress + '%';
+    $('progressBar').style.width=progress + '%';
+    const stage = progress >= 100 ? 'Entrega concluída' : progress >= 88 ? 'Saída para entrega' : progress >= 55 ? 'Pedido em transporte' : 'Preparação do pedido';
+    $('progressText').textContent=stage;
+    $('lastUpdate').textContent=order.updatedAt ? 'Atualizado em '+date(order.updatedAt) : 'Atualizado agora';
+
+    const dest=order.destination || {};
+    $('deliveryAddress').innerHTML = dest.city || dest.state
+      ? '<strong>Destino:</strong><br>'+esc(dest.city || 'Cidade não informada')+' — '+esc(dest.state || 'UF não informada')+(dest.cep ? '<br>CEP '+esc(dest.cep) : '')
+      : 'Destino disponível somente para o titular do pedido.';
+
+    const products=Array.isArray(order.items) ? order.items : [];
+    $('productsList').innerHTML=products.length
+      ? products.map(item => '<div class="product-row"><div><strong>'+esc(item.name)+'</strong><small>Qtd. '+esc(item.quantity)+'</small></div><b>'+money(item.total)+'</b></div>').join('')
+      : '<p>Nenhum item encontrado para este pedido.</p>';
+
+    $('timeline').innerHTML=events.length
+      ? events.map((event,index) => {
+          const active=index===events.length-1;
+          return '<div class="timeline-item '+(active?'active':'')+'"><div class="timeline-dot"></div><div class="timeline-content"><strong>'+esc(event.title || statusLabel(event.status))+'</strong><small>'+date(event.date)+'</small><p>'+esc(event.description || '')+'</p>'+(event.carrier || event.trackingCode ? '<span class="timeline-meta">'+esc(event.carrier || '')+(event.carrier && event.trackingCode?' · ':'')+esc(event.trackingCode || '')+'</span>':'' )+'</div></div>';
+        }).join('')
+      : '<div class="empty-timeline">Ainda não há eventos de rastreamento. O pedido existe no banco, mas a expedição ainda não foi registrada.</div>';
+
+    result.classList.remove('hidden');
+    error.classList.add('hidden');
+    loading.classList.add('hidden');
+  }
+
+  async function track(raw){
+    const code=String(raw || '').trim();
+    if(!code){ showError('Informe o código do pedido ou rastreio.'); return; }
+    input.value=code;
+    setLoading(true);
+    try{
+      const response=await fetch('/api/orders/tracking?code='+encodeURIComponent(code),{headers:{Accept:'application/json'},cache:'no-store'});
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok) throw new Error(data.error || 'Pedido não encontrado.');
+      render(data.order);
+      history.replaceState(null,'','rastrear-pedido.html?pedido='+encodeURIComponent(code));
+    }catch(err){
+      showError(err.message || 'Não foi possível consultar o pedido.');
+    }
+  }
+
+  form?.addEventListener('submit', event => { event.preventDefault(); track(input.value); });
+  document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click',()=>track(button.dataset.example)));
+
+  const params=new URLSearchParams(location.search);
+  const initial=params.get('pedido') || params.get('code') || params.get('tracking');
+  if(initial) track(initial);
+
+  const trigger=document.getElementById('categoryTrigger');
+  const panel=document.getElementById('categoryPanel');
+  if(trigger && panel){
+    const close=()=>{panel.classList.remove('open');trigger.setAttribute('aria-expanded','false');};
+    trigger.addEventListener('click',event=>{event.stopPropagation();const open=!panel.classList.contains('open');panel.classList.toggle('open',open);trigger.setAttribute('aria-expanded',String(open));});
+    panel.addEventListener('click',event=>event.stopPropagation());
+    document.addEventListener('click',close);
+    document.addEventListener('keydown',event=>{if(event.key==='Escape')close();});
+  }
+})();
+</script>
+<script src="js/pwa.js"></script>
 </body>
 </html>
