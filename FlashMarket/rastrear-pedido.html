@@ -458,79 +458,165 @@
         display: none;
       }
     }
+
+    /* =====================================================
+       RASTREAR PEDIDO — IDENTIDADE MARKETPLACE 2026
+    ====================================================== */
+    .tracking-top{background:#111!important;border-bottom:1px solid #2b2b2b!important}
+    .tracking-top .top-inner{height:36px!important}
+    .tracking-top-left{display:flex;align-items:center;gap:16px;color:#d9d9d9;font-size:10px}
+    .tracking-top-left strong{color:#ffd33f!important}
+    .tracking-top-sep{width:1px;height:15px;background:#444;display:block}
+    .tracking-top .top-links{gap:20px}
+    .tracking-top .top-links a{font-size:10px;color:#cfcfcf}
+    .tracking-top .top-links a.active{color:#ffd33f;font-weight:800}
+    .tracking-header-bar{top:36px!important;background:rgba(255,255,255,.97)!important;color:#111!important;border-bottom:1px solid #e6e6e2!important;box-shadow:0 8px 28px rgba(0,0,0,.07)!important}
+    .tracking-header-bar .header-main{width:min(1240px,92%);min-height:76px;grid-template-columns:205px minmax(0,1fr) auto;gap:18px;padding:9px 0}
+    .tracking-brand-area{display:flex;align-items:center;gap:8px;min-width:0}
+    .tracking-brand{display:flex;align-items:center}
+    .tracking-header-bar .brand-logo{width:128px;height:50px;object-fit:contain}
+    .tracking-category-trigger{width:40px;height:40px;border:1px solid #deded9;border-radius:10px;background:#f7f7f5;color:#111;display:grid;place-items:center;position:relative}
+    .tracking-category-trigger:hover{border-color:#f0bd16;background:#fff9df}
+    .tracking-category-trigger-icon{font-size:21px;line-height:1}
+    .tracking-category-trigger .category-chevron{position:absolute;right:3px;bottom:1px;font-size:10px;color:#777}
+    .tracking-category-panel{top:48px;left:0;z-index:100;background:#fff;border:1px solid #e4e4df;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.15);padding:8px;min-width:300px}
+    .tracking-category-panel:not(.open){display:none}
+    .tracking-category-panel .category-panel-title{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#999;padding:9px 10px 7px}
+    .tracking-category-panel>a{display:flex;align-items:center;gap:10px;padding:10px;border-radius:9px}
+    .tracking-category-panel>a:hover{background:#faf7e9}
+    .tracking-category-panel>a>span{width:30px;height:30px;display:grid;place-items:center;background:#f6f3e8;border-radius:8px}
+    .tracking-category-panel>a strong{display:block;font-size:10px}
+    .tracking-category-panel>a small{display:block;color:#999;font-size:8px;margin-top:2px}
+    .tracking-site-search{height:46px!important;background:#f5f5f2!important;border:1px solid #deded9!important;border-radius:11px!important;box-shadow:none!important}
+    .tracking-site-search:focus-within{background:#fff!important;border-color:#c9c9c2!important;box-shadow:0 0 0 4px rgba(245,183,0,.12)!important}
+    .tracking-site-search input{font-size:12px!important;color:#222!important}
+    .tracking-site-search button{width:52px!important;background:#111!important;color:#fff!important;font-size:22px!important}
+    .tracking-site-search button:hover{background:#ffbf16!important;color:#111!important}
+    .tracking-actions{gap:4px}
+    .tracking-actions .head-action{min-width:68px;min-height:44px;background:transparent;color:#222;border:0;box-shadow:none;border-radius:10px;padding:6px 8px;display:flex;flex-direction:column;gap:2px}
+    .tracking-actions .head-action:hover{background:#f3f3f0;color:#111;transform:none}
+    .tracking-actions .head-action span{font-size:18px}
+    .tracking-actions .head-action b{font-size:8px;letter-spacing:.04em}
+    .page-tracking{background:linear-gradient(180deg,#f8f8f6 0%,#f1f1ef 100%)}
+    .tracking-header{padding-top:4px}
+    .tracking-header .status-pill{display:inline-flex;align-items:center;gap:6px;background:#111;color:#ffd33f;border:1px solid #2a2a2a;border-radius:999px;padding:7px 11px;font-size:9px;font-weight:900;letter-spacing:.04em}
+    .tracking-header h1{font-size:clamp(38px,4.4vw,58px);letter-spacing:-2.5px}
+    .tracking-header p{font-size:13px;color:#777}
+    .tracking-search-card{background:#fff;border:1px solid #e5e5e1;border-radius:18px;padding:20px;box-shadow:0 12px 35px rgba(0,0,0,.055)}
+    .tracking-search-form label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#555;margin-bottom:7px}
+    .tracking-search-form .input-wrapper{height:48px;background:#f7f7f5;border:1px solid #dddcd7;border-radius:11px;display:flex;align-items:center;padding:0 12px;gap:9px}
+    .tracking-search-form .input-wrapper span{font-size:16px;opacity:.65}
+    .tracking-search-form .input-wrapper input{border:0;outline:0;background:transparent;width:100%;font-size:12px}
+    .tracking-search-form .primary-btn{height:48px;border-radius:11px;background:#111;color:#fff;font-weight:900;font-size:10px;padding:0 24px;box-shadow:none}
+    .tracking-search-form .primary-btn:hover{background:#ffbf16;color:#111}
+    .tracking-examples{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:11px;color:#999;font-size:9px}
+    .tracking-examples button{border:1px solid #ddd;background:#fff;border-radius:7px;padding:5px 8px;color:#555;font-size:9px}
+    .tracking-examples button:hover{border-color:#ffbf16;background:#fff9df}
+    .tracking-summary-card,.current-status-card,.timeline-card,.detail-card,.support-card,.tracking-security{background:#fff;border:1px solid #e5e5e1;box-shadow:0 12px 35px rgba(0,0,0,.045)}
+    .tracking-summary-card{border-radius:18px;padding:22px}
+    .current-status-card{border-radius:18px;padding:22px;margin:18px 0}
+    .timeline-card,.detail-card,.support-card{border-radius:16px}
+    .timeline-card{padding:22px}
+    .detail-card,.support-card{padding:18px}
+    .tracking-security{border-radius:14px;padding:15px 18px}
+    .error-state,.tracking-error{border-radius:14px}
+    @media(max-width:900px){
+      .tracking-header-bar .header-main{grid-template-columns:190px minmax(0,1fr) auto}
+      .tracking-actions .head-action b{display:none}
+      .tracking-actions .head-action{min-width:42px}
+    }
+    @media(max-width:650px){
+      .tracking-top-left{display:none}
+      .tracking-top .top-inner{justify-content:center}
+      .tracking-header-bar{top:30px!important}
+      .tracking-header-bar .header-main{width:94%;min-height:72px;grid-template-columns:minmax(0,1fr) 42px;grid-template-areas:"brand actions" "search search";gap:7px}
+      .tracking-brand-area{grid-area:brand}
+      .tracking-header-bar .brand-logo{width:104px;height:44px}
+      .tracking-category-trigger{width:38px;height:38px}
+      .tracking-site-search{grid-area:search;height:42px!important}
+      .tracking-actions{grid-area:actions}
+      .tracking-actions .head-action{display:none}
+      .tracking-actions .head-action:last-child{display:flex;width:42px;height:42px;padding:0;justify-content:center}
+      .tracking-actions .head-action:last-child span{font-size:21px}
+      .tracking-actions .head-action:last-child b{display:none}
+      .tracking-category-panel{position:fixed;left:10px;right:10px;top:112px;min-width:0}
+      .page-tracking{padding-top:24px}
+    }
+
   </style>
 </head>
 
 <body>
 
   <!-- =====================================================
-       BARRA SUPERIOR
+       BARRA SUPERIOR + HEADER
   ====================================================== -->
 
-  <div class="top-strip">
+  <div class="top-strip tracking-top">
     <div class="wrap top-inner">
-
-      <strong>WHATSAPP: (11) 99725-5630</strong>
-
+      <div class="tracking-top-left">
+        <span>🚚 <strong>Frete grátis acima de R$ 199</strong></span>
+        <span class="tracking-top-sep"></span>
+        <span>🔒 Compra segura</span>
+      </div>
       <div class="top-links">
         <a href="suporte.html">Central de Atendimento</a>
         <a href="rastrear-pedido.html" class="active">Rastrear Pedido</a>
         <a href="afiliado.html">Área de Afiliado</a>
       </div>
-
     </div>
   </div>
 
-
-  <!-- =====================================================
-       HEADER
-  ====================================================== -->
-
-  <header class="site-header">
-
+  <header class="site-header tracking-header-bar">
     <div class="wrap header-main">
-
-      <a class="brand" href="index.html" aria-label="FlashMarket">
-        <img
-          src="assets/favicon.png"
-          alt="FlashMarket"
-          class="brand-logo"
-        >
-      </a>
-
-      <form class="search" action="index.html" method="get">
-
-        <input
-          type="search"
-          name="q"
-          placeholder="Pesquise aqui..."
-          autocomplete="off"
-        >
-
-        <button type="submit" aria-label="Pesquisar">
-          ⌕
-        </button>
-
-      </form>
-
-      <div class="header-actions">
-
-        <a class="head-action" href="index.html#produtos">
-          <span>🛒</span>
-          <b>LOJA</b>
+      <div class="brand-area tracking-brand-area">
+        <a class="brand tracking-brand" href="index.html" aria-label="FlashMarket">
+          <img src="assets/logo-kora.svg" alt="FlashMarket" class="brand-logo">
         </a>
 
-        <a class="head-action" href="afiliado.html">
-          <span>👤</span>
-          <b>AFILIADO</b>
-        </a>
+        <div class="category-dropdown">
+          <button type="button" class="category-trigger tracking-category-trigger"
+                  id="categoryTrigger" aria-expanded="false" aria-controls="categoryPanel"
+                  aria-label="Abrir categorias">
+            <span class="category-trigger-icon">☰</span>
+            <span class="category-chevron">⌄</span>
+          </button>
 
+          <div class="category-panel tracking-category-panel" id="categoryPanel" role="menu">
+            <div class="category-panel-title">Comprar por categoria</div>
+            <a href="produtos.html?c=Eletrônicos" role="menuitem"><span>📱</span><div><strong>Eletrônicos</strong><small>Celulares, acessórios e tecnologia</small></div></a>
+            <a href="produtos.html?c=Vestuário" role="menuitem"><span>👕</span><div><strong>Moda</strong><small>Roupas, calçados e acessórios</small></div></a>
+            <a href="produtos.html?c=Casa%20%26%20Decor" role="menuitem"><span>🏠</span><div><strong>Casa & Decor</strong><small>Utilidades e decoração</small></div></a>
+            <a href="produtos.html?c=Beleza" role="menuitem"><span>💄</span><div><strong>Beleza</strong><small>Cuidados e acessórios</small></div></a>
+            <a href="produtos.html?c=Esportes" role="menuitem"><span>⚽</span><div><strong>Esportes</strong><small>Fitness e movimento</small></div></a>
+            <a href="produtos.html?c=Pet%20Shop" role="menuitem"><span>🐶</span><div><strong>Pet Shop</strong><small>Produtos para seu pet</small></div></a>
+            <a href="produtos.html?c=Papelaria" role="menuitem"><span>📚</span><div><strong>Livros & Papelaria</strong><small>Estudos e organização</small></div></a>
+            <a href="produtos.html" role="menuitem"><span>🔥</span><div><strong>Ofertas</strong><small>As melhores oportunidades</small></div></a>
+          </div>
+        </div>
       </div>
 
+      <form class="search tracking-site-search" action="index.html" method="get">
+        <input type="search" name="q" placeholder="Buscar produtos, categorias e ofertas..." autocomplete="off">
+        <button type="submit" aria-label="Pesquisar">⌕</button>
+      </form>
+
+      <div class="header-actions tracking-actions">
+        <a class="head-action" href="login.html">
+          <span>👤</span>
+          <b>CONTA</b>
+        </a>
+        <a class="head-action" href="minha-conta.html">
+          <span>♡</span>
+          <b>FAVORITOS</b>
+        </a>
+        <a class="head-action" href="carrinho.html">
+          <span>🛒</span>
+          <b>CARRINHO</b>
+        </a>
+      </div>
     </div>
-
   </header>
-
 
   <!-- =====================================================
        CONTEÚDO PRINCIPAL
@@ -1404,6 +1490,19 @@
     })();
   </script>
 
+
+  <script>
+    (() => {
+      const trigger=document.getElementById('categoryTrigger');
+      const panel=document.getElementById('categoryPanel');
+      if(!trigger||!panel)return;
+      const close=()=>{panel.classList.remove('open');trigger.setAttribute('aria-expanded','false');};
+      trigger.addEventListener('click',e=>{e.stopPropagation();const open=!panel.classList.contains('open');panel.classList.toggle('open',open);trigger.setAttribute('aria-expanded',String(open));});
+      panel.addEventListener('click',e=>e.stopPropagation());
+      document.addEventListener('click',close);
+      document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+    })();
+  </script>
   <script src="js/pwa.js"></script>
 </body>
 </html>
