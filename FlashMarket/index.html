@@ -1046,6 +1046,38 @@ body.reference-home .hero h1 span{white-space:nowrap!important}
   body.reference-home .category-trigger{font-size:9px!important}
 }
 </style>
+
+<style id="category-menu-final-adjustment">
+/* Menu lateral compacto ao lado do logo */
+body.reference-home .brand-area{
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  gap:14px!important;min-width:0!important;
+}
+body.reference-home .category-dropdown{flex:0 0 auto!important}
+body.reference-home .category-trigger{
+  width:64px!important;min-width:64px!important;height:76px!important;
+  padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  border-radius:14px!important;background:#fff!important;color:#171717!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.12)!important;
+}
+body.reference-home .category-trigger-icon{
+  font-size:38px!important;line-height:1!important;font-weight:400!important;
+}
+body.reference-home .category-trigger-label{display:none!important}
+body.reference-home .category-chevron{display:none!important}
+body.reference-home .category-trigger:hover,
+body.reference-home .category-trigger[aria-expanded="true"]{background:#fff!important;color:#ff321f!important}
+body.reference-home .category-panel{left:0!important}
+@media(max-width:1200px){
+  body.reference-home .category-trigger{width:58px!important;min-width:58px!important;height:62px!important}
+  body.reference-home .category-trigger-icon{font-size:34px!important}
+}
+@media(max-width:800px){
+  body.reference-home .brand-area{gap:7px!important}
+  body.reference-home .category-trigger{width:42px!important;min-width:42px!important;height:42px!important;padding:0!important;border-radius:9px!important}
+  body.reference-home .category-trigger-icon{font-size:25px!important}
+}
+</style>
 </head>
 <body class="reference-home">
 <div class="top">
@@ -1071,7 +1103,7 @@ body.reference-home .hero h1 span{white-space:nowrap!important}
       <div class="category-dropdown">
         <button type="button" class="category-trigger" id="categoryTrigger" aria-expanded="false" aria-controls="categoryPanel">
           <span class="category-trigger-icon">☰</span>
-          <span>Todas as Categorias</span>
+          <span class="category-trigger-label" aria-hidden="true"></span>
           <span class="category-chevron">⌄</span>
         </button>
         <div class="category-panel" id="categoryPanel" role="menu">
