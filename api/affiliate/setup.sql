@@ -5,3 +5,28 @@ CREATE TABLE IF NOT EXISTS affiliate_products (id BIGINT UNSIGNED NOT NULL AUTO_
 CREATE TABLE IF NOT EXISTS affiliate_orders (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,user_id BIGINT UNSIGNED NOT NULL,external_id VARCHAR(100) NULL,customer_name VARCHAR(160) NULL,product_name VARCHAR(180) NULL,value DECIMAL(12,2) NOT NULL DEFAULT 0,status ENUM('Pago','Pendente','Cancelado') NOT NULL DEFAULT 'Pendente',ordered_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(id),KEY ix_affiliate_orders_user_date(user_id,ordered_at),CONSTRAINT fk_affiliate_orders_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS affiliate_clicks (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,user_id BIGINT UNSIGNED NOT NULL,code VARCHAR(80) NULL,created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(id),KEY ix_affiliate_clicks_user_date(user_id,created_at),CONSTRAINT fk_affiliate_clicks_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE affiliate_profiles
+  ADD COLUMN IF NOT EXISTS pix_key VARCHAR(255) NULL,
+  ADD COLUMN IF NOT EXISTS pix_key_type ENUM('CPF','CNPJ','EMAIL','PHONE','PIX_CODE') NULL;
+
+CREATE TABLE IF NOT EXISTS affiliate_withdrawals (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED NOT NULL,
+  external_reference VARCHAR(100) NOT NULL,
+  amount DECIMAL(12,2) NOT NULL,
+  pix_key VARCHAR(255) NOT NULL,
+  pix_key_type ENUM('CPF','CNPJ','EMAIL','PHONE','PIX_CODE') NOT NULL,
+  status ENUM('pending','processing','paid','failed','refunded') NOT NULL DEFAULT 'pending',
+  provider_id VARCHAR(120) NULL,
+  provider_status VARCHAR(80) NULL,
+  provider_detail VARCHAR(255) NULL,
+  idempotency_key VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY(id),
+  UNIQUE KEY uq_aff_withdraw_external(external_reference),
+  UNIQUE KEY uq_aff_withdraw_idempotency(idempotency_key),
+  KEY ix_aff_withdraw_user_status(user_id,status,created_at),
+  CONSTRAINT fk_aff_withdraw_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
