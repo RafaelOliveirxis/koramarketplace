@@ -30,6 +30,14 @@ module.exports = async (req, res) => {
     const valid = orderRows.filter(o => !['cancelado', 'cancelada'].includes(String(o.status).toLowerCase()));
     const revenue = valid.reduce((sum, o) => sum + Number(o.value || 0), 0);
     const commission = paid.reduce((sum, o) => sum + Number(o.value || 0) * rate, 0);
+    let withdrawn = 0;
+    try {
+      const [withdrawRows] = await db.execute("SELECT COALESCE(SUM(amount),0) AS total FROM affiliate_withdrawals WHERE user_id = ? AND status IN ('pending','processing','paid')", [user.id]);
+      withdrawn = Number(withdrawRows[0]?.total || 0);
+    } catch (withdrawError) {
+      if (withdrawError.code !== 'ER_NO_SUCH_TABLE') throw withdrawError;
+    }
+    const availableCommission = Math.max(0, commission - withdrawn);
     const customers = new Map();
     orderRows.forEach(o => { if (o.customer_name) customers.set(o.customer_name, (customers.get(o.customer_name) || 0) + 1); });
     const repeatCustomers = [...customers.values()].filter(n => n > 1).length;
@@ -39,7 +47,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({
       profile: { code: profile.code, commission_rate: Number(profile.commission_rate || 18) },
-      metrics: { revenue, activeProducts: productRows.filter(p => p.status === 'Ativo').length, conversion, liquidRevenue: commission, totalCommission: commission, activeOrders: paid.length, retention, clicks },
+      metrics: { revenue, activeProducts: productRows.filter(p => p.status === 'Ativo').length, conversion, liquidRevenue: availableCommission, totalCommission: commission, withdrawn, availableCommission, activeOrders: paid.length, retention, clicks },
       products: productRows,
       orders: orderRows
     });
