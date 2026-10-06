@@ -1078,6 +1078,185 @@ body.reference-home .category-panel{left:0!important}
   body.reference-home .category-trigger-icon{font-size:25px!important}
 }
 </style>
+
+<style id="header-layout-polish">
+/* ===== FLASHMARKET — HEADER POLIDO ===== */
+body.reference-home .top{
+  height:52px!important;
+  font-size:15px!important;
+}
+body.reference-home .top .wrap{
+  width:min(1820px,calc(100% - 72px))!important;
+  height:52px!important;
+}
+body.reference-home .top .top-left,
+body.reference-home .top .top-right{gap:22px!important}
+body.reference-home .top .top-item{gap:7px!important;font-weight:600!important}
+body.reference-home .top .top-item strong{font-weight:800!important}
+
+body.reference-home .header{
+  position:sticky!important;
+  top:0!important;
+  height:116px!important;
+  min-height:116px!important;
+}
+body.reference-home .head{
+  width:min(1820px,calc(100% - 72px))!important;
+  height:116px!important;
+  min-height:116px!important;
+  grid-template-columns:255px minmax(420px,1fr) 565px!important;
+  gap:22px!important;
+  align-items:center!important;
+}
+body.reference-home .brand-area{
+  height:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  min-width:0!important;
+}
+body.reference-home .brand-logo{
+  width:178px!important;
+  height:108px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  flex:none!important;
+}
+body.reference-home .brand-logo .logo{
+  width:178px!important;
+  height:108px!important;
+  object-fit:contain!important;
+}
+body.reference-home .category-dropdown{flex:0 0 auto!important}
+body.reference-home .category-trigger{
+  width:56px!important;
+  min-width:56px!important;
+  height:56px!important;
+  padding:0!important;
+  border-radius:13px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:#fff!important;
+  color:#202020!important;
+  box-shadow:0 5px 16px rgba(0,0,0,.14)!important;
+}
+body.reference-home .category-trigger-icon{
+  font-size:30px!important;
+  line-height:1!important;
+  transform:scaleX(1.02)!important;
+}
+body.reference-home .category-trigger-label,
+body.reference-home .category-chevron{display:none!important}
+
+body.reference-home .search{
+  width:100%!important;
+  height:72px!important;
+  border-radius:14px!important;
+  margin:0!important;
+}
+body.reference-home .search input{
+  font-size:20px!important;
+  padding:0 25px!important;
+}
+body.reference-home .search button{
+  width:76px!important;
+  height:52px!important;
+  margin:10px!important;
+  border-radius:11px!important;
+  font-size:32px!important;
+}
+
+body.reference-home .actions{
+  height:76px!important;
+  grid-template-columns:1.15fr 1fr 1fr!important;
+}
+body.reference-home .action{
+  height:76px!important;
+  grid-template-columns:48px 1fr 12px!important;
+  padding:7px 14px!important;
+  column-gap:7px!important;
+}
+body.reference-home .action .i{font-size:34px!important}
+body.reference-home .action .action-main{
+  font-size:16px!important;
+  line-height:1.05!important;
+}
+body.reference-home .action .action-sub{
+  font-size:12px!important;
+  line-height:1.05!important;
+}
+body.reference-home .action .action-arrow{font-size:14px!important}
+body.reference-home .badge{
+  left:34px!important;
+  top:1px!important;
+  min-width:22px!important;
+  height:22px!important;
+  font-size:11px!important;
+}
+
+body.reference-home .category-panel{
+  top:calc(100% + 8px)!important;
+  width:320px!important;
+}
+
+@media(max-width:1200px){
+  body.reference-home .head{
+    width:94%!important;
+    grid-template-columns:205px minmax(280px,1fr) 430px!important;
+    gap:14px!important;
+  }
+  body.reference-home .brand-logo,
+  body.reference-home .brand-logo .logo{width:145px!important}
+  body.reference-home .category-trigger{width:52px!important;min-width:52px!important;height:52px!important}
+  body.reference-home .search{height:64px!important}
+  body.reference-home .search input{font-size:16px!important}
+  body.reference-home .search button{width:62px!important;height:46px!important}
+  body.reference-home .actions{height:68px!important}
+  body.reference-home .action{height:68px!important;padding:6px 9px!important}
+  body.reference-home .action .i{font-size:28px!important}
+  body.reference-home .action .action-main{font-size:13px!important}
+  body.reference-home .action .action-sub{font-size:10px!important}
+}
+@media(max-width:800px){
+  body.reference-home .top{height:38px!important;font-size:11px!important}
+  body.reference-home .top .wrap{height:38px!important;width:94%!important}
+  body.reference-home .header{height:72px!important;min-height:72px!important}
+  body.reference-home .head{
+    width:calc(100% - 20px)!important;
+    height:72px!important;
+    min-height:72px!important;
+    grid-template-columns:minmax(0,1fr) 42px!important;
+    gap:7px!important;
+  }
+  body.reference-home .brand-area{
+    height:72px!important;
+    gap:7px!important;
+  }
+  body.reference-home .brand-logo,
+  body.reference-home .brand-logo .logo{
+    width:54px!important;height:62px!important;
+  }
+  body.reference-home .category-trigger{
+    width:42px!important;min-width:42px!important;height:42px!important;border-radius:9px!important;
+  }
+  body.reference-home .category-trigger-icon{font-size:24px!important}
+  body.reference-home .search{
+    height:42px!important;
+    grid-column:1!important;
+    grid-row:2!important;
+  }
+  body.reference-home .search input{font-size:11px!important;padding:0 10px!important}
+  body.reference-home .search button{width:42px!important;height:34px!important;margin:4px!important;font-size:22px!important}
+  body.reference-home .brand-area{grid-column:1!important;grid-row:1!important}
+  body.reference-home .actions{grid-column:2!important;grid-row:1 / span 2!important;height:42px!important}
+  body.reference-home .action:last-child{
+    width:42px!important;height:42px!important;
+  }
+}
+</style>
 </head>
 <body class="reference-home">
 <div class="top">
