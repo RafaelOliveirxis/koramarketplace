@@ -1572,23 +1572,30 @@
     loading.classList.add('hidden');
   }
 
-  async function track(raw){
+  let currentCode = '';
+  let refreshTimer = null;
+
+  async function track(raw, silent = false){
     const code=String(raw || '').trim();
     if(!code){ showError('Informe o código do pedido ou rastreio.'); return; }
+    currentCode=code;
     input.value=code;
-    setLoading(true);
+    if(!silent) setLoading(true);
     try{
       const response=await fetch('/api/orders/tracking?code='+encodeURIComponent(code),{headers:{Accept:'application/json'},cache:'no-store'});
       const data=await response.json().catch(()=>({}));
       if(!response.ok) throw new Error(data.error || 'Pedido não encontrado.');
       render(data.order);
-      history.replaceState(null,'','rastrear-pedido.html?pedido='+encodeURIComponent(code));
+      if(!silent) history.replaceState(null,'','rastrear-pedido.html?pedido='+encodeURIComponent(code));
     }catch(err){
       showError(err.message || 'Não foi possível consultar o pedido.');
     }
   }
 
   form?.addEventListener('submit', event => { event.preventDefault(); track(input.value); });
+  refreshTimer = setInterval(() => {
+    if(currentCode && !document.hidden) track(currentCode, true);
+  }, 30000);
   document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click',()=>track(button.dataset.example)));
 
   const params=new URLSearchParams(location.search);
