@@ -23,12 +23,17 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 @media(max-width:800px){.top{display:none}.head{height:74px;grid-template-columns:54px 1fr auto;padding:0 12px;gap:9px}.brand img{width:54px;height:58px}.affiliate-label{display:none}.search{height:42px}.search input{font-size:11px;padding:0 11px}.search button{width:40px;height:34px;font-size:19px}.head-actions a:first-child,.head-actions a:nth-child(2){display:none}.head-actions button{height:40px;padding:0 10px;font-size:8px}.layout{padding:12px}.sidebar{border-radius:12px}.hero{grid-template-columns:1fr;padding:25px 20px;border-radius:18px}.hero h1{font-size:36px}.hero-stats{grid-template-columns:1fr 1fr}.quick,.products,.faq{grid-template-columns:1fr}.section-head{display:block}.linkrow{display:grid}.copy{width:100%}}
 @media(max-width:480px){.hero-stats{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.head-actions button{display:none}.head{grid-template-columns:48px 1fr}.brand img{width:48px}.hero h1{font-size:32px}}
 </style>
+
+<style id="withdraw-real-ui">
+.withdraw-note{margin:12px 0 0;color:#8f98a5;font-size:8px;line-height:1.5}
+.withdraw .form input:focus,.withdraw .form select:focus{border-color:var(--red);box-shadow:0 0 0 3px #ff3b2022}
+</style>
 </head>
 <body>
 <div class="top"><div class="topin"><div class="topgroup"><span class="topitem">🚚 <b>Frete grátis acima de R$ 199</b></span><i class="topsep"></i><span class="topitem">🔒 Compra segura</span><i class="topsep"></i><span class="topitem">🛡️ Dados protegidos</span></div><div class="topgroup"><span class="topitem">🎧 Atendimento 24h</span><i class="topsep"></i><a href="suporte.html">Central de Atendimento</a></div></div></div>
 <header class="header"><div class="head"><a class="brand" href="index.html"><img src="assets/logo-kora.svg" alt="FlashMarket"><span class="affiliate-label">Central<br>de Afiliados</span></a><form class="search" onsubmit="return searchSite(event)"><input id="searchInput" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button type="submit">⌕</button></form><div class="head-actions"><a href="minha-conta.html">👤 Minha conta</a><a href="carrinho.html">🛒 Carrinho</a><button class="primary" onclick="scrollToId('login')">Acessar painel</button></div></div></header>
 <div class="layout">
-<aside class="sidebar"><div class="side-title">Central</div><nav class="side"><a class="active" href="#inicio"><span class="side-icon">⌂</span>Visão geral</a><a href="#link"><span class="side-icon">🔗</span>Meu link</a><a href="#products"><span class="side-icon">🛍️</span>Produtos</a><a href="#commissions"><span class="side-icon">💵</span>Comissões</a><a href="#withdraw"><span class="side-icon">💳</span>Saque</a><a href="#how"><span class="side-icon">?</span>Como funciona</a></nav><div class="side-bottom">Painel demonstrativo<br>Os valores exibidos são ilustrativos.</div></aside>
+<aside class="sidebar"><div class="side-title">Central</div><nav class="side"><a class="active" href="#inicio"><span class="side-icon">⌂</span>Visão geral</a><a href="#link"><span class="side-icon">🔗</span>Meu link</a><a href="#products"><span class="side-icon">🛍️</span>Produtos</a><a href="#commissions"><span class="side-icon">💵</span>Comissões</a><a href="#withdraw"><span class="side-icon">💳</span>Saque</a><a href="#how"><span class="side-icon">?</span>Como funciona</a></nav><div class="side-bottom">Central financeira<br>Comissões e saques vinculados ao seu cadastro.</div></aside>
 <main id="inicio">
 <div class="crumb"><a href="index.html">Início</a> / Central de Afiliados</div>
 <section class="hero"><div><span class="eyebrow">Programa de afiliados FlashMarket</span><h1>Divulgue. Venda. Cresça.</h1><p>Uma central moderna para criar links personalizados, divulgar produtos e acompanhar cliques, vendas e comissões em um só lugar.</p><div class="hero-actions"><button class="btn gold" onclick="scrollToId('login')">ACESSAR PAINEL →</button><a class="btn ghost" href="#how">COMO FUNCIONA</a></div><div class="trust"><span>✓ <b>Links personalizados</b></span><span>✓ <b>Acompanhamento</b></span><span>✓ <b>Experiência profissional</b></span></div></div><div class="hero-stats"><div class="hero-stat"><span>Comissão</span><strong>até 15%</strong></div><div class="hero-stat"><span>Cookie</span><strong>30 dias</strong></div><div class="hero-stat"><span>Saque mínimo</span><strong>R$ 50</strong></div><div class="hero-stat"><span>Status</span><strong>Ativo</strong></div></div></section>
@@ -37,10 +42,24 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 <section class="section"><div class="section-head"><div><h2>Acesso rápido</h2><p>Ferramentas para o seu dia a dia.</p></div></div><div class="quick"><a href="#products"><span>🛍️</span>Divulgar produtos</a><a href="#link"><span>🔗</span>Meu link</a><a href="#commissions"><span>💵</span>Comissões</a><a href="#withdraw"><span>💳</span>Solicitar saque</a></div></section>
 <section class="section card linkcard" id="link"><h3>Seu link principal</h3><p class="sub">Copie e compartilhe seu link de afiliado.</p><div class="linkrow"><input id="affLink" value="https://rafaeloliveirxis.github.io/koramarketplace/?af=FLASH123" readonly><button class="copy" onclick="copyLink()">COPIAR LINK</button></div></section>
 <section class="section" id="products"><div class="section-head"><div><h2>Produtos para divulgar</h2><p>Escolha um produto e gere um link exclusivo.</p></div></div><div class="products"><article class="card product"><img src="assets/moletom-street-flash.png" alt="Moletom Street Flash"><div class="product-body"><strong>Moletom Street Flash</strong><p>Moda · R$ 119,90</p><div class="meta"><span class="commission">12% comissão</span><span>R$ 14,39</span></div><div class="product-actions"><button class="gen" onclick="gen('moletom')">GERAR LINK</button><button onclick="share('Moletom Street Flash')">COMPARTILHAR</button></div></div></article><article class="card product"><img src="assets/caderno-criativo-premium.png" alt="Caderno Criativo Premium"><div class="product-body"><strong>Caderno Criativo Premium</strong><p>Papelaria · R$ 34,90</p><div class="meta"><span class="commission">10% comissão</span><span>R$ 3,49</span></div><div class="product-actions"><button class="gen" onclick="gen('caderno')">GERAR LINK</button><button onclick="share('Caderno Criativo Premium')">COMPARTILHAR</button></div></div></article><article class="card product"><img src="assets/mochila-kids-adventure.png" alt="Mochila Kids Adventure"><div class="product-body"><strong>Mochila Kids Adventure</strong><p>Acessórios · R$ 89,90</p><div class="meta"><span class="commission">15% comissão</span><span>R$ 13,49</span></div><div class="product-actions"><button class="gen" onclick="gen('mochila')">GERAR LINK</button><button onclick="share('Mochila Kids Adventure')">COMPARTILHAR</button></div></div></article></div></section>
-<section class="section two" id="commissions"><div class="card panel"><h3>Últimas comissões</h3><p class="sub">Vendas atribuídas aos seus links.</p><div class="table-wrap"><table class="table"><thead><tr><th>Pedido</th><th>Produto</th><th>Venda</th><th>Comissão</th><th>Status</th></tr></thead><tbody><tr><td>#FM-583421</td><td>Moletom Street Flash</td><td>R$ 119,90</td><td>R$ 14,39</td><td><span class="chip ok">Aprovada</span></td></tr><tr><td>#FM-583102</td><td>Mochila Kids Adventure</td><td>R$ 89,90</td><td>R$ 13,49</td><td><span class="chip ok">Aprovada</span></td></tr><tr><td>#FM-582877</td><td>Caderno Criativo Premium</td><td>R$ 34,90</td><td>R$ 3,49</td><td><span class="chip wait">Pendente</span></td></tr></tbody></table></div></div><div class="card panel withdraw" id="withdraw"><h3>Solicitar saque</h3><div class="balance">R$ 248,90</div><p class="sub">Disponível para saque. Valor mínimo demonstrativo: R$ 50.</p><div class="form"><label>Forma de recebimento</label><select><option>PIX</option><option>Transferência</option></select><label>Chave PIX</label><input placeholder="Digite sua chave"><button class="btn" style="background:var(--red);color:#fff" onclick="toast('Saque simulado registrado!')">SOLICITAR SAQUE</button></div></div></section>
+<section class="section two" id="commissions"><div class="card panel"><h3>Últimas comissões</h3><p class="sub">Vendas atribuídas aos seus links.</p><div class="table-wrap"><table class="table"><thead><tr><th>Pedido</th><th>Produto</th><th>Venda</th><th>Comissão</th><th>Status</th></tr></thead><tbody><tr><td>#FM-583421</td><td>Moletom Street Flash</td><td>R$ 119,90</td><td>R$ 14,39</td><td><span class="chip ok">Aprovada</span></td></tr><tr><td>#FM-583102</td><td>Mochila Kids Adventure</td><td>R$ 89,90</td><td>R$ 13,49</td><td><span class="chip ok">Aprovada</span></td></tr><tr><td>#FM-582877</td><td>Caderno Criativo Premium</td><td>R$ 34,90</td><td>R$ 3,49</td><td><span class="chip wait">Pendente</span></td></tr></tbody></table></div></div><div class="card panel withdraw" id="withdraw">
+<h3>Solicitar saque</h3>
+<div class="balance" id="withdrawBalance">R$ 0,00</div>
+<p class="sub">Saldo de comissão aprovado. O saque é enviado para a chave Pix cadastrada.</p>
+<div class="form">
+<label>Valor do saque</label>
+<input id="withdrawAmount" type="number" min="50" step="0.01" placeholder="Ex.: 100,00">
+<label>Tipo da chave PIX</label>
+<select id="pixKeyType"><option value="CPF">CPF</option><option value="CNPJ">CNPJ</option><option value="EMAIL">E-mail</option><option value="PHONE">Telefone</option><option value="PIX_CODE">Chave aleatória</option></select>
+<label>Chave PIX</label>
+<input id="pixKey" autocomplete="off" placeholder="Digite sua chave PIX">
+<button class="btn" style="background:var(--red);color:#fff" onclick="requestWithdrawal()">SOLICITAR SAQUE REAL</button>
+</div>
+<p class="withdraw-note">O pagamento real depende da habilitação do produto Payouts/Money Out no provedor financeiro e das credenciais de produção configuradas no servidor.</p>
+</div></section>
 <section class="section" id="how"><div class="section-head"><div><h2>Como funciona</h2><p>Comece em quatro passos simples.</p></div></div><div class="steps"><div class="card step"><b>01</b><h3>Cadastre-se</h3><p>Crie seu acesso à central de afiliados.</p></div><div class="card step"><b>02</b><h3>Escolha produtos</h3><p>Selecione produtos liberados para divulgação.</p></div><div class="card step"><b>03</b><h3>Compartilhe</h3><p>Gere seu link e compartilhe com sua audiência.</p></div><div class="card step"><b>04</b><h3>Acompanhe</h3><p>Veja cliques, vendas e comissões no painel.</p></div></div></section>
-<section class="section"><div class="section-head"><div><h2>Perguntas frequentes</h2><p>Informações rápidas para começar.</p></div></div><div class="faq"><details><summary>Como recebo comissão?</summary><p>Esta versão é demonstrativa. As comissões exibidas não representam valores financeiros reais.</p></details><details><summary>Posso divulgar qualquer produto?</summary><p>Somente os produtos disponibilizados no programa de afiliados.</p></details><details><summary>Quando posso sacar?</summary><p>O limite de R$ 50 é ilustrativo nesta versão.</p></details><details><summary>O sistema já paga dinheiro?</summary><p>Não. O painel está em modo demonstração e não realiza pagamentos reais.</p></details></div></section>
-<section class="login" id="login"><h2>Acesse sua central</h2><p>Entre ou crie uma conta para testar a experiência.</p><div class="tabs"><button id="lt" class="active">ENTRAR</button><button id="rt">CRIAR CONTA</button></div><form id="lf" class="darkform"><label>E-mail</label><input type="email" placeholder="voce@email.com" required><label>Senha</label><input type="password" placeholder="••••••••" required><button class="btn gold">ENTRAR NO PAINEL</button></form><form id="rf" class="darkform hidden"><label>Nome</label><input placeholder="Seu nome" required><label>E-mail</label><input type="email" placeholder="voce@email.com" required><label>Senha</label><input type="password" placeholder="Crie uma senha" required><button class="btn gold">CRIAR CONTA</button></form><div class="notice">Modo demonstração · nenhuma comissão ou retirada é financeira nesta versão.</div></section>
+<section class="section"><div class="section-head"><div><h2>Perguntas frequentes</h2><p>Informações rápidas para começar.</p></div></div><div class="faq"><details><summary>Como recebo comissão?</summary><p>As comissões aprovadas ficam disponíveis conforme as regras do programa.</p></details><details><summary>Posso divulgar qualquer produto?</summary><p>Somente os produtos disponibilizados no programa de afiliados.</p></details><details><summary>Quando posso sacar?</summary><p>O saque mínimo configurado para o programa é de R$ 50.</p></details><details><summary>O sistema já paga dinheiro?</summary><p>Os pagamentos reais dependem da habilitação do provedor de Payouts e das credenciais de produção.</p></details></div></section>
+<section class="login" id="login"><h2>Acesse sua central</h2><p>Entre ou crie uma conta para testar a experiência.</p><div class="tabs"><button id="lt" class="active">ENTRAR</button><button id="rt">CRIAR CONTA</button></div><form id="lf" class="darkform"><label>E-mail</label><input type="email" placeholder="voce@email.com" required><label>Senha</label><input type="password" placeholder="••••••••" required><button class="btn gold">ENTRAR NO PAINEL</button></form><form id="rf" class="darkform hidden"><label>Nome</label><input placeholder="Seu nome" required><label>E-mail</label><input type="email" placeholder="voce@email.com" required><label>Senha</label><input type="password" placeholder="Crie uma senha" required><button class="btn gold">CRIAR CONTA</button></form><div class="notice">Use uma conta autenticada para consultar seu saldo e solicitar saques.</div></section>
 </main></div>
 <div class="toast" id="toast"></div>
 <script>
@@ -54,6 +73,46 @@ function tab(a,b,c,d){a.classList.add('active');b.classList.remove('active');c.c
 lt.onclick=()=>tab(lt,rt,lf,rf);rt.onclick=()=>tab(rt,lt,rf,lf);
 lf.onsubmit=e=>{e.preventDefault();localStorage.setItem('fm_affiliate_session','demo');toast('Acesso demonstrativo realizado!')};
 rf.onsubmit=e=>{e.preventDefault();localStorage.setItem('fm_affiliate_session','demo');toast('Conta demonstrativa criada!')};
+
+async function getAuthToken(){return localStorage.getItem('token')||localStorage.getItem('authToken')||localStorage.getItem('fm_auth_token')||''}
+function money(v){return Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+async function loadAffiliateData(){
+  const token=await getAuthToken();
+  if(!token)return;
+  try{
+    const r=await fetch('/api/affiliate/dashboard',{headers:{Authorization:'Bearer '+token}});
+    if(!r.ok)return;
+    const d=await r.json();
+    document.getElementById('withdrawBalance').textContent=money(d.metrics?.liquidRevenue||0);
+    const amount=document.getElementById('withdrawAmount');
+    amount.max=Number(d.metrics?.liquidRevenue||0).toFixed(2);
+  }catch{}
+}
+async function requestWithdrawal(){
+  const token=await getAuthToken();
+  if(!token){toast('Faça login na sua conta para solicitar o saque.');return}
+  const amount=Number(document.getElementById('withdrawAmount').value||0);
+  const pixKey=document.getElementById('pixKey').value.trim();
+  const pixKeyType=document.getElementById('pixKeyType').value;
+  if(amount<50){toast('O saque mínimo é de R$ 50,00.');return}
+  if(!pixKey){toast('Informe sua chave PIX.');return}
+  const button=document.querySelector('#withdraw button');
+  button.disabled=true;button.textContent='PROCESSANDO...';
+  try{
+    const r=await fetch('/api/affiliate/withdraw',{
+      method:'POST',
+      headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},
+      body:JSON.stringify({amount,pixKey,pixKeyType})
+    });
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(d.error||'Não foi possível solicitar o saque.');
+    toast(d.message||'Saque solicitado com sucesso!');
+    document.getElementById('withdrawAmount').value='';
+    loadAffiliateData();
+  }catch(e){toast(e.message)}
+  finally{button.disabled=false;button.textContent='SOLICITAR SAQUE REAL'}
+}
+loadAffiliateData();
 </script>
 </body>
 </html>
