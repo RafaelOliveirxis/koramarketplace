@@ -2,25 +2,75 @@
   "name": "FlashMarket | Marketplace Online",
   "short_name": "FlashMarket",
   "description": "Compre produtos, ofertas e novidades no FlashMarket.",
-  "id": "/",
+  "id": "./",
   "lang": "pt-BR",
   "dir": "ltr",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait-primary",
   "background_color": "#f5f6f8",
   "theme_color": "#ff4d2d",
-  "categories": ["shopping", "lifestyle"],
+  "categories": [
+    "shopping",
+    "lifestyle"
+  ],
   "prefer_related_applications": false,
   "shortcuts": [
-    {"name":"Ofertas","short_name":"Ofertas","url":"/produtos.html?ofertas=1","icons":[{"src":"assets/favicon.png","sizes":"192x192","type":"image/png"}]},
-    {"name":"Carrinho","short_name":"Carrinho","url":"/carrinho.html","icons":[{"src":"assets/favicon.png","sizes":"192x192","type":"image/png"}]},
-    {"name":"Minha conta","short_name":"Conta","url":"/minha-conta.html","icons":[{"src":"assets/favicon.png","sizes":"192x192","type":"image/png"}]}
+    {
+      "name": "Ofertas",
+      "short_name": "Ofertas",
+      "url": "./produtos.html?ofertas=1",
+      "icons": [
+        {
+          "src": "assets/favicon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Carrinho",
+      "short_name": "Carrinho",
+      "url": "./carrinho.html",
+      "icons": [
+        {
+          "src": "assets/favicon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Minha conta",
+      "short_name": "Conta",
+      "url": "./minha-conta.html",
+      "icons": [
+        {
+          "src": "assets/favicon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ],
   "icons": [
-    {"src":"assets/favicon.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"assets/favicon.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {
+      "src": "assets/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
