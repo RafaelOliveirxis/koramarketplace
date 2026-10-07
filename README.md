@@ -409,4 +409,122 @@ Respeite a autoria e as licenças dos recursos de terceiros utilizados no projet
   Marketplace moderno para Web, PWA e Mobile.
 </p>
 
-<!-- Vercel production redeploy: Node.js 22 LTS runtime verification — 2026-10-03 -->
+
+---
+
+# 📚 Atividade — Funcionalidades, Layout e Versionamento
+
+Esta versão do **KoraMarketplace / FlashMarket** foi organizada para atender à atividade solicitada em sala.
+
+## 1. Funcionalidades obrigatórias
+
+### CRUD de produtos
+A página **Gerenciar Produtos** implementa as quatro operações solicitadas:
+
+- **Cadastro:** inclusão de novos produtos.
+- **Consulta:** listagem dos produtos cadastrados.
+- **Alteração:** edição dos dados de um produto existente.
+- **Exclusão:** remoção de produtos com confirmação.
+
+A implementação é responsiva e utiliza **Bootstrap 5**, **Bootstrap Icons**, HTML5, CSS3 e JavaScript.
+
+Acesso direto:
+
+`FlashMarket/gerenciar-produtos.html`
+
+Os dados da demonstração são armazenados no `localStorage`, permitindo executar e apresentar o CRUD mesmo sem configurar um banco de dados.
+
+## 2. Layout e interface
+
+O projeto possui:
+
+- Cabeçalho e navegação organizados;
+- Menu de categorias;
+- Cards de produtos;
+- Botões e formulários responsivos;
+- Imagens de produtos;
+- Ícones;
+- Layout adaptado para desktop, tablet e celular;
+- PWA e estrutura para uso mobile.
+
+## 3. Responsividade
+
+O sistema foi preparado para diferentes tamanhos de tela. A página de CRUD utiliza o sistema de grid do **Bootstrap 5** e regras CSS adicionais para celulares.
+
+Teste recomendado:
+
+1. Abrir o site no computador.
+2. Abrir o mesmo endereço no celular.
+3. Acessar **Gerenciar Produtos**.
+4. Cadastrar um produto.
+5. Consultar a lista.
+6. Editar o produto.
+7. Excluir o produto.
+
+## 4. Versionamento
+
+O repositório utiliza **Git + GitHub** para controle de versão. O histórico atual possui mais de 20 commits, atendendo ao requisito de versionamento mínimo indicado na atividade.
+
+Repositório:
+
+https://github.com/RafaelOliveirxis/koramarketplace
+
+## 5. README
+
+Este arquivo contém:
+
+- Nome do projeto;
+- Objetivo;
+- Tecnologias utilizadas;
+- Estrutura do sistema;
+- Como executar;
+- Funcionalidades;
+- Informações de API e banco;
+- Orientações de deploy;
+- Informações de versionamento.
+
+## 6. Prints do sistema
+
+Para a apresentação, recomenda-se incluir prints das seguintes telas:
+
+1. Página inicial / Home;
+2. Menu de categorias;
+3. Catálogo de produtos;
+4. Tela de cadastro no CRUD;
+5. Lista/consulta de produtos;
+6. Tela de alteração;
+7. Confirmação de exclusão;
+8. Versão mobile.
+
+> Os prints devem ser capturados com o projeto publicado e inseridos na entrega conforme a orientação do professor.
+
+## 7. Grupo
+
+**Grupo: 5 pessoas**
+
+- Rafael Oliveira
+- Integrante 2
+- Integrante 3
+- Integrante 4
+- Integrante 5
+
+Substitua os nomes dos integrantes 2 a 5 pelos nomes reais do grupo antes da entrega.
+
+## 8. Checklist da entrega
+
+- [x] Link do GitHub
+- [x] Projeto funcionando
+- [x] README completo
+- [x] Cadastro
+- [x] Consulta
+- [x] Alteração
+- [x] Exclusão
+- [x] Layout responsivo
+- [x] Menu
+- [x] Bootstrap
+- [x] Ícones
+- [x] Imagens
+- [x] Versionamento Git/GitHub
+- [ ] Inserir os 4 nomes restantes do grupo
+- [ ] Capturar e inserir os prints finais da apresentação
+
