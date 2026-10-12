@@ -57,7 +57,7 @@ module.exports = async (req, res) => {
     if (!profileRows.length) return res.status(400).json({ error: 'Seu cadastro ainda não possui perfil de afiliado.' });
 
     const rate = Number(profileRows[0].commission_rate || 18) / 100;
-    const [paidRows] = await db.execute("SELECT COALESCE(SUM(value),0) AS total FROM affiliate_orders WHERE user_id=? AND status='Pago'", [user.id]);
+    const [paidRows] = await db.execute("SELECT COALESCE(SUM(GREATEST(0,total_amount-shipping_amount)),0) AS total FROM fm_orders WHERE affiliate_user_id=? AND LOWER(status) IN ('paid','processed','approved')", [user.id]);
     const [withdrawnRows] = await db.execute("SELECT COALESCE(SUM(amount),0) AS total FROM affiliate_withdrawals WHERE user_id=? AND status IN ('pending','processing','paid')", [user.id]);
 
     const grossCommission = Number(paidRows[0]?.total || 0) * rate;
