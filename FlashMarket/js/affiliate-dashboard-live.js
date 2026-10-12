@@ -12,6 +12,7 @@ window.searchSite=function(e){e.preventDefault();const q=$('searchInput').value.
 function affiliateLink(productId){const url=new URL('index.html',location.href);if(profile&&profile.code)url.searchParams.set('af',profile.code);if(productId)url.searchParams.set('produto',String(productId));return url.href}
 window.copyLink=async function(){try{await navigator.clipboard.writeText($('affLink').value);toast('Link de afiliado copiado!')}catch(e){prompt('Copie seu link de afiliado:',$('affLink').value)}};
 window.gen=async function(id){const url=affiliateLink(id);try{await navigator.clipboard.writeText(url);toast('Link individual copiado!')}catch(e){prompt('Copie seu link de afiliado:',url)}};
+window.shareFromProduct=function(button){return window.share(button.getAttribute('data-name')||'Produto',Number(button.getAttribute('data-id')||0))};
 window.share=async function(name,id){const url=affiliateLink(id);if(navigator.share){try{await navigator.share({title:name,text:'Confira este produto no FlashMarket',url:url})}catch(e){}}else{try{await navigator.clipboard.writeText(url);toast('Link copiado para compartilhar!')}catch(e){prompt('Copie seu link:',url)}}};
 function isPaid(s){return ['paid','processed','approved','pago'].indexOf(String(s||'').toLowerCase())>=0}
 function status(s){const v=String(s||'').toLowerCase();if(isPaid(v))return ['Aprovada','ok'];if(['cancelled','canceled','cancelado','cancelada','failed','refunded'].indexOf(v)>=0)return ['Cancelada','wait'];return ['Pendente','wait']}
