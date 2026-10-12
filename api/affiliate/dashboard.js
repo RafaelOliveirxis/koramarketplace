@@ -2,6 +2,7 @@ const { getPool } = require('../_lib/db');
 const { requireAuth } = require('../_lib/auth');
 const { applyCors } = require('../_lib/cors');
 const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
+const { ensureAffiliateSchema } = require('../_lib/ensureAffiliateSchema');
 
 const moneyNumber = value => Number(value || 0);
 const normalizedStatus = value => String(value || '').toLowerCase();
@@ -17,6 +18,7 @@ module.exports = async (req, res) => {
   try {
     const db = getPool();
     await ensurePaymentsSchema(db);
+    await ensureAffiliateSchema(db);
     const requestedDays = Number.parseInt(req.query.days || '30', 10);
     const days = Math.min(365, Math.max(1, Number.isFinite(requestedDays) ? requestedDays : 30));
 
@@ -110,8 +112,8 @@ module.exports = async (req, res) => {
     });
   } catch (error) {
     console.error('affiliate/dashboard', error);
-    if (error.code === 'ER_NO_SUCH_TABLE') {
-      return res.status(503).json({ error: 'As tabelas da Área de Afiliados ainda não foram criadas. Execute api/affiliate/setup.sql no MySQL.' });
+    if (error.code === 'ER_NO_SUCH_TABLE' || /tabela obrigatória/.test(String(error.message || ''))) {
+      return res.status(503).json({ error: 'Não foi possível preparar a Área de Afiliados. Confirme que o schema principal do FlashMarket (users, fm_orders e fm_catalog) foi criado no banco configurado na Vercel.' });
     }
     if (error.code === 'ER_BAD_FIELD_ERROR') {
       return res.status(503).json({ error: 'O banco ainda não possui os campos de atribuição de afiliados. Execute novamente api/affiliate/setup.sql.' });
