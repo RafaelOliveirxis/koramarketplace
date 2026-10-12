@@ -11,7 +11,7 @@
     const total=Math.max(0,subtotal+shipping-discount);
     const user=JSON.parse(localStorage.getItem('flashmarket_user_profile')||'null');
     const id='KM-'+Date.now().toString().slice(-10);
-    const order={id,userId:user?.id||null,email:body.customer.email,date:new Date().toISOString(),status:'a-pagar',statusDetail:'Pedido criado. Aguardando pagamento.',payment:body.paymentMethod||'pix',shipping,total,discount,items:products,address:body.address,tracking:[]};
+    const order={id,userId:user?.id||null,email:body.customer.email,date:new Date().toISOString(),affiliateCode:body.affiliateCode||null,status:'a-pagar',statusDetail:'Pedido criado. Aguardando pagamento.',payment:body.paymentMethod||'pix',shipping,total,discount,items:products,address:body.address,tracking:[]};
     const orders=parse(localStorage.getItem('flashmarket_local_orders'))||[];
     orders.unshift(order);localStorage.setItem('flashmarket_local_orders',JSON.stringify(orders));
     localStorage.setItem('flashmarket_pending_order',JSON.stringify(order));
@@ -25,10 +25,10 @@
       const q=id=>document.getElementById(id)?.value.trim()||'';
       if(['customerName','customerEmail','cep','uf','address','city'].some(id=>!q(id))){fmToast?.('Preencha os dados de entrega.');return}
       const items=cart();if(!items.length){fmToast?.('Seu carrinho está vazio.');return}
-      const body={customer:{name:q('customerName'),email:q('customerEmail'),phone:q('customerPhone')},address:{cep:q('cep'),state:q('uf'),city:q('city'),address:q('address'),complement:q('complement')},items,shippingAmount:Number(document.querySelector('input[name="shipping"]:checked')?.value||0),paymentMethod:document.querySelector('input[name="payment"]:checked')?.value||'pix',couponCode:(localStorage.getItem('flashmarket_coupon')||'').trim().toUpperCase()};
+      const body={customer:{name:q('customerName'),email:q('customerEmail'),phone:q('customerPhone')},address:{cep:q('cep'),state:q('uf'),city:q('city'),address:q('address'),complement:q('complement')},items,shippingAmount:Number(document.querySelector('input[name="shipping"]:checked')?.value||0),paymentMethod:document.querySelector('input[name="payment"]:checked')?.value||'pix',couponCode:(localStorage.getItem('flashmarket_coupon')||'').trim().toUpperCase(),affiliateCode:(localStorage.getItem('flashmarket_affiliate_code')||'').trim().slice(0,80)};
       b.disabled=true;b.textContent='CRIANDO PEDIDO...';
       try{
-        const base=String(window.FLASHMARKET_API_BASE||'').replace(/\/$/,'');
+        const base=String(window.FLASHMARKET_API_BASE||'https://koramarketplace.vercel.app').replace(/\/$/,'');
         if(base){
           const h={'Content-Type':'application/json'},t=localStorage.getItem('flashmarket_access_token');if(t)h.Authorization='Bearer '+t;
           const r=await fetch(base+'/api/payments/create',{method:'POST',headers:h,body:JSON.stringify(body)}),d=await r.json().catch(()=>({}));
