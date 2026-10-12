@@ -173,6 +173,10 @@ Para preparar o ambiente Capacitor:
 npm run mobile:prepare
 ```
 
+### Build Android automatizado
+
+O workflow [Android build (FlashMarket)](./.github/workflows/android-build.yml) prepara o projeto Android e tenta gerar um **APK de depuração** a cada alteração relevante na `main` ou por execução manual em **Actions → Android build (FlashMarket) → Run workflow**. Se a execução terminar com sucesso, baixe o artefato `flashmarket-android-debug-apk` na página da execução. Esse APK é para testes, **não é o pacote assinado para publicar na Google Play**.
+
 Para adicionar e preparar a plataforma Android:
 
 ```bash
