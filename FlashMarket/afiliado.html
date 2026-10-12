@@ -47,7 +47,7 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 <section class="section two" id="commissions"><div class="card panel"><h3>Últimas comissões</h3><p class="sub">Vendas atribuídas aos seus links.</p><div class="table-wrap"><table class="table"><thead><tr><th>Pedido</th><th>Produto</th><th>Venda</th><th>Comissão</th><th>Status</th></tr></thead><tbody id="affiliateOrdersRows"><tr><td colspan="5" class="data-state">Carregando vendas atribuídas ao seu código…</td></tr></tbody></table></div></div><div class="card panel withdraw" id="withdraw">
 <h3>Solicitar saque</h3>
 <div class="balance" id="withdrawBalance">R$ 0,00</div>
-<p class="sub">Saldo de comissão aprovado. O saque é enviado para a chave Pix cadastrada.</p>
+<p class="sub">Saldo de comissão aprovado. Demonstração de solicitação de saque (sem transferência real).</p>
 <div class="form">
 <label>Valor do saque</label>
 <input id="withdrawAmount" type="number" min="50" step="0.01" placeholder="Ex.: 100,00">
@@ -57,14 +57,104 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 <input id="pixKey" autocomplete="off" placeholder="Digite sua chave PIX">
 <button class="btn" style="background:var(--red);color:#fff" onclick="requestWithdrawal()">SOLICITAR SAQUE</button>
 </div>
-<p class="withdraw-note">O pagamento real depende da habilitação do produto Payouts/Money Out no provedor financeiro e das credenciais de produção configuradas no servidor.</p>
+<p class="withdraw-note">MODO DEMONSTRAÇÃO: o pedido é fictício. Nenhum dinheiro será transferido e nenhuma chave PIX será enviada ao banco.</p>
 </div></section>
 <section class="section" id="how"><div class="section-head"><div><h2>Como funciona</h2><p>Comece em quatro passos simples.</p></div></div><div class="steps"><div class="card step"><b>01</b><h3>Cadastre-se</h3><p>Crie seu acesso à central de afiliados.</p></div><div class="card step"><b>02</b><h3>Escolha produtos</h3><p>Selecione produtos liberados para divulgação.</p></div><div class="card step"><b>03</b><h3>Compartilhe</h3><p>Gere seu link e compartilhe com sua audiência.</p></div><div class="card step"><b>04</b><h3>Acompanhe</h3><p>Veja cliques, vendas e comissões no painel.</p></div></div></section>
-<section class="section"><div class="section-head"><div><h2>Perguntas frequentes</h2><p>Informações rápidas para começar.</p></div></div><div class="faq"><details><summary>Como recebo comissão?</summary><p>As comissões aprovadas ficam disponíveis conforme as regras do programa.</p></details><details><summary>Posso divulgar qualquer produto?</summary><p>Somente os produtos disponibilizados no programa de afiliados.</p></details><details><summary>Quando posso sacar?</summary><p>O saque mínimo configurado para o programa é de R$ 50.</p></details><details><summary>O sistema já paga dinheiro?</summary><p>Os pagamentos reais dependem da habilitação do provedor de Payouts e das credenciais de produção.</p></details></div></section>
+<section class="section"><div class="section-head"><div><h2>Perguntas frequentes</h2><p>Informações rápidas para começar.</p></div></div><div class="faq"><details><summary>Como recebo comissão?</summary><p>As comissões aprovadas ficam disponíveis conforme as regras do programa.</p></details><details><summary>Posso divulgar qualquer produto?</summary><p>Somente os produtos disponibilizados no programa de afiliados.</p></details><details><summary>Quando posso sacar?</summary><p>O saque mínimo configurado para o programa é de R$ 50.</p></details><details><summary>O sistema já paga dinheiro?</summary><p>Este painel está em modo demonstração: valores e pagamentos são fictícios e não movimentam dinheiro.</p></details></div></section>
 <section class="section card panel" id="accountInfo"><h3 id="welcomeAffiliate">Bem-vindo à Central de Afiliados</h3><p class="sub">Sua sessão está protegida pela autenticação da conta FlashMarket.</p></section>
 </main></div>
 <div class="toast" id="toast"></div>
 <script>window.FLASHMARKET_API_BASE=window.FLASHMARKET_API_BASE||"https://koramarketplace.vercel.app";</script><script src="js/auth-real.js?v=20261012-3"></script>
 <script src="js/affiliate-dashboard-live.js?v=20261012-1"></script>
+<script id="affiliate-demo-mode">
+/* MODO DEMONSTRAÇÃO: todos os números, cliques, vendas e saques abaixo são fictícios.
+   Nenhuma chamada de API ou transação financeira é realizada neste modo. */
+(() => {
+  const money = n => Number(n || 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const read = () => { try { return JSON.parse(localStorage.getItem('fm_affiliate_demo') || '{}'); } catch { return {}; } };
+  const save = data => localStorage.setItem('fm_affiliate_demo',JSON.stringify(data));
+  const seed = {
+    clicks: 1284, sales: 37, rate: 18, revenue: 4862.40, available: 248.90,
+    withdrawals: [], extraClicks: 0,
+    products: [
+      {id:101,name:'Fone Bluetooth Pocket',price:149.90,category:'Eletrônicos',commission:26.98},
+      {id:102,name:'Luminária LED de Mesa',price:89.90,category:'Casa & Decor',commission:16.18},
+      {id:103,name:'Moletom Street Flash',price:119.90,category:'Vestuário',commission:21.58},
+      {id:104,name:'Smartwatch Fit Pro',price:199.90,category:'Eletrônicos',commission:35.98},
+      {id:105,name:'Mochila Executiva Casual',price:109.90,category:'Acessórios',commission:19.78},
+      {id:106,name:'Kit Organizador Premium',price:74.90,category:'Casa & Decor',commission:13.48}
+    ]
+  };
+  let state = {...seed,...read()};
+  state.withdrawals = Array.isArray(state.withdrawals) ? state.withdrawals : [];
+  state.extraClicks = Number(state.extraClicks||0);
+  const $ = id => document.getElementById(id);
+  const set = (id,value) => { const el=$(id); if(el) el.textContent=value; };
+  window.showDemoToast = msg => {
+    const toast=$('toast'); if(!toast)return;
+    toast.textContent=msg;toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),2400);
+  };
+  function render() {
+    $('affiliateGate')?.classList.add('hidden');
+    $('affiliateApp')?.classList.remove('hidden');
+    const totalClicks=state.clicks+state.extraClicks;
+    const totalCommission=state.available+state.withdrawals.reduce((s,w)=>s+w.amount,0);
+    set('commissionRate',state.rate+'%');
+    set('metricAvailable',money(state.available));
+    set('metricSales',String(state.sales));
+    set('metricClicks',totalClicks.toLocaleString('pt-BR'));
+    set('metricConversion',((state.sales/Math.max(1,totalClicks))*100).toLocaleString('pt-BR',{maximumFractionDigits:2})+'%');
+    set('withdrawBalance',money(state.available));
+    set('goalCommission',money(totalCommission));
+    const progress=Math.min(100,totalCommission/365*100);
+    if($('goalProgress'))$('goalProgress').style.width=progress+'%';
+    set('goalPercent',Math.round(progress)+'% da meta');
+    set('affiliateLiveStatus','Modo demonstração • dados fictícios');
+    set('welcomeAffiliate','Bem-vindo ao modo demonstração!');
+    const link=$('affLink');
+    if(link)link.value=location.origin+location.pathname+'?ref=FM-DEMO-RAFA';
+    const chart=$('clicksChart');
+    if(chart){
+      const vals=[42,58,35,78,64,91,Math.max(10,83+state.extraClicks)];
+      chart.innerHTML=vals.map((v,i)=>'<div class="bar" style="height:'+v+'%"><i>'+['seg','ter','qua','qui','sex','sáb','dom'][i]+'</i></div>').join('');
+    }
+    const grid=$('affiliateProductsGrid');
+    if(grid)grid.innerHTML=state.products.map(p=>'<article class="card product"><div class="product-visual">FM</div><div class="product-body"><strong>'+p.name+'</strong><p>'+p.category+' · Produto de demonstração</p><div class="meta"><b>'+money(p.price)+'</b><span class="commission">'+money(p.commission)+' / venda</span></div><div class="product-actions"><button class="gen" onclick="generateDemoLink('+p.id+')">GERAR LINK</button><button onclick="simulateDemoClick('+p.id+')">SIMULAR CLIQUE</button></div></div></article>').join('');
+    const orders=$('affiliateOrdersRows');
+    const samples=[
+      {id:'FM-DEMO-1038',product:'Fone Bluetooth Pocket',value:149.90,status:'Aprovada'},
+      {id:'FM-DEMO-1035',product:'Luminária LED de Mesa',value:89.90,status:'Aprovada'},
+      {id:'FM-DEMO-1029',product:'Moletom Street Flash',value:119.90,status:'Pendente'},
+      {id:'FM-DEMO-1022',product:'Smartwatch Fit Pro',value:199.90,status:'Aprovada'}
+    ];
+    const rows=[...state.withdrawals.map((w,i)=>({id:'FM-SIM-'+String(i+1).padStart(4,'0'),product:'Solicitação de saque simulada',value:w.amount,status:'Pendente'})),...samples];
+    if(orders)orders.innerHTML=rows.map(o=>'<tr><td>'+o.id+'</td><td>'+o.product+'</td><td>'+money(o.value)+'</td><td>'+money(o.value*state.rate/100)+'</td><td><span class="chip '+(o.status==='Aprovada'?'ok':'wait')+'">'+o.status+'</span></td></tr>').join('');
+    save(state);
+  }
+  window.copyLink=async()=>{const link=$('affLink')?.value||'';try{await navigator.clipboard.writeText(link);showDemoToast('Link de demonstração copiado!');}catch{if($('affLink')){$('affLink').select();document.execCommand('copy');}showDemoToast('Link de demonstração selecionado.');}};
+  window.generateDemoLink=id=>{const p=state.products.find(x=>x.id===id);if(!p)return;const url=location.origin+location.pathname+'?ref=FM-DEMO-RAFA&product='+id;const input=$('affLink');if(input)input.value=url;state.extraClicks++;save(state);render();showDemoToast('Link fictício gerado para '+p.name+'.');};
+  window.simulateDemoClick=id=>{state.extraClicks++;save(state);render();showDemoToast('Clique de demonstração registrado. Nenhum acesso real foi contado.');};
+  window.loadAffiliateData=()=>{render();showDemoToast('Painel de demonstração atualizado.');};
+  window.requestWithdrawal=()=>{
+    const amount=Number($('withdrawAmount')?.value);
+    const type=$('pixKeyType')?.value||'CPF';
+    const key=String($('pixKey')?.value||'').trim();
+    if(!Number.isFinite(amount)||amount<50){showDemoToast('O valor mínimo simulado é R$ 50,00.');return;}
+    if(amount>state.available){showDemoToast('Saldo simulado insuficiente.');return;}
+    if(!key){showDemoToast('Digite uma chave PIX fictícia para testar.');return;}
+    state.available=Number((state.available-amount).toFixed(2));
+    state.withdrawals.unshift({amount,status:'pending',type,key:'••••'+key.slice(-4),createdAt:new Date().toISOString()});
+    save(state);render();
+    if($('withdrawAmount'))$('withdrawAmount').value='';
+    if($('pixKey'))$('pixKey').value='';
+    showDemoToast('Saque SIMULADO registrado como pendente. Nenhum PIX foi enviado.');
+  };
+  window.affiliateLogout=()=>{showDemoToast('Modo demonstração: nenhuma sessão real está ativa.');};
+  window.searchSite=event=>{event?.preventDefault?.();showDemoToast('Busca visual de demonstração.');return false;};
+  document.addEventListener('DOMContentLoaded',render);
+  render();
+})();
+</script>
 </body>
 </html>
