@@ -9,11 +9,11 @@ window.toast=function(message){const e=$('toast');if(!e)return;e.textContent=mes
 window.affiliateLogout=function(){if(window.KoraAuth&&window.KoraAuth.logout){window.KoraAuth.logout();return}['flashmarket_access_token','flashmarket_user_profile','flashmarket_user_session','flashmarket_user'].forEach(k=>localStorage.removeItem(k));location.href='login.html?return=afiliado.html'};
 window.scrollToId=function(id){$(id)&&$(id).scrollIntoView({behavior:'smooth'})};
 window.searchSite=function(e){e.preventDefault();const q=$('searchInput').value.trim();location.href=q?'produtos.html?q='+encodeURIComponent(q):'produtos.html';return false};
-function affiliateLink(productId){const url=new URL('index.html',location.href);if(profile&&profile.code)url.searchParams.set('af',profile.code);if(productId)url.searchParams.set('produto',String(productId));return url.href}
+function affiliateLink(productId,productName){const url=new URL(productId?'produtos.html':'index.html',location.href);if(profile&&profile.code)url.searchParams.set('af',profile.code);if(productId&&productName)url.searchParams.set('q',String(productName));return url.href}
 window.copyLink=async function(){try{await navigator.clipboard.writeText($('affLink').value);toast('Link de afiliado copiado!')}catch(e){prompt('Copie seu link de afiliado:',$('affLink').value)}};
-window.gen=async function(id){const url=affiliateLink(id);try{await navigator.clipboard.writeText(url);toast('Link individual copiado!')}catch(e){prompt('Copie seu link de afiliado:',url)}};
+window.gen=async function(id,name){const url=affiliateLink(id,name);try{await navigator.clipboard.writeText(url);toast('Link individual copiado!')}catch(e){prompt('Copie seu link de afiliado:',url)}};
 window.shareFromProduct=function(button){return window.share(button.getAttribute('data-name')||'Produto',Number(button.getAttribute('data-id')||0))};
-window.share=async function(name,id){const url=affiliateLink(id);if(navigator.share){try{await navigator.share({title:name,text:'Confira este produto no FlashMarket',url:url})}catch(e){}}else{try{await navigator.clipboard.writeText(url);toast('Link copiado para compartilhar!')}catch(e){prompt('Copie seu link:',url)}}};
+window.share=async function(name,id){const url=affiliateLink(id,name);if(navigator.share){try{await navigator.share({title:name,text:'Confira este produto no FlashMarket',url:url})}catch(e){}}else{try{await navigator.clipboard.writeText(url);toast('Link copiado para compartilhar!')}catch(e){prompt('Copie seu link:',url)}}};
 function isPaid(s){return ['paid','processed','approved','pago'].indexOf(String(s||'').toLowerCase())>=0}
 function status(s){const v=String(s||'').toLowerCase();if(isPaid(v))return ['Aprovada','ok'];if(['cancelled','canceled','cancelado','cancelada','failed','refunded'].indexOf(v)>=0)return ['Cancelada','wait'];return ['Pendente','wait']}
 function renderOrders(orders,rate){const body=$('affiliateOrdersRows');if(!body)return;if(!orders.length){body.innerHTML='<tr><td colspan="5" class="data-state">Nenhuma venda atribuída ao seu código no período. As vendas aparecerão aqui após serem vinculadas ao seu link.</td></tr>';return}body.innerHTML=orders.map(function(o){const st=status(o.status);const commission=isPaid(o.status)?Number(o.value||0)*rate/100:0;return '<tr><td>#'+esc(o.external_id||o.id)+'</td><td>'+esc(o.product_name||'Pedido FlashMarket')+'</td><td>'+money(o.value)+'</td><td>'+money(commission)+'</td><td><span class="chip '+st[1]+'">'+st[0]+'</span></td></tr>'}).join('')}
@@ -31,7 +31,7 @@ function renderProducts(products,rate){
     const amount=document.createElement('span');amount.textContent=money(Number(p.price||0)*Number(rate||0)/100);
     meta.append(rateLabel,amount);
     const actions=document.createElement('div');actions.className='product-actions';
-    const generate=document.createElement('button');generate.className='gen';generate.textContent='GERAR LINK';generate.addEventListener('click',function(){window.gen(Number(p.id))});
+    const generate=document.createElement('button');generate.className='gen';generate.textContent='GERAR LINK';generate.addEventListener('click',function(){window.gen(Number(p.id),p.name||'')});
     const shareButton=document.createElement('button');shareButton.textContent='COMPARTILHAR';shareButton.addEventListener('click',function(){window.share(p.name||'Produto',Number(p.id))});
     actions.append(generate,shareButton);body.append(name,detail,meta,actions);card.append(visual,body);grid.appendChild(card);
   });
