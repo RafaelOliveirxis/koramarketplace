@@ -1,261 +1,128 @@
 # ⚡ FlashMarket — KoraMarketplace
 
-> **Marketplace digital moderno, responsivo e preparado para Web, PWA e Mobile.**
+> Marketplace web responsivo desenvolvido como projeto acadêmico/TCC, com experiência desktop e mobile, PWA, checkout demonstrativo e uma API opcional.
 
-O **FlashMarket** é um projeto acadêmico/TCC de e-commerce desenvolvido com foco em uma experiência de compra rápida, organizada e adaptada para **desktop, tablet e smartphones**.
+**FlashMarket** é a interface de comércio eletrônico do projeto **KoraMarketplace**. O repositório reúne o frontend, funções de API, arquivos de configuração de deploy e preparação para aplicativos móveis com Capacitor.
 
-A aplicação reúne catálogo, ofertas, carrinho, favoritos, autenticação, pedidos, área de afiliados, atendimento, PWA e API serverless.
+## 🌐 Links
 
----
-
-## 🌐 Acesse o projeto
-
-| Recurso | Acesso |
+| Recurso | Link |
 |---|---|
-| 🛍️ **Site publicado** | https://rafaeloliveirxis.github.io/koramarketplace/ |
-| 💻 **GitHub** | https://github.com/RafaelOliveirxis/koramarketplace |
-| ⚡ **Frontend** | `FlashMarket/` |
-| 🔐 **API** | `api/` |
+| **Site publicado (Vercel)** | https://koramarketplace.vercel.app/ |
+| Frontend estático (GitHub Pages) | https://rafaeloliveirxis.github.io/koramarketplace/ |
+| Repositório | https://github.com/RafaelOliveirxis/koramarketplace |
+| Frontend | [FlashMarket/](./FlashMarket/) |
+| Documentação da API | [api/README.md](./api/README.md) |
+| Preparação mobile | [MOBILE-STORE-SETUP.md](./MOBILE-STORE-SETUP.md) |
+| Pipeline de release | [RELEASE-PIPELINE.md](./RELEASE-PIPELINE.md) |
+| Checklist para lojas | [STORE-RELEASE-CHECKLIST.md](./STORE-RELEASE-CHECKLIST.md) |
+| Guia de pagamentos | [PAGAMENTO-MERCADOPAGO-MYSQL.md](./PAGAMENTO-MERCADOPAGO-MYSQL.md) |
 
----
+> **Importante:** os links de produção podem receber atualizações em momentos diferentes. Recursos que dependem de banco de dados, e-mail, pagamento ou outros serviços externos só funcionam quando a respectiva integração está configurada e validada.
 
-## ✨ Destaques
+## ✨ Funcionalidades do projeto
 
-### 🛒 Marketplace
-- Catálogo de produtos
-- Busca e categorias
-- Ofertas Flash
-- Carrinho de compras
-- Favoritos
-- Cupons demonstrativos
-- Avaliações
-- Checkout demonstrativo
-- Estrutura para Pix e cartão
+### Loja e navegação
+- Catálogo, busca, categorias, filtros e ofertas.
+- Carrinho, favoritos, cupons demonstrativos e avaliações na interface.
+- Layout responsivo para desktop, tablet e celular.
+- Navegação mobile com atalhos para áreas importantes.
+- Tema e preferências locais quando disponíveis.
 
-### 👤 Conta
-- Cadastro e login
-- Logout
-- Recuperação de senha
-- Perfil e Minha Conta
-- Sessão persistida
-- Autenticação via API
-- JWT e bcryptjs
+### Checkout e pedidos
+- Fluxo de checkout em etapas: entrega, pagamento e revisão.
+- Opções demonstrativas de frete e formas de pagamento.
+- Criação de pedido em **modo simulação**, com página de detalhes.
+- Páginas de consulta e rastreamento de pedidos.
+- O checkout demonstrativo não realiza cobrança e não deve ser tratado como venda real; os pedidos locais podem ficar salvos no navegador.
 
-### 📦 Pedidos
-- Rastreamento
-- Página de acompanhamento
-- Estrutura para pedidos reais
-- Estrutura para integração com transportadoras
+### Conta e afiliados
+- Páginas de cadastro, login, perfil e recuperação de senha.
+- Estrutura de autenticação via API.
+- Área de afiliados com painel, links e métricas demonstrativas ou dependentes da API configurada.
+- Atendimento e interface do assistente Flash IA.
 
-### 🤝 Área de Afiliados
-- Login e cadastro
-- Dashboard
-- Produtos afiliados
-- Pedidos
-- Cliques e conversões
-- Comissão e receita
-- Link exclusivo
-- Filtros por período
-- Atualização dos dados via API
-
----
-
-## 📱 Design Mobile
-
-O FlashMarket possui uma experiência específica para telas pequenas, sem alterar a estrutura principal do desktop.
-
-No celular, o layout foi organizado para facilitar navegação e compra:
-
-- Header compacto
-- Logo centralizada
-- Menu **☰**
-- Busca em largura total
-- Acesso rápido à conta, favoritos e carrinho
-- Navegação adaptada para toque
-- Hero responsivo
-- Ofertas em **2 colunas**
-- Cards compactos
-- Categorias com rolagem horizontal
-- Abas e filtros adaptados para celular
-- Botões maiores para toque
-- Modais responsivos
-- Suporte/Flash IA adaptado
-- Correção de overflow horizontal
-- Suporte a diferentes tamanhos de tela
-- Preservação do modo escuro quando disponível
-
-> As alterações de design mobile ficam concentradas em regras responsivas, mantendo a experiência desktop independente.
-
----
-
-## 📲 PWA
-
-O projeto pode ser instalado como aplicativo em navegadores compatíveis.
-
-Arquivos principais:
-
-```text
-FlashMarket/manifest.webmanifest
-FlashMarket/sw.js
-FlashMarket/js/pwa.js
-```
-
-### Android / Chrome
-
-Abra o site e utilize a opção **Instalar aplicativo** ou **Adicionar à tela inicial**, quando disponível.
-
-### iPhone / iPad
-
-Abra no Safari e utilize:
-
-**Compartilhar → Adicionar à Tela de Início**
-
----
+### PWA e mobile
+- Web App Manifest e Service Worker.
+- Instalação em navegadores compatíveis.
+- Configuração para preparar versões Android/iOS com Capacitor.
 
 ## 🧰 Tecnologias
 
-### Frontend
-- HTML5
-- CSS3
-- JavaScript ES6+
-- LocalStorage
-- Fetch API
-- Responsive Design
-- PWA
-- Service Worker
-- Web App Manifest
-- Google Fonts
+- **Frontend:** HTML5, CSS3, JavaScript ES6+, Fetch API e LocalStorage.
+- **PWA:** Web App Manifest e Service Worker.
+- **API:** funções serverless Node.js, endpoints REST, JWT, bcryptjs e CORS.
+- **Banco de dados:** MySQL via mysql2.
+- **Mobile:** Capacitor para Android/iOS.
+- **Hospedagem e versionamento:** Vercel, GitHub Pages e Git.
 
-### Backend
-- Node.js
-- Vercel Serverless Functions
-- MySQL
-- MySQL2
-- JWT
-- bcryptjs
-- CORS
-- REST API
-
-### Mobile
-- PWA
-- Capacitor
-- Android
-- iOS
-
-### Deploy
-- Git
-- GitHub
-- GitHub Pages
-- Vercel
-
----
-
-## 📁 Estrutura
+## 📁 Estrutura do repositório
 
 ```text
 koramarketplace/
-├── .github/
-│   └── workflows/
-├── FlashMarket/
-│   ├── assets/
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   ├── auth-real.js
-│   │   ├── affiliate-live.js
-│   │   ├── mobile-app.js
-│   │   └── pwa.js
-│   ├── index.html
-│   ├── minha-conta.html
-│   ├── rastrear-pedido.html
-│   ├── afiliado.html
-│   ├── suporte.html
-│   ├── manifest.webmanifest
-│   └── sw.js
-├── api/
-│   ├── _lib/
-│   ├── auth/
-│   ├── affiliate/
+├── .github/                   # Workflows e automações
+├── FlashMarket/               # Frontend da loja
+│   ├── assets/                # Imagens, ícones e recursos
+│   ├── css/                   # Estilos e responsividade
+│   ├── js/                    # Lógica da interface
+│   ├── index.html             # Página inicial
+│   ├── checkout.html          # Checkout demonstrativo
+│   ├── pedido.html            # Detalhes do pedido
+│   ├── rastrear-pedido.html   # Rastreamento
+│   ├── afiliado.html          # Área de afiliados
+│   ├── manifest.webmanifest   # Configuração PWA
+│   └── sw.js                  # Service Worker
+├── api/                       # API serverless
+│   ├── _lib/                  # Utilitários compartilhados
+│   ├── auth/                  # Autenticação e perfil
+│   ├── affiliate/             # Endpoints de afiliados
 │   └── README.md
-├── capacitor.config.ts
-├── package.json
-├── package-lock.json
-├── vercel.json
-├── .gitignore
+├── assets/                    # Recursos compartilhados
+├── scripts/                   # Scripts de preparação
+├── flashmarket.sql            # Estrutura/dump SQL de desenvolvimento
+├── package.json               # Scripts e dependências
+├── capacitor.config.ts        # Configuração do Capacitor
+├── vercel.json                # Configuração de deploy
 └── README.md
 ```
 
----
+## 🚀 Começar localmente
 
-## 🚀 Executar localmente
-
-### Pré-requisitos
-
-- Node.js LTS
+### Requisitos
+- Node.js **22.x** (conforme `package.json`)
 - npm
 - Git
-- VS Code
-- Live Server
+- Navegador moderno
 
-Verifique:
-
-```bash
-node -v
-npm -v
-npx -v
-```
-
-### Clonar
+### 1. Clonar e instalar
 
 ```bash
 git clone https://github.com/RafaelOliveirxis/koramarketplace.git
 cd koramarketplace
-```
-
-### Instalar
-
-```bash
 npm install
 ```
 
-### Executar frontend
+### 2. Validar arquivos básicos do frontend
 
-Abra:
-
-```text
-FlashMarket/index.html
+```bash
+npm run web:check
 ```
 
-preferencialmente usando o **Live Server** do VS Code.
+### 3. Executar o site localmente
 
----
-
-## 🔐 API
-
-Endpoints principais:
-
-```text
-POST /api/auth/register
-POST /api/auth/login
-POST /api/auth/logout
-GET  /api/auth/me
-PUT  /api/auth/profile
-POST /api/auth/request-reset
-POST /api/auth/reset-password
+```bash
+npm run web:serve
 ```
 
-Área de afiliados:
+O comando usa o pacote `serve` via `npx` para servir a pasta `FlashMarket/`. Abra no endereço local mostrado no terminal.
 
-```text
-GET  /api/affiliate/dashboard
-GET  /api/affiliate/products
-POST /api/affiliate/products
-POST /api/affiliate/click
-```
+Também é possível abrir `FlashMarket/index.html` com uma extensão como Live Server no VS Code. Para testar recursos de PWA, prefira um servidor local ou HTTPS em vez de abrir o arquivo diretamente.
 
-### Variáveis de ambiente
+## 🔐 API e configuração
 
-A API utiliza:
+A pasta `api/` contém endpoints serverless. A disponibilidade de cada rota depende do deploy e das variáveis configuradas.
+
+Variáveis de ambiente utilizadas pelo backend podem incluir:
 
 ```text
 DB_HOST
@@ -265,146 +132,91 @@ DB_PASSWORD
 DB_NAME
 DB_SSL
 JWT_SECRET
+APP_URL
+MAIL_FROM
+MICROSOFT_TENANT_ID
+MICROSOFT_CLIENT_ID
+MICROSOFT_CLIENT_SECRET
+MICROSOFT_REFRESH_TOKEN
 ```
 
-**Nunca envie essas informações para o GitHub.**
+Nem todas as funcionalidades exigem todas as variáveis. Configure apenas as necessárias para os recursos que estiver usando, na plataforma de hospedagem.
 
-Não publique:
+**Nunca commite credenciais reais, tokens, senhas, chaves privadas ou arquivos `.env`.** Use variáveis de ambiente no provedor de deploy e, se uma credencial for exposta, revogue-a e gere outra.
 
-- senhas;
-- arquivos `.env`;
-- JWT secrets;
-- tokens;
-- chaves privadas;
-- credenciais do banco.
-
----
+Consulte [api/README.md](./api/README.md) para endpoints, banco, autenticação e deploy.
 
 ## 🗄️ Banco de dados
 
-O projeto utiliza MySQL.
+O projeto inclui `flashmarket.sql` e scripts SQL específicos em diretórios da API. Revise o conteúdo do arquivo antes de importar e execute somente os scripts adequados ao ambiente.
 
-Estruturas relacionadas à Área de Afiliados:
+- Faça backup antes de alterar um banco existente.
+- Não utilize dados pessoais reais em ambientes de demonstração.
+- Confirme que o esquema instalado corresponde às rotas da API.
+- O LocalStorage do navegador não substitui persistência centralizada em banco de dados.
 
-```text
-api/affiliate/setup.sql
-```
-
-O repositório também possui o dump estrutural:
-
-```text
-flashmarket.sql
-```
-
-O arquivo deve ser tratado como material de desenvolvimento/banco de dados e não deve conter credenciais ou dados sensíveis.
-
----
-
-## 🌐 Deploy
-
-### GitHub Pages
-
-Frontend:
-
-https://rafaeloliveirxis.github.io/koramarketplace/
+## ☁️ Publicação
 
 ### Vercel
+O repositório possui `vercel.json` e funções em `api/`. Conecte o repositório à Vercel, configure as variáveis necessárias e valide os logs de build e as rotas após cada deploy.
 
-A API utiliza funções serverless da Vercel.
+### GitHub Pages
+O GitHub Pages pode servir a versão estática do frontend. Funcionalidades serverless não são executadas pelo GitHub Pages; para usá-las, o frontend precisa apontar para uma API hospedada e acessível.
 
-As credenciais devem ser configuradas em:
+## 📱 PWA e aplicativos móveis
 
-**Vercel → Project → Settings → Environment Variables**
+O frontend inclui `FlashMarket/manifest.webmanifest` e `FlashMarket/sw.js`.
 
-e nunca dentro do código-fonte.
-
----
-
-## 📱 Capacitor
-
-A estrutura também permite evolução para aplicativos Android/iOS.
+Para preparar o ambiente Capacitor:
 
 ```bash
-npm install
-npx cap add android
-npx cap add ios
-npm run cap:sync
-npm run cap:android
-npm run cap:ios
+npm run mobile:prepare
 ```
 
-**Android:** requer Android Studio.
-
-**iOS:** requer macOS + Xcode.
-
----
-
-## 🔄 Atualizar o projeto
-
-Depois de modificar os arquivos:
+Para adicionar e preparar a plataforma Android:
 
 ```bash
-git status
-git add .
-git commit -m "feat: atualizar FlashMarket"
-git push origin main
+npm run mobile:android
 ```
 
-Para sincronizar antes de começar:
+Para iOS:
 
 ```bash
-git pull origin main
+npm run mobile:ios
 ```
 
----
+**Android:** requer Android Studio e SDK configurados. **iOS:** requer macOS e Xcode. Esses comandos preparam o projeto; não significam que um aplicativo já esteja publicado nas lojas.
 
-## 📊 Status
+## 🧪 Verificações recomendadas antes de publicar
 
-**Em desenvolvimento ativo.**
+- [ ] Executar `npm run web:check`.
+- [ ] Testar navegação em desktop e celular.
+- [ ] Testar carrinho vazio, carrinho preenchido e atualização de quantidades.
+- [ ] Testar checkout simulado e página de detalhes do pedido.
+- [ ] Confirmar claramente que o checkout de demonstração não cobra dinheiro.
+- [ ] Validar endpoints e variáveis de ambiente da API.
+- [ ] Confirmar conexão com o banco e esquema instalado.
+- [ ] Verificar console do navegador e logs de deploy.
+- [ ] Revisar links, formulários, acessibilidade e estados de erro.
+- [ ] Confirmar que nenhum segredo foi enviado ao repositório.
 
-O projeto possui frontend responsivo, experiência mobile, PWA, autenticação, API e Área de Afiliados em evolução.
+## 🔭 Próximas evoluções
 
-Recursos que dependem de serviços externos precisam estar corretamente configurados para produção, incluindo banco de dados, pagamentos, estoque, transportadoras e notificações.
-
----
-
-## 🔮 Próximas evoluções
-
-- Integração de pagamentos reais
-- Estoque em tempo real
-- Pedidos completos
-- Transportadoras
-- Painel administrativo
-- Gestão de vendedores
-- Comissões e saques
-- Analytics
-- Notificações push
-- Testes automatizados
-- Melhorias de segurança
-- Evolução dos aplicativos Android/iOS
-
----
+A evolução para operação comercial exige implementar e testar, entre outros itens, pagamentos reais e webhooks, persistência de pedidos e carrinho, estoque, integração com transportadoras, observabilidade, testes automatizados, controles antifraude e políticas de privacidade.
 
 ## 👨‍💻 Autor
 
-**Rafael Oliveira**
-
-Projeto acadêmico / TCC  
-**FlashMarket / KoraMarketplace**
-
+**Rafael Oliveira**  
+Projeto acadêmico/TCC: **KoraMarketplace / FlashMarket**  
 GitHub: https://github.com/RafaelOliveirxis
-
----
 
 ## 📄 Licença
 
-Projeto desenvolvido para fins acadêmicos, educacionais e demonstrativos.
-
-Respeite a autoria e as licenças dos recursos de terceiros utilizados no projeto.
+Projeto desenvolvido para fins acadêmicos, educacionais e demonstrativos. Verifique os direitos e as licenças de imagens, fontes, bibliotecas e outros recursos de terceiros usados no projeto.
 
 ---
 
 <p align="center">
   ⚡ <strong>FlashMarket</strong><br>
-  Marketplace moderno para Web, PWA e Mobile.
+  Uma experiência de marketplace em evolução para Web, PWA e Mobile.
 </p>
