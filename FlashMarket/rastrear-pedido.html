@@ -56,7 +56,7 @@ footer{margin-top:0}
 <div class="field"><label for="trackingCode">Número do pedido ou código de rastreio</label><div class="input"><span>⌕</span><input id="trackingCode" autocomplete="off" placeholder="Ex.: FM-8A42C19 ou código de rastreio" required></div></div>
 <button class="primary" type="submit">RASTREAR PEDIDO →</button>
 </form>
-<div class="examples"><span>Consultas rápidas:</span><button type="button" data-example="FM-">Digite seu código</button></div>
+<div class="examples"><span>💡</span><span>Use o número do pedido ou o código de rastreio recebido na confirmação da compra. Não exibimos pedidos fictícios.</span></div>
 </section>
 
 <div id="state" class="state">
@@ -97,7 +97,7 @@ const form=$('trackingForm'),input=$('trackingCode'),result=$('result'),loading=
 function busy(v){loading.classList.toggle('hidden',!v);if(v){result.classList.add('hidden');error.classList.add('hidden')}}
 function fail(msg){busy(false);error.textContent=msg;error.classList.remove('hidden')}
 function render(o){
-const events=Array.isArray(o.tracking)?o.tracking:[],latest=o.latest||events.at(-1)||null,p=Math.max(0,Math.min(100,Number(o.progress||0)));
+const events=Array.isArray(o.tracking)?o.tracking:[],latest=o.latest||events[events.length-1]||null,p=Math.max(0,Math.min(100,Number(o.progress??0)));
 $('orderNumber').textContent=o.id||'—';$('orderStatus').textContent=label(o.status);$('trackingNumber').textContent=o.trackingCode||'Ainda não informado';$('carrier').textContent=o.carrier||'Ainda não informado';$('updatedAt').textContent=dt(o.updatedAt);$('lastUpdate').textContent=o.updatedAt?'Atualizado em '+dt(o.updatedAt):'Atualizado agora';
 $('currentTitle').textContent=latest?.title||label(o.status);$('currentDescription').textContent=latest?.description||o.statusDetail||'O pedido está registrado e aguardando a próxima atualização.';$('deliveryDate').textContent=o.status==='delivered'&&latest?.date?'Entregue em '+dt(latest.date):'Previsão não informada';$('progressBar').style.width=p+'%';$('progressText').textContent=p+'% concluído';
 const d=o.destination||{};$('destination').innerHTML=d.city||d.state?'<strong>'+esc(d.city||'Cidade não informada')+' — '+esc(d.state||'UF')+'</strong>'+(d.cep?'<br>CEP '+esc(d.cep):''):'Destino não disponível.';
@@ -108,11 +108,19 @@ result.classList.remove('hidden');loading.classList.add('hidden');error.classLis
 let current='';
 async function track(value,silent=false){
 const code=String(value||'').trim();if(!code){fail('Informe o número do pedido ou código de rastreio.');return}current=code;input.value=code;if(!silent)busy(true);
-try{const r=await fetch('/api/orders/tracking?code='+encodeURIComponent(code),{headers:{Accept:'application/json'},cache:'no-store'});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||'Pedido não encontrado.');render(data.order);if(!silent)history.replaceState(null,'','rastrear-pedido.html?pedido='+encodeURIComponent(code))}catch(e){fail(e.message||'Não foi possível consultar o pedido.')}
+try{
+ const r=await fetch('/api/orders/tracking?code='+encodeURIComponent(code),{headers:{Accept:'application/json'},cache:'no-store'});
+ const type=r.headers.get('content-type')||'';let data={};
+ if(type.includes('application/json')) data=await r.json();
+ else throw new Error('O servidor retornou uma resposta inválida. Tente novamente em instantes.');
+ if(!r.ok) throw new Error(data.error||(r.status===404?'Não encontramos esse pedido. Confira o código e tente novamente.':'Não foi possível consultar o pedido.'));
+ if(!data.order||typeof data.order!=='object') throw new Error('A resposta do rastreamento veio incompleta. Tente novamente.');
+ render(data.order);if(!silent)history.replaceState(null,'','rastrear-pedido.html?pedido='+encodeURIComponent(code));
+ }catch(e){if(silent){return}fail(e.name==='TypeError'?'Não foi possível conectar ao servidor. Verifique sua internet e tente novamente.':(e.message||'Não foi possível consultar o pedido.'))}
 }
 form.addEventListener('submit',e=>{e.preventDefault();track(input.value)});
 setInterval(()=>{if(current&&!document.hidden)track(current,true)},30000);
-const params=new URLSearchParams(location.search),initial=params.get('pedido')||params.get('code')||params.get('tracking');if(initial)track(initial);
+const params=new URLSearchParams(location.search),initial=params.get('pedido')||params.get('code')||params.get('tracking')||params.get('order');if(initial)track(initial);
 const cat=$('catBtn'),menu=$('catMenu');cat.addEventListener('click',e=>{e.stopPropagation();const open=!menu.classList.contains('open');menu.classList.toggle('open',open);cat.setAttribute('aria-expanded',open)});menu.addEventListener('click',e=>e.stopPropagation());document.addEventListener('click',()=>{menu.classList.remove('open');cat.setAttribute('aria-expanded','false')});document.addEventListener('keydown',e=>{if(e.key==='Escape')menu.classList.remove('open')});
 $('ai').addEventListener('click',()=>location.href='suporte.html');
 })();
