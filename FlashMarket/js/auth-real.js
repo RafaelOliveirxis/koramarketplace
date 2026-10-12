@@ -99,7 +99,7 @@
         if(!r.ok)throw Object.assign(new Error(data.error||data.message||'Falha na API.'),{status:r.status});
         return data;
       }catch(error){
-        if(error?.status&&error.status<500)throw error;
+        throw error;
       }
     }
     return localRequest(path,options);
