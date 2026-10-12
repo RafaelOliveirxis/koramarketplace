@@ -3,7 +3,7 @@
 (function(){
   const parse=v=>{try{return JSON.parse(v||'null')}catch{return null}};
   const cart=()=>{try{const encoded=new URLSearchParams(location.search).get('cart');if(encoded){const decoded=decodeURIComponent(escape(atob(encoded)));const v=parse(decoded);if(Array.isArray(v)&&v.length)return v.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1))})).filter(x=>x.id>0)}}catch{}for(const s of [sessionStorage,localStorage])for(const k of ['flashmarket_checkout_snapshot','flashmarket_checkout_cart','flashmarket_cart','FM_CART','cartItems','cart']){const v=parse(s.getItem(k));if(v){const a=Array.isArray(v)?v:Object.entries(v).map(([id,qty])=>({id,qty}));if(a.length)return a.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1))})).filter(x=>x.id>0)}}return[]};
-  function localOrder(body){
+  function localOrder(body,simulation=false){
     const catalog=Array.isArray(window.FM_PRODUCTS)?window.FM_PRODUCTS:[];
     const products=cart().map(x=>{const p=catalog.find(y=>Number(y.id)===Number(x.id));return p?{id:Number(p.id),n:p.n,p:Number(p.p),i:p.i,c:p.c,qty:x.qty,total:Number(p.p)*x.qty}:null}).filter(Boolean);
     const subtotal=products.reduce((s,x)=>s+x.total,0),shipping=Number(body.shippingAmount||0),coupon=String(body.couponCode||'').toUpperCase();
@@ -11,7 +11,7 @@
     const total=Math.max(0,subtotal+shipping-discount);
     const user=JSON.parse(localStorage.getItem('flashmarket_user_profile')||'null');
     const id='KM-'+Date.now().toString().slice(-10);
-    const order={id,userId:user?.id||null,email:body.customer.email,date:new Date().toISOString(),affiliateCode:body.affiliateCode||null,status:'a-pagar',statusDetail:'Pedido criado. Aguardando pagamento.',payment:body.paymentMethod||'pix',shipping,total,discount,items:products,address:body.address,tracking:[]};
+    const order={id,userId:user?.id||null,email:body.customer.email,date:new Date().toISOString(),affiliateCode:body.affiliateCode||null,status:simulation?'simulacao':'a-pagar',statusDetail:simulation?'Pedido de demonstração criado neste navegador. Não foi gravado no banco e nenhum pagamento foi processado.':'Pedido criado. Aguardando pagamento.',payment:body.paymentMethod||'pix',shipping,total,discount,items:products,address:body.address,tracking:simulation?[{title:'Simulação criada',description:'Este pedido existe apenas neste navegador. Não houve cobrança nem gravação no banco de produção.',date:new Date().toISOString()}]:[]};
     const orders=parse(localStorage.getItem('flashmarket_local_orders'))||[];
     orders.unshift(order);localStorage.setItem('flashmarket_local_orders',JSON.stringify(orders));
     localStorage.setItem('flashmarket_pending_order',JSON.stringify(order));
@@ -32,7 +32,17 @@
         if(base){
           const h={'Content-Type':'application/json'},t=localStorage.getItem('flashmarket_access_token');if(t)h.Authorization='Bearer '+t;
           const r=await fetch(base+'/api/payments/create',{method:'POST',headers:h,body:JSON.stringify(body)}),d=await r.json().catch(()=>({}));
-          if(!r.ok)throw new Error(d.error||'O servidor não conseguiu criar o pedido. Nenhum pedido demonstrativo foi criado.');
+          if(!r.ok){
+            const message=String(d.error||'');
+            // This checkout explicitly offers a simulation. If production credentials are missing,
+            // allow a clearly labeled browser-only demo instead of pretending payment succeeded.
+            if(r.status===503&&/Configure MySQL e MP_ACCESS_TOKEN|Configuração ausente/i.test(message)){
+              const order=localOrder(body,true);
+              location.href='pedido.html?pedido='+encodeURIComponent(order.id);
+              return;
+            }
+            throw new Error(message||'O servidor não conseguiu criar o pedido. Nenhum pedido demonstrativo foi criado.');
+          }
           if(!d.order?.checkoutUrl)throw new Error('O servidor não retornou o checkout de pagamento. Tente novamente mais tarde.');
           localStorage.setItem('flashmarket_pending_order',JSON.stringify(d.order));localStorage.removeItem('flashmarket_cart');location.href=d.order.checkoutUrl;return;
         }
