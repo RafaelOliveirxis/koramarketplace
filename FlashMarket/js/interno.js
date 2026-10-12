@@ -1,3 +1,4 @@
+window.FLASHMARKET_API_BASE=String(window.FLASHMARKET_API_BASE||'https://koramarketplace.vercel.app').replace(/\/$/,'');
 let FM_PRODUCTS=[
 {id:1,n:'Luminária LED de Mesa',c:'Casa & Decor',p:89.9,o:129.9,i:'assets/luminaria de led.png'},
 {id:2,n:'Organizador Multiuso Minimalista',c:'Casa & Decor',p:39.9,o:59.9,i:'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=700&q=80'},
@@ -79,3 +80,24 @@ function fmLoadBrandStyles(){if(!document.querySelector('link[data-fm-brand]')){
 document.addEventListener('DOMContentLoaded',()=>{fmLoadBrandStyles();const h=document.querySelector('[data-fm-header]');if(h)h.innerHTML=fmHeader();fmUpdateCount()});
 
 document.addEventListener('DOMContentLoaded',()=>fmLoadRealCatalog());
+
+
+/* Programa de afiliados: captura o código e registra o clique sem expor dados do visitante. */
+(function(){
+  try {
+    const params = new URLSearchParams(location.search);
+    const incoming = String(params.get('af') || '').trim().slice(0, 80);
+    if (!incoming) return;
+    localStorage.setItem('flashmarket_affiliate_code', incoming);
+    const marker = 'flashmarket_aff_click_' + incoming + '_' + location.pathname;
+    if (sessionStorage.getItem(marker)) return;
+    sessionStorage.setItem(marker, '1');
+    fetch(window.FLASHMARKET_API_BASE + '/api/affiliate/click', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'click', code: incoming })
+    }).catch(() => {});
+  } catch (error) {
+    console.warn('[FlashMarket] não foi possível registrar a indicação.', error);
+  }
+})();
