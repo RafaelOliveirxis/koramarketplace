@@ -4,6 +4,20 @@ const { applyCors } = require('../_lib/cors');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
+  const body = req.body || {};
+  if (req.method === 'POST' && body.action === 'click') {
+    try {
+      const db = getPool();
+      const code = String(body.code || '').trim().slice(0, 80);
+      if (!code) return res.status(400).json({ error: 'Código de afiliado ausente.' });
+      const [profiles] = await db.execute('SELECT user_id FROM affiliate_profiles WHERE code = ? LIMIT 1', [code]);
+      if (!profiles.length) return res.status(404).json({ error: 'Código de afiliado inválido.' });
+      await db.execute('INSERT INTO affiliate_clicks (user_id,code) VALUES (?,?)', [profiles[0].user_id, code]);
+      return res.status(201).json({ success: true });
+    } catch (error) {
+      return res.status(error.code === 'ER_NO_SUCH_TABLE' ? 503 : 500).json({ error: 'Não foi possível registrar o clique.' });
+    }
+  }
   const user = requireAuth(req, res);
   if (!user) return;
   try {
