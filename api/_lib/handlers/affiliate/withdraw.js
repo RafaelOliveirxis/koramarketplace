@@ -2,6 +2,8 @@ const { randomUUID } = require('crypto');
 const { getPool } = require('../../db');
 const { requireAuth } = require('../../auth');
 const { applyCors } = require('../../cors');
+const { ensurePaymentsSchema } = require('../../ensurePaymentsSchema');
+const { ensureAffiliateSchema } = require('../../ensureAffiliateSchema');
 
 const MIN_WITHDRAWAL = 50;
 
@@ -32,6 +34,8 @@ module.exports = async (req, res) => {
 
   try {
     const db = getPool();
+    await ensurePaymentsSchema(db);
+    await ensureAffiliateSchema(db);
     await db.execute(`CREATE TABLE IF NOT EXISTS affiliate_withdrawals (
       id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
       user_id BIGINT UNSIGNED NOT NULL,
