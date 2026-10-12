@@ -1,7 +1,7 @@
 const { randomUUID } = require('crypto');
-const { getPool } = require('../_lib/db');
-const { requireAuth } = require('../_lib/auth');
-const { applyCors } = require('../_lib/cors');
+const { getPool } = require('../../db');
+const { requireAuth } = require('../../auth');
+const { applyCors } = require('../../cors');
 
 const MIN_WITHDRAWAL = 50;
 

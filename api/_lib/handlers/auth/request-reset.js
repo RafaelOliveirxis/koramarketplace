@@ -1,8 +1,8 @@
 const crypto = require('crypto');
-const { getPool } = require('../_lib/db');
-const { sendPasswordResetEmail } = require('../_lib/mailer');
-const { applyCors } = require('../_lib/cors');
-const { ensureAuthSchema } = require('../_lib/ensureAuthSchema');
+const { getPool } = require('../../db');
+const { sendPasswordResetEmail } = require('../../mailer');
+const { applyCors } = require('../../cors');
+const { ensureAuthSchema } = require('../../ensureAuthSchema');
 
 const message = 'Se o e-mail estiver cadastrado, você receberá um link de recuperação em instantes.';
 

@@ -1,8 +1,8 @@
-const { getPool } = require('../_lib/db');
-const { mpRequest, validateWebhookSignature } = require('../_lib/mercadopago');
-const { applyCors } = require('../_lib/cors');
-const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
-const { sendOrderEventEmail } = require('../_lib/mailer');
+const { getPool } = require('../../db');
+const { mpRequest, validateWebhookSignature } = require('../../mercadopago');
+const { applyCors } = require('../../cors');
+const { ensurePaymentsSchema } = require('../../ensurePaymentsSchema');
+const { sendOrderEventEmail } = require('../../mailer');
 
 function mapStatus(order) {
   const status = String(order.status || '').toLowerCase();

@@ -1,6 +1,6 @@
-const { getPool } = require('../_lib/db');
-const { applyCors } = require('../_lib/cors');
-const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
+const { getPool } = require('../../db');
+const { applyCors } = require('../../cors');
+const { ensurePaymentsSchema } = require('../../ensurePaymentsSchema');
 
 const PROGRESS = { created:10, processing:25, ready_to_ship:40, shipped:55, in_transit:70, out_for_delivery:88, delivered:100, canceled:0, cancelled:0, failed:0, refunded:0, action_required:10, processed:40 };
 

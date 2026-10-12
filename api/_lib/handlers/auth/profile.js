@@ -1,6 +1,6 @@
-const { getPool } = require('../_lib/db');
-const { requireAuth, sign } = require('../_lib/auth');
-const { applyCors } = require('../_lib/cors');
+const { getPool } = require('../../db');
+const { requireAuth, sign } = require('../../auth');
+const { applyCors } = require('../../cors');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;

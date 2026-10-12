@@ -1,8 +1,8 @@
 const { randomUUID } = require('crypto');
-const { getPool } = require('../_lib/db');
-const { mpRequest } = require('../_lib/mercadopago');
-const { applyCors } = require('../_lib/cors');
-const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
+const { getPool } = require('../../db');
+const { mpRequest } = require('../../mercadopago');
+const { applyCors } = require('../../cors');
+const { ensurePaymentsSchema } = require('../../ensurePaymentsSchema');
 const jwt = require('jsonwebtoken');
 
 function optionalUser(req) {

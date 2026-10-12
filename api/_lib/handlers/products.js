@@ -1,6 +1,6 @@
-const { getPool } = require('./_lib/db');
-const { applyCors } = require('./_lib/cors');
-const { ensurePaymentsSchema } = require('./_lib/ensurePaymentsSchema');
+const { getPool } = require('../db');
+const { applyCors } = require('../cors');
+const { ensurePaymentsSchema } = require('../ensurePaymentsSchema');
 // Catálogo público: preços e disponibilidade vêm do MySQL.
 
 const meta = {

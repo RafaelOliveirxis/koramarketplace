@@ -1,8 +1,8 @@
-const { getPool } = require('../_lib/db');
-const { requireAuth } = require('../_lib/auth');
-const { applyCors } = require('../_lib/cors');
-const { ensurePaymentsSchema } = require('../_lib/ensurePaymentsSchema');
-const { ensureAffiliateSchema } = require('../_lib/ensureAffiliateSchema');
+const { getPool } = require('../../db');
+const { requireAuth } = require('../../auth');
+const { applyCors } = require('../../cors');
+const { ensurePaymentsSchema } = require('../../ensurePaymentsSchema');
+const { ensureAffiliateSchema } = require('../../ensureAffiliateSchema');
 
 const moneyNumber = value => Number(value || 0);
 const normalizedStatus = value => String(value || '').toLowerCase();

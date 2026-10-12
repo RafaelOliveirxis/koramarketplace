@@ -1,4 +1,4 @@
-const { applyCors } = require('../_lib/cors');
+const { applyCors } = require('../../cors');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
