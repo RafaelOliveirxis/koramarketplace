@@ -122,7 +122,31 @@
       const get=s=>form.querySelector(s)?.value.trim()||'';
       const payload=isLogin?{email:get('input[type="email"]'),password:form.querySelector('input[type="password"]')?.value||'',remember:!!form.querySelector('#remember')?.checked}:{name:get('input[name="name"]')||get('input[autocomplete="name"]'),email:get('input[type="email"]'),password:form.querySelector('input[type="password"]')?.value||''};
       if(!payload.email||!payload.password||(!isLogin&&!payload.name))throw Error('Preencha todos os campos obrigatórios.');
-      const data=await request(isLogin?'/api/auth/login':'/api/auth/register',{method:'POST',body:JSON.stringify(payload)});
+      let data;
+      if (isLogin && configuredBase) {
+        try {
+          data = await request('/api/auth/login',{method:'POST',body:JSON.stringify(payload)});
+        } catch (loginError) {
+          // Migra uma conta criada anteriormente neste navegador para o banco real
+          // somente se a senha digitada corresponder ao hash local já salvo.
+          if (loginError?.status !== 401) throw loginError;
+          const email = String(payload.email).trim().toLowerCase();
+          const legacy = users().find(u => String(u.email || '').trim().toLowerCase() === email);
+          if (!legacy || !legacy.passwordHash || legacy.passwordHash !== await hash(payload.password)) throw loginError;
+          try {
+            data = await request('/api/auth/register',{method:'POST',body:JSON.stringify({
+              name: legacy.name || email.split('@')[0], email, password: payload.password, phone: legacy.phone || ''
+            })});
+          } catch (migrationError) {
+            if (migrationError?.status === 409) {
+              throw Object.assign(new Error('Esta conta já existe no servidor, mas a senha não confere. Use “Esqueci minha senha” para recuperar o acesso.'), {status:401});
+            }
+            throw migrationError;
+          }
+        }
+      } else {
+        data = await request(isLogin?'/api/auth/login':'/api/auth/register',{method:'POST',body:JSON.stringify(payload)});
+      }
       if(!data?.token||!data?.user)throw Error('Não foi possível criar a sessão.');
       // Persist the real API token and profile before navigating away.
       // Without this, the next page sees no authenticated session and hides the customer/affiliate area.
