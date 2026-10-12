@@ -32,7 +32,9 @@
         if(base){
           const h={'Content-Type':'application/json'},t=localStorage.getItem('flashmarket_access_token');if(t)h.Authorization='Bearer '+t;
           const r=await fetch(base+'/api/payments/create',{method:'POST',headers:h,body:JSON.stringify(body)}),d=await r.json().catch(()=>({}));
-          if(r.ok&&d.order?.checkoutUrl){localStorage.setItem('flashmarket_pending_order',JSON.stringify(d.order));localStorage.removeItem('flashmarket_cart');location.href=d.order.checkoutUrl;return}
+          if(!r.ok)throw new Error(d.error||'O servidor não conseguiu criar o pedido. Nenhum pedido demonstrativo foi criado.');
+          if(!d.order?.checkoutUrl)throw new Error('O servidor não retornou o checkout de pagamento. Tente novamente mais tarde.');
+          localStorage.setItem('flashmarket_pending_order',JSON.stringify(d.order));localStorage.removeItem('flashmarket_cart');location.href=d.order.checkoutUrl;return;
         }
         const order=localOrder(body);
         location.href='pedido.html?pedido='+encodeURIComponent(order.id);
