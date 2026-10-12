@@ -76,10 +76,12 @@ module.exports = async (req, res) => {
       [user.id]
     );
 
+    const [lifetimeCommissionRows] = await db.execute("SELECT COALESCE(SUM(GREATEST(0,total_amount-shipping_amount)),0) AS value FROM fm_orders WHERE affiliate_user_id = ? AND status IN ('paid','processed','approved','pago')", [user.id]);
+
     const paidOrders = orderRows.filter(o => isPaid(o.status));
     const validOrders = orderRows.filter(o => !isCancelled(o.status));
     const revenue = validOrders.reduce((sum, order) => sum + moneyNumber(order.value), 0);
-    const totalCommission = paidOrders.reduce((sum, order) => sum + moneyNumber(order.value) * rate, 0);
+    const totalCommission = moneyNumber(lifetimeCommissionRows[0]?.value) * rate;
     const withdrawn = moneyNumber(withdrawRows[0]?.total);
     const availableCommission = Math.max(0, Number((totalCommission - withdrawn).toFixed(2)));
     const clicks = moneyNumber(clickRows[0]?.clicks);
