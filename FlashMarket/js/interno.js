@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded',()=>fmLoadRealCatalog());
     const incoming = String(params.get('af') || '').trim().slice(0, 80);
     if (!incoming) return;
     localStorage.setItem('flashmarket_affiliate_code', incoming);
-    const marker = 'flashmarket_aff_click_' + incoming + '_' + location.pathname;
+    const marker = 'flashmarket_aff_click_' + incoming;
     if (sessionStorage.getItem(marker)) return;
     sessionStorage.setItem(marker, '1');
     fetch(window.FLASHMARKET_API_BASE + '/api/affiliate/click', {
