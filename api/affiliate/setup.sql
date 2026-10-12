@@ -30,3 +30,9 @@ CREATE TABLE IF NOT EXISTS affiliate_withdrawals (
   KEY ix_aff_withdraw_user_status(user_id,status,created_at),
   CONSTRAINT fk_aff_withdraw_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- Atribuição de vendas do checkout real ao código de afiliado.
+ALTER TABLE fm_orders ADD COLUMN IF NOT EXISTS affiliate_user_id BIGINT UNSIGNED NULL;
+ALTER TABLE fm_orders ADD COLUMN IF NOT EXISTS affiliate_code VARCHAR(80) NULL;
+CREATE INDEX IF NOT EXISTS ix_fm_orders_affiliate ON fm_orders (affiliate_user_id, created_at);
