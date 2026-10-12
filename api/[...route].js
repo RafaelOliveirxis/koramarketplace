@@ -19,7 +19,8 @@ const routes = {
 };
 
 module.exports = async (req, res) => {
-  const pathname = String(req.url || '').split('?')[0].replace(/^\\/api\\/?/, '').replace(/\\/$/, '');
+  const parts = String(req.url || '').split('?')[0].split('/').filter(Boolean);
+  const pathname = parts[0] === 'api' ? parts.slice(1).join('/') : parts.join('/');
   const load = routes[pathname];
   if (!load) return res.status(404).json({ error: 'Endpoint da API não encontrado.' });
   try {
