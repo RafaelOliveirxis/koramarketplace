@@ -120,6 +120,13 @@
       if(!payload.email||!payload.password||(!isLogin&&!payload.name))throw Error('Preencha todos os campos obrigatórios.');
       const data=await request(isLogin?'/api/auth/login':'/api/auth/register',{method:'POST',body:JSON.stringify(payload)});
       if(!data?.token||!data?.user)throw Error('Não foi possível criar a sessão.');
+      // Persist the real API token and profile before navigating away.
+      // Without this, the next page sees no authenticated session and hides the customer/affiliate area.
+      localStorage.setItem(TOKEN_KEY,String(data.token));
+      write(PROFILE_KEY,data.user);
+      write(SESSION_KEY,data.user);
+      localStorage.setItem('flashmarket_user',String(data.user.name||data.user.email||''));
+      sessionStorage.removeItem('flashmarket_session_only');
       const params=new URLSearchParams(location.search),returnTo=params.get('return');
       const safe=returnTo&&/^[a-zA-Z0-9_./?=&%-]+$/.test(returnTo)&&!returnTo.startsWith('http')&&!returnTo.startsWith('//')?returnTo:'minha-conta.html';
       location.href=safe;
