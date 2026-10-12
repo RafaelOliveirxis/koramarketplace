@@ -28,11 +28,7 @@ module.exports = async (req, res) => {
     }
     if (req.method === 'POST') {
       const body = req.body || {};
-      if (body.action === 'click' || body.user_id) {
-        const clickUser = body.user_id || user.id;
-        await db.execute('INSERT INTO affiliate_clicks (user_id,code) VALUES (?,?)', [clickUser, body.code || null]);
-        return res.status(201).json({ success: true });
-      }
+      if (body.action === 'click' || body.user_id) return res.status(400).json({ error: 'Use o endpoint público de cliques com um código válido.' });
       const { name, category, price, status = 'Ativo' } = body;
       if (!name || !category || !Number.isFinite(Number(price))) return res.status(400).json({ error: 'Nome, categoria e preço são obrigatórios.' });
       const [result] = await db.execute('INSERT INTO affiliate_products (user_id,name,category,price,status) VALUES (?,?,?,?,?)', [user.id, String(name).trim(), String(category).trim(), Number(price), status]);
