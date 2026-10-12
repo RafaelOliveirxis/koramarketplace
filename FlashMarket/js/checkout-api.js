@@ -2,16 +2,16 @@
    Sem API externa, cria o pedido localmente e mantém todo o fluxo navegável no GitHub Pages. */
 (function(){
   const parse=v=>{try{return JSON.parse(v||'null')}catch{return null}};
-  const cart=()=>{try{const encoded=new URLSearchParams(location.search).get('cart');if(encoded){const decoded=decodeURIComponent(escape(atob(encoded)));const v=parse(decoded);if(Array.isArray(v)&&v.length)return v.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1))})).filter(x=>x.id>0)}}catch{}for(const s of [sessionStorage,localStorage])for(const k of ['flashmarket_checkout_snapshot','flashmarket_checkout_cart','flashmarket_cart','FM_CART','cartItems','cart']){const v=parse(s.getItem(k));if(v){const a=Array.isArray(v)?v:Object.entries(v).map(([id,qty])=>({id,qty}));if(a.length)return a.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1))})).filter(x=>x.id>0)}}return[]};
+  const cart=()=>{try{const encoded=new URLSearchParams(location.search).get('cart');if(encoded){const decoded=decodeURIComponent(escape(atob(encoded)));const v=parse(decoded);if(Array.isArray(v)&&v.length)return v.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1)),product:x.product||x.p||null})).filter(x=>x.id>0)}}catch{}for(const s of [sessionStorage,localStorage])for(const k of ['flashmarket_checkout_snapshot','flashmarket_checkout_cart','flashmarket_cart','FM_CART','cartItems','cart']){const v=parse(s.getItem(k));if(v){const a=Array.isArray(v)?v:Object.entries(v).map(([id,qty])=>({id,qty}));if(a.length)return a.map(x=>({id:Number(x.id),qty:Math.max(1,Math.floor(Number(x.qty)||1)),product:x.product||x.p||null})).filter(x=>x.id>0)}}return[]};
   function localOrder(body,simulation=false){
     const catalog=Array.isArray(window.FM_PRODUCTS)?window.FM_PRODUCTS:[];
-    const products=cart().map(x=>{const p=catalog.find(y=>Number(y.id)===Number(x.id));return p?{id:Number(p.id),n:p.n,p:Number(p.p),i:p.i,c:p.c,qty:x.qty,total:Number(p.p)*x.qty}:null}).filter(Boolean);
+    const products=cart().map(x=>{const raw=x.product||{},p=catalog.find(y=>Number(y.id)===Number(x.id))||raw;const price=Number(p.p??p.price??p.unitPrice??0),name=p.n||p.name||p.product_name||('Produto #'+x.id);if(!price)return null;return{id:Number(x.id),n:name,p:price,i:p.i||p.image||'assets/logo-flashmarket.png',c:p.c||p.category||'Produto',qty:x.qty,total:Number((price*x.qty).toFixed(2))}}).filter(Boolean);
     const subtotal=products.reduce((s,x)=>s+x.total,0),shipping=Number(body.shippingAmount||0),coupon=String(body.couponCode||'').toUpperCase();
     const discount=coupon==='FLASH10'&&subtotal>=99?Number((subtotal*.1).toFixed(2)):0;
     const total=Math.max(0,subtotal+shipping-discount);
     const user=JSON.parse(localStorage.getItem('flashmarket_user_profile')||'null');
-    const id='KM-'+Date.now().toString().slice(-10);
-    const order={id,userId:user?.id||null,email:body.customer.email,date:new Date().toISOString(),affiliateCode:body.affiliateCode||null,status:simulation?'simulacao':'a-pagar',statusDetail:simulation?'Pedido de demonstração criado neste navegador. Não foi gravado no banco e nenhum pagamento foi processado.':'Pedido criado. Aguardando pagamento.',payment:body.paymentMethod||'pix',shipping,total,discount,items:products,address:body.address,tracking:simulation?[{title:'Simulação criada',description:'Este pedido existe apenas neste navegador. Não houve cobrança nem gravação no banco de produção.',date:new Date().toISOString()}]:[]};
+    const id='FM-'+Date.now().toString(36).slice(-7).toUpperCase();
+    const order={id,userId:user?.id||null,email:body.customer.email,date:new Date().toISOString(),affiliateCode:body.affiliateCode||null,status:simulation?'simulacao':'a-pagar',statusDetail:simulation?'Pedido de demonstração criado neste navegador. Não foi gravado no banco e nenhum pagamento foi processado.':'Pedido criado. Aguardando pagamento.',payment:body.paymentMethod||'pix',shipping,total,discount,items:products,address:body.address,tracking:[{title:'Pedido criado (simulação)',description:'Pedido de demonstração criado neste navegador. Nenhuma cobrança foi realizada.',date:new Date().toISOString()}]};
     const orders=parse(localStorage.getItem('flashmarket_local_orders'))||[];
     orders.unshift(order);localStorage.setItem('flashmarket_local_orders',JSON.stringify(orders));
     localStorage.setItem('flashmarket_pending_order',JSON.stringify(order));
@@ -28,26 +28,12 @@
       const body={customer:{name:q('customerName'),email:q('customerEmail'),phone:q('customerPhone')},address:{cep:q('cep'),state:q('uf'),city:q('city'),address:q('address'),complement:q('complement')},items,shippingAmount:Number(document.querySelector('input[name="shipping"]:checked')?.value||0),paymentMethod:document.querySelector('input[name="payment"]:checked')?.value||'pix',couponCode:(localStorage.getItem('flashmarket_coupon')||'').trim().toUpperCase(),affiliateCode:(localStorage.getItem('flashmarket_affiliate_code')||'').trim().slice(0,80)};
       b.disabled=true;b.textContent='CRIANDO PEDIDO...';
       try{
-        const base=String(window.FLASHMARKET_API_BASE||'https://koramarketplace.vercel.app').replace(/\/$/,'');
-        if(base){
-          const h={'Content-Type':'application/json'},t=localStorage.getItem('flashmarket_access_token');if(t)h.Authorization='Bearer '+t;
-          const r=await fetch(base+'/api/payments/create',{method:'POST',headers:h,body:JSON.stringify(body)}),d=await r.json().catch(()=>({}));
-          if(!r.ok){
-            const message=String(d.error||'');
-            // This checkout explicitly offers a simulation. If production credentials are missing,
-            // allow a clearly labeled browser-only demo instead of pretending payment succeeded.
-            if(r.status===503&&/Configure MySQL e MP_ACCESS_TOKEN|Configuração ausente/i.test(message)){
-              const order=localOrder(body,true);
-              location.href='pedido.html?pedido='+encodeURIComponent(order.id);
-              return;
-            }
-            throw new Error(message||'O servidor não conseguiu criar o pedido. Nenhum pedido demonstrativo foi criado.');
-          }
-          if(!d.order?.checkoutUrl)throw new Error('O servidor não retornou o checkout de pagamento. Tente novamente mais tarde.');
-          localStorage.setItem('flashmarket_pending_order',JSON.stringify(d.order));localStorage.removeItem('flashmarket_cart');location.href=d.order.checkoutUrl;return;
-        }
-        const order=localOrder(body);
+        // Este botão é explicitamente de SIMULAÇÃO: não deve depender do Mercado Pago,
+        // credenciais de produção ou disponibilidade da API para concluir a demonstração.
+        const order=localOrder(body,true);
+        if(!order.items.length) throw new Error('Não foi possível identificar os produtos do carrinho. Volte ao carrinho e tente novamente.');
         location.href='pedido.html?pedido='+encodeURIComponent(order.id);
+      }
       }catch(error){b.disabled=false;b.textContent='CRIAR PEDIDO (SIMULAÇÃO) →';fmToast?.(error.message||'Não foi possível criar o pedido.')}
     });
   }
