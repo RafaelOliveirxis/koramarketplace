@@ -17,7 +17,7 @@ async function ensurePaymentsSchema(db) {
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
       await db.execute(`CREATE TABLE IF NOT EXISTS fm_orders (
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, public_id VARCHAR(32) NOT NULL,
-        user_id BIGINT UNSIGNED NULL, customer_name VARCHAR(120) NOT NULL, customer_email VARCHAR(190) NOT NULL,
+        user_id BIGINT UNSIGNED NULL, affiliate_user_id BIGINT UNSIGNED NULL, affiliate_code VARCHAR(80) NULL, customer_name VARCHAR(120) NOT NULL, customer_email VARCHAR(190) NOT NULL,
         customer_phone VARCHAR(30) NULL, cep VARCHAR(10) NOT NULL, state VARCHAR(2) NOT NULL, city VARCHAR(100) NOT NULL,
         address VARCHAR(220) NOT NULL, complement VARCHAR(120) NULL, shipping_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
         payment_method VARCHAR(30) NOT NULL, total_amount DECIMAL(10,2) NOT NULL, status VARCHAR(40) NOT NULL DEFAULT 'created',
@@ -61,6 +61,10 @@ async function ensurePaymentsSchema(db) {
         PRIMARY KEY (id), KEY ix_fm_support_messages_ticket (ticket_id), KEY ix_fm_support_messages_date (created_at),
         CONSTRAINT fk_fm_support_message_ticket FOREIGN KEY (ticket_id) REFERENCES fm_support_tickets(id) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+      const [affiliateUserColumn] = await db.execute("SHOW COLUMNS FROM fm_orders LIKE 'affiliate_user_id'");
+      if (!affiliateUserColumn.length) await db.execute('ALTER TABLE fm_orders ADD COLUMN affiliate_user_id BIGINT UNSIGNED NULL');
+      const [affiliateCodeColumn] = await db.execute("SHOW COLUMNS FROM fm_orders LIKE 'affiliate_code'");
+      if (!affiliateCodeColumn.length) await db.execute('ALTER TABLE fm_orders ADD COLUMN affiliate_code VARCHAR(80) NULL');
       const values=[]; for (const p of products) values.push(...p,1);
       const placeholders=products.map(()=>'(?,?,?,?)').join(',');
       await db.execute(`INSERT INTO fm_catalog (product_id,name,price,active) VALUES ${placeholders}
