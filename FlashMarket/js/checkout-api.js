@@ -33,7 +33,6 @@
         const order=localOrder(body,true);
         if(!order.items.length) throw new Error('Não foi possível identificar os produtos do carrinho. Volte ao carrinho e tente novamente.');
         location.href='pedido.html?pedido='+encodeURIComponent(order.id);
-      }
       }catch(error){b.disabled=false;b.textContent='CRIAR PEDIDO (SIMULAÇÃO) →';fmToast?.(error.message||'Não foi possível criar o pedido.')}
     });
   }
