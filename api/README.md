@@ -1,263 +1,121 @@
-# ⚡ KoraMarketplace API
+# 🔐 KoraMarketplace — API
 
-> API serverless do KoraMarketplace responsável por autenticação, sessão, perfil e recuperação de senha.
+A pasta `api/` contém endpoints serverless para autenticação, perfil, recuperação de senha e recursos da área de afiliados. A API usa Node.js, MySQL, JWT, bcryptjs e CORS, conforme os arquivos implementados no repositório.
 
-A pasta `api/` conecta o frontend do `FlashMarket/` a uma camada de backend preparada para hospedagem serverless, utilizando **Node.js, MySQL, JWT, bcryptjs e CORS**.
+## Documentação relacionada
+- [README principal](../README.md)
+- [Frontend FlashMarket](../FlashMarket/README.md)
+- [Repositório GitHub](https://github.com/RafaelOliveirxis/koramarketplace)
+- [Site publicado](https://koramarketplace.vercel.app/)
 
----
+## Recursos e endpoints
 
-## 🚀 Responsabilidades
+| Método | Endpoint | Uso |
+|---|---|---|
+| POST | `/api/auth/register` | Cadastro |
+| POST | `/api/auth/login` | Login |
+| POST | `/api/auth/logout` | Logout |
+| GET | `/api/auth/me` | Consultar sessão |
+| PUT | `/api/auth/profile` | Atualizar perfil |
+| POST | `/api/auth/request-reset` | Solicitar recuperação de senha |
+| POST | `/api/auth/reset-password` | Redefinir senha |
+| GET | `/api/affiliate/dashboard` | Dados do painel de afiliados |
+| GET/POST | `/api/affiliate/products` | Consultar/gerenciar produtos de afiliados |
+| POST | `/api/affiliate/click` | Registrar clique de afiliado |
 
-- 👤 Cadastro de usuários
-- 🔐 Login
-- 🚪 Logout
-- 🪪 Consulta do usuário autenticado
-- ✏️ Atualização de perfil
-- 🔑 Recuperação de senha
-- 🔒 Redefinição de senha
-- 🛡️ JWT
-- 🗄️ MySQL
-- 🌐 CORS para integração com o frontend
-- ☁️ Execução em ambiente serverless
+> Os endpoints disponíveis e os métodos aceitos devem ser confirmados nos arquivos da versão implantada. Uma rota listada aqui não garante que esteja configurada ou operacional no ambiente atual.
 
----
-
-## 📁 Estrutura
+## Estrutura
 
 ```text
 api/
-├── README.md
-├── _lib/
-│   ├── auth.js
-│   ├── cors.js
-│   └── db.js
-├── auth/
-│   ├── login.js
-│   ├── register.js
-│   ├── logout.js
-│   ├── me.js
-│   ├── profile.js
-│   ├── request-reset.js
-│   ├── reset-password.js
-│   └── setup.sql
-└── ...
+├── _lib/       # autenticação, CORS e conexão com banco
+├── auth/       # cadastro, login, perfil e recuperação
+├── affiliate/  # dashboard, produtos e cliques
+└── README.md
 ```
 
----
+Scripts SQL relacionados à API incluem `api/auth/setup.sql` e `api/affiliate/setup.sql`. Confira os scripts antes de executá-los e garanta que o esquema corresponde ao código implantado.
 
-## 🔌 Endpoints
+## Configuração
 
-| Método | Endpoint | Função |
-|---|---|---|
-| `POST` | `/api/auth/register` | Cadastro |
-| `POST` | `/api/auth/login` | Login |
-| `POST` | `/api/auth/logout` | Logout |
-| `GET` | `/api/auth/me` | Usuário autenticado |
-| `PUT` | `/api/auth/profile` | Atualização de perfil |
-| `POST` | `/api/auth/request-reset` | Solicitação de recuperação |
-| `POST` | `/api/auth/reset-password` | Redefinição de senha |
-
----
-
-## 🗄️ MySQL
-
-O banco deve possuir as tabelas necessárias para autenticação.
-
-Script inicial:
+Configure as variáveis necessárias no provedor de hospedagem. O conjunto pode incluir:
 
 ```text
-api/auth/setup.sql
-```
-
-Antes do uso em produção, configure:
-
-- banco de dados;
-- usuário MySQL;
-- senha;
-- host;
-- porta;
-- permissões de acesso.
-
----
-
-## 🔐 Variáveis de ambiente
-
-Configure as variáveis no ambiente de hospedagem, por exemplo na Vercel:
-
-```text
-DB_HOST=seu-host-mysql
-DB_PORT=3306
-DB_USER=seu-usuario
-DB_PASSWORD=sua-senha
-DB_NAME=seu-banco
-DB_SSL=true
-JWT_SECRET=uma-chave-aleatoria-longa-e-secreta
-APP_URL=https://seu-dominio.com/FlashMarket/
-MAIL_FROM="FlashMarket <seu-email@dominio.com>"
-MICROSOFT_TENANT_ID=consumers
-MICROSOFT_CLIENT_ID=seu-client-id
-MICROSOFT_CLIENT_SECRET=seu-client-secret
-MICROSOFT_REFRESH_TOKEN=seu-refresh-token
-```
-
-Os valores acima são apenas exemplos. **Não copie credenciais reais para o GitHub.**
-
----
-
-## 🛡️ CORS
-
-As rotas de autenticação possuem tratamento de CORS para permitir a comunicação entre o frontend publicado e a API.
-
-Origens autorizadas devem ser mantidas restritas aos domínios realmente utilizados pelo projeto.
-
-O navegador pode enviar uma requisição `OPTIONS` antes de determinadas chamadas; a API responde a esse preflight.
-
----
-
-## 🪪 JWT
-
-As rotas protegidas utilizam:
-
-```http
-Authorization: Bearer <token>
-```
-
-O token é gerado após autenticação válida e utilizado pelo frontend nas chamadas que exigem usuário autenticado.
-
-As senhas são armazenadas utilizando hash e **não devem ser salvas em texto puro**.
-
----
-
-## 🔑 Recuperação de senha
-
-O fluxo de recuperação pode utilizar Microsoft Graph para envio de e-mail.
-
-Variáveis relacionadas:
-
-```text
+DB_HOST
+DB_PORT
+DB_USER
+DB_PASSWORD
+DB_NAME
+DB_SSL
+JWT_SECRET
+APP_URL
+MAIL_FROM
 MICROSOFT_TENANT_ID
 MICROSOFT_CLIENT_ID
 MICROSOFT_CLIENT_SECRET
 MICROSOFT_REFRESH_TOKEN
-MAIL_FROM
 ```
 
-A solicitação deve utilizar respostas genéricas para evitar revelar se determinado e-mail está cadastrado.
+As variáveis de banco e JWT são necessárias para os fluxos que dependem de persistência e autenticação. As variáveis Microsoft/e-mail só são necessárias se o envio de recuperação estiver configurado por essa integração. Use valores de exemplo apenas na documentação.
 
----
+**Nunca envie credenciais reais, arquivos `.env`, tokens ou chaves privadas ao GitHub.** Mantenha segredos nas Environment Variables da Vercel ou de outro provedor. Se um segredo for exposto, revogue-o e gere outro.
 
-## 🌐 Integração com o frontend
+## Banco de dados
 
-```text
-┌─────────────────────────────┐
-│ KoraMarketplace / FlashMarket│
-│          Frontend             │
-└──────────────┬──────────────┘
-               │ HTTPS / JSON
-               ▼
-┌─────────────────────────────┐
-│            /api/             │
-│  Login • Cadastro • Perfil   │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│            MySQL             │
-│ Usuários • Perfil • Dados    │
-└─────────────────────────────┘
-```
+O backend utiliza MySQL por meio de `mysql2`. Antes de usar:
+1. Crie um banco e um usuário com permissões mínimas.
+2. Configure host, porta, nome, usuário, senha e SSL.
+3. Revise e execute o script SQL apropriado.
+4. Confirme que as tabelas e colunas correspondem às consultas da API.
+5. Teste a conexão e os fluxos com dados de teste.
 
-No frontend publicado, a configuração de autenticação aponta para a API quando disponível. Em ambientes estáticos sem API, existe um fallback local destinado à demonstração da interface.
+Não execute scripts de alteração em produção sem backup. Não inclua dados pessoais reais em ambientes de demonstração.
 
----
+## Autenticação e segurança
 
-## 🧪 Testando
+- Rotas protegidas podem utilizar `Authorization: Bearer <token>`.
+- Senhas devem ser armazenadas com hash, nunca em texto puro.
+- Use HTTPS e restrinja CORS às origens necessárias.
+- Valide entradas no servidor e retorne mensagens de erro sem expor segredos ou detalhes internos.
+- Não confie no armazenamento local do navegador como autenticação segura.
+- Configure rotação de segredos e monitore logs do provedor.
 
-Pode utilizar Postman, Insomnia, Thunder Client ou JavaScript.
+## Teste manual
 
-Exemplo para consultar o usuário autenticado:
+Exemplo de login usando um endpoint local ou a URL base da API:
 
 ```javascript
-fetch('/api/auth/me', {
-  method: 'GET',
-  headers: {
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  }
-});
-```
-
-Para login:
-
-```javascript
-fetch('/api/auth/login', {
+const response = await fetch('/api/auth/login', {
   method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
+  headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     email: 'usuario@exemplo.com',
     password: 'SUA_SENHA'
   })
 });
+
+const data = await response.json();
+console.log(response.status, data);
 ```
 
----
+Teste com contas e dados descartáveis. Não coloque senhas reais em commits, exemplos públicos ou capturas de tela.
 
-## ☁️ Deploy na Vercel
+## Deploy na Vercel
 
-Fluxo recomendado:
+1. Importe o repositório na Vercel.
+2. Configure as variáveis de ambiente por ambiente (Development/Preview/Production).
+3. Confirme o banco e os scripts de esquema.
+4. Faça o deploy.
+5. Consulte build logs e runtime logs.
+6. Teste cadastro, login, sessão, perfil, recuperação de senha e recursos de afiliados.
+7. Teste a integração pelo frontend publicado.
 
-1. Conectar o repositório à Vercel.
-2. Configurar as variáveis de ambiente.
-3. Configurar o MySQL.
-4. Executar `api/auth/setup.sql` no banco.
-5. Fazer o deploy.
-6. Testar `/api/auth/login` e `/api/auth/me`.
-7. Testar a integração pelo frontend.
+O GitHub Pages serve conteúdo estático e não executa as funções serverless da pasta `api/`.
 
-Nunca coloque `.env` ou credenciais diretamente no repositório.
+## Limitações conhecidas do escopo
 
----
+O checkout atual descrito pelo frontend é demonstrativo e não deve ser tratado como integração de pagamento real. Pedidos locais no navegador não substituem persistência de pedidos no MySQL. Recursos comerciais — pagamento, estoque, transportadora, comissões e saques — exigem implementação, validação e testes próprios antes de uso em produção.
 
-## ⚠️ Segurança
-
-- Não publique senhas.
-- Não publique `JWT_SECRET`.
-- Não publique tokens OAuth.
-- Utilize HTTPS.
-- Restrinja CORS às origens necessárias.
-- Use senhas fortes no banco.
-- Mantenha as dependências atualizadas.
-- Não considere o fallback local como autenticação de produção.
-
----
-
-## 🔮 Próximas melhorias
-
-- 🛒 Persistência do carrinho
-- 📦 Pedidos completos
-- 🚚 Rastreamento integrado
-- 💳 Gateway de pagamento
-- 🏪 Vendedores
-- ⭐ Avaliações persistidas
-- 🎟️ Cupons no backend
-- 📊 Painel administrativo
-- 🔔 Notificações
-- 🛡️ Rate limiting
-- 📋 Logs e monitoramento
-
----
-
-## 👨‍💻 Autor
-
-**Rafael Oliveira**  
-Projeto: **KoraMarketplace / FlashMarket**
-
-GitHub: https://github.com/RafaelOliveirxis
-
----
-
-## 📄 Licença
-
-Projeto desenvolvido para fins acadêmicos, educacionais e demonstrativos. Consulte o repositório principal para informações gerais do projeto.
+## Autor
+**Rafael Oliveira** — KoraMarketplace / FlashMarket.
