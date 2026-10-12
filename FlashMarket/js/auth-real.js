@@ -99,7 +99,11 @@
         if(!r.ok)throw Object.assign(new Error(data.error||data.message||'Falha na API.'),{status:r.status});
         return data;
       }catch(error){
-        if(error?.status&&error.status<500)throw error;
+        // If the server responded with an HTTP error, do not silently create a local
+        // session. That local token cannot authenticate against the real API and
+        // causes protected pages (including the affiliate center) to redirect back.
+        if(error?.status) throw error;
+        // Local mode is only a fallback when the API cannot be reached at all.
       }
     }
     return localRequest(path,options);
