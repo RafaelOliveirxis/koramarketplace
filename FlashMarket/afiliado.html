@@ -64,6 +64,7 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 <section class="section card panel" id="accountInfo"><h3 id="welcomeAffiliate">Bem-vindo à Central de Afiliados</h3><p class="sub">Sua sessão está protegida pela autenticação da conta FlashMarket.</p></section>
 </main></div>
 <div class="toast" id="toast"></div>
+<script src="js/auth-real.js?v=20261012-1"></script>
 <script>
 const toast=m=>{const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600)};
 function affiliateLogout(){if(window.KoraAuth?.logout){window.KoraAuth.logout();return}['flashmarket_access_token','flashmarket_user_profile','flashmarket_user_session','flashmarket_user','token','authToken','fm_auth_token','fm_affiliate_session'].forEach(k=>{localStorage.removeItem(k);sessionStorage.removeItem(k)});location.href='login.html?return=afiliado.html'}
