@@ -25,6 +25,7 @@ module.exports = async (req, res) => {
   const shippingAmount = Number(body.shippingAmount || 0);
   const paymentMethod = clean(body.paymentMethod, 30) || 'checkout_pro';
   const couponCode = clean(body.couponCode, 30).toUpperCase();
+  const affiliateCode = clean(body.affiliateCode, 80).toUpperCase();
 
   if (!items.length) return res.status(400).json({ error: 'O carrinho está vazio.' });
   if (!['pix', 'card', 'boleto'].includes(paymentMethod)) return res.status(400).json({ error: 'Forma de pagamento inválida.' });
@@ -74,14 +75,23 @@ module.exports = async (req, res) => {
     const publicId = `FM-${Date.now().toString(36).toUpperCase()}-${randomUUID().slice(0, 6).toUpperCase()}`;
     const externalReference = publicId.replace(/[^A-Z0-9_-]/g, '').slice(0, 64);
     const user = optionalUser(req);
+    let affiliateUserId = null;
+    let normalizedAffiliateCode = null;
+    if (affiliateCode) {
+      const [affiliateRows] = await db.execute('SELECT user_id, code FROM affiliate_profiles WHERE UPPER(code)=? LIMIT 1', [affiliateCode]);
+      if (affiliateRows.length && String(affiliateRows[0].user_id) !== String(user?.id || '')) {
+        affiliateUserId = affiliateRows[0].user_id;
+        normalizedAffiliateCode = affiliateRows[0].code;
+      }
+    }
     const frontendUrl = (process.env.FRONTEND_URL || '').replace(/\/$/, '');
     const successUrl = frontendUrl ? `${frontendUrl}/pagamento-retorno.html?order=${encodeURIComponent(publicId)}&result=success` : undefined;
     const failureUrl = frontendUrl ? `${frontendUrl}/pagamento-retorno.html?order=${encodeURIComponent(publicId)}&result=failure` : undefined;
     const pendingUrl = frontendUrl ? `${frontendUrl}/pagamento-retorno.html?order=${encodeURIComponent(publicId)}&result=pending` : undefined;
 
     const [insert] = await db.execute(
-      `INSERT INTO fm_orders (public_id,user_id,customer_name,customer_email,customer_phone,cep,state,city,address,complement,shipping_amount,payment_method,total_amount,status,mp_external_reference) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,'creating',?)`,
-      [publicId, user?.id || null, customerName, customerEmail, customerPhone || null, cep, state, city, street, complement || null, shippingAmount, paymentMethod, total, externalReference]
+      `INSERT INTO fm_orders (public_id,user_id,affiliate_user_id,affiliate_code,customer_name,customer_email,customer_phone,cep,state,city,address,complement,shipping_amount,payment_method,total_amount,status,mp_external_reference) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'creating',?)`,
+      [publicId, user?.id || null, affiliateUserId, normalizedAffiliateCode, customerName, customerEmail, customerPhone || null, cep, state, city, street, complement || null, shippingAmount, paymentMethod, total, externalReference]
     );
     orderId = insert.insertId;
 
