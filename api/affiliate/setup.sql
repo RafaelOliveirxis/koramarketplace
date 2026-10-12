@@ -35,4 +35,3 @@ CREATE TABLE IF NOT EXISTS affiliate_withdrawals (
 -- Atribuição de vendas do checkout real ao código de afiliado.
 ALTER TABLE fm_orders ADD COLUMN IF NOT EXISTS affiliate_user_id BIGINT UNSIGNED NULL;
 ALTER TABLE fm_orders ADD COLUMN IF NOT EXISTS affiliate_code VARCHAR(80) NULL;
-CREATE INDEX IF NOT EXISTS ix_fm_orders_affiliate ON fm_orders (affiliate_user_id, created_at);
