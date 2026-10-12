@@ -72,9 +72,11 @@ module.exports = async (req, res) => {
     await db.execute('INSERT INTO affiliate_withdrawals (user_id,external_reference,amount,pix_key,pix_key_type,status,idempotency_key) VALUES (?,?,?,?,?,?,?)', [user.id,externalReference,roundedAmount,pixKey,pixKeyType,'pending',idempotencyKey]);
 
     if (String(process.env.MP_PAYOUTS_ENABLED).toLowerCase() !== 'true') {
-      return res.status(503).json({
-        error: 'Saque real ainda não habilitado no servidor.',
-        message: 'O pedido foi registrado com segurança. Para enviar o PIX de verdade, habilite o produto Payouts/Money Out do Mercado Pago e configure as credenciais de produção.'
+      return res.status(202).json({
+        success: true,
+        status: 'pending',
+        externalReference,
+        message: 'Solicitação registrada e aguardando processamento. O PIX ainda não foi enviado automaticamente; o pagamento depende da habilitação e configuração do provedor de saques no servidor.'
       });
     }
 
