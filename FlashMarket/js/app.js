@@ -46,7 +46,7 @@ async function loadRealCatalog(){
       const old = byId.get(Number(item.id)) || {};
       return {...old,id:Number(item.id),name:item.name || old.name || `Produto #${item.id}`,
         price:Number(item.price),p:Number(item.price),n:item.name || old.name || `Produto #${item.id}`,
-        i:item.image || old.image || 'assets/logo-kora.svg',c:item.category || old.category || 'Ofertas',
+        i:item.image || old.image || 'assets/logo.FlashMarket.png',c:item.category || old.category || 'Ofertas',
         category:item.category || old.category || 'Ofertas',old:Number(item.old_price || old.old || item.price),
         discount:Number(item.discount || old.discount || 0),rating:Number(item.rating || old.rating || 5),
         active:item.active !== false};
