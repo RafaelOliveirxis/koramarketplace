@@ -29,6 +29,43 @@
 footer{margin-top:0}
 @media(max-width:900px){.tm-header-main{grid-template-columns:170px 1fr auto}.tm-actions a{min-width:42px}.tm-actions span{display:none}.summary{grid-template-columns:1fr}.content-grid{grid-template-columns:1fr}}
 @media(max-width:650px){.tm-top .wrap{justify-content:center}.tm-top .tm-note{display:none}.tm-links{gap:12px}.tm-header-main{grid-template-columns:1fr auto;grid-template-areas:"brand actions" "search search";padding:8px 0;gap:7px}.tm-brand{grid-area:brand}.tm-search{grid-area:search}.tm-actions{grid-area:actions}.tm-actions a:not(:last-child){display:none}.tm-brand img{width:105px}.tm-cat button{width:38px;height:38px}.tm-menu{position:fixed;left:10px;right:10px;top:105px;width:auto}.tr-wrap{padding:36px 0 70px}.track-form{grid-template-columns:1fr}.primary{width:100%}.summary-grid{grid-template-columns:1fr}.status-head{display:block}.status-head small{display:block;margin-top:8px}.content-grid{grid-template-columns:1fr}.hero h1{font-size:46px}}
+
+/* Redesign 2026 — estilos isolados para não herdar o hero genérico da loja */
+.tracking-page{background:#f4f5f7;color:#171717}
+.tracking-page .tr-wrap{width:min(1180px,94%);padding:42px 0 88px}
+.tracking-page .hero{position:relative;isolation:isolate;overflow:hidden;min-height:285px;padding:36px 44px;border-radius:24px;background:radial-gradient(circle at 86% 50%,rgba(255,194,28,.22),transparent 28%),linear-gradient(120deg,#101113 0%,#1c1d20 65%,#29251a 100%);color:#fff;box-shadow:0 24px 55px rgba(20,20,20,.13)}
+.tracking-page .hero:after{content:"";position:absolute;z-index:-1;right:7%;top:50%;width:190px;height:190px;transform:translateY(-50%);border:1px solid rgba(255,201,40,.22);border-radius:50%;box-shadow:0 0 0 22px rgba(255,201,40,.035),0 0 0 46px rgba(255,201,40,.025)}
+.tracking-page .hero:before{content:"↗";position:absolute;right:calc(7% + 59px);top:50%;transform:translateY(-50%);width:72px;height:72px;display:grid;place-items:center;border-radius:22px;background:#ffc928;color:#111;font:800 42px Inter;box-shadow:0 16px 40px rgba(255,201,40,.18)}
+.tracking-page .eyebrow{background:rgba(255,201,40,.12);border:1px solid rgba(255,201,40,.25);color:#ffd34f;font-size:10px}
+.tracking-page .hero h1{position:relative;z-index:1;margin:20px 0 14px;font:800 clamp(36px,4.3vw,58px)/.98 Inter,Arial,sans-serif;letter-spacing:-.055em;color:#fff;text-shadow:none}
+.tracking-page .hero h1 span{color:#ffc928}
+.tracking-page .hero p{position:relative;z-index:1;max-width:620px;margin:0;color:#c7c8cc;font-size:13px;line-height:1.8}
+.tracking-page .track-box{position:relative;margin-top:16px;padding:23px 24px 18px;border:1px solid #e7e8eb;border-radius:20px;box-shadow:0 16px 44px rgba(20,20,20,.055)}
+.tracking-page .field label{font-size:10px;color:#555;letter-spacing:.04em}
+.tracking-page .input{height:54px;border-color:#e0e1e4;border-radius:12px;background:#f8f9fb;transition:border-color .2s,box-shadow .2s}
+.tracking-page .input:focus-within{border-color:#e2ad00;box-shadow:0 0 0 4px rgba(255,201,40,.16)}
+.tracking-page .input input{font:500 13px Inter,Arial,sans-serif;color:#171717}
+.tracking-page .input input::placeholder{color:#9699a0}
+.tracking-page .primary{height:54px;border-radius:12px;background:#ffc928;color:#161616;padding:0 24px;font-size:10px;letter-spacing:.045em;box-shadow:0 8px 18px rgba(255,201,40,.18);transition:transform .2s,background .2s,box-shadow .2s}
+.tracking-page .primary:hover{background:#ffdb62;color:#111;transform:translateY(-1px);box-shadow:0 12px 24px rgba(255,201,40,.25)}
+.tracking-page .examples{margin-top:13px;font-size:10px;color:#777}
+.tracking-page .loading,.tracking-page .error{border-radius:16px;margin-top:16px}
+.tracking-page .summary{border-radius:20px;background:linear-gradient(125deg,#111214,#24221b);padding:26px;box-shadow:0 16px 35px rgba(0,0,0,.12)}
+.tracking-page .summary .status{background:#ffc928;color:#161616}
+.tracking-page .status-card,.tracking-page .card{border-color:#e7e8eb;border-radius:18px;box-shadow:0 10px 30px rgba(20,20,20,.035)}
+.tracking-page .bar i{background:linear-gradient(90deg,#ffc928,#f59e0b)}
+.tracking-page .event.active .dot{background:#ffc928;box-shadow:0 0 0 4px #fff5ce}
+.tracking-page .secure{border-color:#e7e8eb;border-radius:16px}
+.tracking-page .secure-icon{background:#fff4ca}
+.tracking-page .ai{background:#171717;transition:transform .2s,background .2s}
+.tracking-page .ai:hover{background:#ffc928;color:#111;transform:translateY(-3px)}
+.tracking-page .tm-header-main{grid-template-columns:190px minmax(0,1fr) auto}
+.tracking-page .tm-brand img{width:132px;height:52px;object-fit:contain}
+.tracking-page .tm-actions a:focus-visible,.tracking-page .tm-cat button:focus-visible,.tracking-page .tm-menu a:focus-visible,.tracking-page .primary:focus-visible{outline:3px solid #ffc928;outline-offset:3px}
+@media(max-width:900px){.tracking-page .hero{padding:32px;min-height:250px}.tracking-page .hero:before{right:6%;width:58px;height:58px;font-size:32px}.tracking-page .hero:after{right:4%;width:150px;height:150px}.tracking-page .hero p{max-width:70%}}
+@media(max-width:650px){.tracking-page .tr-wrap{padding:24px 0 76px}.tracking-page .hero{padding:25px 22px 28px;min-height:0;border-radius:19px}.tracking-page .hero:before,.tracking-page .hero:after{display:none}.tracking-page .hero h1{font-size:clamp(34px,10vw,46px);margin:18px 0 12px}.tracking-page .hero p{max-width:none;font-size:12px}.tracking-page .track-box{padding:18px 15px 15px;border-radius:17px}.tracking-page .track-form{gap:12px}.tracking-page .primary{height:50px}.tracking-page .summary{padding:20px}.tracking-page .tm-brand img{width:112px;height:42px}}
+@media(prefers-reduced-motion:reduce){.tracking-page *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
 </style>
 </head>
 <body class="tracking-page">
@@ -36,7 +73,7 @@ footer{margin-top:0}
 <header class="tm-header">
 <div class="tm-header-main">
 <div class="tm-brand">
-<a href="index.html" aria-label="FlashMarket"><img src="assets/logo.FlashMarket.png" alt="FlashMarket"></a>
+<a href="index.html" aria-label="FlashMarket"><img src="assets/logo.FlashMarket.png" alt="FlashMarket" width="160" height="54" decoding="async" fetchpriority="high" onerror="this.onerror=null;this.src='assets/logo_FlashMarket.png';"></a>
 <div class="tm-cat"><button id="catBtn" aria-label="Abrir categorias" aria-expanded="false">☰</button><div id="catMenu" class="tm-menu"><b>Comprar por categoria</b><a href="produtos.html?c=Eletrônicos"><span>📱</span>Eletrônicos</a><a href="produtos.html?c=Vestuário"><span>👕</span>Moda</a><a href="produtos.html?c=Casa%20%26%20Decor"><span>🏠</span>Casa & Decor</a><a href="produtos.html?c=Beleza"><span>💄</span>Beleza</a><a href="produtos.html?c=Esportes"><span>⚽</span>Esportes</a><a href="produtos.html?c=Pet%20Shop"><span>🐶</span>Pet Shop</a><a href="produtos.html?c=Papelaria"><span>📚</span>Livros & Papelaria</a><a href="produtos.html"><span>🔥</span>Ofertas</a></div></div>
 </div>
 <form class="tm-search" action="index.html" method="get"><input name="q" type="search" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button>⌕</button></form>
@@ -98,8 +135,8 @@ function busy(v){loading.classList.toggle('hidden',!v);if(v){result.classList.ad
 function fail(msg){busy(false);error.textContent=msg;error.classList.remove('hidden')}
 function render(o){
 const events=Array.isArray(o.tracking)?o.tracking:[],latest=o.latest||events[events.length-1]||null,p=Math.max(0,Math.min(100,Number(o.progress??0)));
-$('orderNumber').textContent=o.id||'—';$('orderStatus').textContent=label(o.status);$('trackingNumber').textContent=o.trackingCode||'Ainda não informado';$('carrier').textContent=o.carrier||'Ainda não informado';$('updatedAt').textContent=dt(o.updatedAt);$('lastUpdate').textContent=o.updatedAt?'Atualizado em '+dt(o.updatedAt):'Atualizado agora';
-$('currentTitle').textContent=latest?.title||label(o.status);$('currentDescription').textContent=latest?.description||o.statusDetail||'O pedido está registrado e aguardando a próxima atualização.';$('deliveryDate').textContent=o.status==='delivered'&&latest?.date?'Entregue em '+dt(latest.date):'Previsão não informada';$('progressBar').style.width=p+'%';$('progressText').textContent=p+'% concluído';
+$('orderNumber').textContent=o.id||'—';$('orderStatus').textContent=o.statusLabel||label(o.status);$('trackingNumber').textContent=o.trackingCode||'Ainda não informado';$('carrier').textContent=o.carrier||'Ainda não informado';$('updatedAt').textContent=dt(o.updatedAt);$('lastUpdate').textContent=o.updatedAt?'Atualizado em '+dt(o.updatedAt):'Atualizado agora';
+$('currentTitle').textContent=latest?.title||label(o.status);$('currentDescription').textContent=latest?.description||o.statusDetail||'O pedido está registrado e aguardando a próxima atualização.';$('deliveryDate').textContent=String(o.status||'').toLowerCase()==='delivered'&&latest?.date?'Entregue em '+dt(latest.date):'Previsão não informada';$('progressBar').style.width=p+'%';$('progressText').textContent=p+'% concluído';
 const d=o.destination||{};$('destination').innerHTML=d.city||d.state?'<strong>'+esc(d.city||'Cidade não informada')+' — '+esc(d.state||'UF')+'</strong>'+(d.cep?'<br>CEP '+esc(d.cep):''):'Destino não disponível.';
 const items=Array.isArray(o.items)?o.items:[];$('products').innerHTML=items.length?items.map(i=>'<div class="product"><div><strong>'+esc(i.name)+'</strong><small>Qtd. '+esc(i.quantity)+'</small></div><b>'+money(i.total)+'</b></div>').join(''):'<p style="font-size:10px;color:#999">Nenhum item encontrado.</p>';
 $('timeline').innerHTML=events.length?events.map((e,i)=>'<div class="event '+(i===events.length-1?'active':'')+'"><div class="dot"></div><div><strong>'+esc(e.title||label(e.status))+'</strong><time>'+dt(e.date)+'</time>'+(e.description?'<p>'+esc(e.description)+'</p>':'')+((e.carrier||e.trackingCode)?'<span class="meta">'+esc(e.carrier||'')+(e.carrier&&e.trackingCode?' · ':'')+esc(e.trackingCode||'')+'</span>':'')+'</div></div>').join(''):'<p style="font-size:10px;color:#999">Ainda não existem eventos de rastreamento para este pedido.</p>';
@@ -107,7 +144,7 @@ result.classList.remove('hidden');loading.classList.add('hidden');error.classLis
 }
 let current='';
 async function track(value,silent=false){
-const code=String(value||'').trim();if(!code){fail('Informe o número do pedido ou código de rastreio.');return}current=code;input.value=code;if(!silent)busy(true);
+const code=String(value||'').trim();if(!code){fail('Informe o número do pedido ou código de rastreio.');return}if(code.length>80){fail('O código deve ter no máximo 80 caracteres.');return}current=code;input.value=code;if(!silent)busy(true);
 try{
  const r=await fetch('/api/orders/tracking?code='+encodeURIComponent(code),{headers:{Accept:'application/json'},cache:'no-store'});
  const type=r.headers.get('content-type')||'';let data={};
