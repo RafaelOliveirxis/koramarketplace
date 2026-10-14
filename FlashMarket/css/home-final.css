@@ -1690,3 +1690,59 @@ body.reference-home .hero-trust span{
   body.reference-home .hero-trust{display:grid!important;grid-template-columns:1fr!important;justify-items:start!important}
   body.reference-home .hero-trust span{white-space:normal!important;max-width:100%!important}
 }
+
+
+/* ===== FIDELIDADE À REFERÊNCIA: BENEFÍCIOS EM UMA LINHA ===== */
+body.reference-home .hero-main{
+  min-height:410px!important;
+  height:auto!important;
+}
+body.reference-home .hero-copy{
+  min-width:0!important;
+}
+body.reference-home .hero-trust{
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:nowrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:14px!important;
+  width:max-content!important;
+  max-width:100%!important;
+  margin-top:15px!important;
+}
+body.reference-home .hero-trust span{
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:30px!important;
+  padding:7px 11px!important;
+  border:1px solid rgba(255,255,255,.36)!important;
+  border-radius:999px!important;
+  background:transparent!important;
+  color:#fff!important;
+  font-size:10px!important;
+  line-height:1!important;
+  font-weight:700!important;
+  white-space:nowrap!important;
+  opacity:1!important;
+}
+@media (min-width:801px){
+  body.reference-home .hero-main{min-height:410px!important}
+  body.reference-home .hero-trust{gap:14px!important;margin-top:15px!important}
+  body.reference-home .hero-trust span{font-size:10px!important;padding:7px 11px!important}
+}
+@media (max-width:800px){
+  body.reference-home .hero-trust{
+    width:100%!important;
+    max-width:100%!important;
+    flex-wrap:wrap!important;
+    gap:7px!important;
+  }
+  body.reference-home .hero-trust span{font-size:9px!important;padding:6px 9px!important}
+}
+@media (max-width:430px){
+  body.reference-home .hero-trust{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important}
+  body.reference-home .hero-trust span{white-space:nowrap!important}
+}
