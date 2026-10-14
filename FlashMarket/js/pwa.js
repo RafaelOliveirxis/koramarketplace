@@ -1,69 +1,25 @@
 (() => {
-  let deferredPrompt = null;
-
-  const isInstalled = () =>
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.navigator.standalone === true;
-
-  const installButton = document.createElement('button');
-  installButton.type = 'button';
-  installButton.className = 'pwa-install';
-  installButton.innerHTML = '<span aria-hidden="true">↓</span><span>BAIXAR APP</span>';
-  installButton.setAttribute('aria-label', 'Baixar ou instalar o aplicativo FlashMarket');
-  installButton.hidden = isInstalled();
-  document.body.appendChild(installButton);
-
-  window.addEventListener('beforeinstallprompt', (event) => {
-    event.preventDefault();
-    deferredPrompt = event;
-    installButton.hidden = isInstalled();
-  });
-
-  async function requestInstall() {
-    if (isInstalled()) {
-      installButton.hidden = true;
-      return;
-    }
-
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      try {
-        await deferredPrompt.userChoice;
-      } catch (error) {
-        console.info('Instalação do FlashMarket:', error);
-      }
-      deferredPrompt = null;
-      return;
-    }
-
-    if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-      alert('Para instalar o FlashMarket no iPhone/iPad:\n1. Toque em Compartilhar no Safari.\n2. Escolha “Adicionar à Tela de Início”.\n3. Toque em Adicionar.');
-    } else if (/android/i.test(navigator.userAgent)) {
-      alert('Para instalar o FlashMarket no Android:\n1. Abra este site no Google Chrome.\n2. Toque no menu ⋮.\n3. Escolha “Instalar app” ou “Adicionar à tela inicial”.');
-    } else {
-      alert('Abra este site no navegador do celular e use o menu para escolher “Instalar app” ou “Adicionar à tela inicial”.');
-    }
-  }
-
-  installButton.addEventListener('click', requestInstall);
-  document.querySelectorAll('.footer-install').forEach((element) => {
-    element.addEventListener('click', requestInstall);
-  });
-
-  window.addEventListener('appinstalled', () => {
-    deferredPrompt = null;
-    installButton.hidden = true;
-  });
-
-  const style = document.createElement('style');
-  style.textContent = '.pwa-install{position:fixed;right:14px;bottom:16px;z-index:1100;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 18px;background:#ff3b20;color:#fff;font:900 11px Inter,Arial,sans-serif;letter-spacing:.04em;box-shadow:0 10px 28px #0004;cursor:pointer}.pwa-install:hover{background:#d92b20;transform:translateY(-2px)}.pwa-install[hidden]{display:none}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(82px + env(safe-area-inset-bottom));padding:12px 15px}}@media(display-mode:standalone){.pwa-install{display:none}}';
-  document.head.appendChild(style);
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch((error) => {
-        console.error('PWA FlashMarket:', error);
-      });
-    });
-  }
+  const SHARED_CSS=['style.css','interno.css','site-system.css','mobile-app.css','mobile-fix.css','mobile-app-v3.css','mobile-app-final.css','marketplace-final.css','catalog-footer.css','kora-redesign.css','kora-logo.css','auth-reference.css','flashmarket-premium.css','design-system.css'];
+  const loadCss=(href,marker)=>{if(document.querySelector(`link[data-${marker}]`))return;const link=document.createElement('link');link.rel='stylesheet';link.href=href;link.dataset[marker]='true';document.head.appendChild(link)};
+  document.querySelectorAll('link[rel="stylesheet"][href]').forEach(link=>{const clean=link.getAttribute('href').split('?')[0].split('/').pop();if(SHARED_CSS.includes(clean))link.remove()});
+  loadCss('css/flashmarket.css?v=21','flashmarketCoreCss');
+  loadCss('css/mobile-exclusive.css?v=1','mobileExclusiveCss');
+  const isAffiliate=/\/afiliado\.html$/i.test(location.pathname),isHome=/\/index\.html$/i.test(location.pathname)||/\/$/.test(location.pathname);
+  if(isHome)loadCss('css/home-commerce.css?v=21','homeCommerceCss');
+  if(isAffiliate){loadCss('css/mobile-affiliate.css?v=21','mobileAffiliateCss');loadCss('css/affiliate-live.css?v=21','affiliateLiveCss')}
+  if(isHome)loadCss('css/mobile-app-polish.css?v=1','mobileAppPolishCss');
+  const loadScript=(src,marker)=>{if(document.querySelector(`script[data-${marker}]`))return;const s=document.createElement('script');s.src=src;s.defer=true;s.dataset[marker]='true';document.head.appendChild(s)};
+  loadScript('js/mobile-app.js','mobileAppJs');loadScript('js/ui-final.js','uiFinalJs');if(isHome)loadScript('js/home-commerce.js','homeCommerceJs');if(isAffiliate)loadScript('js/affiliate-live.js','affiliateLiveJs');
+  function normalizeSharedUI(){document.querySelectorAll('.brand-logo,.logo img,.logo-image,.site-logo,.footer-logo,img[alt*="FlashMarket" i],img[alt*="FLASH MARKET" i]').forEach(img=>{if(img.tagName==='IMG')img.src='assets/logo-kora.svg'});const fs=[...document.querySelectorAll('footer')];if(fs.length>1)fs.slice(1).forEach(el=>el.remove())}
+  function arrangeHomeSections(){if(!isHome)return;const main=document.querySelector('main#inicio'),offers=document.querySelector('#ofertas'),products=document.querySelector('#produtos,#mais-produtos'),catalog=document.querySelector('#catalogo,#categorias');if(!main||!offers||!products||!catalog)return;main.style.display='flex';main.style.flexDirection='column';main.style.alignItems='stretch';offers.style.order='1';products.style.order='2';catalog.style.order='3';const t=products.querySelector('.section-head h2');if(t)t.textContent='Mais produtos';const ct=catalog.querySelector('.section-head h2');if(ct)ct.textContent='Compre por categoria'}
+  function initAffiliateSessionUI(){if(!isAffiliate)return;const authArea=document.getElementById('authArea')||document.querySelector('.auth-box'),dashboard=document.getElementById('affiliatePanel')||document.querySelector('.affiliate-card');if(!authArea||!dashboard)return;const loggedIn=()=>localStorage.getItem('flashmarket_affiliate_session')==='true'&&!!localStorage.getItem('flashmarket_access_token');const sync=()=>{const active=loggedIn();authArea.hidden=active;dashboard.hidden=!active;authArea.style.display=active?'none':'';dashboard.style.display=active?'':'none'};sync();document.addEventListener('submit',e=>{if(e.target?.closest('#authForm,.auth-form')){setTimeout(sync,150);setTimeout(sync,800)}});window.addEventListener('storage',sync)}
+  let deferredPrompt=null;
+  const isInstalled=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+  const installButton=document.createElement('button');installButton.type='button';installButton.className='pwa-install';installButton.innerHTML='<span aria-hidden="true">↓</span><span>BAIXAR APP</span>';installButton.setAttribute('aria-label','Baixar ou instalar o aplicativo FlashMarket');installButton.hidden=isInstalled();document.body.appendChild(installButton);
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installButton.hidden=isInstalled()});
+  async function requestInstall(){if(isInstalled()){installButton.hidden=true;return}if(deferredPrompt){deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){console.info('Instalação do FlashMarket:',e)}deferredPrompt=null;return}if(/iphone|ipad|ipod/i.test(navigator.userAgent)){alert('Para instalar o FlashMarket no iPhone/iPad:\n1. Toque em Compartilhar no Safari.\n2. Escolha “Adicionar à Tela de Início”.\n3. Toque em Adicionar.')}else if(/android/i.test(navigator.userAgent)){alert('Para instalar o FlashMarket no Android:\n1. Abra este site no Google Chrome.\n2. Toque no menu ⋮.\n3. Escolha “Instalar app” ou “Adicionar à tela inicial”.')}else{alert('Abra este site no navegador do celular e use o menu para escolher “Instalar app” ou “Adicionar à tela inicial”.')}}
+  installButton.addEventListener('click',requestInstall);document.querySelectorAll('.footer-install').forEach(el=>el.addEventListener('click',requestInstall));window.addEventListener('appinstalled',()=>{deferredPrompt=null;installButton.hidden=true});
+  if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(e=>console.error('PWA FlashMarket:',e)));
+  const style=document.createElement('style');style.textContent='.pwa-install{position:fixed;right:14px;bottom:16px;z-index:1100;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 18px;background:#ff3b20;color:#fff;font:900 11px Inter,Arial,sans-serif;letter-spacing:.04em;box-shadow:0 10px 28px #0004;cursor:pointer}.pwa-install:hover{background:#d92b20;transform:translateY(-2px)}.pwa-install[hidden]{display:none}@media(max-width:700px){.pwa-install{right:12px;bottom:calc(82px + env(safe-area-inset-bottom));padding:12px 15px}}@media(display-mode:standalone){.pwa-install{display:none}}';document.head.appendChild(style);
+  const init=()=>{normalizeSharedUI();arrangeHomeSections();initAffiliateSessionUI()};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
