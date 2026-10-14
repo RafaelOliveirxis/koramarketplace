@@ -2,18 +2,51 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "npm install",
   "rewrites": [
-    { "source": "/api/affiliate/click", "destination": "/api/affiliate/products" },
-    { "source": "/", "destination": "/FlashMarket/index.html" },
-    { "source": "/:page.html", "destination": "/FlashMarket/:page.html" },
-    { "source": "/css/:path*", "destination": "/FlashMarket/css/:path*" },
-    { "source": "/js/:path*", "destination": "/FlashMarket/js/:path*" },
-    { "source": "/assets/:path*", "destination": "/FlashMarket/assets/:path*" },
-    { "source": "/fonts/:path*", "destination": "/FlashMarket/fonts/:path*" },
-    { "source": "/icons/:path*", "destination": "/FlashMarket/icons/:path*" },
-    { "source": "/manifest.webmanifest", "destination": "/FlashMarket/manifest.webmanifest" },
-    { "source": "/sw.js", "destination": "/FlashMarket/sw.js" }
+    {
+      "source": "/api/affiliate/click",
+      "destination": "/api/affiliate/products"
+    },
+    {
+      "source": "/",
+      "destination": "/FlashMarket/index.html"
+    },
+    {
+      "source": "/:page.html",
+      "destination": "/FlashMarket/:page.html"
+    },
+    {
+      "source": "/css/:path*",
+      "destination": "/FlashMarket/css/:path*"
+    },
+    {
+      "source": "/js/:path*",
+      "destination": "/FlashMarket/js/:path*"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "/FlashMarket/assets/:path*"
+    },
+    {
+      "source": "/fonts/:path*",
+      "destination": "/FlashMarket/fonts/:path*"
+    },
+    {
+      "source": "/icons/:path*",
+      "destination": "/FlashMarket/icons/:path*"
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "destination": "/FlashMarket/manifest.webmanifest"
+    },
+    {
+      "source": "/sw.js",
+      "destination": "/FlashMarket/sw.js"
+    }
   ],
   "functions": {
+    "api/*.js": {
+      "maxDuration": 30
+    },
     "api/**/*.js": {
       "maxDuration": 30
     }
