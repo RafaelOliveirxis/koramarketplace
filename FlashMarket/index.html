@@ -1036,6 +1036,58 @@ body.reference-home .search input::placeholder{font-size:17px!important}
   body.reference-home .head>.actions .action .action-sub{font-size:6px!important}
   body.reference-home .category-panel{position:fixed!important;left:10px!important;top:110px!important;width:calc(100vw - 20px)!important}
 }
+
+/* AJUSTE FINAL: logo sem colisão, menu separado e busca equilibrada */
+body.reference-home header.header>.wrap.head, header.header>.wrap.head{
+  width:calc(100% - 32px)!important;
+  grid-template-columns:96px 48px minmax(0,1fr) 300px!important;
+  column-gap:10px!important;
+}
+body.reference-home header.header>.wrap.head>.brand-area, header.header>.wrap.head>.brand-area{
+  width:96px!important;min-width:96px!important;overflow:visible!important;
+  justify-content:flex-start!important;
+}
+body.reference-home .brand-logo{
+  width:88px!important;height:82px!important;flex:0 0 88px!important;
+  overflow:visible!important;
+}
+body.reference-home .brand-logo .logo{
+  width:82px!important;height:80px!important;max-width:82px!important;
+  object-fit:contain!important;object-position:center!important;
+}
+body.reference-home header.header>.wrap.head>.category-dropdown, header.header>.wrap.head>.category-dropdown{
+  width:48px!important;min-width:48px!important;justify-self:start!important;
+  margin-left:0!important;transform:translateX(1px)!important;
+}
+body.reference-home .category-trigger{
+  width:48px!important;min-width:48px!important;height:48px!important;border-radius:12px!important;
+}
+body.reference-home .category-trigger-icon{font-size:24px!important}
+body.reference-home header.header>.wrap.head>.search, header.header>.wrap.head>.search{
+  width:100%!important;max-width:none!important;min-width:0!important;
+  height:50px!important;justify-self:stretch!important;
+}
+body.reference-home .head>.search input{
+  height:50px!important;padding:0 17px!important;font-size:16px!important;
+}
+body.reference-home .head>.search button{
+  height:46px!important;width:44px!important;flex-basis:44px!important;margin:2px!important;
+}
+body.reference-home header.header>.wrap.head>.actions, header.header>.wrap.head>.actions{
+  width:300px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+@media(max-width:1100px) and (min-width:801px){
+ body.reference-home header.header>.wrap.head, header.header>.wrap.head{
+   grid-template-columns:84px 46px minmax(0,1fr) 260px!important;column-gap:8px!important;
+ }
+ body.reference-home header.header>.wrap.head>.brand-area,header.header>.wrap.head>.brand-area{width:84px!important;min-width:84px!important}
+ body.reference-home .brand-logo{width:80px!important;height:78px!important;flex-basis:80px!important}
+ body.reference-home .brand-logo .logo{width:76px!important;height:76px!important;max-width:76px!important}
+ body.reference-home header.header>.wrap.head>.category-dropdown,header.header>.wrap.head>.category-dropdown,
+ body.reference-home .category-trigger{width:46px!important;min-width:46px!important}
+ body.reference-home .category-trigger{height:46px!important}
+ body.reference-home header.header>.wrap.head>.actions,header.header>.wrap.head>.actions{width:260px!important}
+}
 </style>
 
 <style id="category-menu-final-adjustment">
