@@ -24,6 +24,78 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 @media(max-width:480px){.hero-stats{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.head-actions button{display:none}.head{grid-template-columns:48px 1fr}.brand img{width:48px}.hero h1{font-size:32px}}
 
 .auth-gate{min-height:65vh;display:grid;place-items:center;padding:28px 16px;background:radial-gradient(circle at 10% 10%,#ff3b2014,transparent 35%),#f5f6f8}.auth-gate-card{width:min(100%,520px);padding:34px;border:1px solid #e8ebef;border-radius:22px;background:#fff;box-shadow:0 24px 70px #11131812;text-align:center}.auth-gate-mark{width:64px;height:64px;margin:0 auto 18px;border-radius:18px;display:grid;place-items:center;background:#fff0ed;color:#ff3b20;font-size:28px}.auth-gate-card h1{font-size:clamp(25px,5vw,34px);letter-spacing:-.04em;margin:0 0 10px}.auth-gate-card p{color:#7b8390;font-size:13px;line-height:1.7;margin:0 0 22px}.auth-gate-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.auth-gate-actions a{min-height:46px;border-radius:11px;display:grid;place-items:center;font-size:11px;font-weight:900}.auth-gate-actions .gate-primary{background:#ff3b20;color:#fff}.auth-gate-actions .gate-secondary{border:1px solid #e8ebef;color:#252830}.gate-note{font-size:10px!important;margin:17px 0 0!important}.hidden{display:none!important}@media(max-width:480px){.auth-gate-card{padding:25px 19px}.auth-gate-actions{grid-template-columns:1fr}}
+
+/* Central de Afiliados — refinamento visual e responsivo */
+:root{--red:#ff3b20;--gold:#ffc928;--ink:#151619;--bg:#f3f4f6;--line:#e6e8ec;--shadow:0 18px 50px rgba(18,22,30,.065)}
+body{background:linear-gradient(180deg,#f8f8f9 0,#f1f2f4 55%,#f7f7f8 100%)}
+.header{background:#151619}
+.head{grid-template-columns:220px minmax(260px,1fr) auto;max-width:1540px}
+.brand img{width:156px;height:74px;object-fit:contain}
+.affiliate-label{color:#ffc928}
+.head-actions a,.head-actions button{border-color:#ffffff24;background:#ffffff0a;transition:background .2s,transform .2s}
+.head-actions a:hover,.head-actions button:hover{background:#ffffff18;transform:translateY(-1px)}
+.head-actions .primary{background:var(--gold);color:#151619;border-color:var(--gold)}
+.layout{max-width:1540px;gap:22px;padding:28px 24px 56px}
+.sidebar{top:124px;border-radius:18px;padding:10px;box-shadow:0 8px 30px #10152208}
+.side a{padding:12px 13px;transition:background .18s,color .18s}
+.side a.active,.side a:hover{background:#fff4cc;color:#171717}
+.side a.active .side-icon{background:#ffe58a;color:#171717}
+.hero{border-radius:24px;padding:clamp(25px,3vw,42px);background:radial-gradient(circle at 91% 18%,#ff3b203d,transparent 28%),radial-gradient(circle at 78% 95%,#ffc92817,transparent 30%),linear-gradient(130deg,#121316,#25272d 70%,#32241f);box-shadow:0 24px 60px #15161920}
+.hero h1{font-size:clamp(36px,4.4vw,60px);line-height:.97;max-width:660px}
+.eyebrow{background:#ffc92818;border-color:#ffc92855;color:#ffd65c}
+.hero-stat{border-radius:16px;background:#ffffff0b;border-color:#ffffff1a;backdrop-filter:blur(8px)}
+.hero-stat strong{font-size:clamp(20px,2vw,27px)}
+.section{margin-top:26px}
+.section-head{gap:14px}
+.section-head h2{font-size:clamp(19px,2vw,23px)}
+.card{border-radius:17px;box-shadow:0 10px 30px #11131808;transition:box-shadow .2s,border-color .2s}
+.card:hover{box-shadow:0 15px 36px #1113180d}
+.stat{padding:19px;min-height:137px}
+.stat .icon{background:#fff4cb;color:#161616}
+.stat strong{font-size:clamp(22px,2.2vw,28px);letter-spacing:-.04em}
+.two{gap:14px}
+.panel{padding:21px}
+.chart{gap:12px;height:220px}
+.bar{background:linear-gradient(180deg,#ffd84d,#ff9e18);min-height:4px;transition:height .3s}
+.bar i{font-size:9px;white-space:nowrap}
+.goal{background:radial-gradient(circle at 100% 0,#ffc92820,transparent 38%),linear-gradient(145deg,#151619,#25272d)}
+.progress{height:10px}
+.progress i{background:linear-gradient(90deg,#ffc928,#ff8a00);transition:width .3s}
+.quick a{border-radius:15px;transition:transform .2s,border-color .2s;background:#fff}
+.quick a:hover{transform:translateY(-3px);border-color:#f3cc48}
+.quick span{color:#171717}
+.linkcard{background:linear-gradient(120deg,#fff9e5,#fff);border-color:#f0df9e}
+.linkrow input{height:48px}
+.copy,.btn{transition:transform .18s,filter .18s}
+.copy:hover,.btn:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.products{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.product{border-radius:16px;overflow:hidden}
+.product-visual{height:145px;background:radial-gradient(circle at 75% 20%,#ffe98f,#fff8df 48%,#f3f4f6);color:#151619;font-size:25px;letter-spacing:-.08em}
+.product-body{padding:16px}
+.product-body strong{font-size:12px;line-height:1.5}
+.product-actions button{min-height:38px;transition:background .18s,border-color .18s}
+.product-actions button:hover{border-color:#ffc928}
+.product-actions .gen{background:#17181b;border-color:#17181b;color:#ffc928}
+.table th{letter-spacing:.05em}
+.table td{font-weight:600}
+.withdraw{background:radial-gradient(circle at 100% 0,#ffc92814,transparent 40%),linear-gradient(145deg,#151619,#25272d)}
+.withdraw .btn{background:var(--gold)!important;color:#151619!important}
+.form input,.form select{height:44px;border-radius:10px}
+.form input:focus,.form select:focus{border-color:#ffc928;box-shadow:0 0 0 3px #ffc92828}
+.auth-gate{background:radial-gradient(circle at 10% 10%,#ffc92820,transparent 35%),#f3f4f6}
+.auth-gate-mark{background:#fff4cb;color:#171717}
+.auth-gate-actions .gate-primary{background:#171717;color:#ffc928}
+.auth-gate-actions .gate-secondary:hover{border-color:#ffc928}
+.toast{font-size:12px;padding:14px 17px;border:1px solid #ffffff20}
+#affiliateLiveStatus{font-weight:700}
+#affiliateLiveStatus[data-state="error"]{color:#c83220}
+#affiliateLiveStatus[data-state="ok"]{color:#16865b}
+#affiliateLiveStatus[data-state="loading"]{color:#987300}
+.data-state{padding:18px 12px}
+@media(max-width:1150px){.head{grid-template-columns:190px minmax(200px,1fr) auto}.layout{padding:20px}.products{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.head{grid-template-columns:56px minmax(0,1fr) auto}.brand img{width:56px;height:56px}.affiliate-label{display:none}.layout{padding:13px}.hero{padding:25px 21px}.products{grid-template-columns:1fr 1fr}.head-actions a:first-child,.head-actions a:nth-child(2){display:none}}
+@media(max-width:520px){.products,.stats,.steps,.faq{grid-template-columns:1fr}.hero h1{font-size:35px}.hero-stats{grid-template-columns:1fr 1fr}.quick{grid-template-columns:1fr 1fr}.section-head{align-items:start}.panel{padding:15px}.products{gap:10px}.product-visual{height:120px}.head{grid-template-columns:44px minmax(0,1fr)}.brand img{width:44px;height:48px}.head-actions{display:none}}
+
 </style>
 
 <style id="withdraw-real-ui">
@@ -33,7 +105,7 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 </head>
 <body>
 <div class="top"><div class="topin"><div class="topgroup"><span class="topitem">🚚 <b>Frete grátis acima de R$ 199</b></span><i class="topsep"></i><span class="topitem">🔒 Compra segura</span><i class="topsep"></i><span class="topitem">🛡️ Dados protegidos</span></div><div class="topgroup"><span class="topitem">🎧 Atendimento 24h</span><i class="topsep"></i><a href="suporte.html">Central de Atendimento</a></div></div></div>
-<header class="header"><div class="head"><a class="brand" href="index.html"><img src="assets/logo.FlashMarket.png" alt="FlashMarket"><span class="affiliate-label">Central<br>de Afiliados</span></a><form class="search" onsubmit="return searchSite(event)"><input id="searchInput" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button type="submit">⌕</button></form><div class="head-actions"><a href="minha-conta.html">👤 Minha conta</a><a href="carrinho.html">🛒 Carrinho</a><button class="primary" onclick="affiliateLogout()">Sair da conta</button></div></div></header>
+<header class="header"><div class="head"><a class="brand" href="index.html"><img src="/FlashMarket/assets/logo.FlashMarket.png" alt="FlashMarket" width="156" height="74" decoding="async" fetchpriority="high" onerror="this.onerror=null;this.src='/assets/logo.FlashMarket.png';"><span class="affiliate-label">Central<br>de Afiliados</span></a><form class="search" onsubmit="return searchSite(event)"><input id="searchInput" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button type="submit">⌕</button></form><div class="head-actions"><a href="minha-conta.html">👤 Minha conta</a><a href="carrinho.html">🛒 Carrinho</a><button class="primary" onclick="affiliateLogout()">Sair da conta</button></div></div></header>
 <section class="auth-gate" id="affiliateGate"><div class="auth-gate-card"><div class="auth-gate-mark">🔐</div><h1>Sua central começa com segurança.</h1><p>Entre na sua conta FlashMarket ou crie seu cadastro gratuito. Depois da autenticação, você poderá acessar o painel de afiliados, links, comissões e solicitações de saque.</p><div class="auth-gate-actions"><a class="gate-primary" href="login.html?return=afiliado.html">ENTRAR NA CONTA</a><a class="gate-secondary" href="login.html?mode=register&return=afiliado.html">CRIAR CADASTRO</a></div><p class="gate-note">Você será redirecionado de volta para esta página após entrar.</p></div></section><div class="layout hidden" id="affiliateApp">
 <aside class="sidebar"><div class="side-title">Central</div><nav class="side"><a class="active" href="#inicio"><span class="side-icon">⌂</span>Visão geral</a><a href="#link"><span class="side-icon">🔗</span>Meu link</a><a href="#products"><span class="side-icon">🛍️</span>Produtos</a><a href="#commissions"><span class="side-icon">💵</span>Comissões</a><a href="#withdraw"><span class="side-icon">💳</span>Saque</a><a href="#how"><span class="side-icon">?</span>Como funciona</a></nav><div class="side-bottom">Central financeira<br>Comissões e saques vinculados ao seu cadastro.</div></aside>
 <main id="inicio">
@@ -47,7 +119,7 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 <section class="section two" id="commissions"><div class="card panel"><h3>Últimas comissões</h3><p class="sub">Vendas atribuídas aos seus links.</p><div class="table-wrap"><table class="table"><thead><tr><th>Pedido</th><th>Produto</th><th>Venda</th><th>Comissão</th><th>Status</th></tr></thead><tbody id="affiliateOrdersRows"><tr><td colspan="5" class="data-state">Carregando vendas atribuídas ao seu código…</td></tr></tbody></table></div></div><div class="card panel withdraw" id="withdraw">
 <h3>Solicitar saque</h3>
 <div class="balance" id="withdrawBalance">R$ 0,00</div>
-<p class="sub">Saldo de comissão aprovado. Demonstração de solicitação de saque (sem transferência real).</p>
+<p class="sub">Saldo de comissão aprovado. A solicitação será validada pelo servidor e ficará pendente de processamento.</p>
 <div class="form">
 <label>Valor do saque</label>
 <input id="withdrawAmount" type="number" min="50" step="0.01" placeholder="Ex.: 100,00">
@@ -57,102 +129,172 @@ main{min-width:0}.crumb{font-size:10px;color:#8b929e;margin:2px 0 15px}.crumb a{
 <input id="pixKey" autocomplete="off" placeholder="Digite sua chave PIX">
 <button class="btn" style="background:var(--red);color:#fff" onclick="requestWithdrawal()">SOLICITAR SAQUE</button>
 </div>
-<p class="withdraw-note">MODO DEMONSTRAÇÃO: o pedido é fictício. Nenhum dinheiro será transferido e nenhuma chave PIX será enviada ao banco.</p>
+<p class="withdraw-note">A solicitação não transfere dinheiro automaticamente. O processamento do PIX depende da configuração do provedor de pagamentos.</p>
 </div></section>
 <section class="section" id="how"><div class="section-head"><div><h2>Como funciona</h2><p>Comece em quatro passos simples.</p></div></div><div class="steps"><div class="card step"><b>01</b><h3>Cadastre-se</h3><p>Crie seu acesso à central de afiliados.</p></div><div class="card step"><b>02</b><h3>Escolha produtos</h3><p>Selecione produtos liberados para divulgação.</p></div><div class="card step"><b>03</b><h3>Compartilhe</h3><p>Gere seu link e compartilhe com sua audiência.</p></div><div class="card step"><b>04</b><h3>Acompanhe</h3><p>Veja cliques, vendas e comissões no painel.</p></div></div></section>
-<section class="section"><div class="section-head"><div><h2>Perguntas frequentes</h2><p>Informações rápidas para começar.</p></div></div><div class="faq"><details><summary>Como recebo comissão?</summary><p>As comissões aprovadas ficam disponíveis conforme as regras do programa.</p></details><details><summary>Posso divulgar qualquer produto?</summary><p>Somente os produtos disponibilizados no programa de afiliados.</p></details><details><summary>Quando posso sacar?</summary><p>O saque mínimo configurado para o programa é de R$ 50.</p></details><details><summary>O sistema já paga dinheiro?</summary><p>Este painel está em modo demonstração: valores e pagamentos são fictícios e não movimentam dinheiro.</p></details></div></section>
+<section class="section"><div class="section-head"><div><h2>Perguntas frequentes</h2><p>Informações rápidas para começar.</p></div></div><div class="faq"><details><summary>Como recebo comissão?</summary><p>As comissões aprovadas ficam disponíveis conforme as regras do programa.</p></details><details><summary>Posso divulgar qualquer produto?</summary><p>Somente os produtos disponibilizados no programa de afiliados.</p></details><details><summary>Quando posso sacar?</summary><p>O saque mínimo configurado para o programa é de R$ 50.</p></details><details><summary>O sistema já paga dinheiro?</summary><p>As solicitações ficam pendentes até que o provedor de pagamentos esteja habilitado e configurado.</p></details></div></section>
 <section class="section card panel" id="accountInfo"><h3 id="welcomeAffiliate">Bem-vindo à Central de Afiliados</h3><p class="sub">Sua sessão está protegida pela autenticação da conta FlashMarket.</p></section>
 </main></div>
 <div class="toast" id="toast"></div>
 <script>window.FLASHMARKET_API_BASE=window.FLASHMARKET_API_BASE||"https://koramarketplace.vercel.app";</script><script src="js/auth-real.js?v=20261012-3"></script>
-<script id="affiliate-demo-mode">
-/* MODO DEMONSTRAÇÃO: todos os números, cliques, vendas e saques abaixo são fictícios.
-   Nenhuma chamada de API ou transação financeira é realizada neste modo. */
+<script id="affiliate-live-mode">
 (() => {
-  const money = n => Number(n || 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-  const read = () => { try { return JSON.parse(localStorage.getItem('fm_affiliate_demo') || '{}'); } catch { return {}; } };
-  const save = data => localStorage.setItem('fm_affiliate_demo',JSON.stringify(data));
-  const seed = {
-    clicks: 1284, sales: 37, rate: 18, revenue: 4862.40, available: 248.90,
-    withdrawals: [], extraClicks: 0,
-    products: [
-      {id:101,name:'Fone Bluetooth Pocket',price:149.90,category:'Eletrônicos',commission:26.98},
-      {id:102,name:'Luminária LED de Mesa',price:89.90,category:'Casa & Decor',commission:16.18},
-      {id:103,name:'Moletom Street Flash',price:119.90,category:'Vestuário',commission:21.58},
-      {id:104,name:'Smartwatch Fit Pro',price:199.90,category:'Eletrônicos',commission:35.98},
-      {id:105,name:'Mochila Executiva Casual',price:109.90,category:'Acessórios',commission:19.78},
-      {id:106,name:'Kit Organizador Premium',price:74.90,category:'Casa & Decor',commission:13.48}
-    ]
-  };
-  let state = {...seed,...read()};
-  state.withdrawals = Array.isArray(state.withdrawals) ? state.withdrawals : [];
-  state.extraClicks = Number(state.extraClicks||0);
+  'use strict';
   const $ = id => document.getElementById(id);
-  const set = (id,value) => { const el=$(id); if(el) el.textContent=value; };
-  window.showDemoToast = msg => {
-    const toast=$('toast'); if(!toast)return;
-    toast.textContent=msg;toast.classList.add('show');
-    setTimeout(()=>toast.classList.remove('show'),2400);
+  const money = n => Number(n || 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const number = n => Number(n || 0).toLocaleString('pt-BR');
+  const apiBase = String(window.FLASHMARKET_API_BASE || location.origin).replace(/\/$/,'');
+  let dashboard = null;
+  let loading = false;
+  let toastTimer;
+  const status = (message, kind='loading') => {
+    const el=$('affiliateLiveStatus');
+    if(el){el.textContent=message;el.dataset.state=kind;}
   };
-  function render() {
+  const toast = message => {
+    const el=$('toast'); if(!el)return;
+    el.textContent=message;el.classList.add('show');
+    clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3000);
+  };
+  const setText = (id,value) => {const el=$(id);if(el)el.textContent=value;};
+  const esc = value => String(value ?? '').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  async function api(path,options={}) {
+    const token=localStorage.getItem('flashmarket_access_token')||'';
+    const response=await fetch(apiBase+path,{...options,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{}),...(options.headers||{})},credentials:'omit'});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw Object.assign(new Error(data.error||data.message||'Não foi possível concluir a solicitação.'),{status:response.status,data});
+    return data;
+  }
+  function showApp(){
     $('affiliateGate')?.classList.add('hidden');
     $('affiliateApp')?.classList.remove('hidden');
-    const totalClicks=state.clicks+state.extraClicks;
-    const totalCommission=state.available+state.withdrawals.reduce((s,w)=>s+w.amount,0);
-    set('commissionRate',state.rate+'%');
-    set('metricAvailable',money(state.available));
-    set('metricSales',String(state.sales));
-    set('metricClicks',totalClicks.toLocaleString('pt-BR'));
-    set('metricConversion',((state.sales/Math.max(1,totalClicks))*100).toLocaleString('pt-BR',{maximumFractionDigits:2})+'%');
-    set('withdrawBalance',money(state.available));
-    set('goalCommission',money(totalCommission));
-    const progress=Math.min(100,totalCommission/365*100);
-    if($('goalProgress'))$('goalProgress').style.width=progress+'%';
-    set('goalPercent',Math.round(progress)+'% da meta');
-    set('affiliateLiveStatus','Modo demonstração • dados fictícios');
-    set('welcomeAffiliate','Bem-vindo ao modo demonstração!');
-    const link=$('affLink');
-    if(link)link.value=location.origin+location.pathname+'?ref=FM-DEMO-RAFA';
-    const chart=$('clicksChart');
-    if(chart){
-      const vals=[42,58,35,78,64,91,Math.max(10,83+state.extraClicks)];
-      chart.innerHTML=vals.map((v,i)=>'<div class="bar" style="height:'+v+'%"><i>'+['seg','ter','qua','qui','sex','sáb','dom'][i]+'</i></div>').join('');
-    }
-    const grid=$('affiliateProductsGrid');
-    if(grid)grid.innerHTML=state.products.map(p=>'<article class="card product"><div class="product-visual">FM</div><div class="product-body"><strong>'+p.name+'</strong><p>'+p.category+' · Produto de demonstração</p><div class="meta"><b>'+money(p.price)+'</b><span class="commission">'+money(p.commission)+' / venda</span></div><div class="product-actions"><button class="gen" onclick="generateDemoLink('+p.id+')">GERAR LINK</button><button onclick="simulateDemoClick('+p.id+')">SIMULAR CLIQUE</button></div></div></article>').join('');
-    const orders=$('affiliateOrdersRows');
-    const samples=[
-      {id:'FM-DEMO-1038',product:'Fone Bluetooth Pocket',value:149.90,status:'Aprovada'},
-      {id:'FM-DEMO-1035',product:'Luminária LED de Mesa',value:89.90,status:'Aprovada'},
-      {id:'FM-DEMO-1029',product:'Moletom Street Flash',value:119.90,status:'Pendente'},
-      {id:'FM-DEMO-1022',product:'Smartwatch Fit Pro',value:199.90,status:'Aprovada'}
-    ];
-    const rows=[...state.withdrawals.map((w,i)=>({id:'FM-SIM-'+String(i+1).padStart(4,'0'),product:'Solicitação de saque simulada',value:w.amount,status:'Pendente'})),...samples];
-    if(orders)orders.innerHTML=rows.map(o=>'<tr><td>'+o.id+'</td><td>'+o.product+'</td><td>'+money(o.value)+'</td><td>'+money(o.value*state.rate/100)+'</td><td><span class="chip '+(o.status==='Aprovada'?'ok':'wait')+'">'+o.status+'</span></td></tr>').join('');
-    save(state);
   }
-  window.copyLink=async()=>{const link=$('affLink')?.value||'';try{await navigator.clipboard.writeText(link);showDemoToast('Link de demonstração copiado!');}catch{if($('affLink')){$('affLink').select();document.execCommand('copy');}showDemoToast('Link de demonstração selecionado.');}};
-  window.generateDemoLink=id=>{const p=state.products.find(x=>x.id===id);if(!p)return;const url=location.origin+location.pathname+'?ref=FM-DEMO-RAFA&product='+id;const input=$('affLink');if(input)input.value=url;state.extraClicks++;save(state);render();showDemoToast('Link fictício gerado para '+p.name+'.');};
-  window.simulateDemoClick=id=>{state.extraClicks++;save(state);render();showDemoToast('Clique de demonstração registrado. Nenhum acesso real foi contado.');};
-  window.loadAffiliateData=()=>{render();showDemoToast('Painel de demonstração atualizado.');};
-  window.requestWithdrawal=()=>{
+  function renderChart(days){
+    const chart=$('clicksChart');if(!chart)return;
+    const list=Array.isArray(days)?days:[];
+    const max=Math.max(1,...list.map(x=>Number(x.clicks||0)));
+    chart.innerHTML='';
+    if(!list.length){chart.innerHTML='<p class="data-state">Ainda não há cliques registrados neste período.</p>';return;}
+    list.forEach(item=>{
+      const bar=document.createElement('div');bar.className='bar';
+      bar.style.height=Math.max(4,Number(item.clicks||0)/max*100)+'%';
+      const label=document.createElement('i');label.textContent=String(item.label||'').replace('.','');
+      bar.appendChild(label);bar.title=(item.label||item.day)+': '+number(item.clicks)+' cliques';chart.appendChild(bar);
+    });
+  }
+  function renderProducts(products,code){
+    const grid=$('affiliateProductsGrid');if(!grid)return;
+    grid.innerHTML='';
+    if(!products?.length){grid.innerHTML='<p class="data-state">O catálogo ainda não possui produtos ativos para divulgar.</p>';return;}
+    products.forEach(product=>{
+      const id=Number(product.id||product.product_id);
+      const name=String(product.name||'Produto FlashMarket');
+      const price=Number(product.price||0);
+      const commission=price*(Number(dashboard?.profile?.commission_rate||0)/100);
+      const article=document.createElement('article');article.className='card product';
+      article.innerHTML='<div class="product-visual" aria-hidden="true">FM</div><div class="product-body"><strong>'+esc(name)+'</strong><p>Produto disponível no catálogo</p><div class="meta"><b>'+money(price)+'</b><span class="commission">'+money(commission)+' / venda estimada</span></div><div class="product-actions"><button class="gen" type="button" data-product="'+id+'">GERAR LINK</button><button type="button" data-copy-product="'+id+'">COPIAR LINK</button></div></div>';
+      article.querySelector('[data-product]').addEventListener('click',()=>generateLink(product,code));
+      article.querySelector('[data-copy-product]').addEventListener('click',()=>generateLink(product,code,true));
+      grid.appendChild(article);
+    });
+  }
+  function generateLink(product,code,copy=false){
+    const id=Number(product.id||product.product_id);
+    const url=new URL('/produto.html',location.origin);
+    url.searchParams.set('id',String(id));
+    url.searchParams.set('ref',String(code||''));
+    const input=$('affLink');if(input)input.value=url.href;
+    if(!code){toast('Seu código de afiliado ainda não foi criado. Atualize os dados e tente novamente.');return;}
+    if(copy)copyText(url.href);
+    else {document.getElementById('link')?.scrollIntoView({behavior:'smooth',block:'center'});toast('Link individual gerado. Copie para compartilhar.');}
+  }
+  async function copyText(value){
+    try{await navigator.clipboard.writeText(value);toast('Link copiado para a área de transferência.');}
+    catch{const input=$('affLink');if(input){input.value=value;input.focus();input.select();toast('Selecione o link e copie manualmente.');}}
+  }
+  function renderOrders(orders,rate){
+    const tbody=$('affiliateOrdersRows');if(!tbody)return;
+    tbody.innerHTML='';
+    if(!orders?.length){tbody.innerHTML='<tr><td colspan="5" class="data-state">Nenhuma venda atribuída ao seu código no período selecionado.</td></tr>';return;}
+    orders.slice(0,30).forEach(order=>{
+      const statusText=String(order.status||'Pendente');
+      const normalized=statusText.toLowerCase();
+      const approved=['paid','processed','approved','pago'].includes(normalized);
+      const row=document.createElement('tr');
+      const cells=[order.external_id||('Pedido #'+order.id),order.product_name||'Pedido FlashMarket',money(order.value),money(Number(order.value||0)*Number(rate||0)/100),statusText];
+      cells.forEach((value,index)=>{const td=document.createElement('td');td.textContent=String(value);if(index===4){const chip=document.createElement('span');chip.className='chip '+(approved?'ok':'wait');chip.textContent=String(value);td.textContent='';td.appendChild(chip);}row.appendChild(td);});
+      tbody.appendChild(row);
+    });
+  }
+  function render(data){
+    dashboard=data||{};
+    const m=dashboard.metrics||{};
+    const p=dashboard.profile||{};
+    const rate=Number(p.commission_rate||0);
+    setText('commissionRate',rate.toLocaleString('pt-BR')+'%');
+    setText('metricAvailable',money(m.availableCommission));
+    setText('metricSales',number(m.activeOrders));
+    setText('metricClicks',number(m.clicks));
+    setText('metricConversion',Number(m.conversion||0).toLocaleString('pt-BR',{maximumFractionDigits:2})+'%');
+    setText('withdrawBalance',money(m.availableCommission));
+    setText('goalCommission',money(m.totalCommission));
+    const progress=Math.min(100,Math.max(0,Number(m.totalCommission||0)/365*100));
+    if($('goalProgress'))$('goalProgress').style.width=progress+'%';
+    setText('goalPercent',Math.round(progress)+'% da meta');
+    setText('welcomeAffiliate','Olá! Sua Central de Afiliados está atualizada.');
+    const link=$('affLink');if(link)link.value=location.origin+'/produto.html?ref='+encodeURIComponent(p.code||'');
+    renderChart(dashboard.clicksByDay);
+    renderProducts(dashboard.products,p.code);
+    renderOrders(dashboard.orders,rate);
+    status('Dados atualizados agora • fonte: API FlashMarket','ok');
+  }
+  async function loadAffiliateData(){
+    if(loading)return;loading=true;status('Atualizando dados reais…','loading');
+    try{
+      const data=await api('/api/affiliate/dashboard?days=30');
+      render(data);toast('Dados da central atualizados.');
+    }catch(error){
+      if(error.status===401){status('Sessão expirada. Entre novamente para continuar.','error');toast('Sua sessão expirou. Faça login novamente.');setTimeout(()=>{location.href='login.html?return=afiliado.html';},900);}
+      else{status('Não foi possível carregar os dados da API.','error');toast(error.message||'Falha ao carregar a central.');}
+      const grid=$('affiliateProductsGrid');if(grid)grid.innerHTML='<p class="data-state">Não foi possível carregar o catálogo. Use “Atualizar dados” para tentar novamente.</p>';
+      const chart=$('clicksChart');if(chart)chart.innerHTML='<p class="data-state">Os dados do gráfico ficarão disponíveis após a conexão com a API.</p>';
+      const rows=$('affiliateOrdersRows');if(rows)rows.innerHTML='<tr><td colspan="5" class="data-state">Não foi possível consultar as vendas.</td></tr>';
+    }finally{loading=false;}
+  }
+  window.loadAffiliateData=loadAffiliateData;
+  window.copyLink=()=>copyText($('affLink')?.value||'');
+  window.scrollToId=id=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+  window.searchSite=event=>{event?.preventDefault?.();const q=String($('searchInput')?.value||'').trim();if(q)location.href='index.html?search='+encodeURIComponent(q);return false;};
+  window.affiliateLogout=()=>{if(window.KoraAuth?.logout)window.KoraAuth.logout();else{localStorage.removeItem('flashmarket_access_token');localStorage.removeItem('flashmarket_user_profile');location.href='index.html';}};
+  window.requestWithdrawal=async()=>{
     const amount=Number($('withdrawAmount')?.value);
-    const type=$('pixKeyType')?.value||'CPF';
-    const key=String($('pixKey')?.value||'').trim();
-    if(!Number.isFinite(amount)||amount<50){showDemoToast('O valor mínimo simulado é R$ 50,00.');return;}
-    if(amount>state.available){showDemoToast('Saldo simulado insuficiente.');return;}
-    if(!key){showDemoToast('Digite uma chave PIX fictícia para testar.');return;}
-    state.available=Number((state.available-amount).toFixed(2));
-    state.withdrawals.unshift({amount,status:'pending',type,key:'••••'+key.slice(-4),createdAt:new Date().toISOString()});
-    save(state);render();
-    if($('withdrawAmount'))$('withdrawAmount').value='';
-    if($('pixKey'))$('pixKey').value='';
-    showDemoToast('Saque SIMULADO registrado como pendente. Nenhum PIX foi enviado.');
+    const pixKeyType=$('pixKeyType')?.value||'CPF';
+    const pixKey=String($('pixKey')?.value||'').trim();
+    if(!Number.isFinite(amount)||amount<50){toast('O saque mínimo é de R$ 50,00.');return;}
+    if(!pixKey){toast('Informe sua chave PIX.');$('pixKey')?.focus();return;}
+    const button=document.querySelector('#withdraw .form button');
+    if(button){button.disabled=true;button.textContent='ENVIANDO…';}
+    try{
+      const result=await api('/api/affiliate/withdraw',{method:'POST',body:JSON.stringify({amount,pixKey,pixKeyType})});
+      toast(result.message||'Solicitação de saque registrada e aguardando processamento.');
+      if($('withdrawAmount'))$('withdrawAmount').value='';
+      if($('pixKey'))$('pixKey').value='';
+      await loadAffiliateData();
+    }catch(error){toast(error.message||'Não foi possível solicitar o saque.');}
+    finally{if(button){button.disabled=false;button.textContent='SOLICITAR SAQUE';}}
   };
-  window.affiliateLogout=()=>{showDemoToast('Modo demonstração: nenhuma sessão real está ativa.');};
-  window.searchSite=event=>{event?.preventDefault?.();showDemoToast('Busca visual de demonstração.');return false;};
-  document.addEventListener('DOMContentLoaded',render);
-  render();
+  document.addEventListener('DOMContentLoaded',async()=>{
+    try{
+      if(!window.KoraAuth)throw new Error('O módulo de autenticação não foi carregado.');
+      await window.KoraAuth.me();
+      showApp();
+      await loadAffiliateData();
+    }catch(error){
+      $('affiliateApp')?.classList.add('hidden');
+      $('affiliateGate')?.classList.remove('hidden');
+      if(error.status&&error.status!==401)status('Falha ao validar a sessão.','error');
+    }
+  });
 })();
 </script>
 </body>
