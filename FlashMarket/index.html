@@ -68,7 +68,7 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}button{cursor:poi
 @media(max-width:430px){.wrap{width:94%}.hero-side{grid-template-columns:1fr}.benefits{grid-template-columns:1fr}.categories{grid-template-columns:repeat(4,1fr);gap:7px}.cat{padding:11px 3px}.cat i{width:40px;height:40px;font-size:19px}.product h3{font-size:10px}.price{font-size:16px}.footgrid{grid-template-columns:1fr}.top{font-size:9px}}
 </style>
 <link rel="stylesheet" href="css/brand-overhaul.css?v=20261005-2">
-<link rel="stylesheet" href="css/home-final.css?v=20261014-logo-fix-1">
+<link rel="stylesheet" href="css/home-final.css?v=20261014-menu-search-1">
 <link rel="stylesheet" href="css/mobile-responsive-final.css?v=20261006-1">
 <style id="reference-header">/* ===== HEADER REFERENCE DESIGN ===== */
 body.reference-home{font-family:Arial,Helvetica,sans-serif;background:#fff!important;color:#222}
@@ -1279,7 +1279,8 @@ body.reference-home .category-panel{
   <div class="wrap head">
     <div class="brand-area">
       <a href="index.html" class="brand-logo" aria-label="FlashMarket — página inicial"><img class="logo" src="assets/logo.FlashMarket.png" alt="FlashMarket" fetchpriority="high"></a>
-      <div class="category-dropdown">
+    </div>
+    <div class="category-dropdown">
         <button type="button" class="category-trigger" id="categoryTrigger" aria-expanded="false" aria-controls="categoryPanel">
           <span class="category-trigger-icon">☰</span>
           <span class="category-trigger-label" aria-hidden="true"></span>
@@ -1297,7 +1298,6 @@ body.reference-home .category-panel{
           <a href="produtos.html" role="menuitem"><span>🔥</span><div><strong>Ofertas</strong><small>As melhores oportunidades</small></div></a>
         </div>
       </div>
-    </div>
     <form class="search" onsubmit="return searchProducts(event)">
       <input id="searchInput" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar produtos">
       <button type="submit" aria-label="Pesquisar">⌕</button>
