@@ -84,7 +84,9 @@ async function ensureAffiliateSchema(db) {
         ['affiliate_profiles', 'pix_key', 'VARCHAR(255) NULL'],
         ['affiliate_profiles', 'pix_key_type', "ENUM('CPF','CNPJ','EMAIL','PHONE','PIX_CODE') NULL"],
         ['fm_orders', 'affiliate_user_id', 'BIGINT UNSIGNED NULL'],
-        ['fm_orders', 'affiliate_code', 'VARCHAR(80) NULL']
+        ['fm_orders', 'affiliate_code', 'VARCHAR(80) NULL'],
+        ['affiliate_withdrawals', 'provider_payout_id', 'VARCHAR(120) NULL'],
+        ['affiliate_withdrawals', 'provider_transaction_id', 'VARCHAR(120) NULL']
       ]) {
         const [rows] = await db.execute(
           'SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ? LIMIT 1',
