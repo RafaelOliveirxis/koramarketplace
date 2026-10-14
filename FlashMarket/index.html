@@ -1346,7 +1346,7 @@ body.reference-home .category-panel{
       <button type="submit" aria-label="Pesquisar">⌕</button>
     </form>
     <div class="actions">
-      <a class="action" href="login.html">
+      <a class="action" href="login.html?return=minha-conta.html" id="accountAccessLink">
         <span class="i">👤</span>
         <span class="action-main">Minha Conta</span>
         <span class="action-sub">Entrar /<br>Cadastrar</span>
@@ -1418,7 +1418,7 @@ body.reference-home .category-panel{
 <section id="beneficios" class="wrap benefits"><div class="benefit"><i>🚚</i><div><strong>Frete grátis</strong><small>Consulte condições</small></div></div><div class="benefit"><i>🔒</i><div><strong>Compra segura</strong><small>Ambiente protegido</small></div></div><div class="benefit"><i>💳</i><div><strong>Até 12x</strong><small>Condições no checkout</small></div></div><div class="benefit"><i>↩️</i><div><strong>Compra tranquila</strong><small>Suporte ao cliente</small></div></div></section>
 <section id="newsletter" class="news"><div class="wrap"><div><h2>Receba ofertas em primeira mão</h2><p>Cadastre seu e-mail para receber novidades e promoções.</p></div><form class="form" onsubmit="subscribe(event)"><input type="email" required placeholder="Seu melhor e-mail"><button type="submit">QUERO RECEBER</button></form></div></section>
 </main>
-<footer class="footer"><div class="wrap"><div class="footgrid"><div><img class="footlogo" src="assets/logo.FlashMarket.png" alt="FlashMarket" loading="lazy"><p>Marketplace de produtos, ofertas e novidades para facilitar sua compra online.</p><p>📧 contato@flashmarket.com</p><p>📱 (11) 99999-9999</p></div><div><h3>COMPRAS</h3><a href="produtos.html">Todos os produtos</a><a href="#ofertas">Ofertas</a><a href="carrinho.html">Carrinho</a><a href="checkout.html">Checkout</a></div><div><h3>MINHA CONTA</h3><a href="login.html">Entrar / cadastrar</a><a href="minha-conta.html">Minha conta</a><a href="rastrear-pedido.html">Rastrear pedido</a><a href="afiliado.html">Área de afiliados</a></div><div><h3>SUPORTE</h3><a href="suporte.html">Atendimento</a><a href="politica-privacidade.html">Privacidade</a><a href="termos.html">Termos de uso</a></div></div><div class="copy">© 2026 FlashMarket. Todos os direitos reservados.</div></div></footer>
+<footer class="footer"><div class="wrap"><div class="footgrid"><div><img class="footlogo" src="assets/logo.FlashMarket.png" alt="FlashMarket" loading="lazy"><p>Marketplace de produtos, ofertas e novidades para facilitar sua compra online.</p><p>📧 contato@flashmarket.com</p><p>📱 (11) 99999-9999</p></div><div><h3>COMPRAS</h3><a href="produtos.html">Todos os produtos</a><a href="#ofertas">Ofertas</a><a href="carrinho.html">Carrinho</a><a href="checkout.html">Checkout</a></div><div><h3>MINHA CONTA</h3><a href="login.html?return=minha-conta.html">Entrar / cadastrar</a><a href="minha-conta.html">Minha conta</a><a href="rastrear-pedido.html">Rastrear pedido</a><a href="afiliado.html">Área de afiliados</a></div><div><h3>SUPORTE</h3><a href="suporte.html">Atendimento</a><a href="politica-privacidade.html">Privacidade</a><a href="termos.html">Termos de uso</a></div></div><div class="copy">© 2026 FlashMarket. Todos os direitos reservados.</div></div></footer>
 <script src="js/interno.js?v=20261005-2-3"></script>
 <script src="js/catalog-bridge.js?v=20261005-2-3"></script>
 <script>
@@ -1443,6 +1443,21 @@ document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{b
   panel.addEventListener('click',e=>e.stopPropagation());
   document.addEventListener('click',close);
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
+</script>
+
+<script id="account-access-redirect">
+(function(){
+  const link=document.getElementById('accountAccessLink');
+  if(!link)return;
+  link.addEventListener('click',function(event){
+    const token=localStorage.getItem('flashmarket_access_token');
+    const profile=localStorage.getItem('flashmarket_user_profile');
+    if(token&&profile){
+      event.preventDefault();
+      location.href='minha-conta.html';
+    }
+  });
 })();
 </script>
 </body>
