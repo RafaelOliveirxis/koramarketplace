@@ -70,7 +70,7 @@ module.exports = async (req, res) => {
       `SELECT DATE_FORMAT(created_at, '%Y-%m-%d') AS day, COUNT(*) AS clicks
        FROM affiliate_clicks
        WHERE user_id = ? AND created_at >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
-       GROUP BY DATE(created_at) ORDER BY DATE(created_at)`,
+       GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d') ORDER BY day`,
       [user.id]
     );
     const [withdrawRows] = await db.execute(
