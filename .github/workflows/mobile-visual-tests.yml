@@ -1,0 +1,40 @@
+name: 📱 FlashMarket — testes visuais mobile
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tests/mobile-layout.spec.cjs'
+      - '.github/workflows/mobile-visual-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  responsive-browser-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: npm install --no-save @playwright/test
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test published site at mobile and desktop viewports
+        env:
+          FLASHMARKET_TEST_URL: https://koramarketplace.vercel.app/
+        run: npx playwright test tests/mobile-layout.spec.cjs --reporter=list
+      - name: Upload mobile and desktop screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flashmarket-responsive-test-screenshots
+          path: test-results/
+          if-no-files-found: warn
+          retention-days: 14
