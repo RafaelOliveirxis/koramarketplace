@@ -1230,6 +1230,243 @@
   }
 }
 
+@media (max-width: 760px) {
+  body.reference-home header.header {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  body.reference-home header.header > .wrap.head {
+    height: auto !important;
+    min-height: 0 !important;
+    grid-template-rows: 38px 36px !important;
+    gap: 5px 6px !important;
+    padding: 5px 12px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .actions {
+    height: 38px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .actions > .action {
+    height: 38px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .search,
+  body.reference-home .search {
+    height: 36px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .search input,
+  body.reference-home .search input {
+    height: 34px !important;
+    padding-inline: 12px !important;
+    font-size: 12px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .search button,
+  body.reference-home .search button {
+    height: 32px !important;
+    flex-basis: 38px !important;
+    width: 38px !important;
+    font-size: 22px !important;
+  }
+
+  body.reference-home .category-panel,
+  body.reference-home .category-panel:not(.open) {
+    top: 84px !important;
+    max-height: calc(100dvh - 100px) !important;
+  }
+
+  body.reference-home .hero-main {
+    padding: 14px 15px !important;
+  }
+
+  body.reference-home .hero .eyebrow {
+    padding: 5px 8px !important;
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .hero h1 {
+    margin: 9px 0 !important;
+    font-size: clamp(27px, 7.4vw, 32px) !important;
+    line-height: .98 !important;
+    letter-spacing: -1.2px !important;
+  }
+
+  body.reference-home .hero p {
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+  }
+
+  body.reference-home .hero .buttons {
+    gap: 5px !important;
+    margin-top: 9px !important;
+  }
+
+  body.reference-home .hero .buttons .btn {
+    min-height: 32px !important;
+    padding: 7px 5px !important;
+    border-radius: 7px !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .hero-product img {
+    height: clamp(132px, 38vw, 155px) !important;
+  }
+
+  body.reference-home #beneficios {
+    gap: 5px !important;
+    padding: 5px 10px 8px !important;
+  }
+
+  body.reference-home .benefit {
+    min-height: 42px !important;
+    gap: 4px !important;
+    padding: 5px !important;
+  }
+
+  body.reference-home .benefit i {
+    flex-basis: 17px !important;
+    width: 17px !important;
+    height: 20px !important;
+    font-size: 15px !important;
+  }
+
+  body.reference-home .benefit strong {
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .benefit small {
+    margin-top: 2px !important;
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .hero-side {
+    gap: 8px !important;
+    padding: 10px 11px 7px !important;
+  }
+
+  body.reference-home .promo {
+    min-height: 118px !important;
+    padding: 10px !important;
+    border-radius: 11px !important;
+  }
+
+  body.reference-home .promo > div {
+    width: 64% !important;
+  }
+
+  body.reference-home .promo > div > span {
+    padding: 4px 7px !important;
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .promo strong {
+    margin-top: 6px !important;
+    font-size: 13px !important;
+    line-height: 1.12 !important;
+  }
+
+  body.reference-home .promo small {
+    margin-top: 5px !important;
+    font-size: 8px !important;
+    line-height: 1.3 !important;
+  }
+
+  body.reference-home #mais-vendidos {
+    padding: 16px 9px 18px !important;
+  }
+
+  body.reference-home #mais-vendidos .section-title {
+    margin-bottom: 12px !important;
+  }
+
+  body.reference-home #mais-vendidos .section-title h2 {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home #mais-vendidos .products {
+    gap: 7px !important;
+  }
+
+  body.reference-home #mais-vendidos .product {
+    border-radius: 10px !important;
+  }
+
+  body.reference-home #mais-vendidos .info {
+    padding: 6px 5px !important;
+  }
+
+  body.reference-home #mais-vendidos .catname {
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.reference-home #mais-vendidos .product h3 {
+    min-height: 2.5em !important;
+    margin: 5px 0 !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.reference-home #mais-vendidos .stars {
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.reference-home #mais-vendidos .old {
+    margin-top: 5px !important;
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.reference-home #mais-vendidos .price {
+    font-size: clamp(11px, 3.4vw, 13px) !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home #mais-vendidos .add {
+    min-height: 27px !important;
+    height: 29px !important;
+    margin-top: 6px !important;
+    padding: 5px 2px !important;
+    border-radius: 6px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home #mais-vendidos .add::after {
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .mobile-bottom-nav a {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .mobile-bottom-nav .mobile-nav-icon {
+    font-size: 21px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  body.reference-home .hero .buttons .btn {
+    min-height: 32px !important;
+    font-size: 10px !important;
+  }
+
+  body.reference-home .benefit {
+    min-height: 42px !important;
+  }
+}
+
 .mobile-brand-mark {
   display: none;
 }
@@ -1733,5 +1970,227 @@
 
   body.reference-home .benefit small {
     font-size: 4px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  body.reference-home header.header {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  body.reference-home header.header > .wrap.head {
+    height: auto !important;
+    min-height: 0 !important;
+    grid-template-rows: 38px 36px !important;
+    gap: 5px 6px !important;
+    padding: 5px 12px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .actions,
+  body.reference-home header.header > .wrap.head > .actions > .action {
+    height: 38px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .search,
+  body.reference-home .search {
+    height: 36px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .search input,
+  body.reference-home .search input {
+    height: 34px !important;
+    padding-inline: 12px !important;
+    font-size: 12px !important;
+  }
+
+  body.reference-home header.header > .wrap.head > .search button,
+  body.reference-home .search button {
+    height: 32px !important;
+    flex-basis: 38px !important;
+    width: 38px !important;
+    font-size: 22px !important;
+  }
+
+  body.reference-home .category-panel,
+  body.reference-home .category-panel:not(.open) {
+    top: 84px !important;
+    max-height: calc(100dvh - 100px) !important;
+  }
+
+  body.reference-home .hero-main {
+    padding: 14px 15px !important;
+  }
+
+  body.reference-home .hero .eyebrow {
+    padding: 5px 8px !important;
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .hero h1 {
+    margin: 9px 0 !important;
+    font-size: clamp(27px, 7.4vw, 32px) !important;
+    line-height: .98 !important;
+    letter-spacing: -1.2px !important;
+  }
+
+  body.reference-home .hero p {
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+  }
+
+  body.reference-home .hero .buttons {
+    gap: 5px !important;
+    margin-top: 9px !important;
+  }
+
+  body.reference-home .hero .buttons .btn {
+    min-height: 30px !important;
+    padding: 7px 5px !important;
+    border-radius: 7px !important;
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .hero-product img {
+    height: clamp(132px, 38vw, 155px) !important;
+  }
+
+  body.reference-home #beneficios {
+    gap: 5px !important;
+    padding: 5px 10px 8px !important;
+  }
+
+  body.reference-home .benefit {
+    min-height: 38px !important;
+    gap: 4px !important;
+    padding: 5px !important;
+  }
+
+  body.reference-home .benefit i {
+    flex-basis: 17px !important;
+    width: 17px !important;
+    height: 20px !important;
+    font-size: 15px !important;
+  }
+
+  body.reference-home .benefit strong {
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .benefit small {
+    margin-top: 2px !important;
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .hero-side {
+    gap: 8px !important;
+    padding: 10px 11px 7px !important;
+  }
+
+  body.reference-home .promo {
+    min-height: 118px !important;
+    padding: 10px !important;
+    border-radius: 11px !important;
+  }
+
+  body.reference-home .promo > div {
+    width: 64% !important;
+  }
+
+  body.reference-home .promo > div > span {
+    padding: 4px 7px !important;
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .promo strong {
+    margin-top: 6px !important;
+    font-size: 13px !important;
+    line-height: 1.12 !important;
+  }
+
+  body.reference-home .promo small {
+    margin-top: 5px !important;
+    font-size: 8px !important;
+    line-height: 1.3 !important;
+  }
+
+  body.reference-home #mais-vendidos {
+    padding: 16px 9px 18px !important;
+  }
+
+  body.reference-home #mais-vendidos .section-title {
+    margin-bottom: 12px !important;
+  }
+
+  body.reference-home #mais-vendidos .section-title h2 {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home #mais-vendidos .products {
+    gap: 7px !important;
+  }
+
+  body.reference-home #mais-vendidos .product {
+    border-radius: 10px !important;
+  }
+
+  body.reference-home #mais-vendidos .info {
+    padding: 6px 5px !important;
+  }
+
+  body.reference-home #mais-vendidos .catname {
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.reference-home #mais-vendidos .product h3 {
+    min-height: 2.5em !important;
+    margin: 5px 0 !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.reference-home #mais-vendidos .stars {
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.reference-home #mais-vendidos .old {
+    margin-top: 5px !important;
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.reference-home #mais-vendidos .price {
+    font-size: clamp(11px, 3.4vw, 13px) !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home #mais-vendidos .add {
+    min-height: 27px !important;
+    margin-top: 6px !important;
+    padding: 5px 2px !important;
+    border-radius: 6px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home #mais-vendidos .add::after {
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .mobile-bottom-nav a {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.reference-home .mobile-bottom-nav .mobile-nav-icon {
+    font-size: 21px !important;
   }
 }

@@ -33,6 +33,19 @@ test.describe('FlashMarket — validação visual responsiva publicada', () => {
     expect(dimensions.searchWidth).toBeGreaterThan(250);
     expect(dimensions.navHeight).toBeLessThan(100);
     expect(dimensions.productColumns.split(' ').length).toBe(4);
+
+    const textSizes = await page.evaluate(() => ({
+      hero: parseFloat(getComputedStyle(document.querySelector('.hero p')).fontSize),
+      benefit: parseFloat(getComputedStyle(document.querySelector('.benefit strong')).fontSize),
+      benefitDetail: parseFloat(getComputedStyle(document.querySelector('.benefit small')).fontSize),
+      product: parseFloat(getComputedStyle(document.querySelector('#products .product h3')).fontSize),
+      price: parseFloat(getComputedStyle(document.querySelector('#products .price')).fontSize),
+    }));
+    expect(textSizes.hero).toBeGreaterThanOrEqual(10);
+    expect(textSizes.benefit).toBeGreaterThanOrEqual(8);
+    expect(textSizes.benefitDetail).toBeGreaterThanOrEqual(8);
+    expect(textSizes.product).toBeGreaterThanOrEqual(10);
+    expect(textSizes.price).toBeGreaterThanOrEqual(11);
     await page.screenshot({ path: 'test-results/flashmarket-mobile-390.png', fullPage: true });
   });
 
