@@ -189,3 +189,142 @@
   body.reference-home .promo > img { width:68px!important; height:68px!important; }
 }
 @media (min-width:761px) { body.reference-home .mobile-bottom-nav { display:none!important; } }
+
+
+/* ===== FLASHMARKET MOBILE EXCLUSIVE — refinamento final =====
+   Arquivo intencionalmente limitado a celulares; nenhum seletor desktop é alterado. */
+@media (max-width: 760px) {
+  body.reference-home {
+    overflow-x: clip !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body.reference-home .header {
+    background: linear-gradient(115deg, #ff321f 0%, #ff4b20 68%, #ff6424 100%) !important;
+  }
+
+  body.reference-home .head {
+    position: relative !important;
+  }
+
+  body.reference-home .category-panel {
+    position: absolute !important;
+    top: calc(100% + 6px) !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-height: min(70vh, 520px) !important;
+    overflow-y: auto !important;
+    border-radius: 14px !important;
+    box-shadow: 0 18px 45px rgba(20, 30, 45, .22) !important;
+  }
+
+  body.reference-home .category-panel a,
+  body.reference-home .category-panel button {
+    min-height: 44px !important;
+  }
+
+  body.reference-home .search:focus-within {
+    box-shadow: 0 0 0 3px rgba(255, 223, 0, .35) !important;
+  }
+
+  body.reference-home .search button,
+  body.reference-home .category-trigger,
+  body.reference-home .action,
+  body.reference-home .mobile-bottom-nav a,
+  body.reference-home .add,
+  body.reference-home .heart {
+    touch-action: manipulation;
+  }
+
+  body.reference-home .hero-copy,
+  body.reference-home .hero-product,
+  body.reference-home .promo,
+  body.reference-home .product {
+    min-width: 0 !important;
+  }
+
+  body.reference-home .hero h1,
+  body.reference-home .promo strong,
+  body.reference-home .product h3 {
+    overflow-wrap: anywhere !important;
+    hyphens: auto;
+  }
+
+  body.reference-home .buttons .btn,
+  body.reference-home .add,
+  body.reference-home .form button {
+    min-height: 42px !important;
+    font-weight: 800 !important;
+    transition: filter .18s ease, transform .18s ease !important;
+  }
+
+  body.reference-home .buttons .btn:active,
+  body.reference-home .add:active,
+  body.reference-home .form button:active {
+    transform: scale(.985) !important;
+    filter: brightness(.96);
+  }
+
+  body.reference-home .product {
+    overflow: hidden !important;
+  }
+
+  body.reference-home .visual img {
+    display: block !important;
+    max-width: 100% !important;
+  }
+
+  body.reference-home .mobile-bottom-nav {
+    padding-bottom: calc(7px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  body.reference-home .mobile-bottom-nav a {
+    min-height: 48px !important;
+    border-radius: 10px !important;
+    transition: background .18s ease, color .18s ease !important;
+  }
+
+  body.reference-home .mobile-bottom-nav a:active {
+    background: rgba(255, 255, 255, .14) !important;
+  }
+
+  body.reference-home a:focus-visible,
+  body.reference-home button:focus-visible,
+  body.reference-home input:focus-visible {
+    outline: 3px solid #ffdf00 !important;
+    outline-offset: 2px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  body.reference-home .hero-main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .88fr) !important;
+  }
+
+  body.reference-home .hero h1 {
+    font-size: clamp(24px, 7vw, 29px) !important;
+    letter-spacing: -1px !important;
+  }
+
+  body.reference-home .hero-product {
+    min-height: 175px !important;
+  }
+
+  body.reference-home .hero-product img {
+    height: 175px !important;
+  }
+
+  body.reference-home .section-title h2 {
+    font-size: 19px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.reference-home .buttons .btn,
+  body.reference-home .add,
+  body.reference-home .form button,
+  body.reference-home .mobile-bottom-nav a {
+    transition: none !important;
+  }
+}
