@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 const BASE_URL = process.env.FLASHMARKET_TEST_URL || 'https://koramarketplace.vercel.app/';
 
 test.describe('FlashMarket — validação visual responsiva publicada', () => {
-  test('mobile 390px: cabeçalho, busca, menu, navegação e cartões sem overflow', async ({ page }) => {
+  test('mobile 390px: cabeçalho, busca, menu, navegação e quatro produtos sem overflow', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(BASE_URL, { waitUntil: 'networkidle', timeout: 60000 });
     await expect(page.locator('body.reference-home')).toBeVisible();
@@ -31,7 +31,7 @@ test.describe('FlashMarket — validação visual responsiva publicada', () => {
     expect(dimensions.page, JSON.stringify(dimensions)).toBeLessThanOrEqual(dimensions.viewport);
     expect(dimensions.searchWidth).toBeGreaterThan(250);
     expect(dimensions.navHeight).toBeLessThan(100);
-    expect(dimensions.productColumns.split(' ').length).toBe(2);
+    expect(dimensions.productColumns.split(' ').length).toBe(4);
     await page.screenshot({ path: 'test-results/flashmarket-mobile-390.png', fullPage: true });
   });
 
@@ -47,6 +47,8 @@ test.describe('FlashMarket — validação visual responsiva publicada', () => {
     expect(dimensions.page, JSON.stringify(dimensions)).toBeLessThanOrEqual(dimensions.viewport);
     expect(dimensions.search).toBeGreaterThan(260);
     expect(dimensions.input).toBeGreaterThan(150);
+    const productColumns = await page.locator('.products').first().evaluate(element => getComputedStyle(element).gridTemplateColumns.split(' ').length);
+    expect(productColumns).toBe(4);
     await page.screenshot({ path: 'test-results/flashmarket-mobile-320.png', fullPage: true });
   });
 

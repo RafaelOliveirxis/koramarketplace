@@ -5,7 +5,16 @@
   const installCss = document.createElement('link');
   installCss.rel = 'stylesheet';
   installCss.href = 'css/mobile-app-polish.css?v=2';
-  document.head.appendChild(installCss);
+  const pageStyles = document.querySelector('link[href*="mobile-reference-redesign.css"]');
+  document.head.insertBefore(installCss, pageStyles || null);
+  if (pageStyles) {
+    const placePageStylesLast = () => document.head.appendChild(pageStyles);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', placePageStylesLast, { once: true });
+    } else {
+      placePageStylesLast();
+    }
+  }
 
   let deferredPrompt = null;
   let button = null;
