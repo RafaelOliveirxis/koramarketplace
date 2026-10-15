@@ -1047,3 +1047,50 @@
   body.reference-home .section { padding:17px 10px !important; }
   body.reference-home .product .info { padding:8px !important; }
 }
+
+
+/* MOBILE HOTFIX 2026-10-15: eliminate clipped drawer and broken hero sizing */
+@media (max-width: 760px) {
+  html, body { overflow-x: hidden !important; width: 100% !important; }
+  body.reference-home .category-dropdown { position: relative !important; width: 44px !important; min-width: 44px !important; overflow: visible !important; }
+  body.reference-home .category-panel:not(.open) {
+    display: none !important; visibility: hidden !important; pointer-events: none !important;
+  }
+  body.reference-home .category-panel.open {
+    display: block !important; position: fixed !important; top: 118px !important;
+    left: 12px !important; right: 12px !important; width: auto !important;
+    max-width: 420px !important; max-height: calc(100dvh - 145px) !important;
+    overflow-y: auto !important; z-index: 99999 !important;
+    background: #fff !important; color: #20242b !important;
+    border: 1px solid #e5e7eb !important; border-radius: 14px !important;
+    box-shadow: 0 18px 48px rgba(0,0,0,.24) !important;
+  }
+  body.reference-home .hero,
+  body.reference-home .hero-grid,
+  body.reference-home .hero-main { width: 100% !important; max-width: 100% !important; min-width: 0 !important; }
+  body.reference-home .hero-main {
+    display: block !important; min-height: 0 !important; height: auto !important;
+    padding: 24px 18px 22px !important; overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+  body.reference-home .hero-copy {
+    display: block !important; width: 100% !important; max-width: 560px !important;
+    min-width: 0 !important; margin: 0 auto !important; position: relative !important; z-index: 2 !important;
+  }
+  body.reference-home .hero-product { display: none !important; }
+  body.reference-home .hero h1 {
+    width: 100% !important; max-width: 100% !important; font-size: clamp(30px, 8.2vw, 39px) !important;
+    line-height: .99 !important; letter-spacing: -1.2px !important; overflow-wrap: normal !important;
+    word-break: normal !important; margin: 12px 0 10px !important;
+  }
+  body.reference-home .hero p { width: 100% !important; max-width: 100% !important; font-size: 12px !important; }
+  body.reference-home .hero .buttons { width: 100% !important; display: grid !important; grid-template-columns: 1fr !important; }
+  body.reference-home .hero .btn { width: 100% !important; box-sizing: border-box !important; }
+  body.reference-home .hero-side { width: 100% !important; min-width: 0 !important; }
+  body.reference-home .mobile-bottom-nav { left: 0 !important; right: 0 !important; width: 100% !important; }
+  body.reference-home main { overflow-x: clip !important; }
+}
+@media (max-width: 390px) {
+  body.reference-home .hero-main { padding: 22px 15px 20px !important; }
+  body.reference-home .hero h1 { font-size: clamp(28px, 8vw, 34px) !important; }
+}
