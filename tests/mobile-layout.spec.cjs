@@ -18,6 +18,7 @@ test.describe('FlashMarket — validação visual responsiva publicada', () => {
     await trigger.click();
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     await expect(panel.locator('a').first()).toBeVisible();
+    await expect.poll(() => panel.evaluate(element => Math.round(element.getBoundingClientRect().width))).toBeGreaterThan(260);
     await page.keyboard.press('Escape');
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 
