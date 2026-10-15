@@ -600,3 +600,75 @@
     padding: 9px !important;
   }
 }
+
+
+/* FINAL MOBILE FINISH — FlashMarket reference layout
+   Restrito ao mobile: não altera a experiência desktop. */
+@media (max-width: 760px) {
+  html, body { width:100%; max-width:100%; overflow-x:clip!important; }
+  body.reference-home { padding-bottom:calc(68px + env(safe-area-inset-bottom, 0px))!important; background:#fff!important; color:#142238!important; }
+  body.reference-home main { width:100%!important; max-width:100%!important; overflow:clip!important; }
+  body.reference-home .header { overflow:visible!important; }
+  body.reference-home .head { grid-template-columns:38px minmax(0,1fr) 106px!important; gap:7px!important; padding:8px 12px 10px!important; }
+  body.reference-home .logo { max-width:100%!important; }
+  body.reference-home .actions { gap:1px!important; }
+  body.reference-home .action { min-width:32px!important; width:32px!important; }
+  body.reference-home .hero { padding:0!important; }
+  body.reference-home .hero-grid { display:flex!important; flex-direction:column!important; gap:0!important; }
+  body.reference-home .hero-main {
+    display:grid!important; grid-template-columns:minmax(0,1fr) minmax(0,.82fr)!important;
+    align-items:center!important; gap:10px!important; min-height:0!important;
+    padding:22px 16px 20px!important; margin:0!important; border-radius:0!important;
+    background:linear-gradient(135deg,#ff321f 0%,#ff421d 58%,#ff6a24 100%)!important;
+    box-shadow:none!important; color:#fff!important;
+  }
+  body.reference-home .hero-copy { min-width:0!important; }
+  body.reference-home .hero h1 { font-size:clamp(25px,7.2vw,35px)!important; line-height:.98!important; letter-spacing:-1.2px!important; margin:12px 0 10px!important; overflow-wrap:normal!important; }
+  body.reference-home .hero p { font-size:11px!important; line-height:1.45!important; margin:0!important; color:rgba(255,255,255,.94)!important; }
+  body.reference-home .hero .buttons { display:grid!important; grid-template-columns:1fr!important; gap:7px!important; margin-top:14px!important; }
+  body.reference-home .hero .btn { width:100%!important; min-height:39px!important; height:auto!important; padding:10px 8px!important; border-radius:9px!important; font-size:10px!important; }
+  body.reference-home .hero-art, body.reference-home .hero-image, body.reference-home .hero-main img {
+    max-width:100%!important; height:auto!important; object-fit:contain!important;
+  }
+  body.reference-home .hero-main:before { width:240px!important; height:240px!important; right:-130px!important; top:-95px!important; }
+  body.reference-home .hero-main:after { right:-20px!important; bottom:-120px!important; }
+  body.reference-home .hero-side { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:9px!important; padding:10px 12px 14px!important; background:#fff!important; }
+  body.reference-home .promo { min-width:0!important; min-height:118px!important; height:auto!important; padding:12px!important; border-radius:12px!important; box-shadow:0 3px 12px rgba(18,32,48,.07)!important; }
+  body.reference-home .promo strong { font-size:clamp(13px,3.8vw,17px)!important; line-height:1.08!important; }
+  body.reference-home .promo p { font-size:10px!important; line-height:1.35!important; }
+  body.reference-home .promo .btn { min-height:30px!important; padding:7px 9px!important; font-size:9px!important; }
+  body.reference-home .benefits { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:8px!important; padding:0 12px 14px!important; }
+  body.reference-home .benefit { min-width:0!important; padding:9px!important; border:1px solid #f0efed!important; border-radius:11px!important; gap:8px!important; }
+  body.reference-home .benefit i { font-size:19px!important; }
+  body.reference-home .benefit strong { font-size:10px!important; }
+  body.reference-home .benefit small { font-size:9px!important; }
+  body.reference-home .section { padding:17px 12px!important; }
+  body.reference-home .section-title { display:flex!important; align-items:center!important; justify-content:space-between!important; gap:8px!important; margin:0 0 11px!important; }
+  body.reference-home .section-title h2 { font-size:17px!important; line-height:1.2!important; letter-spacing:-.4px!important; margin:0!important; }
+  body.reference-home .section-title .link { font-size:10px!important; white-space:nowrap!important; }
+  body.reference-home .categories { display:grid!important; grid-template-columns:repeat(4,minmax(0,1fr))!important; gap:7px!important; }
+  body.reference-home .cat { min-height:78px!important; padding:9px 3px!important; border:1px solid #f0f0f0!important; border-radius:10px!important; background:#fff!important; }
+  body.reference-home .products { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:9px!important; }
+  body.reference-home .product { min-width:0!important; border:1px solid #ececec!important; border-radius:12px!important; background:#fff!important; box-shadow:0 2px 8px rgba(20,35,55,.055)!important; }
+  body.reference-home .product .info { padding:9px!important; gap:4px!important; }
+  body.reference-home .product h3 { font-size:11px!important; line-height:1.35!important; min-height:29px!important; }
+  body.reference-home .product .price { font-size:15px!important; line-height:1.2!important; }
+  body.reference-home .product .add { min-height:34px!important; height:auto!important; padding:8px 5px!important; border-radius:8px!important; font-size:9px!important; line-height:1.2!important; }
+  body.reference-home .visual { aspect-ratio:1/1!important; background:#f7f7f7!important; }
+  body.reference-home .visual img { object-fit:contain!important; padding:4px!important; }
+  body.reference-home .flash { margin:0!important; padding:10px!important; border-radius:14px!important; }
+  body.reference-home .mobile-bottom-nav {
+    height:calc(58px + env(safe-area-inset-bottom, 0px))!important;
+    padding:4px 8px calc(4px + env(safe-area-inset-bottom, 0px))!important;
+    background:rgba(255,255,255,.97)!important; border-top:1px solid #ececec!important;
+    box-shadow:0 -3px 16px rgba(15,25,40,.08)!important;
+  }
+  body.reference-home .mobile-bottom-nav a { height:46px!important; min-height:46px!important; font-size:10px!important; gap:2px!important; }
+  body.reference-home .mobile-bottom-nav a.active { background:#fff1ed!important; color:#f03a25!important; }
+}
+@media (max-width:380px) {
+  body.reference-home .head { grid-template-columns:34px minmax(0,1fr) 94px!important; padding-left:9px!important; padding-right:9px!important; }
+  body.reference-home .hero-main { grid-template-columns:minmax(0,1fr) minmax(0,.7fr)!important; padding:18px 12px!important; }
+  body.reference-home .hero h1 { font-size:25px!important; }
+  body.reference-home .hero-side { padding-left:9px!important; padding-right:9px!important; }
+}
