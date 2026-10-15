@@ -991,7 +991,7 @@
   }
 
   body.reference-home .footer {
-    padding: 24px 12px calc(88px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 24px 12px 24px !important;
     background: #172337 !important;
     color: #fff !important;
   }
