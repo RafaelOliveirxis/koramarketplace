@@ -320,7 +320,7 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 760px) and (prefers-reduced-motion: reduce) {
   body.reference-home .buttons .btn,
   body.reference-home .add,
   body.reference-home .form button,
