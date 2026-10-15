@@ -1287,6 +1287,10 @@
     height: 34px !important;
   }
 
+  body.reference-home header.header > .wrap.head > .category-dropdown {
+    transform: none !important;
+  }
+
   body.reference-home header.header > .wrap.head > .search {
     height: 28px !important;
   }
