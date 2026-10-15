@@ -4,7 +4,7 @@
 
 **FlashMarket** é a experiência de loja virtual do projeto **KoraMarketplace**. Este repositório reúne a interface, os recursos de backend disponíveis, scripts de banco de dados, documentação e configurações para execução local e publicação.
 
-> **Estado funcional importante:** nem todos os recursos da interface representam operações comerciais reais. Checkout, pagamentos, métricas, pedidos e rastreamento podem estar em modo demonstrativo ou depender de uma API, banco de dados e integrações externas corretamente configuradas. Consulte as seções abaixo antes de usar dados reais.
+> **Estado funcional importante:** o projeto inclui API para catálogo, pedidos e integração com Mercado Pago, mas esses recursos só operam quando backend, banco e credenciais estão configurados. Métricas, rastreamento logístico e outros recursos podem depender de integrações adicionais. Valide cada ambiente antes de qualquer operação comercial.
 
 ## Índice
 
@@ -63,17 +63,18 @@ O sistema deve ser entendido como um projeto em evolução. Antes de operar come
 - Recursos autenticados dependem da configuração e da disponibilidade do backend.
 
 ### Checkout e pedidos
-- Checkout dividido em etapas, incluindo entrega, pagamento e revisão.
-- Opções de frete e pagamento demonstrativas.
-- Fluxo de criação de pedido em modo de simulação e página de detalhes.
-- Páginas de consulta e rastreamento.
+- Checkout dividido em etapas, com entrega, revisão e encaminhamento para pagamento.
+- API para validar itens e preços pelo catálogo MySQL, registrar pedidos e criar Orders no Mercado Pago.
+- Consulta do status do pagamento, retorno do checkout, detalhes do pedido e rastreamento.
+- Webhook do Mercado Pago para atualizar pedidos e o histórico de eventos.
 
-**Atenção:** o checkout demonstrativo não deve ser tratado como cobrança real. Dados guardados no `localStorage` pertencem ao navegador/dispositivo e não substituem pedidos centralizados no banco. Rastreamento logístico real requer persistência no backend e integração com uma transportadora ou provedor logístico.
+Esses fluxos dependem da configuração da API, do MySQL e das credenciais do Mercado Pago. A presença das páginas não garante que os serviços estejam ativos no ambiente publicado. Eventos de pagamento não são eventos de entrega; rastreamento logístico externo depende de integração com transportadora.
 
 ### Área de afiliados
 - Estrutura de painel e páginas para produtos/links de afiliados.
-- Endpoints de API para dados do painel e registro de cliques, conforme os arquivos disponíveis.
-- Indicadores, comissões e saldos podem ser demonstrativos até que as regras de negócio e os dados reais sejam implementados e validados.
+- API para painel, registro de cliques, atribuição de vendas e solicitação de saque via PIX.
+- Saques pelo Mercado Pago dependem das credenciais e do modo suportado pela implementação.
+- Indicadores, comissões e saldos dependem dos pedidos e eventos persistidos no banco; valide as regras antes de uso comercial.
 
 ### PWA e aplicativo móvel
 - Manifest e Service Worker para preparar a experiência instalável na web.
@@ -102,25 +103,29 @@ A estrutura pode mudar ao longo do desenvolvimento. Use este mapa como orientaç
 
 ```text
 koramarketplace/
-├── .github/workflows/       # Automações e pipeline Android
+├── .github/workflows/       # Deploy web, testes e builds/releases móveis
 ├── FlashMarket/             # Frontend da loja
 │   ├── assets/              # Imagens, ícones e recursos visuais
 │   ├── css/                 # Estilos e responsividade
 │   ├── js/                  # Lógica e interações do frontend
 │   ├── index.html            # Página inicial
-│   ├── checkout.html         # Checkout demonstrativo
+│   ├── checkout.html         # Checkout web
 │   ├── pedido.html           # Detalhes do pedido
 │   ├── rastrear-pedido.html  # Consulta/rastreamento
 │   ├── afiliado.html         # Área de afiliados
 │   ├── manifest.webmanifest # Metadados da PWA
 │   └── sw.js                 # Service Worker
-├── api/                     # Endpoints serverless
-│   ├── _lib/                # Bibliotecas auxiliares
-│   ├── auth/                # Cadastro, login e conta
-│   ├── affiliate/           # Recursos de afiliados
+├── api/                     # Endpoints serverless e integrações
+│   ├── _lib/handlers/       # Implementações de autenticação, pedidos e pagamentos
+│   ├── [...route].js        # Roteador serverless principal
+│   ├── auth/                # Rota dinâmica e esquema de autenticação
+│   ├── affiliate/           # Rotas e esquema de afiliados
+│   ├── payments/            # Esquema de catálogo, pedidos e rastreamento
+│   ├── .env.example         # Exemplo mínimo de configuração
 │   └── README.md            # Documentação da API
 ├── scripts/                 # Scripts auxiliares
-├── flashmarket.sql          # SQL de desenvolvimento, revisar antes de usar
+├── tests/                   # Testes responsivos com Playwright
+├── flashmarket.sql          # Dump legado; revisar antes de importar
 ├── package.json             # Scripts e dependências
 ├── capacitor.config.ts      # Configuração Capacitor
 ├── vercel.json              # Configuração de hospedagem/API
@@ -185,27 +190,37 @@ DB_NAME
 DB_SSL
 JWT_SECRET
 APP_URL
-MAIL_FROM
+PUBLIC_APP_URL
+FRONTEND_URL
+ADMIN_EMAILS
+MP_ACCESS_TOKEN
+MP_WEBHOOK_SECRET
+MP_PAYOUTS_ENABLED
+MP_PAYOUTS_MODE
+MP_PAYOUTS_ACCESS_TOKEN
+MP_PAYOUTS_WEBHOOK_SECRET
+RESEND_API_KEY
+RESEND_FROM_EMAIL
 MICROSOFT_TENANT_ID
 MICROSOFT_CLIENT_ID
 MICROSOFT_CLIENT_SECRET
 MICROSOFT_REFRESH_TOKEN
 ```
 
-Nem todas as variáveis são obrigatórias para todos os fluxos. As variáveis relacionadas ao banco e ao JWT atendem aos recursos de persistência/autenticação; as variáveis de e-mail dependem do método de envio de recuperação de senha configurado. Consulte [api/README.md](./api/README.md) e os arquivos de código para confirmar o conjunto exato.
+Nem todas as variáveis são necessárias em todos os ambientes. `api/.env.example` contém somente os valores-base de banco e JWT; configure as demais quando habilitar os respectivos fluxos. O código usa Microsoft Graph para e-mails de redefinição de senha e Resend para notificações de eventos de pedido. Consulte [api/README.md](./api/README.md) para detalhes e nunca coloque valores reais no Git.
 
 Não crie variáveis no frontend para guardar segredos. Valores entregues ao navegador são públicos.
 
 ## 🗄️ Banco de dados
 
-O repositório inclui arquivos SQL de desenvolvimento. Antes de importar qualquer script:
+O projeto contém scripts de esquema separados para autenticação, afiliados e checkout/pagamentos, além de um dump legado na raiz. Os scripts da API podem criar ou ajustar tabelas, mas confirme dependências e compatibilidade antes de executá-los. Para inicializar manualmente:
 
 1. Faça backup se o banco já contiver dados.
-2. Revise o arquivo SQL e confirme para qual esquema ele foi criado.
-3. Crie banco e usuário próprios para cada ambiente, com permissões mínimas.
+2. Crie um banco MySQL e configure `DB_NAME`.
+3. Crie um usuário próprio para cada ambiente, com permissões mínimas.
 4. Configure host, porta, nome, usuário, senha e SSL.
-5. Execute somente o script apropriado.
-6. Confirme se tabelas, colunas e índices correspondem às consultas executadas pela API.
+5. Aplique os scripts necessários nesta ordem: `api/auth/setup.sql`, `api/payments/setup.sql` e `api/affiliate/setup.sql`.
+6. Não importe `flashmarket.sql` sobre uma base existente sem revisá-lo: o dump contém instruções para remover e recriar tabelas e pode apagar dados.
 7. Teste os fluxos com dados fictícios antes de usar informações reais.
 
 O armazenamento local do navegador não é sincronizado automaticamente com o MySQL. Para compartilhar pedidos entre dispositivos, a aplicação precisa criar e consultar esses pedidos por meio do backend.
@@ -232,7 +247,7 @@ O GitHub Pages pode servir arquivos estáticos. Ele não executa funções serve
 
 ## 📱 PWA e aplicativo Android
 
-A PWA usa os arquivos `FlashMarket/manifest.webmanifest` e `FlashMarket/sw.js`. A disponibilidade da instalação depende do navegador, do HTTPS, do manifesto, dos ícones e dos requisitos de instalação.
+A PWA usa os arquivos `FlashMarket/manifest.webmanifest` e `FlashMarket/sw.js`. A disponibilidade da instalação depende do navegador, do HTTPS, do manifesto, dos ícones e dos requisitos de instalação. O workflow `deploy-pages.yml` publica `FlashMarket/` como site estático; esse ambiente não executa a API.
 
 Para preparar a estrutura móvel, confira os scripts disponíveis no `package.json`. O comando de preparação documentado no projeto é:
 
@@ -262,12 +277,14 @@ O workflow [Android build (FlashMarket)](./.github/workflows/android-build.yml),
 Antes de considerar uma versão pronta:
 
 - [ ] Executar `npm run web:check`.
+- [ ] Conferir o workflow de testes visuais `mobile-visual-tests.yml`, que valida o site publicado em 320/390 px e 1440 px.
 - [ ] Testar a página inicial em desktop, tablet e celular.
 - [ ] Verificar navegação, links, categorias, busca e filtros.
 - [ ] Testar carrinho vazio, inclusão de itens, quantidades e remoção.
 - [ ] Testar favoritos e persistência local, quando aplicável.
-- [ ] Percorrer todas as etapas do checkout demonstrativo.
-- [ ] Confirmar que nenhuma cobrança real é apresentada como concluída.
+- [ ] Percorrer o checkout com dados fictícios e verificar a resposta da API.
+- [ ] Em ambiente de teste do Mercado Pago, confirmar o redirecionamento e o retorno do status.
+- [ ] Validar assinatura do webhook e atualização do pedido no MySQL antes de habilitar pagamentos reais.
 - [ ] Testar páginas de detalhes e consulta de pedidos.
 - [ ] Testar cadastro, login, sessão e recuperação de senha se a API estiver configurada.
 - [ ] Verificar banco, esquema e logs de API.
@@ -280,6 +297,7 @@ Antes de considerar uma versão pronta:
 
 - Nunca publique senhas, tokens, chaves privadas ou arquivos `.env`.
 - Mantenha credenciais exclusivamente nas variáveis de ambiente do servidor.
+- Nunca exponha tokens do Mercado Pago, Microsoft Graph, Resend ou JWT no frontend, em issues ou em logs.
 - Se uma credencial for exposta, revogue-a e gere outra imediatamente.
 - Use HTTPS e restrinja CORS às origens necessárias.
 - Valide dados no servidor; validação apenas no navegador não é suficiente.

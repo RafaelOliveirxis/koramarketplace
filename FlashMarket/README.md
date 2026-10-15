@@ -37,7 +37,7 @@ Dependendo da página e da configuração da API, o frontend pode oferecer:
 - Filtros e navegação entre áreas.
 - Carrinho e favoritos com armazenamento local quando implementado.
 - Cadastro, login, conta e perfil.
-- Checkout demonstrativo em etapas.
+- Checkout em etapas, integrado ao endpoint de criação de pedido quando a API estiver configurada.
 - Página de detalhes de pedido.
 - Consulta/rastreamento de pedido.
 - Área de afiliados.
@@ -52,7 +52,7 @@ A lista descreve o escopo da interface; a presença de uma página não garante 
 ```text
 FlashMarket/
 ├── index.html                  # Página inicial
-├── checkout.html               # Checkout demonstrativo
+├── checkout.html               # Checkout e início do pagamento
 ├── pedido.html                 # Detalhes de pedido
 ├── rastrear-pedido.html         # Consulta/rastreamento
 ├── minha-conta.html             # Área da conta
@@ -86,7 +86,7 @@ Abra o endereço local exibido pelo terminal. Se preferir VS Code, utilize Live 
 
 ## 💾 Como funciona a persistência
 
-O frontend pode utilizar `localStorage` para manter dados como carrinho, favoritos ou pedidos de demonstração no mesmo navegador. Isso tem limitações importantes:
+O frontend pode utilizar `localStorage` para manter dados como carrinho e favoritos no mesmo navegador. Quando a API de checkout está configurada, os pedidos são persistidos no MySQL; dados de interface mantidos apenas no navegador continuam sujeitos a estas limitações:
 
 - Os dados não são compartilhados automaticamente entre dispositivos ou navegadores.
 - Limpar os dados do site pode remover essas informações.
@@ -97,20 +97,11 @@ Para dados compartilhados e confiáveis, a aplicação precisa consultar o backe
 
 ## 🛒 Checkout, pedidos e rastreamento
 
-O fluxo descrito na interface pode incluir entrega, seleção demonstrativa de pagamento, revisão e criação de pedido de teste.
+Quando API, MySQL e credenciais do Mercado Pago estiverem configurados, o frontend envia o carrinho para `POST /api/payments/create`. O backend valida os itens e preços com o catálogo do banco, registra o pedido e inicia uma Order no Mercado Pago. O cliente é redirecionado para o checkout do provedor; o retorno ao site, por si só, não confirma o pagamento.
 
-**O checkout de demonstração não realiza cobrança e não confirma uma venda real.** Não use um estado exibido no navegador como comprovante de pagamento.
+O status é consultado por `GET /api/payments/status` e atualizado pelo webhook `POST /api/payments/webhook`, que valida a assinatura do Mercado Pago. O histórico e os dados de pedido podem ser consultados por `GET /api/orders/tracking`. Endpoints, variáveis, esquemas e limitações estão detalhados em [../api/README.md](../api/README.md) e [../PAGAMENTO-MERCADOPAGO-MYSQL.md](../PAGAMENTO-MERCADOPAGO-MYSQL.md).
 
-Para tornar o fluxo comercial, é necessário implementar e validar no backend:
-1. Validação de preço, estoque, frete e identidade do usuário.
-2. Criação persistente do pedido e dos itens em transação de banco.
-3. Integração com um provedor de pagamento.
-4. Validação segura dos webhooks e prevenção de eventos duplicados.
-5. Atualização de status conforme confirmação do provedor.
-6. Integração logística para eventos de rastreamento reais.
-7. Tratamento de cancelamento, estorno, falhas e auditoria.
-
-A página de rastreamento só deve apresentar eventos logísticos reais quando eles forem recebidos de uma fonte confiável. Dados de exemplo devem ser identificados como demonstração.
+Sem backend e credenciais configurados, o checkout não conclui uma compra. Não trate o redirecionamento nem um estado exibido pelo navegador como comprovante de pagamento. A API grava eventos de pagamento; eventos reais de entrega exigem integração logística adicional.
 
 ## 📲 PWA e instalação
 
@@ -176,7 +167,8 @@ Ao alterar o layout:
 - [ ] Testar em desktop, tablet e celular sem regressões visuais.
 - [ ] Testar formulários, mensagens de erro e estados vazios.
 - [ ] Verificar console e requisições de rede.
-- [ ] Testar carrinho, favoritos e checkout demonstrativo.
+- [ ] Testar carrinho, favoritos e checkout em ambiente de teste do Mercado Pago.
+- [ ] Conferir a confirmação do pagamento pela resposta do backend/webhook, nunca somente pelo retorno do navegador.
 - [ ] Identificar claramente dados simulados.
 - [ ] Validar integração com a API, quando utilizada.
 - [ ] Verificar manifesto, ícones e Service Worker.

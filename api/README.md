@@ -40,8 +40,9 @@ Navegador / Frontend FlashMarket
              |
              +---- conexão MySQL (mysql2)
              |
-             +---- serviços externos opcionais
-                   (ex.: envio de e-mail)
+             +---- Mercado Pago (checkout, pagamentos e webhooks)
+             |
+             +---- serviços de e-mail (Microsoft Graph / Resend)
 ```
 
 O frontend é responsável pela apresentação e interação. A API deve validar entradas, autenticar o usuário, aplicar permissões e executar operações confiáveis. O banco MySQL mantém os dados que precisam ser compartilhados entre sessões/dispositivos.
@@ -54,28 +55,39 @@ Os caminhos abaixo refletem a interface documentada do projeto. Verifique os arq
 |---|---|---|
 | POST | `/api/auth/register` | Criar uma conta |
 | POST | `/api/auth/login` | Autenticar usuário |
-| POST | `/api/auth/logout` | Encerrar sessão, quando implementado pelo fluxo atual |
+| POST | `/api/auth/logout` | Encerrar sessão |
 | GET | `/api/auth/me` | Consultar o usuário/sessão autenticada |
 | PUT | `/api/auth/profile` | Atualizar dados do perfil |
 | POST | `/api/auth/request-reset` | Solicitar recuperação de senha |
 | POST | `/api/auth/reset-password` | Redefinir senha com token válido |
+| GET | `/api/products` | Consultar o catálogo ativo no MySQL |
 | GET | `/api/affiliate/dashboard` | Consultar dados do painel de afiliados |
-| GET/POST | `/api/affiliate/products` | Consultar ou gerenciar recursos de produtos de afiliados |
-| POST | `/api/affiliate/click` | Registrar clique de afiliado |
+| GET/POST | `/api/affiliate/products` | Consultar/criar produtos; `POST` com `action: "click"` registra clique público |
+| POST | `/api/affiliate/withdraw` | Solicitar saque de comissão via PIX |
+| POST | `/api/affiliate/payout-webhook` | Receber atualização de saque do Mercado Pago |
+| POST | `/api/payments/create` | Validar carrinho, gravar pedido e iniciar checkout no Mercado Pago |
+| GET | `/api/payments/status` | Consultar status de pagamento do pedido |
+| POST | `/api/payments/webhook` | Validar notificação e atualizar o pedido |
+| GET | `/api/orders/tracking` | Consultar pedido e eventos de rastreamento por código |
 
-**Contrato de API:** confirme para cada endpoint o método, o formato do corpo, o formato de resposta, a autenticação exigida, os códigos HTTP e os campos obrigatórios diretamente no arquivo correspondente. Não assuma que GET/POST ou um caminho documentado estão operacionais sem teste.
+**Observações:** o registro de clique é feito em `/api/affiliate/products` com `action: "click"` e um código de afiliado — não existe endpoint separado `/api/affiliate/click`. O saque depende de configuração específica. Confira os handlers antes de depender dos contratos ou da disponibilidade das rotas em produção.
 
 ## 📁 Estrutura de pastas
 
 ```text
 api/
-├── _lib/       # conexão com banco, CORS e utilitários compartilhados
-├── auth/       # cadastro, login, perfil e recuperação de senha
-├── affiliate/  # recursos da área de afiliados
-└── README.md   # esta documentação
+├── [...route].js             # roteador serverless principal
+├── auth/[action].js          # roteador de autenticação
+├── _lib/handlers/            # handlers de autenticação, afiliados, pedidos e pagamentos
+├── _lib/                     # banco, CORS, JWT, e-mail e integrações
+├── auth/setup.sql            # usuários e tokens de redefinição
+├── affiliate/setup.sql       # perfis, vendas, cliques e saques
+├── payments/setup.sql        # catálogo, pedidos, itens e rastreamento
+├── .env.example              # configuração mínima para banco/JWT
+└── README.md                 # esta documentação
 ```
 
-Os scripts SQL relacionados podem incluir `api/auth/setup.sql` e `api/affiliate/setup.sql`. Revise os arquivos atuais antes de executar alterações no banco.
+O endpoint `/api/products` e os fluxos do checkout podem criar/ajustar tabelas por meio de funções `ensure*Schema`; para preparação manual, aplique os scripts SQL na ordem indicada abaixo.
 
 ## 🧰 Requisitos e configuração
 
@@ -96,14 +108,24 @@ DB_NAME
 DB_SSL
 JWT_SECRET
 APP_URL
-MAIL_FROM
+PUBLIC_APP_URL
+FRONTEND_URL
+ADMIN_EMAILS
+MP_ACCESS_TOKEN
+MP_WEBHOOK_SECRET
+MP_PAYOUTS_ENABLED
+MP_PAYOUTS_MODE
+MP_PAYOUTS_ACCESS_TOKEN
+MP_PAYOUTS_WEBHOOK_SECRET
+RESEND_API_KEY
+RESEND_FROM_EMAIL
 MICROSOFT_TENANT_ID
 MICROSOFT_CLIENT_ID
 MICROSOFT_CLIENT_SECRET
 MICROSOFT_REFRESH_TOKEN
 ```
 
-O conjunto exato depende do endpoint e da implementação em uso. Consulte os arquivos em `api/_lib/` e `api/auth/` para confirmar os nomes e os valores esperados.
+`api/.env.example` contém somente as variáveis básicas de MySQL e JWT. O conjunto completo depende dos fluxos habilitados; confirme os nomes e requisitos nos handlers e nas bibliotecas de `api/_lib/`.
 
 ### Significado geral das variáveis
 
@@ -116,11 +138,18 @@ O conjunto exato depende do endpoint e da implementação em uso. Consulte os ar
 | `DB_NAME` | Banco/esquema utilizado |
 | `DB_SSL` | Configuração de conexão TLS/SSL conforme o código |
 | `JWT_SECRET` | Segredo usado para assinar/verificar tokens JWT |
-| `APP_URL` | URL base da aplicação, quando utilizada |
-| `MAIL_FROM` | Remetente de e-mail, quando utilizado |
-| `MICROSOFT_*` | Credenciais da integração Microsoft/e-mail, se essa estratégia estiver configurada |
+| `APP_URL`, `PUBLIC_APP_URL` | URL pública usada por fluxos de afiliados |
+| `FRONTEND_URL` | URL base para retorno do checkout e links das notificações de pedido |
+| `ADMIN_EMAILS` | Lista separada por vírgulas de e-mails administrativos |
+| `MP_ACCESS_TOKEN` | Credencial do Mercado Pago para checkout e, como fallback, saques |
+| `MP_WEBHOOK_SECRET` | Segredo de validação do webhook de pagamentos |
+| `MP_PAYOUTS_*` | Habilitação, ambiente, credencial e segredo do webhook de saques |
+| `RESEND_API_KEY`, `RESEND_FROM_EMAIL` | Envio de notificações de eventos de pedido pelo Resend |
+| `MICROSOFT_*` | Credenciais OAuth2/Microsoft Graph para e-mails de redefinição de senha |
 
 Configure cada variável na plataforma de hospedagem, separando Development, Preview e Production. Não publique valores reais na documentação.
+
+O modo de payouts usa `sandbox` por padrão. A implementação rejeita chamadas de payout em produção enquanto a assinatura de requisição do Mercado Pago não estiver integrada; mantenha saques em sandbox e desabilitados para dinheiro real até completar essa integração.
 
 ## 🗄️ Banco de dados
 
@@ -129,17 +158,18 @@ A API utiliza MySQL através de `mysql2`. Para preparar um ambiente:
 1. Crie um banco exclusivo para o ambiente e um usuário com permissões mínimas.
 2. Configure as variáveis de conexão.
 3. Faça backup antes de alterar um banco existente.
-4. Revise o SQL para confirmar banco, tabelas, colunas, índices e restrições.
-5. Execute apenas os scripts necessários ao código implantado.
-6. Compare as colunas do banco com as consultas executadas pela API.
-7. Teste cadastro, login, perfil e endpoints de afiliados com dados fictícios.
-8. Confira os logs e remova dados de teste quando apropriado.
+4. Aplique, se necessário, `api/auth/setup.sql`, `api/payments/setup.sql` e então `api/affiliate/setup.sql` (o esquema de afiliados estende pedidos).
+5. Compare as colunas do banco com as consultas executadas pela API.
+6. Teste cadastro, login, checkout, rastreamento e afiliados com dados fictícios.
+7. Confira os logs e remova dados de teste quando apropriado.
+
+O dump `flashmarket.sql` é separado, antigo e contém `DROP TABLE`; não o importe em um banco com dados que deseja preservar. Não execute scripts de configuração sem revisar seu conteúdo e fazer backup.
 
 Não misture esquemas diferentes sem verificar compatibilidade. Um banco acessível ainda pode causar erros se faltarem tabelas, colunas ou registros esperados.
 
 ## 🔐 Autenticação e segurança
 
-- As rotas protegidas podem exigir um cabeçalho `Authorization: Bearer <token>`; confirme o mecanismo no código.
+- Rotas autenticadas usam `Authorization: Bearer <token>`; confira os requisitos específicos de cada handler.
 - Armazene senhas somente com hash seguro; nunca em texto puro.
 - Use HTTPS.
 - Restrinja CORS às origens necessárias.
@@ -226,7 +256,7 @@ O GitHub Pages hospeda conteúdo estático e não executa as funções serverles
 
 ## ⚠️ Limitações e próximos passos
 
-O checkout descrito no frontend é demonstrativo até que o provedor de pagamento esteja integrado e validado. Pedidos salvos apenas no navegador não substituem persistência centralizada. Pagamentos, webhooks, estoque, logística, comissões e saques precisam de regras de negócio, auditoria, testes e controles de segurança próprios antes de uso comercial.
+O checkout usa a API e o Mercado Pago quando o banco e as credenciais estão configurados, mas isso não garante disponibilidade nem aprovação de uma cobrança em todos os ambientes. Pedidos somente no navegador não substituem persistência centralizada. Estoque, logística, comissões e saques precisam de regras de negócio, auditoria, testes e controles próprios antes de uso comercial.
 
 Sugestões de evolução:
 - Testes automatizados para cada endpoint.
