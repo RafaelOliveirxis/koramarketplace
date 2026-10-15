@@ -742,3 +742,37 @@
   body.reference-home .hero p { font-size:11px !important; }
   body.reference-home .promo { padding:9px !important; min-height:118px !important; }
 }
+
+
+/* Correção do painel de categorias que estava ficando recortado por seu contêiner */
+@media (max-width: 760px) {
+  body.reference-home .header,
+  body.reference-home .head,
+  body.reference-home .category-dropdown { overflow:visible !important; }
+  body.reference-home .category-dropdown { position:static !important; }
+  body.reference-home .category-panel {
+    position:fixed !important;
+    left:12px !important;
+    top:154px !important;
+    width:calc(100vw - 24px) !important;
+    max-width:420px !important;
+    max-height:calc(100dvh - 240px) !important;
+    box-sizing:border-box !important;
+    z-index:9999 !important;
+    overflow-y:auto !important;
+    transform:translateY(-6px) !important;
+    border-radius:14px !important;
+    box-shadow:0 18px 48px rgba(15,23,42,.24) !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+  body.reference-home .category-panel.open {
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:translateY(0) !important;
+    pointer-events:auto !important;
+  }
+  body.reference-home .hero { position:relative !important; margin-top:0 !important; clear:both !important; }
+  body.reference-home .hero-grid { overflow:visible !important; }
+}
