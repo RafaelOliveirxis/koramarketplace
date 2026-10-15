@@ -1300,7 +1300,7 @@ body.reference-home .category-panel{
   }
 }
 </style>
-  <link rel="stylesheet" href="css/mobile-reference-redesign.css?v=20261015-mobile-polish-3">
+  <link rel="stylesheet" href="css/mobile-reference-redesign.css?v=20261015-category-menu-4">
 </head>
 <body class="reference-home">
 <div class="top">
@@ -1443,15 +1443,35 @@ document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',()=>{b
   const trigger=document.getElementById('categoryTrigger');
   const panel=document.getElementById('categoryPanel');
   if(!trigger||!panel)return;
-  function close(){panel.classList.remove('open');trigger.setAttribute('aria-expanded','false')}
-  trigger.addEventListener('click',function(e){
-    e.stopPropagation();
-    const open=panel.classList.toggle('open');
+  function setOpen(open){
+    panel.classList.toggle('open',open);
     trigger.setAttribute('aria-expanded',open?'true':'false');
+    panel.setAttribute('aria-hidden',open?'false':'true');
+    document.body.classList.toggle('category-menu-open',open);
+  }
+  setOpen(false);
+  trigger.addEventListener('click',function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    setOpen(!panel.classList.contains('open'));
   });
-  panel.addEventListener('click',e=>e.stopPropagation());
-  document.addEventListener('click',close);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+  panel.addEventListener('click',function(event){
+    event.stopPropagation();
+    const link=event.target.closest('a');
+    if(link)setOpen(false);
+  });
+  document.addEventListener('click',function(event){
+    if(!panel.contains(event.target)&&!trigger.contains(event.target))setOpen(false);
+  });
+  document.addEventListener('keydown',function(event){
+    if(event.key==='Escape'&&panel.classList.contains('open')){
+      setOpen(false);
+      trigger.focus();
+    }
+  });
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>760)setOpen(false);
+  });
 })();
 </script>
 
