@@ -10,6 +10,7 @@ function getPool() {
       error.code = 'CONFIGURATION_ERROR';
       throw error;
     }
+
     pool = mysql.createPool({
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT || 3306),
@@ -18,6 +19,11 @@ function getPool() {
       database: process.env.DB_NAME,
       waitForConnections: true,
       connectionLimit: 5,
+      maxIdle: 2,
+      idleTimeout: 60000,
+      connectTimeout: 10000,
+      enableKeepAlive: true,
+      keepAliveInitialDelay: 0,
       queueLimit: 0,
       ssl: process.env.DB_SSL === 'false' ? undefined : { rejectUnauthorized: false }
     });
