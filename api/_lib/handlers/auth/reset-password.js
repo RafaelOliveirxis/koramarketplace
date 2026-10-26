@@ -8,7 +8,9 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido.' });
   const token = String(req.body?.token || '');
   const password = String(req.body?.password || '');
-  if (!token || password.length < 6) return res.status(400).json({ error: 'Informe um token válido e uma senha com pelo menos 6 caracteres.' });
+  if (!token || password.length < 8 || password.length > 128) {
+    return res.status(400).json({ error: 'Informe um token válido e uma senha de 8 a 128 caracteres.' });
+  }
 
   try {
     const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
