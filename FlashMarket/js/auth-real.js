@@ -10,7 +10,8 @@
 
   const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch{return fallback;}};
   const write=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
-  const configuredBase=String(window.FLASHMARKET_API_BASE||'').replace(/\/$/,'');
+  const demoAuth=window.FLASHMARKET_DEMO_AUTH===true;
+  const configuredBase=demoAuth?'':String(window.FLASHMARKET_API_BASE||'').replace(/\/$/,'');
   const apiUrl=path=>configuredBase+path;
   const localUser=()=>read(PROFILE_KEY,null);
   const token=()=>localStorage.getItem(TOKEN_KEY)||'';
