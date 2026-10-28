@@ -33,7 +33,7 @@ footer{margin-top:0}
 /* Redesign 2026 — estilos isolados para não herdar o hero genérico da loja */
 .tracking-page{background:#f4f5f7;color:#171717}
 .tracking-page .tr-wrap{width:min(1180px,94%);padding:42px 0 88px}
-.tracking-page .hero{position:relative;isolation:isolate;overflow:hidden;min-height:285px;padding:36px 44px;border-radius:24px;background:radial-gradient(circle at 86% 50%,rgba(255,194,28,.22),transparent 28%),linear-gradient(120deg,#101113 0%,#1c1d20 65%,#29251a 100%);color:#fff;box-shadow:0 24px 55px rgba(20,20,20,.13)}
+.tracking-page .hero{position:relative;isolation:isolate;overflow:hidden;min-height:285px;padding:36px 44px;border-radius:24px;background:radial-gradient(circle at 88% 50%,rgba(255,76,47,.65),transparent 30%),linear-gradient(112deg,#141414 0%,#252525 58%,#ff482b 125%);color:#fff;box-shadow:0 24px 55px rgba(20,20,20,.13)}
 .tracking-page .hero:after{content:"";position:absolute;z-index:-1;right:7%;top:50%;width:190px;height:190px;transform:translateY(-50%);border:1px solid rgba(255,201,40,.22);border-radius:50%;box-shadow:0 0 0 22px rgba(255,201,40,.035),0 0 0 46px rgba(255,201,40,.025)}
 .tracking-page .hero:before{content:"↗";position:absolute;right:calc(7% + 59px);top:50%;transform:translateY(-50%);width:72px;height:72px;display:grid;place-items:center;border-radius:22px;background:#ffc928;color:#111;font:800 42px Inter;box-shadow:0 16px 40px rgba(255,201,40,.18)}
 .tracking-page .eyebrow{background:rgba(255,201,40,.12);border:1px solid rgba(255,201,40,.25);color:#ffd34f;font-size:10px}
@@ -46,14 +46,14 @@ footer{margin-top:0}
 .tracking-page .input:focus-within{border-color:#e2ad00;box-shadow:0 0 0 4px rgba(255,201,40,.16)}
 .tracking-page .input input{font:500 13px Inter,Arial,sans-serif;color:#171717}
 .tracking-page .input input::placeholder{color:#9699a0}
-.tracking-page .primary{height:54px;border-radius:12px;background:#ffc928;color:#161616;padding:0 24px;font-size:10px;letter-spacing:.045em;box-shadow:0 8px 18px rgba(255,201,40,.18);transition:transform .2s,background .2s,box-shadow .2s}
-.tracking-page .primary:hover{background:#ffdb62;color:#111;transform:translateY(-1px);box-shadow:0 12px 24px rgba(255,201,40,.25)}
+.tracking-page .primary{height:54px;border-radius:12px;background:#ff482b;color:#fff;padding:0 24px;font-size:10px;letter-spacing:.045em;box-shadow:0 8px 18px rgba(255,72,43,.18);transition:transform .2s,background .2s,box-shadow .2s}
+.tracking-page .primary:hover{background:#e93a20;color:#fff;transform:translateY(-1px);box-shadow:0 12px 24px rgba(255,72,43,.25)}
 .tracking-page .examples{margin-top:13px;font-size:10px;color:#777}
 .tracking-page .loading,.tracking-page .error{border-radius:16px;margin-top:16px}
 .tracking-page .summary{border-radius:20px;background:linear-gradient(125deg,#111214,#24221b);padding:26px;box-shadow:0 16px 35px rgba(0,0,0,.12)}
 .tracking-page .summary .status{background:#ffc928;color:#161616}
 .tracking-page .status-card,.tracking-page .card{border-color:#e7e8eb;border-radius:18px;box-shadow:0 10px 30px rgba(20,20,20,.035)}
-.tracking-page .bar i{background:linear-gradient(90deg,#ffc928,#f59e0b)}
+.tracking-page .bar i{background:linear-gradient(90deg,#ff482b,#ffc928)}
 .tracking-page .event.active .dot{background:#ffc928;box-shadow:0 0 0 4px #fff5ce}
 .tracking-page .secure{border-color:#e7e8eb;border-radius:16px}
 .tracking-page .secure-icon{background:#fff4ca}
@@ -73,10 +73,10 @@ footer{margin-top:0}
 <header class="tm-header">
 <div class="tm-header-main">
 <div class="tm-brand">
-<a href="index.html" aria-label="FlashMarket"><img src="/FlashMarket/assets/logo_FlashMarket.png" alt="FlashMarket" width="160" height="54" decoding="async" fetchpriority="high" onerror="this.onerror=null;this.src='/assets/logo.FlashMarket.png';"></a>
+<a href="index.html" aria-label="FlashMarket — página inicial"><img src="assets/logo.FlashMarket.png" alt="FlashMarket" width="160" height="54" decoding="async" fetchpriority="high"></a>
 <div class="tm-cat"><button id="catBtn" aria-label="Abrir categorias" aria-expanded="false">☰</button><div id="catMenu" class="tm-menu"><b>Comprar por categoria</b><a href="produtos.html?c=Eletrônicos"><span>📱</span>Eletrônicos</a><a href="produtos.html?c=Vestuário"><span>👕</span>Moda</a><a href="produtos.html?c=Casa%20%26%20Decor"><span>🏠</span>Casa & Decor</a><a href="produtos.html?c=Beleza"><span>💄</span>Beleza</a><a href="produtos.html?c=Esportes"><span>⚽</span>Esportes</a><a href="produtos.html?c=Pet%20Shop"><span>🐶</span>Pet Shop</a><a href="produtos.html?c=Papelaria"><span>📚</span>Livros & Papelaria</a><a href="produtos.html"><span>🔥</span>Ofertas</a></div></div>
 </div>
-<form class="tm-search" action="index.html" method="get"><input name="q" type="search" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button>⌕</button></form>
+<form class="tm-search" action="index.html" method="get"><input name="q" type="search" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button type="submit" aria-label="Buscar produtos">⌕</button></form>
 <div class="tm-actions"><a href="minha-conta.html"><i>♙</i><span>Conta</span></a><a href="index.html#favoritos"><i>♡</i><span>Favoritos</span></a><a href="carrinho.html"><i>🛒</i><span>Carrinho</span></a></div>
 </div>
 </header>
