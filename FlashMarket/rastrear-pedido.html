@@ -133,6 +133,7 @@ footer{margin-top:0}
  .tracking-page .track-form{grid-template-columns:1fr;gap:12px}
  .tracking-page .input,.tracking-page .primary{height:52px}
  .tracking-page .summary{padding:20px;border-radius:18px}
+ .tracking-page .summary:after{display:none}
  .tracking-page .summary-grid{grid-template-columns:1fr}
  .tracking-page .status-card,.tracking-page .card{padding:18px;border-radius:17px}
  .tracking-page .content-grid{gap:13px}
@@ -188,7 +189,7 @@ footer{margin-top:0}
 <div class="card help"><h3>Precisa de ajuda?</h3><p>Se houver alguma divergência no rastreamento, fale com nossa equipe de atendimento.</p><a href="suporte.html">Acessar atendimento →</a></div>
 </aside>
 </div>
-<div class="secure"><div class="secure-icon">🔒</div><div><strong>Rastreamento seguro</strong><p>Os dados são consultados diretamente pela API do FlashMarket. Nenhum status é inventado no navegador.</p></div></div>
+<div class="secure"><div class="secure-icon">🔒</div><div><strong>Rastreamento seguro</strong><p>Pedidos reais são consultados no sistema FlashMarket. Pedidos de demonstração mostram apenas os dados salvos neste navegador, sem inventar atualizações de entrega.</p></div></div>
 </section>
 </main>
 
@@ -215,11 +216,39 @@ const items=Array.isArray(o.items)?o.items:[];$('products').innerHTML=items.leng
 $('timeline').innerHTML=events.length?events.map((e,i)=>'<div class="event '+(i===events.length-1?'active':'')+'"><div class="dot"></div><div><strong>'+esc(e.title||label(e.status))+'</strong><time>'+dt(e.date)+'</time>'+(e.description?'<p>'+esc(e.description)+'</p>':'')+((e.carrier||e.trackingCode)?'<span class="meta">'+esc(e.carrier||'')+(e.carrier&&e.trackingCode?' · ':'')+esc(e.trackingCode||'')+'</span>':'')+'</div></div>').join(''):'<p style="font-size:10px;color:#999">Ainda não existem eventos de rastreamento para este pedido.</p>';
 result.classList.remove('hidden');loading.classList.add('hidden');error.classList.add('hidden');
 }
+function findLocalOrder(code){
+try{
+const orders=JSON.parse(localStorage.getItem('flashmarket_local_orders')||'[]');
+if(!Array.isArray(orders))return null;
+return orders.find(order=>String(order.id||'').trim().toUpperCase()===code.toUpperCase()||(Array.isArray(order.tracking)&&order.tracking.some(event=>String(event.trackingCode||'').trim().toUpperCase()===code.toUpperCase())))||null;
+}catch(e){console.warn('[FlashMarket] Não foi possível ler os pedidos salvos neste navegador.',e);return null}
+}
+function localTrackingOrder(order){
+const events=Array.isArray(order.tracking)?order.tracking:[],last=events[events.length-1]||null,address=order.address||{};
+const status=order.status==='simulacao'?'created':order.status||'created';
+const progress=status==='finalizado'||status==='delivered'?100:status==='a-caminho'||status==='in_transit'?75:status==='preparando'||status==='processing'?50:10;
+return{
+id:order.id,status,statusLabel:order.status==='simulacao'?'Pedido de demonstração':label(status),
+statusDetail:order.statusDetail||'Pedido registrado neste navegador.',
+trackingCode:order.trackingCode||last?.trackingCode||null,carrier:order.carrier||last?.carrier||null,
+createdAt:order.date||null,updatedAt:last?.date||order.date||null,progress,
+destination:{city:address.city||order.city||null,state:address.state||address.uf||order.state||null,cep:address.cep||order.cep||null},
+items:(Array.isArray(order.items)?order.items:[]).map(item=>({
+name:item.n||item.name||item.product_name||'Produto',
+quantity:Number(item.qty??item.quantity)||1,
+total:Number(item.total??((Number(item.p??item.price??item.unitPrice)||0)*(Number(item.qty??item.quantity)||1)))
+})),
+tracking:events.map(event=>({...event,date:event.date||event.event_at||null}))
+};
+}
 let current='';
 async function track(value,silent=false){
 const code=String(value||'').trim();if(!code){fail('Informe o número do pedido ou código de rastreio.');return}if(code.length>80){fail('O código deve ter no máximo 80 caracteres.');return}current=code;input.value=code;if(!silent)busy(true);
 try{
- const r=await fetch('/api/orders/tracking?code='+encodeURIComponent(code),{headers:{Accept:'application/json'},cache:'no-store'});
+ const localOrder=findLocalOrder(code);
+ if(localOrder){render(localTrackingOrder(localOrder));if(!silent)history.replaceState(null,'','rastrear-pedido.html?pedido='+encodeURIComponent(code));return}
+ const base=String(window.FLASHMARKET_API_BASE||'https://koramarketplace.vercel.app').replace(/\/$/,'');
+ const r=await fetch(base+'/api/orders/tracking?code='+encodeURIComponent(code),{headers:{Accept:'application/json'},cache:'no-store'});
  const type=r.headers.get('content-type')||'';let data={};
  if(type.includes('application/json')) data=await r.json();
  else throw new Error('O servidor retornou uma resposta inválida. Tente novamente em instantes.');

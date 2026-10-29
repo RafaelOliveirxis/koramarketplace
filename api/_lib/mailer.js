@@ -59,7 +59,7 @@ async function sendOrderEventEmail({ email, name, orderId, title, description, t
   const safeCarrier = escapeHtml(carrier || '');
   const safeTracking = escapeHtml(trackingCode || '');
   const frontendUrl = (process.env.FRONTEND_URL || '').replace(/\/$/, '');
-  const trackingUrl = frontendUrl ? frontendUrl + '/rastrear-pedidos.html?order=' + encodeURIComponent(orderId) : '';
+  const trackingUrl = frontendUrl ? frontendUrl + '/rastrear-pedido.html?order=' + encodeURIComponent(orderId) : '';
   const button = trackingUrl ? '<p><a href="' + trackingUrl + '" style="display:inline-block;padding:12px 18px;background:#ffc21c;color:#111;text-decoration:none;border-radius:8px;font-weight:700">ACOMPANHAR PEDIDO</a></p>' : '';
   const tracking = safeTracking ? '<p><b>' + safeCarrier + '</b>: ' + safeTracking + '</p>' : '';
   const html = '<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#151619"><h2>FlashMarket</h2><p>Olá, ' + safeName + '!</p><h3>' + safeTitle + '</h3><p>Pedido <b>#' + safeOrder + '</b></p><p>' + safeDescription + '</p>' + tracking + button + '<p style="font-size:12px;color:#777">Você recebeu esta atualização porque houve uma alteração real no seu pedido.</p></div>';
