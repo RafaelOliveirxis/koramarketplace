@@ -39,21 +39,21 @@
     <form id="produtoForm" class="row g-3">
       <input type="hidden" id="produtoId">
       <div class="col-12 col-md-5">
-        <label class="form-label fw-semibold">Nome do produto</label>
+        <label class="form-label fw-semibold" for="nome">Nome do produto</label>
         <input id="nome" class="form-control" required maxlength="80">
       </div>
       <div class="col-12 col-md-3">
-        <label class="form-label fw-semibold">Categoria</label>
+        <label class="form-label fw-semibold" for="categoria">Categoria</label>
         <select id="categoria" class="form-select" required>
           <option value="">Selecione</option><option>Eletrônicos</option><option>Casa</option><option>Moda</option><option>Beleza</option><option>Esportes</option><option>Pet Shop</option><option>Livros</option>
         </select>
       </div>
       <div class="col-6 col-md-2">
-        <label class="form-label fw-semibold">Preço (R$)</label>
+        <label class="form-label fw-semibold" for="preco">Preço (R$)</label>
         <input id="preco" class="form-control" type="number" min="0" step="0.01" required>
       </div>
       <div class="col-6 col-md-2">
-        <label class="form-label fw-semibold">Estoque</label>
+        <label class="form-label fw-semibold" for="estoque">Estoque</label>
         <input id="estoque" class="form-control" type="number" min="0" step="1" required>
       </div>
       <div class="col-12">
