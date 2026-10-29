@@ -1,4 +1,15 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Entrar ou criar conta FlashMarket"><meta name="theme-color" content="#ff3b1f"><title>FlashMarket | Entrar</title><link rel="icon" href="assets/favicon.png"><link rel="stylesheet" href="css/interno.css"><link rel="stylesheet" href="css/flow-unified.css"><style id="affiliate-login-design">
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="Entrar ou criar conta FlashMarket">
+        <meta name="theme-color" content="#ff3b1f">
+        <title>FlashMarket | Entrar</title>
+        <link rel="icon" href="assets/favicon.png">
+        <link rel="stylesheet" href="css/interno.css">
+        <link rel="stylesheet" href="css/flow-unified.css">
+        <style id="affiliate-login-design">
 /* Central de Afiliados — layout limpo, contraste alto e responsivo */
 :root{--aff-red:#f0442c;--aff-gold:#ffc928;--aff-ink:#171717}
 body.affiliate-auth{background:#f4f5f7!important}
@@ -69,8 +80,84 @@ body.customer-auth .affiliate-demo-note{border-color:#dfe4f2!important;backgroun
 body.customer-auth .affiliate-back-link a{color:#4d55b4!important}
 body.customer-auth .affiliate-login-layout+.affiliate-back-link{margin-top:20px!important}
 @media(max-width:520px){body.customer-auth .flow-main{width:calc(100% - 24px)!important;padding:16px 0 32px!important}body.customer-auth .affiliate-login-layout{border-radius:19px!important}body.customer-auth .affiliate-login-layout>.fm-hero{padding:28px 24px 25px!important}body.customer-auth .affiliate-login-layout>.fm-hero .fm-title{font-size:29px!important;margin:17px 0 9px!important}body.customer-auth .affiliate-login-form-panel{padding:27px 23px 30px!important}}
-</style></head><body class="fm-page"><div data-fm-header></div><main class="fm-container flow-main"><div class="flow-breadcrumb"><a href="index.html">Início</a> / Entrar</div><div class="affiliate-login-layout"><section class="fm-hero" style="max-width:720px;margin:0 auto 20px"><span class="fm-kicker">✦ CENTRAL DE AFILIADOS</span><h1 class="fm-title">Transforme indicações em oportunidades.</h1><p class="fm-subtitle">Entre na sua conta para acompanhar seus links, comissões e resultados em um espaço feito para você.</p><div class="affiliate-benefits"><div class="affiliate-benefit"><span class="affiliate-benefit-icon">↗</span><span>Acompanhe seus links e desempenho</span></div><div class="affiliate-benefit"><span class="affiliate-benefit-icon">◇</span><span>Consulte comissões e pedidos</span></div><div class="affiliate-benefit"><span class="affiliate-benefit-icon">✓</span><span>Acesse sua central em poucos passos</span></div></div><p class="affiliate-side-note">FLASHMARKET · CENTRAL DE AFILIADOS</p></section><section class="affiliate-login-form-panel"><h2 class="affiliate-form-heading">Bem-vindo de volta</h2><p class="affiliate-form-caption">Entre com seus dados ou crie uma conta de demonstração para testar.</p><div class="flow-card pad" style="max-width:520px;margin:auto;border:0;box-shadow:none;padding:0"><div id="authNote" class="auth-note" role="status" aria-live="polite"></div><form id="loginForm" class="fm-form"><div class="field"><label for="email">E-mail</label><input id="email" class="fm-input" type="email" autocomplete="email" required placeholder="voce@email.com"></div><div class="field"><label for="pass">Senha</label><input id="pass" class="fm-input" type="password" autocomplete="current-password" minlength="8" required placeholder="Mínimo de 8 caracteres"></div><label class="fm-check"><input type="checkbox" id="remember" checked> Manter minha sessão neste dispositivo</label><button class="fm-btn orange full" type="submit">ENTRAR</button></form><div class="affiliate-form-divider">ou</div><button id="toggle" class="fm-btn light full" type="button">CRIAR NOVA CONTA</button><div id="signup" hidden style="margin-top:18px"><form id="registerForm" class="fm-form"><div class="field"><label for="name">Nome completo</label><input id="name" name="name" class="fm-input" autocomplete="name" required placeholder="Seu nome completo"></div><div class="field"><label for="email2">E-mail</label><input id="email2" name="email" class="fm-input" type="email" autocomplete="email" required placeholder="voce@email.com"></div><div class="field"><label for="pass2">Senha</label><input id="pass2" name="password" class="fm-input" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo de 8 caracteres"></div><button class="fm-btn orange full" type="submit">CRIAR CONTA</button></form></div><a href="resetar-senha.html" class="affiliate-reset-link">Esqueci minha senha</a><p class="affiliate-demo-note">MODO DEMONSTRAÇÃO · O cadastro e a sessão ficam apenas neste navegador. Não há conexão com o banco online; não use uma senha real.</p></div></section></div><p class="affiliate-back-link" style="text-align:center;margin-top:16px;font-size:11px"><a href="afiliado.html">← Voltar para a Central de Afiliados</a> · <a href="index.html">Voltar para a loja</a></p></main><script src="js/interno.js?v=20261001-1"></script><script>window.FLASHMARKET_DEMO_AUTH=true;window.FLASHMARKET_API_BASE="https://koramarketplace.vercel.app";</script><script src="js/auth-real.js?v=20261014-login-active-1"></script><script>const signup=document.querySelector('#signup'),toggle=document.querySelector('#toggle');toggle.addEventListener('click',()=>{signup.hidden=!signup.hidden;toggle.textContent=signup.hidden?'CRIAR NOVA CONTA':'VOLTAR PARA LOGIN';if(!signup.hidden)document.querySelector('#name')?.focus()});const q=new URLSearchParams(location.search);if(q.get('return')==='afiliado.html'){document.body.classList.add('affiliate-auth');document.title='Central de Afiliados | Entrar';const subtitle=document.querySelector('.fm-subtitle');if(subtitle)subtitle.textContent='Entre na sua conta para acompanhar seus links, comissões e resultados em um espaço feito para você.';}else if(q.get('return')==='minha-conta.html'){document.body.classList.add('customer-auth');document.title='Minha conta | FlashMarket';const kicker=document.querySelector('.fm-kicker');if(kicker)kicker.textContent='✦ SUA CONTA FLASHMARKET';const heroTitle=document.querySelector('.fm-hero .fm-title');if(heroTitle)heroTitle.textContent='Sua próxima compra começa aqui.';const heroSubtitle=document.querySelector('.fm-hero .fm-subtitle');if(heroSubtitle)heroSubtitle.textContent='Entre para acompanhar seus pedidos, salvar favoritos e ter tudo organizado em um só lugar.';const heading=document.querySelector('.affiliate-form-heading');if(heading)heading.textContent='Acesse sua conta';const caption=document.querySelector('.affiliate-form-caption');if(caption)caption.textContent='Use seu e-mail e senha para continuar comprando.';const note=document.querySelector('.affiliate-demo-note');if(note)note.textContent='MODO DEMONSTRAÇÃO · Seu cadastro e sua sessão ficam apenas neste navegador. Não use uma senha real.';const back=document.querySelector('.affiliate-back-link');if(back)back.innerHTML='<a href="index.html">← Voltar para a loja</a>';}if(q.get('mode')==='register'){signup.hidden=false;toggle.textContent='VOLTAR PARA LOGIN';const heading=document.querySelector('.affiliate-form-heading');if(heading)heading.textContent='Crie sua conta';const caption=document.querySelector('.affiliate-form-caption');if(caption)caption.textContent='Preencha os dados abaixo para testar a Central de Afiliados.'}</script>
-<script id="active-session-redirect">
+</style>
+    </head>
+    <body class="fm-page">
+        <div data-fm-header></div>
+        <main class="fm-container flow-main">
+            <div class="flow-breadcrumb">
+                <a href="index.html">Início</a>
+                / Entrar
+            </div>
+            <div class="affiliate-login-layout">
+                <section class="fm-hero" style="max-width:720px;margin:0 auto 20px">
+                    <span class="fm-kicker">✦ CENTRAL DE AFILIADOS</span>
+                    <h1 class="fm-title">Transforme indicações em oportunidades.</h1>
+                    <p class="fm-subtitle">Entre na sua conta para acompanhar seus links, comissões e resultados em um espaço feito para você.</p>
+                    <div class="affiliate-benefits">
+                        <div class="affiliate-benefit">
+                            <span class="affiliate-benefit-icon">↗</span>
+                            <span>Acompanhe seus links e desempenho</span>
+                        </div>
+                        <div class="affiliate-benefit">
+                            <span class="affiliate-benefit-icon">◇</span>
+                            <span>Consulte comissões e pedidos</span>
+                        </div>
+                        <div class="affiliate-benefit">
+                            <span class="affiliate-benefit-icon">✓</span>
+                            <span>Acesse sua central em poucos passos</span>
+                        </div>
+                    </div>
+                    <p class="affiliate-side-note">FLASHMARKET · CENTRAL DE AFILIADOS</p>
+                </section>
+                <section class="affiliate-login-form-panel">
+                    <h2 class="affiliate-form-heading">Bem-vindo de volta</h2>
+                    <p class="affiliate-form-caption">Entre com seus dados ou crie uma conta de demonstração para testar.</p>
+                    <div class="flow-card pad" style="max-width:520px;margin:auto;border:0;box-shadow:none;padding:0">
+                        <div id="authNote" class="auth-note" role="status" aria-live="polite"></div>
+                        <form id="loginForm" class="fm-form">
+                            <div class="field">
+                                <label for="email">E-mail</label>
+                                <input id="email" class="fm-input" type="email" autocomplete="email" required placeholder="voce@email.com">
+                            </div>
+                            <div class="field">
+                                <label for="pass">Senha</label>
+                                <input id="pass" class="fm-input" type="password" autocomplete="current-password" minlength="8" required placeholder="Mínimo de 8 caracteres">
+                            </div>
+                            <label class="fm-check"><input type="checkbox" id="remember" checked> Manter minha sessão neste dispositivo</label>
+                            <button class="fm-btn orange full" type="submit">ENTRAR</button>
+                        </form>
+                        <div class="affiliate-form-divider">ou</div>
+                        <button id="toggle" class="fm-btn light full" type="button">CRIAR NOVA CONTA</button>
+                        <div id="signup" hidden style="margin-top:18px">
+                            <form id="registerForm" class="fm-form">
+                                <div class="field">
+                                    <label for="name">Nome completo</label>
+                                    <input id="name" name="name" class="fm-input" autocomplete="name" required placeholder="Seu nome completo">
+                                </div>
+                                <div class="field">
+                                    <label for="email2">E-mail</label>
+                                    <input id="email2" name="email" class="fm-input" type="email" autocomplete="email" required placeholder="voce@email.com">
+                                </div>
+                                <div class="field">
+                                    <label for="pass2">Senha</label>
+                                    <input id="pass2" name="password" class="fm-input" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo de 8 caracteres">
+                                </div>
+                                <button class="fm-btn orange full" type="submit">CRIAR CONTA</button>
+                            </form>
+                        </div>
+                        <a href="resetar-senha.html" class="affiliate-reset-link">Esqueci minha senha</a>
+                        <p class="affiliate-demo-note">MODO DEMONSTRAÇÃO · O cadastro e a sessão ficam apenas neste navegador. Não há conexão com o banco online; não use uma senha real.</p>
+                    </div>
+                </section>
+            </div>
+            <p class="affiliate-back-link" style="text-align:center;margin-top:16px;font-size:11px"><a href="afiliado.html">← Voltar para a Central de Afiliados</a> · <a href="index.html">Voltar para a loja</a></p>
+        </main>
+        <script src="js/interno.js?v=20261001-1"></script>
+        <script>window.FLASHMARKET_DEMO_AUTH=true;window.FLASHMARKET_API_BASE="https://koramarketplace.vercel.app";</script>
+        <script src="js/auth-real.js?v=20261014-login-active-1"></script>
+        <script>const signup=document.querySelector('#signup'),toggle=document.querySelector('#toggle');toggle.addEventListener('click',()=>{signup.hidden=!signup.hidden;toggle.textContent=signup.hidden?'CRIAR NOVA CONTA':'VOLTAR PARA LOGIN';if(!signup.hidden)document.querySelector('#name')?.focus()});const q=new URLSearchParams(location.search);if(q.get('return')==='afiliado.html'){document.body.classList.add('affiliate-auth');document.title='Central de Afiliados | Entrar';const subtitle=document.querySelector('.fm-subtitle');if(subtitle)subtitle.textContent='Entre na sua conta para acompanhar seus links, comissões e resultados em um espaço feito para você.';}else if(q.get('return')==='minha-conta.html'){document.body.classList.add('customer-auth');document.title='Minha conta | FlashMarket';const kicker=document.querySelector('.fm-kicker');if(kicker)kicker.textContent='✦ SUA CONTA FLASHMARKET';const heroTitle=document.querySelector('.fm-hero .fm-title');if(heroTitle)heroTitle.textContent='Sua próxima compra começa aqui.';const heroSubtitle=document.querySelector('.fm-hero .fm-subtitle');if(heroSubtitle)heroSubtitle.textContent='Entre para acompanhar seus pedidos, salvar favoritos e ter tudo organizado em um só lugar.';const heading=document.querySelector('.affiliate-form-heading');if(heading)heading.textContent='Acesse sua conta';const caption=document.querySelector('.affiliate-form-caption');if(caption)caption.textContent='Use seu e-mail e senha para continuar comprando.';const note=document.querySelector('.affiliate-demo-note');if(note)note.textContent='MODO DEMONSTRAÇÃO · Seu cadastro e sua sessão ficam apenas neste navegador. Não use uma senha real.';const back=document.querySelector('.affiliate-back-link');if(back)back.innerHTML='<a href="index.html">← Voltar para a loja</a>';}if(q.get('mode')==='register'){signup.hidden=false;toggle.textContent='VOLTAR PARA LOGIN';const heading=document.querySelector('.affiliate-form-heading');if(heading)heading.textContent='Crie sua conta';const caption=document.querySelector('.affiliate-form-caption');if(caption)caption.textContent='Preencha os dados abaixo para testar a Central de Afiliados.'}</script>
+        <script id="active-session-redirect">
 (async function(){
   const token=localStorage.getItem('flashmarket_access_token');
   if(!token||!window.KoraAuth)return;
@@ -89,4 +176,6 @@ body.customer-auth .affiliate-login-layout+.affiliate-back-link{margin-top:20px!
     }
   }
 })();
-</script></body></html>
+</script>
+    </body>
+</html>
