@@ -35,7 +35,7 @@ footer{margin-top:0}
 .tracking-page .tr-wrap{width:min(1180px,94%);padding:42px 0 88px}
 .tracking-page .hero{position:relative;isolation:isolate;overflow:hidden;min-height:285px;padding:36px 44px;border-radius:24px;background:radial-gradient(circle at 88% 50%,rgba(255,76,47,.65),transparent 30%),linear-gradient(112deg,#141414 0%,#252525 58%,#ff482b 125%);color:#fff;box-shadow:0 24px 55px rgba(20,20,20,.13)}
 .tracking-page .hero:after{content:"";position:absolute;z-index:-1;right:7%;top:50%;width:190px;height:190px;transform:translateY(-50%);border:1px solid rgba(255,201,40,.22);border-radius:50%;box-shadow:0 0 0 22px rgba(255,201,40,.035),0 0 0 46px rgba(255,201,40,.025)}
-.tracking-page .hero:before{content:"📦";position:absolute;right:calc(7% + 59px);top:50%;transform:translateY(-50%);width:72px;height:72px;display:grid;place-items:center;border-radius:22px;background:#ffc928;color:#111;font:800 34px Inter;box-shadow:0 16px 40px rgba(255,201,40,.18)}
+.tracking-page .hero:before{content:"↗";position:absolute;right:calc(7% + 59px);top:50%;transform:translateY(-50%);width:72px;height:72px;display:grid;place-items:center;border-radius:22px;background:#ffc928;color:#111;font:800 42px Inter;box-shadow:0 16px 40px rgba(255,201,40,.18)}
 .tracking-page .eyebrow{background:rgba(255,201,40,.12);border:1px solid rgba(255,201,40,.25);color:#ffd34f;font-size:10px}
 .tracking-page .hero h1{position:relative;z-index:1;margin:20px 0 14px;font:800 clamp(36px,4.3vw,58px)/.98 Inter,Arial,sans-serif;letter-spacing:-.055em;color:#fff;text-shadow:none}
 .tracking-page .hero h1 span{color:#ffc928}
@@ -52,19 +52,6 @@ footer{margin-top:0}
 .tracking-page .loading,.tracking-page .error{border-radius:16px;margin-top:16px}
 .tracking-page .summary{border-radius:20px;background:linear-gradient(125deg,#111214,#24221b);padding:26px;box-shadow:0 16px 35px rgba(0,0,0,.12)}
 .tracking-page .summary .status{background:#ffc928;color:#161616}
-.tracking-page .summary .status[data-state="delivered"]{background:#dcfce7;color:#166534}
-.tracking-page .summary .status[data-state="canceled"],.tracking-page .summary .status[data-state="cancelled"],.tracking-page .summary .status[data-state="failed"],.tracking-page .summary .status[data-state="refunded"]{background:#fee2e2;color:#991b1b}
-.tracking-page .summary-order{min-width:0}
-.tracking-page .order-heading{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.tracking-page .order-heading h2{overflow-wrap:anywhere}
-.tracking-page .copy-order{min-height:36px;padding:0 12px;border:1px solid #444;border-radius:9px;background:#292929;color:#fff;font:700 10px Inter,Arial,sans-serif;cursor:pointer;transition:background .2s,border-color .2s}
-.tracking-page .copy-order:hover{border-color:#ffc928;background:#353535}
-.tracking-page .copy-order:focus-visible,.tracking-page .primary:focus-visible,.tracking-page .tm-cat button:focus-visible,.tracking-page .ai:focus-visible{outline:3px solid #ffc928;outline-offset:3px}
-.tracking-page .copy-feedback{min-height:16px;margin:6px 0 0;color:#a8e7bf;font-size:10px}
-.tracking-page .bar[role="progressbar"]{outline:none}
-.tracking-page .bar:focus-visible{outline:3px solid #ffc928;outline-offset:4px}
-.tracking-page .primary:disabled{cursor:wait;opacity:.7;transform:none;box-shadow:none}
-.tracking-page .loading[aria-live],.tracking-page .error[role="alert"]{line-height:1.6}
 .tracking-page .status-card,.tracking-page .card{border-color:#e7e8eb;border-radius:18px;box-shadow:0 10px 30px rgba(20,20,20,.035)}
 .tracking-page .bar i{background:linear-gradient(90deg,#ff482b,#ffc928)}
 .tracking-page .event.active .dot{background:#ffc928;box-shadow:0 0 0 4px #fff5ce}
@@ -77,7 +64,6 @@ footer{margin-top:0}
 .tracking-page .tm-actions a:focus-visible,.tracking-page .tm-cat button:focus-visible,.tracking-page .tm-menu a:focus-visible,.tracking-page .primary:focus-visible{outline:3px solid #ffc928;outline-offset:3px}
 @media(max-width:900px){.tracking-page .hero{padding:32px;min-height:250px}.tracking-page .hero:before{right:6%;width:58px;height:58px;font-size:32px}.tracking-page .hero:after{right:4%;width:150px;height:150px}.tracking-page .hero p{max-width:70%}}
 @media(max-width:650px){.tracking-page .tr-wrap{padding:24px 0 76px}.tracking-page .hero{padding:25px 22px 28px;min-height:0;border-radius:19px}.tracking-page .hero:before,.tracking-page .hero:after{display:none}.tracking-page .hero h1{font-size:clamp(34px,10vw,46px);margin:18px 0 12px}.tracking-page .hero p{max-width:none;font-size:12px}.tracking-page .track-box{padding:18px 15px 15px;border-radius:17px}.tracking-page .track-form{gap:12px}.tracking-page .primary{height:50px}.tracking-page .summary{padding:20px}.tracking-page .tm-brand img{width:112px;height:42px}}
-@media(max-width:480px){.tracking-page .order-heading{align-items:flex-start;gap:8px}.tracking-page .order-heading h2{font-size:28px}.tracking-page .copy-order{min-height:40px;padding:0 10px}.tracking-page .summary-grid{gap:8px}.tracking-page .summary-item{padding:11px}.tracking-page .status-head{display:block}.tracking-page .status-head>small{display:block;margin-top:8px}.tracking-page .card-title{align-items:flex-start;flex-direction:column;gap:7px}.tracking-page .event{gap:7px;padding-bottom:17px}.tracking-page .secure{align-items:flex-start}.tracking-page .ai{right:14px;bottom:88px;width:48px;height:48px}}
 @media(prefers-reduced-motion:reduce){.tracking-page *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
 
@@ -176,25 +162,25 @@ footer{margin-top:0}
 <p>Informe o número do pedido ou código de rastreio e acompanhe o status, histórico, produtos e atualização mais recente diretamente do sistema FlashMarket.</p>
 </section>
 
-<section class="track-box" aria-label="Consultar rastreamento">
+<section class="track-box">
 <form id="trackingForm" class="track-form">
 <div class="field"><label for="trackingCode">Número do pedido ou código de rastreio</label><div class="input"><span>⌕</span><input id="trackingCode" autocomplete="off" placeholder="Ex.: FM-8A42C19 ou código de rastreio" required></div></div>
 <button class="primary" type="submit">RASTREAR PEDIDO →</button>
 </form>
-<div class="examples"><span aria-hidden="true">💡</span><span>Use o número do pedido ou o código de rastreio recebido na confirmação da compra. Pedidos de demonstração são consultados apenas neste navegador.</span></div>
+<div class="examples"><span>💡</span><span>Use o número do pedido ou o código de rastreio recebido na confirmação da compra. Não exibimos pedidos fictícios.</span></div>
 </section>
 
 <div id="state" class="state">
-<div id="loading" class="loading hidden" aria-live="polite"><div class="spinner"></div><strong>Consultando pedido...</strong><p>Buscando a atualização mais recente.</p></div>
-<div id="error" class="error hidden" role="alert"></div>
+<div id="loading" class="loading hidden"><div class="spinner"></div><strong>Consultando pedido...</strong><p>Buscando os dados mais recentes no servidor.</p></div>
+<div id="error" class="error hidden"></div>
 </div>
 
 <section id="result" class="result hidden">
 <div class="summary">
-<div class="summary-order"><small>Pedido FlashMarket</small><div class="order-heading"><h2 id="orderNumber">—</h2><button id="copyOrder" class="copy-order" type="button" aria-label="Copiar número do pedido">Copiar número</button></div><span id="orderStatus" class="status">—</span><p id="copyFeedback" class="copy-feedback" role="status" aria-live="polite"></p></div>
+<div><small>Pedido FlashMarket</small><h2 id="orderNumber">—</h2><span id="orderStatus" class="status">—</span></div>
 <div class="summary-grid"><div class="summary-item"><span>Rastreio</span><strong id="trackingNumber">—</strong></div><div class="summary-item"><span>Transportadora</span><strong id="carrier">—</strong></div><div class="summary-item"><span>Última atualização</span><strong id="updatedAt">—</strong></div></div>
 </div>
-<div class="status-card"><div class="status-head"><div><small>STATUS ATUAL</small><h3 id="currentTitle">—</h3><p id="currentDescription">—</p></div><small id="deliveryDate">Previsão não informada</small></div><div id="progressTrack" class="bar" role="progressbar" aria-label="Progresso do pedido" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="progressBar"></i></div><div class="bar-foot"><span>Pedido criado</span><b id="progressText">0% concluído</b><span>Entrega</span></div></div>
+<div class="status-card"><div class="status-head"><div><small>STATUS ATUAL</small><h3 id="currentTitle">—</h3><p id="currentDescription">—</p></div><small id="deliveryDate">Previsão não informada</small></div><div class="bar"><i id="progressBar"></i></div><div class="bar-foot"><span>Pedido confirmado</span><b id="progressText">0%</b><span>Entrega</span></div></div>
 <div class="content-grid">
 <section class="card"><div class="card-title"><div><small>ACOMPANHAMENTO</small><h3>Histórico do pedido</h3></div><small id="lastUpdate">—</small></div><div id="timeline" class="timeline"></div></section>
 <aside class="side">
@@ -215,34 +201,20 @@ footer{margin-top:0}
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-const dt=v=>{if(!v)return'—';const date=new Date(v);return Number.isNaN(date.getTime())?'—':date.toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})};
+const dt=v=>v?new Date(v).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'—';
 const labels={created:'Pedido criado',processing:'Preparando pedido',ready_to_ship:'Pronto para envio',shipped:'Pedido enviado',in_transit:'Em trânsito',out_for_delivery:'Saiu para entrega',delivered:'Pedido entregue',canceled:'Pedido cancelado',cancelled:'Pedido cancelado',failed:'Pagamento não aprovado',refunded:'Reembolso processado',action_required:'Ação necessária',processed:'Pedido processado'};
 const label=s=>labels[String(s||'').toLowerCase()]||'Pedido em processamento';
 const form=$('trackingForm'),input=$('trackingCode'),result=$('result'),loading=$('loading'),error=$('error');
-const submitButton=form.querySelector('button[type="submit"]');
-const submitLabel=submitButton.textContent;
-function busy(v){loading.classList.toggle('hidden',!v);submitButton.disabled=v;submitButton.textContent=v?'CONSULTANDO...':submitLabel;if(v){result.classList.add('hidden');error.classList.add('hidden')}}
+function busy(v){loading.classList.toggle('hidden',!v);if(v){result.classList.add('hidden');error.classList.add('hidden')}}
 function fail(msg){busy(false);error.textContent=msg;error.classList.remove('hidden')}
 function render(o){
-const events=Array.isArray(o.tracking)?o.tracking:[],latest=o.latest||events[events.length-1]||null,rawProgress=Number(o.progress??0),p=Number.isFinite(rawProgress)?Math.max(0,Math.min(100,rawProgress)):0;
-$('orderNumber').textContent=o.id||'—';$('orderStatus').textContent=o.statusLabel||label(o.status);$('orderStatus').dataset.state=String(o.status||'').toLowerCase();$('trackingNumber').textContent=o.trackingCode||'Ainda não informado';$('carrier').textContent=o.carrier||'Ainda não informado';$('updatedAt').textContent=dt(o.updatedAt);$('lastUpdate').textContent=o.updatedAt?'Atualizado em '+dt(o.updatedAt):'Atualizado agora';$('copyFeedback').textContent='';
-$('currentTitle').textContent=latest?.title||label(o.status);$('currentDescription').textContent=latest?.description||o.statusDetail||'O pedido está registrado e aguardando a próxima atualização.';$('deliveryDate').textContent=String(o.status||'').toLowerCase()==='delivered'&&latest?.date?'Entregue em '+dt(latest.date):'Previsão não informada';$('progressBar').style.width=p+'%';$('progressTrack').setAttribute('aria-valuenow',String(p));$('progressText').textContent=p+'% concluído';
+const events=Array.isArray(o.tracking)?o.tracking:[],latest=o.latest||events[events.length-1]||null,p=Math.max(0,Math.min(100,Number(o.progress??0)));
+$('orderNumber').textContent=o.id||'—';$('orderStatus').textContent=o.statusLabel||label(o.status);$('trackingNumber').textContent=o.trackingCode||'Ainda não informado';$('carrier').textContent=o.carrier||'Ainda não informado';$('updatedAt').textContent=dt(o.updatedAt);$('lastUpdate').textContent=o.updatedAt?'Atualizado em '+dt(o.updatedAt):'Atualizado agora';
+$('currentTitle').textContent=latest?.title||label(o.status);$('currentDescription').textContent=latest?.description||o.statusDetail||'O pedido está registrado e aguardando a próxima atualização.';$('deliveryDate').textContent=String(o.status||'').toLowerCase()==='delivered'&&latest?.date?'Entregue em '+dt(latest.date):'Previsão não informada';$('progressBar').style.width=p+'%';$('progressText').textContent=p+'% concluído';
 const d=o.destination||{};$('destination').innerHTML=d.city||d.state?'<strong>'+esc(d.city||'Cidade não informada')+' — '+esc(d.state||'UF')+'</strong>'+(d.cep?'<br>CEP '+esc(d.cep):''):'Destino não disponível.';
 const items=Array.isArray(o.items)?o.items:[];$('products').innerHTML=items.length?items.map(i=>'<div class="product"><div><strong>'+esc(i.name)+'</strong><small>Qtd. '+esc(i.quantity)+'</small></div><b>'+money(i.total)+'</b></div>').join(''):'<p style="font-size:10px;color:#999">Nenhum item encontrado.</p>';
 $('timeline').innerHTML=events.length?events.map((e,i)=>'<div class="event '+(i===events.length-1?'active':'')+'"><div class="dot"></div><div><strong>'+esc(e.title||label(e.status))+'</strong><time>'+dt(e.date)+'</time>'+(e.description?'<p>'+esc(e.description)+'</p>':'')+((e.carrier||e.trackingCode)?'<span class="meta">'+esc(e.carrier||'')+(e.carrier&&e.trackingCode?' · ':'')+esc(e.trackingCode||'')+'</span>':'')+'</div></div>').join(''):'<p style="font-size:10px;color:#999">Ainda não existem eventos de rastreamento para este pedido.</p>';
-busy(false);result.classList.remove('hidden');error.classList.add('hidden');
-}
-async function copyOrderNumber(){
-const value=$('orderNumber').textContent.trim(),feedback=$('copyFeedback');
-if(!value||value==='—')return;
-try{
-if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(value);
-else{
-const field=document.createElement('textarea');field.value=value;field.setAttribute('readonly','');field.style.position='fixed';field.style.opacity='0';document.body.appendChild(field);field.select();
-const copied=document.execCommand('copy');field.remove();if(!copied)throw new Error('A cópia não foi autorizada pelo navegador.');
-}
-feedback.textContent='Número do pedido copiado.';
-}catch(error){feedback.textContent='Não foi possível copiar. Selecione o número do pedido para copiá-lo.';console.warn('[FlashMarket] Falha ao copiar o número do pedido.',error)}
+result.classList.remove('hidden');loading.classList.add('hidden');error.classList.add('hidden');
 }
 function findLocalOrder(code){
 try{
@@ -286,7 +258,6 @@ try{
  }catch(e){if(silent){return}fail(e.name==='TypeError'?'Não foi possível conectar ao servidor. Verifique sua internet e tente novamente.':(e.message||'Não foi possível consultar o pedido.'))}
 }
 form.addEventListener('submit',e=>{e.preventDefault();track(input.value)});
-$('copyOrder').addEventListener('click',copyOrderNumber);
 setInterval(()=>{if(current&&!document.hidden)track(current,true)},30000);
 const params=new URLSearchParams(location.search),initial=params.get('pedido')||params.get('code')||params.get('tracking')||params.get('order');if(initial)track(initial);
 const cat=$('catBtn'),menu=$('catMenu');cat.addEventListener('click',e=>{e.stopPropagation();const open=!menu.classList.contains('open');menu.classList.toggle('open',open);cat.setAttribute('aria-expanded',open)});menu.addEventListener('click',e=>e.stopPropagation());document.addEventListener('click',()=>{menu.classList.remove('open');cat.setAttribute('aria-expanded','false')});document.addEventListener('keydown',e=>{if(e.key==='Escape')menu.classList.remove('open')});
