@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#ff3b20">
-<meta name="description" content="FlashMarket — Central de Afiliados">
-<link rel="icon" href="assets/favicon.png">
-<title>FlashMarket | Central de Afiliados</title>
-<style>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="theme-color" content="#ff3b20">
+        <meta name="description" content="FlashMarket — Central de Afiliados">
+        <link rel="icon" href="assets/favicon.png">
+        <title>
+            FlashMarket | Central de Afiliados
+        </title>
+        <style>
 :root{--red:#ff3b20;--red2:#ff5a3d;--gold:#ffc21c;--ink:#111318;--dark:#171a20;--bg:#f5f6f8;--card:#fff;--muted:#7b8390;--line:#e8ebef;--green:#159a69;--shadow:0 14px 40px rgba(17,19,24,.08)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
 a{text-decoration:none;color:inherit}button,input,select{font:inherit}.top{height:38px;background:#202124;color:#fff;font-size:12px}.topin{height:100%;max-width:1500px;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.topgroup{display:flex;align-items:center;gap:18px}.topitem{display:flex;align-items:center;gap:7px;white-space:nowrap}.topsep{height:18px;width:1px;background:#ffffff2b}
@@ -97,47 +99,391 @@ body{background:linear-gradient(180deg,#f8f8f9 0,#f1f2f4 55%,#f7f7f8 100%)}
 @media(max-width:520px){.products,.stats,.steps,.faq{grid-template-columns:1fr}.hero h1{font-size:35px}.hero-stats{grid-template-columns:1fr 1fr}.quick{grid-template-columns:1fr 1fr}.section-head{align-items:start}.panel{padding:15px}.products{gap:10px}.product-visual{height:120px}.head{grid-template-columns:44px minmax(0,1fr)}.brand img{width:44px;height:48px}.head-actions{display:none}}
 
 </style>
-
-<style id="withdraw-real-ui">
+        <style id="withdraw-real-ui">
 .withdraw-note{margin:12px 0 0;color:#8f98a5;font-size:8px;line-height:1.5}
 .withdraw .form input:focus,.withdraw .form select:focus{border-color:var(--red);box-shadow:0 0 0 3px #ff3b2022}
 </style>
-</head>
-<body>
-<div class="top"><div class="topin"><div class="topgroup"><span class="topitem">🚚 <b>Frete grátis acima de R$ 199</b></span><i class="topsep"></i><span class="topitem">🔒 Compra segura</span><i class="topsep"></i><span class="topitem">🛡️ Dados protegidos</span></div><div class="topgroup"><span class="topitem">🎧 Atendimento 24h</span><i class="topsep"></i><a href="suporte.html">Central de Atendimento</a></div></div></div>
-<header class="header"><div class="head"><a class="brand" href="index.html"><img src="/FlashMarket/assets/logo.FlashMarket.png" alt="FlashMarket" width="156" height="74" decoding="async" fetchpriority="high" onerror="this.onerror=null;this.src='/assets/logo.FlashMarket.png';"><span class="affiliate-label">Central<br>de Afiliados</span></a><form class="search" onsubmit="return searchSite(event)"><input id="searchInput" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button type="submit">⌕</button></form><div class="head-actions"><a href="minha-conta.html">👤 Minha conta</a><a href="carrinho.html">🛒 Carrinho</a><button class="primary" onclick="affiliateLogout()">Sair da conta</button></div></div></header>
-<section class="auth-gate" id="affiliateGate"><div class="auth-gate-card"><div class="auth-gate-mark">🔐</div><h1>Sua central começa com segurança.</h1><p>Entre na sua conta FlashMarket ou crie seu cadastro gratuito. Depois da autenticação, você poderá acessar o painel de afiliados, links, comissões e solicitações de saque.</p><div class="auth-gate-actions"><a class="gate-primary" href="login.html?return=afiliado.html">ENTRAR NA CONTA</a><a class="gate-secondary" href="login.html?mode=register&return=afiliado.html">CRIAR CADASTRO</a></div><p class="gate-note">MODO DEMONSTRAÇÃO: cadastro e sessão ficam apenas neste navegador. Os dados do painel são fictícios e não representam vendas, comissões ou saques reais.</p></div></section><div class="layout hidden" id="affiliateApp">
-<aside class="sidebar"><div class="side-title">Central</div><nav class="side"><a class="active" href="#inicio"><span class="side-icon">⌂</span>Visão geral</a><a href="#link"><span class="side-icon">🔗</span>Meu link</a><a href="#products"><span class="side-icon">🛍️</span>Produtos</a><a href="#commissions"><span class="side-icon">💵</span>Comissões</a><a href="#withdraw"><span class="side-icon">💳</span>Saque</a><a href="#how"><span class="side-icon">?</span>Como funciona</a></nav><div class="side-bottom">Central financeira<br>Comissões e saques vinculados ao seu cadastro.</div></aside>
-<main id="inicio">
-<div class="crumb"><a href="index.html">Início</a> / Central de Afiliados</div>
-<section class="hero"><div><span class="eyebrow">Programa de afiliados FlashMarket</span><h1>Divulgue. Venda. Cresça.</h1><p>Uma central moderna para criar links personalizados, divulgar produtos e acompanhar cliques, vendas e comissões em um só lugar.</p><div class="hero-actions"><button class="btn gold" onclick="scrollToId('link')">ACESSAR FERRAMENTAS →</button><a class="btn ghost" href="#how">COMO FUNCIONA</a></div><div class="trust"><span>✓ <b>Links personalizados</b></span><span>✓ <b>Acompanhamento</b></span><span>✓ <b>Experiência profissional</b></span></div></div><div class="hero-stats"><div class="hero-stat"><span>Comissão</span><strong id="commissionRate">—</strong></div><div class="hero-stat"><span>Cookie</span><strong>30 dias</strong></div><div class="hero-stat"><span>Saque mínimo</span><strong>R$ 50</strong></div><div class="hero-stat"><span>Status</span><strong>Ativo</strong></div></div></section>
-<section class="section"><div class="section-head"><div><h2>Visão geral</h2><p>Resumo do seu desempenho no programa.</p></div><div><button class="copy" type="button" onclick="loadAffiliateData()">ATUALIZAR DADOS</button><p class="live-status" id="affiliateLiveStatus">Aguardando API…</p></div></div><div class="stats"><div class="card stat"><div class="icon">💰</div><label>Saldo disponível</label><strong id="metricAvailable">—</strong><span class="up">Comissões aprovadas menos saques</span></div><div class="card stat"><div class="icon">🛍️</div><label>Vendas aprovadas</label><strong id="metricSales">—</strong><span class="up">Pedidos atribuídos ao seu código</span></div><div class="card stat"><div class="icon">👆</div><label>Cliques</label><strong id="metricClicks">—</strong><span class="up">Últimos 30 dias</span></div><div class="card stat"><div class="icon">📈</div><label>Conversão</label><strong id="metricConversion">—</strong><span class="up">Vendas aprovadas ÷ cliques</span></div></div></section>
-<section class="section two"><div class="card panel"><h3>Desempenho dos últimos 7 dias</h3><p class="sub">Cliques registrados pelos seus links.</p><div class="chart" id="clicksChart"><p class="data-state">Carregando cliques reais…</p></div></div><div class="card panel goal"><h3>Meta mensal</h3><p class="sub">Comissão acumulada em relação à meta.</p><div class="goalvalue" id="goalCommission">—</div><div class="progress"><i id="goalProgress" style="width:0%"></i></div><div class="goalfoot"><span id="goalPercent">0% da meta</span><span>Meta R$ 365</span></div></div></section>
-<section class="section"><div class="section-head"><div><h2>Acesso rápido</h2><p>Ferramentas para o seu dia a dia.</p></div></div><div class="quick"><a href="#products"><span>🛍️</span>Divulgar produtos</a><a href="#link"><span>🔗</span>Meu link</a><a href="#commissions"><span>💵</span>Comissões</a><a href="#withdraw"><span>💳</span>Solicitar saque</a></div></section>
-<section class="section card linkcard" id="link"><h3>Seu link principal</h3><p class="sub">Copie e compartilhe seu link de afiliado.</p><div class="linkrow"><input id="affLink" value="Gerando seu link individual…" readonly><button class="copy" onclick="copyLink()">COPIAR LINK</button></div></section>
-<section class="section" id="products"><div class="section-head"><div><h2>Produtos para divulgar</h2><p>Escolha um produto e gere um link exclusivo.</p></div></div><div class="products" id="affiliateProductsGrid"><p class="data-state">Carregando catálogo real…</p></div></section>
-<section class="section two" id="commissions"><div class="card panel"><h3>Últimas comissões</h3><p class="sub">Vendas atribuídas aos seus links.</p><div class="table-wrap"><table class="table"><thead><tr><th>Pedido</th><th>Produto</th><th>Venda</th><th>Comissão</th><th>Status</th></tr></thead><tbody id="affiliateOrdersRows"><tr><td colspan="5" class="data-state">Carregando vendas atribuídas ao seu código…</td></tr></tbody></table></div></div><div class="card panel withdraw" id="withdraw">
-<h3>Solicitar saque</h3>
-<div class="balance" id="withdrawBalance">R$ 0,00</div>
-<p class="sub">Saldo de comissão aprovado. A solicitação será validada pelo servidor e ficará pendente de processamento.</p>
-<div class="form">
-<label>Valor do saque</label>
+    </head>
+    <body>
+        <div class="top">
+            <div class="topin">
+                <div class="topgroup">
+                    <span class="topitem">🚚 <b>Frete grátis acima de R$ 199</b></span><i class="topsep"></i><span class="topitem">🔒 Compra segura</span><i class="topsep"></i><span class="topitem">🛡️ Dados protegidos</span>
+                </div>
+                <div class="topgroup">
+                    <span class="topitem">🎧 Atendimento 24h</span><i class="topsep"></i><a href="suporte.html">Central de Atendimento</a>
+                </div>
+            </div>
+        </div>
+        <header class="header">
+            <div class="head">
+                <a class="brand" href="index.html"><img src="/FlashMarket/assets/logo.FlashMarket.png" alt="FlashMarket" width="156" height="74" decoding="async" fetchpriority="high" onerror="this.onerror=null;this.src='/assets/logo.FlashMarket.png';"><span class="affiliate-label">Central<br>de Afiliados</span></a>
+                <form class="search" onsubmit="return searchSite(event)">
+                    <input id="searchInput" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button type="submit">⌕</button>
+                </form>
+                <div class="head-actions">
+                    <a href="minha-conta.html">👤 Minha conta</a><a href="carrinho.html">🛒 Carrinho</a><button class="primary" onclick="affiliateLogout()">Sair da conta</button>
+                </div>
+            </div>
+        </header>
+        <section class="auth-gate" id="affiliateGate">
+            <div class="auth-gate-card">
+                <div class="auth-gate-mark">
+                    🔐
+                </div>
+                <h1>
+                    Sua central começa com segurança.
+                </h1>
+                <p>
+                    Entre na sua conta FlashMarket ou crie seu cadastro gratuito. Depois da autenticação, você poderá acessar o painel de afiliados, links, comissões e solicitações de saque.
+                </p>
+                <div class="auth-gate-actions">
+                    <a class="gate-primary" href="login.html?return=afiliado.html">ENTRAR NA CONTA</a><a class="gate-secondary" href="login.html?mode=register&return=afiliado.html">CRIAR CADASTRO</a>
+                </div>
+                <p class="gate-note">
+                    MODO DEMONSTRAÇÃO: cadastro e sessão ficam apenas neste navegador. Os dados do painel são fictícios e não representam vendas, comissões ou saques reais.
+                </p>
+            </div>
+        </section>
+        <div class="layout hidden" id="affiliateApp">
+            <aside class="sidebar">
+                <div class="side-title">
+                    Central
+                </div>
+                <nav class="side">
+                    <a class="active" href="#inicio"><span class="side-icon">⌂</span>Visão geral</a><a href="#link"><span class="side-icon">🔗</span>Meu link</a><a href="#products"><span class="side-icon">🛍️</span>Produtos</a><a href="#commissions"><span class="side-icon">💵</span>Comissões</a><a href="#withdraw"><span class="side-icon">💳</span>Saque</a><a href="#how"><span class="side-icon">?</span>Como funciona</a>
+                </nav>
+                <div class="side-bottom">
+                    Central financeira<br>Comissões e saques vinculados ao seu cadastro.
+                </div>
+            </aside>
+            <main id="inicio">
+                <div class="crumb">
+                    <a href="index.html">Início</a> / Central de Afiliados
+                </div>
+                <section class="hero">
+                    <div>
+                        <span class="eyebrow">Programa de afiliados FlashMarket</span>
+                        <h1>
+                            Divulgue. Venda. Cresça.
+                        </h1>
+                        <p>
+                            Uma central moderna para criar links personalizados, divulgar produtos e acompanhar cliques, vendas e comissões em um só lugar.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn gold" onclick="scrollToId('link')">ACESSAR FERRAMENTAS →</button><a class="btn ghost" href="#how">COMO FUNCIONA</a>
+                        </div>
+                        <div class="trust">
+                            <span>✓ <b>Links personalizados</b></span><span>✓ <b>Acompanhamento</b></span><span>✓ <b>Experiência profissional</b></span>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span>Comissão</span><strong id="commissionRate">—</strong>
+                        </div>
+                        <div class="hero-stat">
+                            <span>Cookie</span><strong>30 dias</strong>
+                        </div>
+                        <div class="hero-stat">
+                            <span>Saque mínimo</span><strong>R$ 50</strong>
+                        </div>
+                        <div class="hero-stat">
+                            <span>Status</span><strong>Ativo</strong>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div class="section-head">
+                        <div>
+                            <h2>
+                                Visão geral
+                            </h2>
+                            <p>
+                                Resumo do seu desempenho no programa.
+                            </p>
+                        </div>
+                        <div>
+                            <button class="copy" type="button" onclick="loadAffiliateData()">ATUALIZAR DADOS</button>
+                            <p class="live-status" id="affiliateLiveStatus">
+                                Aguardando API…
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stats">
+                        <div class="card stat">
+                            <div class="icon">
+                                💰
+                            </div>
+                            <label>Saldo disponível</label><strong id="metricAvailable">—</strong><span class="up">Comissões aprovadas menos saques</span>
+                        </div>
+                        <div class="card stat">
+                            <div class="icon">
+                                🛍️
+                            </div>
+                            <label>Vendas aprovadas</label><strong id="metricSales">—</strong><span class="up">Pedidos atribuídos ao seu código</span>
+                        </div>
+                        <div class="card stat">
+                            <div class="icon">
+                                👆
+                            </div>
+                            <label>Cliques</label><strong id="metricClicks">—</strong><span class="up">Últimos 30 dias</span>
+                        </div>
+                        <div class="card stat">
+                            <div class="icon">
+                                📈
+                            </div>
+                            <label>Conversão</label><strong id="metricConversion">—</strong><span class="up">Vendas aprovadas ÷ cliques</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="section two">
+                    <div class="card panel">
+                        <h3>
+                            Desempenho dos últimos 7 dias
+                        </h3>
+                        <p class="sub">
+                            Cliques registrados pelos seus links.
+                        </p>
+                        <div class="chart" id="clicksChart">
+                            <p class="data-state">
+                                Carregando cliques reais…
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card panel goal">
+                        <h3>
+                            Meta mensal
+                        </h3>
+                        <p class="sub">
+                            Comissão acumulada em relação à meta.
+                        </p>
+                        <div class="goalvalue" id="goalCommission">
+                            —
+                        </div>
+                        <div class="progress">
+                            <i id="goalProgress" style="width:0%"></i>
+                        </div>
+                        <div class="goalfoot">
+                            <span id="goalPercent">0% da meta</span><span>Meta R$ 365</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div class="section-head">
+                        <div>
+                            <h2>
+                                Acesso rápido
+                            </h2>
+                            <p>
+                                Ferramentas para o seu dia a dia.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="quick">
+                        <a href="#products"><span>🛍️</span>Divulgar produtos</a><a href="#link"><span>🔗</span>Meu link</a><a href="#commissions"><span>💵</span>Comissões</a><a href="#withdraw"><span>💳</span>Solicitar saque</a>
+                    </div>
+                </section>
+                <section class="section card linkcard" id="link">
+                    <h3>
+                        Seu link principal
+                    </h3>
+                    <p class="sub">
+                        Copie e compartilhe seu link de afiliado.
+                    </p>
+                    <div class="linkrow">
+                        <input id="affLink" value="Gerando seu link individual…" readonly><button class="copy" onclick="copyLink()">COPIAR LINK</button>
+                    </div>
+                </section>
+                <section class="section" id="products">
+                    <div class="section-head">
+                        <div>
+                            <h2>
+                                Produtos para divulgar
+                            </h2>
+                            <p>
+                                Escolha um produto e gere um link exclusivo.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="products" id="affiliateProductsGrid">
+                        <p class="data-state">
+                            Carregando catálogo real…
+                        </p>
+                    </div>
+                </section>
+                <section class="section two" id="commissions">
+                    <div class="card panel">
+                        <h3>
+                            Últimas comissões
+                        </h3>
+                        <p class="sub">
+                            Vendas atribuídas aos seus links.
+                        </p>
+                        <div class="table-wrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Pedido
+                                        </th>
+                                        <th>
+                                            Produto
+                                        </th>
+                                        <th>
+                                            Venda
+                                        </th>
+                                        <th>
+                                            Comissão
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="affiliateOrdersRows">
+                                    <tr>
+                                        <td colspan="5" class="data-state">
+                                            Carregando vendas atribuídas ao seu código…
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card panel withdraw" id="withdraw">
+                        <h3>
+                            Solicitar saque
+                        </h3>
+                        <div class="balance" id="withdrawBalance">
+                            R$ 0,00
+                        </div>
+                        <p class="sub">
+                            Saldo de comissão aprovado. A solicitação será validada pelo servidor e ficará pendente de processamento.
+                        </p>
+                        <div class="form">
+                            <label>Valor do saque</label>
 <input id="withdrawAmount" type="number" min="50" step="0.01" placeholder="Ex.: 100,00">
 <label>Tipo da chave PIX</label>
 <select id="pixKeyType"><option value="CPF">CPF</option><option value="CNPJ">CNPJ</option><option value="EMAIL">E-mail</option><option value="PHONE">Telefone</option><option value="PIX_CODE">Chave aleatória</option></select>
 <label>Chave PIX</label>
 <input id="pixKey" autocomplete="off" placeholder="Digite sua chave PIX">
 <button class="btn" style="background:var(--red);color:#fff" onclick="requestWithdrawal()">SOLICITAR SAQUE</button>
-</div>
-<p class="withdraw-note">A solicitação não transfere dinheiro automaticamente. O processamento do PIX depende da configuração do provedor de pagamentos.</p>
-</div></section>
-<section class="section" id="how"><div class="section-head"><div><h2>Como funciona</h2><p>Comece em quatro passos simples.</p></div></div><div class="steps"><div class="card step"><b>01</b><h3>Cadastre-se</h3><p>Crie seu acesso à central de afiliados.</p></div><div class="card step"><b>02</b><h3>Escolha produtos</h3><p>Selecione produtos liberados para divulgação.</p></div><div class="card step"><b>03</b><h3>Compartilhe</h3><p>Gere seu link e compartilhe com sua audiência.</p></div><div class="card step"><b>04</b><h3>Acompanhe</h3><p>Veja cliques, vendas e comissões no painel.</p></div></div></section>
-<section class="section"><div class="section-head"><div><h2>Perguntas frequentes</h2><p>Informações rápidas para começar.</p></div></div><div class="faq"><details><summary>Como recebo comissão?</summary><p>As comissões aprovadas ficam disponíveis conforme as regras do programa.</p></details><details><summary>Posso divulgar qualquer produto?</summary><p>Somente os produtos disponibilizados no programa de afiliados.</p></details><details><summary>Quando posso sacar?</summary><p>O saque mínimo configurado para o programa é de R$ 50.</p></details><details><summary>O sistema já paga dinheiro?</summary><p>As solicitações ficam pendentes até que o provedor de pagamentos esteja habilitado e configurado.</p></details></div></section>
-<section class="section card panel" id="accountInfo"><h3 id="welcomeAffiliate">Bem-vindo à Central de Afiliados</h3><p class="sub">Modo demonstração: esta sessão e o cadastro ficam somente neste navegador. Não há conexão com o banco nem movimentação financeira real.</p></section>
-</main></div>
-<div class="toast" id="toast"></div>
-<script>window.FLASHMARKET_DEMO_AUTH=true;window.FLASHMARKET_API_BASE=window.FLASHMARKET_API_BASE||"https://koramarketplace.vercel.app";</script><script src="js/auth-real.js?v=20261026-demo-affiliate-1"></script>
-<script id="affiliate-live-mode">
+                        </div>
+                        <p class="withdraw-note">
+                            A solicitação não transfere dinheiro automaticamente. O processamento do PIX depende da configuração do provedor de pagamentos.
+                        </p>
+                    </div>
+                </section>
+                <section class="section" id="how">
+                    <div class="section-head">
+                        <div>
+                            <h2>
+                                Como funciona
+                            </h2>
+                            <p>
+                                Comece em quatro passos simples.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="steps">
+                        <div class="card step">
+                            <b>01</b>
+                            <h3>
+                                Cadastre-se
+                            </h3>
+                            <p>
+                                Crie seu acesso à central de afiliados.
+                            </p>
+                        </div>
+                        <div class="card step">
+                            <b>02</b>
+                            <h3>
+                                Escolha produtos
+                            </h3>
+                            <p>
+                                Selecione produtos liberados para divulgação.
+                            </p>
+                        </div>
+                        <div class="card step">
+                            <b>03</b>
+                            <h3>
+                                Compartilhe
+                            </h3>
+                            <p>
+                                Gere seu link e compartilhe com sua audiência.
+                            </p>
+                        </div>
+                        <div class="card step">
+                            <b>04</b>
+                            <h3>
+                                Acompanhe
+                            </h3>
+                            <p>
+                                Veja cliques, vendas e comissões no painel.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div class="section-head">
+                        <div>
+                            <h2>
+                                Perguntas frequentes
+                            </h2>
+                            <p>
+                                Informações rápidas para começar.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="faq">
+                        <details>
+                            <summary>
+                                Como recebo comissão?
+                            </summary>
+                            <p>
+                                As comissões aprovadas ficam disponíveis conforme as regras do programa.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>
+                                Posso divulgar qualquer produto?
+                            </summary>
+                            <p>
+                                Somente os produtos disponibilizados no programa de afiliados.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>
+                                Quando posso sacar?
+                            </summary>
+                            <p>
+                                O saque mínimo configurado para o programa é de R$ 50.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>
+                                O sistema já paga dinheiro?
+                            </summary>
+                            <p>
+                                As solicitações ficam pendentes até que o provedor de pagamentos esteja habilitado e configurado.
+                            </p>
+                        </details>
+                    </div>
+                </section>
+                <section class="section card panel" id="accountInfo">
+                    <h3 id="welcomeAffiliate">
+                        Bem-vindo à Central de Afiliados
+                    </h3>
+                    <p class="sub">
+                        Modo demonstração: esta sessão e o cadastro ficam somente neste navegador. Não há conexão com o banco nem movimentação financeira real.
+                    </p>
+                </section>
+            </main>
+        </div>
+        <div class="toast" id="toast"></div>
+        <script>window.FLASHMARKET_DEMO_AUTH=true;window.FLASHMARKET_API_BASE=window.FLASHMARKET_API_BASE||"https://koramarketplace.vercel.app";</script>
+        <script src="js/auth-real.js?v=20261026-demo-affiliate-1"></script>
+        <script id="affiliate-live-mode">
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -316,5 +662,5 @@ body{background:linear-gradient(180deg,#f8f8f9 0,#f1f2f4 55%,#f7f7f8 100%)}
   });
 })();
 </script>
-</body>
+    </body>
 </html>

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#111111">
-<meta name="description" content="Acompanhe o status do seu pedido FlashMarket em tempo real.">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="assets/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<title>FlashMarket | Rastrear Pedido</title>
-<style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta name="theme-color" content="#111111">
+        <meta name="description" content="Acompanhe o status do seu pedido FlashMarket em tempo real.">
+        <link rel="manifest" href="manifest.webmanifest">
+        <link rel="icon" href="assets/favicon.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+        <title>
+            FlashMarket | Rastrear Pedido
+        </title>
+        <style>
 :root{--ink:#111;--muted:#737373;--line:#e8e8e3;--bg:#f5f5f2;--card:#fff;--yellow:#ffc928;--green:#16a34a;--red:#dc2626}
 *{box-sizing:border-box}.tracking-page{min-height:100vh;background:linear-gradient(180deg,#fafaf8 0,#f2f2ef 100%);color:var(--ink)}
 .tm-top{height:34px;background:#111;color:#ddd}.tm-top .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;font-size:10px}.tm-top strong{color:var(--yellow)}.tm-links{display:flex;gap:20px}.tm-links a{color:#bbb;text-decoration:none}.tm-links a.active{color:#fff;font-weight:800}
@@ -141,62 +143,169 @@ footer{margin-top:0}
 }
 
 </style>
-</head>
-<body class="tracking-page">
-<div class="tm-top"><div class="wrap"><div class="tm-note">🚚 <strong>Frete grátis acima de R$ 199</strong> &nbsp; • &nbsp; 🔒 Compra segura</div><nav class="tm-links"><a href="suporte.html">Atendimento</a><a class="active" href="rastrear-pedido.html">Rastrear pedido</a><a href="afiliado.html">Afiliado</a></nav></div></div>
-<header class="tm-header">
-<div class="tm-header-main">
-<div class="tm-brand">
-<a href="index.html" aria-label="FlashMarket — página inicial"><img src="assets/logo.FlashMarket.png" alt="FlashMarket" width="160" height="54" decoding="async" fetchpriority="high"></a>
-<div class="tm-cat"><button id="catBtn" aria-label="Abrir categorias" aria-expanded="false">☰</button><div id="catMenu" class="tm-menu"><b>Comprar por categoria</b><a href="produtos.html?c=Eletrônicos"><span>📱</span>Eletrônicos</a><a href="produtos.html?c=Vestuário"><span>👕</span>Moda</a><a href="produtos.html?c=Casa%20%26%20Decor"><span>🏠</span>Casa & Decor</a><a href="produtos.html?c=Beleza"><span>💄</span>Beleza</a><a href="produtos.html?c=Esportes"><span>⚽</span>Esportes</a><a href="produtos.html?c=Pet%20Shop"><span>🐶</span>Pet Shop</a><a href="produtos.html?c=Papelaria"><span>📚</span>Livros & Papelaria</a><a href="produtos.html"><span>🔥</span>Ofertas</a></div></div>
-</div>
-<form class="tm-search" action="index.html" method="get"><input name="q" type="search" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button type="submit" aria-label="Buscar produtos">⌕</button></form>
-<div class="tm-actions"><a href="minha-conta.html"><i>♙</i><span>Conta</span></a><a href="index.html#favoritos"><i>♡</i><span>Favoritos</span></a><a href="carrinho.html"><i>🛒</i><span>Carrinho</span></a></div>
-</div>
-</header>
-
-<main class="tr-wrap">
-<section class="hero">
-<span class="eyebrow">⚡ Rastreamento oficial FlashMarket</span>
-<h1>ONDE ESTÁ<br><span>SEU PEDIDO?</span></h1>
-<p>Informe o número do pedido ou código de rastreio e acompanhe o status, histórico, produtos e atualização mais recente diretamente do sistema FlashMarket.</p>
-</section>
-
-<section class="track-box">
-<form id="trackingForm" class="track-form">
-<div class="field"><label for="trackingCode">Número do pedido ou código de rastreio</label><div class="input"><span>⌕</span><input id="trackingCode" autocomplete="off" placeholder="Ex.: FM-8A42C19 ou código de rastreio" required></div></div>
-<button class="primary" type="submit">RASTREAR PEDIDO →</button>
-</form>
-<div class="examples"><span>💡</span><span>Use o número do pedido ou o código de rastreio recebido na confirmação da compra. Não exibimos pedidos fictícios.</span></div>
-</section>
-
-<div id="state" class="state">
-<div id="loading" class="loading hidden"><div class="spinner"></div><strong>Consultando pedido...</strong><p>Buscando os dados mais recentes no servidor.</p></div>
-<div id="error" class="error hidden"></div>
-</div>
-
-<section id="result" class="result hidden">
-<div class="summary">
-<div><small>Pedido FlashMarket</small><h2 id="orderNumber">—</h2><span id="orderStatus" class="status">—</span></div>
-<div class="summary-grid"><div class="summary-item"><span>Rastreio</span><strong id="trackingNumber">—</strong></div><div class="summary-item"><span>Transportadora</span><strong id="carrier">—</strong></div><div class="summary-item"><span>Última atualização</span><strong id="updatedAt">—</strong></div></div>
-</div>
-<div class="status-card"><div class="status-head"><div><small>STATUS ATUAL</small><h3 id="currentTitle">—</h3><p id="currentDescription">—</p></div><small id="deliveryDate">Previsão não informada</small></div><div class="bar"><i id="progressBar"></i></div><div class="bar-foot"><span>Pedido confirmado</span><b id="progressText">0%</b><span>Entrega</span></div></div>
-<div class="content-grid">
-<section class="card"><div class="card-title"><div><small>ACOMPANHAMENTO</small><h3>Histórico do pedido</h3></div><small id="lastUpdate">—</small></div><div id="timeline" class="timeline"></div></section>
-<aside class="side">
-<div class="card"><small>ENTREGA</small><h3>Destino</h3><div id="destination" class="destination">—</div></div>
-<div class="card"><small>PEDIDO</small><h3>Produtos</h3><div id="products"></div></div>
-<div class="card help"><h3>Precisa de ajuda?</h3><p>Se houver alguma divergência no rastreamento, fale com nossa equipe de atendimento.</p><a href="suporte.html">Acessar atendimento →</a></div>
-</aside>
-</div>
-<div class="secure"><div class="secure-icon">🔒</div><div><strong>Rastreamento seguro</strong><p>Pedidos reais são consultados no sistema FlashMarket. Pedidos de demonstração mostram apenas os dados salvos neste navegador, sem inventar atualizações de entrega.</p></div></div>
-</section>
-</main>
-
-<button id="ai" class="ai" aria-label="Ajuda">✦</button>
-<footer class="footer"></footer>
-
-<script>
+    </head>
+    <body class="tracking-page">
+        <div class="tm-top">
+            <div class="wrap">
+                <div class="tm-note">
+                    🚚 <strong>Frete grátis acima de R$ 199</strong> &nbsp; • &nbsp; 🔒 Compra segura
+                </div>
+                <nav class="tm-links">
+                    <a href="suporte.html">Atendimento</a><a class="active" href="rastrear-pedido.html">Rastrear pedido</a><a href="afiliado.html">Afiliado</a>
+                </nav>
+            </div>
+        </div>
+        <header class="tm-header">
+            <div class="tm-header-main">
+                <div class="tm-brand">
+                    <a href="index.html" aria-label="FlashMarket — página inicial"><img src="assets/logo.FlashMarket.png" alt="FlashMarket" width="160" height="54" decoding="async" fetchpriority="high"></a>
+                    <div class="tm-cat">
+                        <button id="catBtn" aria-label="Abrir categorias" aria-expanded="false">☰</button>
+                        <div id="catMenu" class="tm-menu">
+                            <b>Comprar por categoria</b><a href="produtos.html?c=Eletrônicos"><span>📱</span>Eletrônicos</a><a href="produtos.html?c=Vestuário"><span>👕</span>Moda</a><a href="produtos.html?c=Casa%20%26%20Decor"><span>🏠</span>Casa & Decor</a><a href="produtos.html?c=Beleza"><span>💄</span>Beleza</a><a href="produtos.html?c=Esportes"><span>⚽</span>Esportes</a><a href="produtos.html?c=Pet%20Shop"><span>🐶</span>Pet Shop</a><a href="produtos.html?c=Papelaria"><span>📚</span>Livros & Papelaria</a><a href="produtos.html"><span>🔥</span>Ofertas</a>
+                        </div>
+                    </div>
+                </div>
+                <form class="tm-search" action="index.html" method="get">
+                    <input name="q" type="search" placeholder="Buscar produtos, categorias e ofertas..." aria-label="Buscar"><button type="submit" aria-label="Buscar produtos">⌕</button>
+                </form>
+                <div class="tm-actions">
+                    <a href="minha-conta.html"><i>♙</i><span>Conta</span></a><a href="index.html#favoritos"><i>♡</i><span>Favoritos</span></a><a href="carrinho.html"><i>🛒</i><span>Carrinho</span></a>
+                </div>
+            </div>
+        </header>
+        <main class="tr-wrap">
+            <section class="hero">
+                <span class="eyebrow">⚡ Rastreamento oficial FlashMarket</span>
+                <h1>
+                    ONDE ESTÁ<br><span>SEU PEDIDO?</span>
+                </h1>
+                <p>
+                    Informe o número do pedido ou código de rastreio e acompanhe o status, histórico, produtos e atualização mais recente diretamente do sistema FlashMarket.
+                </p>
+            </section>
+            <section class="track-box">
+                <form id="trackingForm" class="track-form">
+                    <div class="field">
+                        <label for="trackingCode">Número do pedido ou código de rastreio</label>
+                        <div class="input">
+                            <span>⌕</span><input id="trackingCode" autocomplete="off" placeholder="Ex.: FM-8A42C19 ou código de rastreio" required>
+                        </div>
+                    </div>
+                    <button class="primary" type="submit">RASTREAR PEDIDO →</button>
+                </form>
+                <div class="examples">
+                    <span>💡</span><span>Use o número do pedido ou o código de rastreio recebido na confirmação da compra. Não exibimos pedidos fictícios.</span>
+                </div>
+            </section>
+            <div id="state" class="state">
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <strong>Consultando pedido...</strong>
+                    <p>
+                        Buscando os dados mais recentes no servidor.
+                    </p>
+                </div>
+                <div id="error" class="error hidden"></div>
+            </div>
+            <section id="result" class="result hidden">
+                <div class="summary">
+                    <div>
+                        <small>Pedido FlashMarket</small>
+                        <h2 id="orderNumber">
+                            —
+                        </h2>
+                        <span id="orderStatus" class="status">—</span>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <span>Rastreio</span><strong id="trackingNumber">—</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Transportadora</span><strong id="carrier">—</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Última atualização</span><strong id="updatedAt">—</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-head">
+                        <div>
+                            <small>STATUS ATUAL</small>
+                            <h3 id="currentTitle">
+                                —
+                            </h3>
+                            <p id="currentDescription">
+                                —
+                            </p>
+                        </div>
+                        <small id="deliveryDate">Previsão não informada</small>
+                    </div>
+                    <div class="bar">
+                        <i id="progressBar"></i>
+                    </div>
+                    <div class="bar-foot">
+                        <span>Pedido confirmado</span><b id="progressText">0%</b><span>Entrega</span>
+                    </div>
+                </div>
+                <div class="content-grid">
+                    <section class="card">
+                        <div class="card-title">
+                            <div>
+                                <small>ACOMPANHAMENTO</small>
+                                <h3>
+                                    Histórico do pedido
+                                </h3>
+                            </div>
+                            <small id="lastUpdate">—</small>
+                        </div>
+                        <div id="timeline" class="timeline"></div>
+                    </section>
+                    <aside class="side">
+                        <div class="card">
+                            <small>ENTREGA</small>
+                            <h3>
+                                Destino
+                            </h3>
+                            <div id="destination" class="destination">
+                                —
+                            </div>
+                        </div>
+                        <div class="card">
+                            <small>PEDIDO</small>
+                            <h3>
+                                Produtos
+                            </h3>
+                            <div id="products"></div>
+                        </div>
+                        <div class="card help">
+                            <h3>
+                                Precisa de ajuda?
+                            </h3>
+                            <p>
+                                Se houver alguma divergência no rastreamento, fale com nossa equipe de atendimento.
+                            </p>
+                            <a href="suporte.html">Acessar atendimento →</a>
+                        </div>
+                    </aside>
+                </div>
+                <div class="secure">
+                    <div class="secure-icon">
+                        🔒
+                    </div>
+                    <div>
+                        <strong>Rastreamento seguro</strong>
+                        <p>
+                            Pedidos reais são consultados no sistema FlashMarket. Pedidos de demonstração mostram apenas os dados salvos neste navegador, sem inventar atualizações de entrega.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <button id="ai" class="ai" aria-label="Ajuda">✦</button>
+        <footer class="footer"></footer>
+        <script>
 (() => {
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -264,6 +373,6 @@ const cat=$('catBtn'),menu=$('catMenu');cat.addEventListener('click',e=>{e.stopP
 $('ai').addEventListener('click',()=>location.href='suporte.html');
 })();
 </script>
-<script src="js/pwa.js"></script>
-</body>
+        <script src="js/pwa.js"></script>
+    </body>
 </html>
