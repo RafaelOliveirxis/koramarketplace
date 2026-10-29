@@ -11,6 +11,11 @@
         <link rel="stylesheet" href="css/commerce-flow.css">
         <link rel="stylesheet" href="css/checkout-steps.css">
         <link rel="stylesheet" href="css/flow-unified.css">
+        <style>
+            .payment-secure-card.demo-mode { background: #fffaf0; border-color: #f2df9b; }
+            .payment-secure-card.demo-mode .card-mark { background: #f2b900; }
+            .payment-secure-card.demo-mode strong { color: #8a6400; }
+        </style>
     </head>
     <body class="fm-page checkout-flow">
         <div data-fm-header></div>
@@ -114,10 +119,10 @@
                                 <label class="checkout-option payment-option"><input type="radio" name="payment" value="boleto"><span><strong>Boleto bancário</strong><small>Simulação de boleto. Nenhuma cobrança será realizada.</small></span><b>✓</b></label>
                             </div>
                             <div class="payment-info" id="paymentInfo"></div>
-                            <div class="payment-secure-card" style="background:#fffaf0;border-color:#f2df9b">
-                                <div class="card-mark" style="background:#f2b900">SIM</div>
+                            <div class="payment-secure-card demo-mode">
+                                <div class="card-mark">SIM</div>
                                 <div>
-                                    <strong style="color:#8a6400">Modo demonstração</strong>
+                                    <strong>Modo demonstração</strong>
                                     <small>Nesta versão local/GitHub Pages, o pedido é simulado. Nenhum pagamento real é processado.</small>
                                 </div>
                             </div>
