@@ -6,8 +6,9 @@
   function localOrder(body,simulation=false){
     const catalog=Array.isArray(window.FM_PRODUCTS)?window.FM_PRODUCTS:[];
     const products=cart().map(x=>{const raw=x.product||{},p=catalog.find(y=>Number(y.id)===Number(x.id))||raw;const price=Number(p.p??p.price??p.unitPrice??0),name=p.n||p.name||p.product_name||('Produto #'+x.id);if(!price)return null;return{id:Number(x.id),n:name,p:price,i:p.i||p.image||'assets/logo-flashmarket.png',c:p.c||p.category||'Produto',qty:x.qty,total:Number((price*x.qty).toFixed(2))}}).filter(Boolean);
-    const subtotal=products.reduce((s,x)=>s+x.total,0),shipping=Number(body.shippingAmount||0),coupon=String(body.couponCode||'').toUpperCase();
-    const discount=coupon==='FLASH10'&&subtotal>=99?Number((subtotal*.1).toFixed(2)):0;
+    const subtotal=products.reduce((s,x)=>s+x.total,0),coupon=String(body.couponCode||'').toUpperCase(),couponResult=coupon?window.FlashMarketCoupons.evaluate(coupon,subtotal):null;
+    if(couponResult&&!couponResult.valid)throw new Error(couponResult.message);
+    const discount=couponResult?.discount||0,shipping=Number(body.shippingAmount||0);
     const total=Math.max(0,subtotal+shipping-discount);
     const user=JSON.parse(localStorage.getItem('flashmarket_user_profile')||'null');
     const id='FM-'+Date.now().toString(36).slice(-7).toUpperCase();

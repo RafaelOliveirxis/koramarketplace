@@ -4,6 +4,7 @@ const { mpRequest } = require('../../mercadopago');
 const { applyCors } = require('../../cors');
 const { ensurePaymentsSchema } = require('../../ensurePaymentsSchema');
 const jwt = require('jsonwebtoken');
+const coupons = require('../../../../FlashMarket/js/cupons');
 
 function optionalUser(req) {
   const header = req.headers.authorization || '';
@@ -30,7 +31,7 @@ module.exports = async (req, res) => {
   if (!items.length) return res.status(400).json({ error: 'O carrinho está vazio.' });
   if (!['pix', 'card', 'boleto'].includes(paymentMethod)) return res.status(400).json({ error: 'Forma de pagamento inválida.' });
   if (![0, 19.9].includes(shippingAmount)) return res.status(400).json({ error: 'Frete inválido.' });
-  if (couponCode && couponCode !== 'FLASH10') return res.status(400).json({ error: 'Cupom inválido.' });
+  if (couponCode && !coupons.get(couponCode)) return res.status(400).json({ error: 'Cupom não encontrado. Confira o código e tente novamente.' });
 
   const customerName = clean(customer.name, 120);
   const customerEmail = clean(customer.email, 190).toLowerCase();
@@ -70,8 +71,11 @@ module.exports = async (req, res) => {
     });
 
     const subtotal = orderItems.reduce((sum, item) => sum + item.total, 0);
-    const discount = couponCode === 'FLASH10' ? Number((subtotal * 0.10).toFixed(2)) : 0;
-    const total = Number((subtotal - discount + shippingAmount).toFixed(2));
+    const couponResult = couponCode ? coupons.evaluate(couponCode, subtotal) : null;
+    if (couponResult && !couponResult.valid) return res.status(400).json({ error: couponResult.message });
+    const discount = couponResult?.discount || 0;
+    const chargedShipping = couponResult?.freeShipping && shippingAmount === 0 ? 0 : shippingAmount;
+    const total = Number((subtotal - discount + chargedShipping).toFixed(2));
     const publicId = `FM-${Date.now().toString(36).toUpperCase()}-${randomUUID().slice(0, 6).toUpperCase()}`;
     const externalReference = publicId.replace(/[^A-Z0-9_-]/g, '').slice(0, 64);
     const user = optionalUser(req);
@@ -91,7 +95,7 @@ module.exports = async (req, res) => {
 
     const [insert] = await db.execute(
       `INSERT INTO fm_orders (public_id,user_id,affiliate_user_id,affiliate_code,customer_name,customer_email,customer_phone,cep,state,city,address,complement,shipping_amount,payment_method,total_amount,status,mp_external_reference) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'creating',?)`,
-      [publicId, user?.id || null, affiliateUserId, normalizedAffiliateCode, customerName, customerEmail, customerPhone || null, cep, state, city, street, complement || null, shippingAmount, paymentMethod, total, externalReference]
+      [publicId, user?.id || null, affiliateUserId, normalizedAffiliateCode, customerName, customerEmail, customerPhone || null, cep, state, city, street, complement || null, chargedShipping, paymentMethod, total, externalReference]
     );
     orderId = insert.insertId;
 
@@ -149,7 +153,7 @@ module.exports = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      order: { id: publicId, total, subtotal, discount, shipping: shippingAmount, couponCode: couponCode || null, status: mpOrder.status || 'created', checkoutUrl: mpOrder.checkout_url, mercadoPagoOrderId: mpOrder.id }
+      order: { id: publicId, total, subtotal, discount, shipping: chargedShipping, couponCode: couponCode || null, status: mpOrder.status || 'created', checkoutUrl: mpOrder.checkout_url, mercadoPagoOrderId: mpOrder.id }
     });
   } catch (error) {
     console.error('payment/create', error);

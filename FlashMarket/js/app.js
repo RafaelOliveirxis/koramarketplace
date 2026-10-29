@@ -275,11 +275,13 @@ function subtotal(){
   },0);
 }
 function discount(){
-  return coupon==="FLASH10" ? subtotal()*0.10 : 0;
+  const result=window.FlashMarketCoupons?.evaluate(coupon,subtotal());
+  return result?.valid ? result.discount : 0;
 }
 function shipping(){
   const value=subtotal()-discount();
-  return value===0?0:(value>=199?0:19.90);
+  const couponResult=window.FlashMarketCoupons?.evaluate(coupon,subtotal());
+  return value===0||couponResult?.valid&&couponResult.freeShipping?0:(value>=199?0:19.90);
 }
 function total(){
   return subtotal()-discount()+shipping();
@@ -355,7 +357,8 @@ function renderCart(){
   $("#cartShipping").textContent=shipping()===0?"Grátis":money(shipping());
   $("#cartTotal").textContent=money(total());
   $("#couponInput").value=coupon;
-  $("#couponMsg").textContent=coupon==="FLASH10"?"Cupom FLASH10 aplicado: 10% OFF.":"";
+  const couponResult=coupon?window.FlashMarketCoupons?.evaluate(coupon,subtotal()):null;
+  $("#couponMsg").textContent=couponResult?couponResult.message:"";
   updateHeader();
 }
 
@@ -615,11 +618,9 @@ if (applyCoupon) {
     const couponInput = $("#couponInput");
     if (!couponInput) return;
     const val = couponInput.value.trim().toUpperCase();
-    if (val === "FLASH10") {
-      coupon = "FLASH10"; saveState(); renderCart(); toast("Cupom FLASH10 aplicado!");
-    } else {
-      coupon = ""; saveState(); renderCart(); const couponMsg = $("#couponMsg"); if (couponMsg) couponMsg.textContent = "Cupom inválido. Use FLASH10.";
-    }
+    const result=window.FlashMarketCoupons?.evaluate(val,subtotal());
+    if(result?.valid){coupon=val;saveState();renderCart();toast(result.message);}
+    else{coupon="";saveState();renderCart();const couponMsg=$("#couponMsg");if(couponMsg)couponMsg.textContent=result?.message||"Não foi possível validar o cupom.";}
   });
 }
 

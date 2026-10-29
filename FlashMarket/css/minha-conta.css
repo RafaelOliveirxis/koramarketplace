@@ -72,6 +72,22 @@
 .account-only .account-btn{border-radius:11px;font-size:11px;letter-spacing:.25px}
 .account-only .coupon-grid{gap:15px}
 .account-only .coupon-card{border-radius:18px;padding:20px}
+.account-only .coupon-card{display:flex;flex-direction:column;min-height:240px;background:linear-gradient(145deg,#fff9f6,#fff 68%);box-shadow:0 10px 24px rgba(30,35,45,.04);transition:transform .18s ease,box-shadow .18s ease}
+.account-only .coupon-card:hover{transform:translateY(-3px);box-shadow:0 15px 32px rgba(30,35,45,.09)}
+.account-only .coupon-card-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.account-only .coupon-status{font-size:9px;font-weight:800;letter-spacing:.07em;color:#13865c;background:#e8f7ef;border-radius:20px;padding:6px 9px}
+.account-only .coupon-card h3{margin-top:15px}
+.account-only .coupon-card p{font-size:12px;line-height:1.55;min-height:38px}
+.account-only .coupon-code-row{margin-top:auto;padding:10px 11px}
+.account-only .coupon-code-row b{font-size:13px}
+.account-only .coupon-copy{font-size:9px;padding:8px 11px}
+.account-only .coupon-expiry{font-size:10px;line-height:1.5;margin-top:10px}
+.account-only .coupon-use{width:100%;margin-top:13px;padding:11px 14px;border:0;border-radius:10px;background:var(--account-orange);color:#fff;font-size:10px;font-weight:900;letter-spacing:.04em;cursor:pointer;transition:background .18s ease,transform .18s ease}
+.account-only .coupon-use:hover{background:#e9472a;transform:translateY(-1px)}
+.account-only .coupon-intro{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:0 0 20px;padding:19px 21px;border:1px solid #ffe0d7;border-radius:16px;background:linear-gradient(110deg,#fff3ed,#fffaf8)}
+.account-only .coupon-intro strong{display:block;color:#222;font-size:14px}
+.account-only .coupon-intro p{margin:5px 0 0;color:#6d747d;font-size:12px;line-height:1.5}
+.account-only .coupon-intro a{flex:0 0 auto;padding:11px 15px;border-radius:10px;background:#ff5738;color:#fff;text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.03em}
 .account-only .profile-layout{gap:30px}
 .account-only .form-field label{font-size:12px}
 .account-only .form-field input{height:46px;font-size:13px}
@@ -98,6 +114,10 @@
 }
 @media(max-width:520px){
  .account-only .account-page{padding-top:12px}
+ .account-only .coupon-grid{grid-template-columns:1fr;gap:12px}
+ .account-only .coupon-card{min-height:0;padding:17px}
+ .account-only .coupon-intro{align-items:flex-start;flex-direction:column;padding:16px}
+ .account-only .coupon-intro a{width:100%;text-align:center}
  .account-only .account-layout{width:calc(100% - 20px);gap:13px}
  .account-only .account-sidebar{padding:14px 11px;border-radius:17px}
  .account-only .account-profile-mini strong{font-size:14px}

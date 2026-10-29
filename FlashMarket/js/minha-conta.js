@@ -160,19 +160,35 @@
     $$('[data-fav-add]').forEach(btn => btn.onclick = () => { if (typeof fmAdd === 'function') fmAdd(Number(btn.dataset.favAdd)); toast('Produto adicionado ao carrinho.'); updateStats(); });
   }
 
-  const coupons = [
-    {code:'FLASH10',title:'10% OFF',desc:'10% de desconto em produtos selecionados.',min:'Compra mínima de R$ 99',valid:'Válido até 31/10/2026'},
-    {code:'FRETEGRATIS',title:'FRETE GRÁTIS',desc:'Frete grátis em pedidos participantes.',min:'A partir de R$ 149',valid:'Válido até 15/10/2026'},
-    {code:'BEMVINDO15',title:'15% OFF',desc:'Seu benefício especial para uma nova compra.',min:'Compra mínima de R$ 129',valid:'Válido até 20/10/2026'},
-    {code:'FLASH20',title:'R$ 20 OFF',desc:'Economize R$ 20 em uma compra selecionada.',min:'Compra mínima de R$ 199',valid:'Válido até 05/11/2026'},
-    {code:'TECNO10',title:'10% OFF',desc:'Oferta especial para eletrônicos participantes.',min:'Categoria Eletrônicos',valid:'Válido até 12/10/2026'},
-    {code:'CASA15',title:'15% OFF',desc:'Desconto em itens de Casa & Decor.',min:'Categoria Casa & Decor',valid:'Válido até 18/10/2026'}
-  ];
   function renderCoupons() {
     const box = $('#couponGrid'); if (!box) return;
+    const coupons = window.FlashMarketCoupons?.listActive() || [];
+    const activeCount = $('#couponActiveCount');
+    if (activeCount) activeCount.textContent = `${coupons.length} cupons ativos.`;
     const used = safeJSON(couponsKey, []);
-    box.innerHTML = coupons.map(c => `<article class="coupon-card"><span class="coupon-badge">OFERTA</span><h3>${c.title}</h3><p>${c.desc}</p><div class="coupon-code-row"><b>${c.code}</b><button class="coupon-copy" data-copy="${c.code}">${used.includes(c.code) ? 'COPIADO' : 'COPIAR'}</button></div><div class="coupon-expiry">${c.min} · ${c.valid}</div></article>`).join('');
-    $$('[data-copy]').forEach(btn => btn.onclick = async () => { const code = btn.dataset.copy; try { await navigator.clipboard.writeText(code); } catch {} const next = [...new Set([...used, code])]; setJSON(couponsKey,next); btn.textContent='COPIADO'; toast(`Cupom ${code} copiado.`); });
+    box.innerHTML = coupons.map(c => {
+      const minimum = c.minimum ? `Compra mínima de ${window.FlashMarketCoupons.formatCurrency(c.minimum)}` : 'Sem valor mínimo';
+      const expiry = window.FlashMarketCoupons.formatExpiry(c.validUntil);
+      const benefit = c.type === 'free_shipping' ? 'FRETE GRÁTIS' : c.title;
+      return `<article class="coupon-card"><div class="coupon-card-top"><span class="coupon-badge">OFERTA</span><span class="coupon-status">ATIVO</span></div><h3>${benefit}</h3><p>${c.description}</p><div class="coupon-code-row"><b>${c.code}</b><button class="coupon-copy" data-copy="${c.code}">${used.includes(c.code) ? 'COPIADO' : 'COPIAR'}</button></div><div class="coupon-expiry">${minimum} · Até ${expiry}</div><button class="coupon-use" data-use="${c.code}">USAR CUPOM</button></article>`;
+    }).join('');
+    $$('[data-copy]').forEach(btn => btn.onclick = async () => {
+      const code = btn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(code);
+        const next = [...new Set([...used, code])];
+        setJSON(couponsKey, next);
+        btn.textContent = 'COPIADO';
+        toast(`Cupom ${code} copiado.`);
+      } catch (error) {
+        console.warn('Não foi possível copiar o cupom:', error);
+        toast('Não foi possível copiar. Use o botão USAR CUPOM.');
+      }
+    });
+    $$('[data-use]').forEach(btn => btn.onclick = () => {
+      localStorage.setItem('flashmarket_coupon', btn.dataset.use);
+      location.href = 'carrinho.html';
+    });
   }
 
   let realNotifications = [];
